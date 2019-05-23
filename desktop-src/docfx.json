@@ -1,0 +1,71 @@
+{
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.md",
+          "**/*.yml"
+        ],
+        "exclude": [
+          "**/obj/**",
+          "**/includes/**",
+          "_themes/**",
+          "_themes.pdf/**",
+          "README.md",
+          "LICENSE",
+          "LICENSE-CODE",
+          "ThirdPartyNotices"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "**/*.png",
+          "**/*.jpg",
+          "**/*.jpeg",
+          "**/*.gif"
+        ],
+        "exclude": [
+          "**/obj/**",
+          "**/includes/**",
+          "_themes/**",
+          "_themes.pdf/**"
+        ]
+      }
+    ],
+    "overwrite": [],
+    "externalReference": [],
+    "globalMetadata": {
+      "breadcrumb_path": "/windows/desktop/breadcrumb/toc.json",
+      "uhfHeaderId": "MSDocsHeader-WinDesktop",
+      "extendBreadcrumb": true,
+      "searchScope": [
+        "Windows", 
+        "Desktop"
+      ],
+      "titleSuffix": "Windows applications",
+      "ms.prod": "desktop",
+      "ms.author": "windowssdkdev",
+      "author": "GrantMeStrength",
+      "_op_documentIdPathDepotMapping": {
+        "./": {
+          "depot_name": "MSDN.desktop",
+          "folder_relative_path_in_docset": "./"
+        }
+      }
+    },
+    "fileMetadata": {
+      "feedback_system": {
+        "docs-ref-autogen/**/*": "None",
+        "contributors_to_exclude": [
+          "msatranjr",
+          "GrantMeStrength"
+      ]
+      }
+    },
+    "template": [],
+    "dest": "desktop",
+    "markdownEngineName": "markdig"
+  }
+}

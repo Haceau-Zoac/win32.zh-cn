@@ -1,0 +1,9 @@
+log/
+obj/
+_site/
+.optemp/
+_themes*/
+_repo.*/
+*.xlsx
+
+.openpublishing.buildcore.ps1
