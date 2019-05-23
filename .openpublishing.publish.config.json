@@ -4,7 +4,7 @@
       "docset_name": "win32",
       "build_source_folder": "desktop-src",
       "build_output_subfolder": "desktop",
-      "locale": "zh-CN",
+      "locale": "zh-cn",
       "monikers": [],
       "moniker_ranges": [],
       "open_to_public_contributors": false,
@@ -21,8 +21,8 @@
     "jken@microsoft.com"
   ],
   "branches_to_filter": [
-    "live-sxs",
-    "master-sxs"
+    "live",
+    "master"
   ],
   "continue_with_document_error": true,
   "skip_source_output_uploading": false,
@@ -31,7 +31,7 @@
   "dependent_repositories": [
     {
       "path_to_root": "_themes",
-      "url": "https://github.com/Microsoft/templates.docs.msft.zh-CN",
+      "url": "https://github.com/Microsoft/templates.docs.msft.zh-cn",
       "branch": "master",
       "branch_mapping": {}
     },
