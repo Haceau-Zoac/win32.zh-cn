@@ -6,44 +6,44 @@
       items:
         - name: 什么是 Direct3D 12？
           href: what-is-directx-12-.md
-        - name: 新版本
+        - name: 最新发布
           href: new-releases.md
         - name: 了解 Direct3D 12
           href: directx-12-getting-started.md
           items:
-            - name: Direct3D 12 的编程环境设置
+            - name: Direct3D 12 编程环境设置
               href: directx-12-programming-environment-set-up.md
-            - name: 创建基本 Direct3D 12 的组件
+            - name: 创建基本的 Direct3D 12 组件
               href: creating-a-basic-direct3d-12-component.md
-            - name: 从 Direct3D 的重要更改到 Direct3D 11 12
+            - name: 从 Direct3D 11 到 Direct3D 12 的重要更改
               href: important-changes-from-directx-11-to-directx-12.md
             - name: 硬件功能级别
               href: hardware-feature-levels.md
-        - name: 提交工作在 Direct3D 12
+        - name: Direct3D 12 中的工作提交
           href: command-queues-and-command-lists.md
           items:
             - name: 命令队列和命令列表的设计理念
               href: design-philosophy-of-command-queues-and-command-lists.md
-            - name: 创建和记录命令列表和捆绑包
+            - name: 创建和记录命令列表与捆绑包
               href: recording-command-lists-and-bundles.md
             - name: 执行和同步命令列表
               href: executing-and-synchronizing-command-lists.md
-            - name: 管理图形管道状态在 Direct3D 12
+            - name: 在 Direct3D 12 中管理图形管道状态
               href: managing-graphics-pipeline-state-in-direct3d-12.md
-            - name: 使用资源屏障来同步资源状态在 Direct3D 12
+            - name: 在 Direct3D 12 中使用资源屏障同步资源状态
               href: using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md
-            - name: 管道和着色器使用 Direct3D 12
+            - name: Direct3D 12 的管道和着色器
               href: pipelines-and-shaders-with-directx-12.md
-            - name: 明暗度变量速率 (VRS)
+            - name: 可变速率着色 (VRS)
               href: vrs.md
-            - name: 呈现阶段
+            - name: 渲染器通道
               href: direct3d-12-render-passes.md
-        - name: 资源绑定在 Direct3D 12
+        - name: Direct3D 12 中的资源绑定
           href: resource-binding.md
           items:
             - name: 资源绑定概述
               href: resource-binding-flow-of-control.md
-            - name: 绑定模型中的区别 Direct3D 11
+            - name: 与 Direct3D 11 中的绑定模型的区别
               href: binding-model.md
             - name: 描述符
               href: descriptors.md
@@ -78,7 +78,7 @@
                   href: descriptor-tables-overview.md
                 - name: 使用描述符表
                   href: using-descriptor-tables.md
-                - name: 高级的用途的描述符表
+                - name: 描述符表的高级用途
                   href: advanced-use-of-descriptor-tables.md
             - name: 根签名
               href: root-signatures.md
@@ -93,7 +93,7 @@
                   href: root-signature-limits.md
                 - name: 直接在根签名中使用常量
                   href: using-constants-directly-in-the-root-signature.md
-                - name: 根签名中直接使用描述符
+                - name: 直接在根签名中使用描述符
                   href: using-descriptors-directly-in-the-root-signature.md
                 - name: 示例根签名
                   href: example-root-signatures.md
@@ -101,40 +101,40 @@
                   href: specifying-root-signatures-in-hlsl.md
                 - name: 根签名版本 1.1
                   href: root-signature-version-1-1.md
-            - name: 查询功能
+            - name: 功能查询
               href: capability-querying.md
-            - name: 在 HLSL 中绑定的资源
+            - name: HLSL 中的资源绑定
               href: resource-binding-in-hlsl.md
-            - name: UMA 优化：CPU 可访问纹理和标准 Swizzle
+            - name: UMA 优化：CPU 可访问纹理和标准重排
               href: default-texture-mapping.md
-            - name: 类型化无序的访问视图加载
+            - name: 类型化无序访问视图加载
               href: typed-unordered-access-view-loads.md
-            - name: 卷平铺资源
+            - name: 立体平铺资源
               href: volume-tiled-resources.md
-            - name: 子
+            - name: 子资源
               href: subresources.md
-        - name: 内存管理在 Direct3D 12
+        - name: Direct3D 12 中的内存管理
           href: memory-management.md
           items:
             - name: 内存管理策略
               href: memory-management-strategies.md
-            - name: 在缓冲区中的子分配
+            - name: 缓冲区中的子分配
               href: large-buffers.md
               items:
                 - name: 上传不同类型的资源
                   href: uploading-resources.md
-                - name: 将通过缓冲区的纹理数据上传
+                - name: 通过缓冲区上传纹理数据
                   href: upload-and-readback-of-texture-data.md
-                - name: 通过缓冲区读取后数据
+                - name: 通过缓冲区读回数据
                   href: readback-data-using-heaps.md
-                - name: Fence 基于资源管理
+                - name: 基于围栏的资源管理
                   href: fence-based-resource-management.md
-            - name: 子中堆分配
+            - name: 堆中的子分配
               href: suballocation-within-heaps.md
               items:
                 - name: 内存别名和数据继承
                   href: memory-aliasing-and-data-inheritance.md
-                - name: 共享的堆
+                - name: 共享堆
                   href: shared-heaps.md
             - name: 驻留
               href: residency.md
@@ -145,26 +145,26 @@
               href: user-mode-heap-synchronization.md
             - name: 多适配器
               href: multi-engine.md
-        - name: 呈现
+        - name: 渲染
           href: rendering.md
           items:
             - name: 传统型光栅化
               href: conservative-rasterization.md
-            - name: 间接绘图
+            - name: 间接绘制
               href: indirect-drawing.md
             - name: 光栅器有序视图
               href: rasterizer-order-views.md
-            - name: 着色器指定模具参考值
+            - name: 着色器指定的模具参考值
               href: shader-specified-stencil-reference-value.md
             - name: 交换链
               href: swap-chains.md
-        - name: 计数器、 查询和性能度量
+        - name: 计数器、查询和性能度量
           href: performance-measurement.md
           items:
-            - name: Stream 输出计数器、 UAV 计数器、 查询和断言而
+            - name: 流输出计数器、UAV 计数器、查询和预测
               href: counters-and-queries.md
               items:
-                - name: Stream 输出计数器
+                - name: 流输出计数器
                   href: stream-output-counters.md
                 - name: UAV 计数器
                   href: uav-counters.md
@@ -172,12 +172,12 @@
                   href: queries.md
             - name: 定时
               href: timing.md
-            - name: 断言而
+            - name: 预测
               href: predication.md
-        - name: 使用 Direct3D 11，Direct3D 10 和 Direct2D
+        - name: 使用 Direct3D 11、Direct3D 10 和 Direct2D
           href: direct3d-12-interop.md
           items:
-            - name: Direct3D 12 的互操作
+            - name: Direct3D 12 互操作
               href: direct3d-12-with-direct3d-11--direct-2d-and-gdi.md
             - name: Direct3D 11 on 12
               href: direct3d-11-on-12.md
@@ -188,22 +188,22 @@
         - name: D3D12 代码演练
           href: d3d12-code-walk-throughs.md
           items:
-            - name: D2D 使用 D3D11on12
+            - name: 使用 D3D11on12 的 D2D
               href: d2d-using-d3d11on12.md
-            - name: 多引擎 n 正文重力模拟
+            - name: 多引擎 n 体重力模拟
               href: multi-engine-n-body-gravity-simulation.md
-            - name: 断言而查询
+            - name: 预测查询
               href: predication-queries.md
-            - name: 动态索引使用 HLSL 5.1
+            - name: 使用 HLSL 5.1 的动态索引
               href: dynamic-indexing-using-hlsl-5-1.md
-            - name: 间接绘制和 GPU 消除
+            - name: 间接绘制和 GPU 剔除
               href: indirect-drawing-and-gpu-culling-.md
         - name: 调试和诊断
           href: understanding-the-d3d12-debug-layer.md
           items:
-            - name: 使用基于调试层 GPU 的验证
+            - name: 将调试层与基于 GPU 的验证配合使用
               href: using-d3d12-debug-layer-gpu-based-validation.md
-            - name: 通过用于诊断 GPU 错误
+            - name: 使用 DRED 诊断 GPU 故障
               href: use-dred.md
         - name: 直接机器学习 (DirectML)
           href: dml.md
@@ -212,26 +212,26 @@
               href: dml-intro.md
             - name: DirectML 中的绑定
               href: dml-binding.md
-            - name: UAV 障碍和资源状态屏障
+            - name: UAV 屏障和资源状态屏障
               href: dml-barriers.md
-            - name: 使用进步表示填充内存布局
+            - name: 使用步幅来表示填充和内存布局
               href: dml-strides.md
             - name: 资源生存期和同步
               href: dml-resource-lifetime.md
             - name: 使用调试层
               href: dml-debug-layer.md
-            - name: 处理错误和设备-删除
+            - name: 处理错误和设备删除
               href: dml-errors.md
-            - name: 帮助器函数
+            - name: 帮助程序函数
               href: dml-helper-functions.md
             - name: 示例应用程序
               href: dml-min-app.md
-    - name: Direct3D 12 的引用
+    - name: Direct3D 12 参考
       href: direct3d-12-reference.md
       items:
-        - name: 界面层次结构
+        - name: 接口层次结构
           href: interface-hierarchy.md
-        - name: D3D12 引用中的示例代码
+        - name: D3D12 参考中的示例代码
           href: notes-on-example-code.md
         - name: 核心参考
           href: direct3d-12-core-reference.md
@@ -268,7 +268,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency
                     - name: SetMarker
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-setmarker
-                    - name: 信号
+                    - name: Signal
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal
                     - name: UpdateTileMappings
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings
@@ -336,7 +336,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12device-createsharedhandle
                     - name: CreateUnorderedAccessView
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview
-                    - name: 逐出
+                    - name: Evict
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict
                     - name: GetAdapterLuid
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12device-getadapterluid
@@ -428,7 +428,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue
                     - name: SetEventOnCompletion
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion
-                    - name: 信号
+                    - name: Signal
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12fence-signal
                 - name: ID3D12Fence1
                   href: /windows/desktop/api/d3d12/nn-d3d12-id3d12fence1
@@ -464,7 +464,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles
                     - name: DiscardResource
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource
-                    - name: 调度
+                    - name: Dispatch
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch
                     - name: DrawIndexedInstanced
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced
@@ -625,7 +625,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadcomputepipeline
                     - name: LoadGraphicsPipeline 方法
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadgraphicspipeline
-                    - name: 序列化方法
+                    - name: Serialize 方法
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
                     - name: StorePipeline 方法
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12pipelinelibrary-storepipeline
@@ -666,7 +666,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map
                     - name: ReadFromSubresource
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
-                    - name: 取消映射
+                    - name: Unmap
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap
                     - name: WriteToSubresource
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12resource-writetosubresource
@@ -704,7 +704,7 @@
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion
                     - name: GetUnconvertedRootSignatureDesc 方法
                       href: /windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc
-            - name: 核心功能
+            - name: 核心函数
               href: direct3d-12-functions.md
               items:
                 - name: D3D12CreateDevice
@@ -1336,7 +1336,7 @@
               items:
                 - name: D3D12_GPU_VIRTUAL_ADDRESS
                   href: d3d12_gpu_virtual_address.md
-        - name: 调试层引用
+        - name: 调试层参考
           href: direct3d-12-sdklayers-reference.md
           items:
             - name: 调试层接口
@@ -1478,7 +1478,7 @@
                 - name: ID3D12SharingContract
                   href: /windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12sharingcontract
                   items:
-                    - name: 存在方法
+                    - name: Present 方法
                       href: /windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-present
                     - name: SharedFenceSignal 方法
                       href: /windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12sharingcontract-sharedfencesignal
@@ -1520,7 +1520,7 @@
                   href: /windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_message_severity
                 - name: D3D12_RLDO_FLAGS
                   href: /windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_rldo_flags
-        - name: 着色器引用
+        - name: 着色器参考
           href: d3d12-graphics-reference-shader-reference.md
           items:
             - name: 着色器接口
@@ -1667,7 +1667,7 @@
               items:
                 - name: D3D12_SHADER_VERSION_TYPE
                   href: /windows/desktop/api/d3d12shader/ne-d3d12shader-d3d12_shader_version_type
-        - name: 11on12 引用
+        - name: 11on12 参考
           href: direct3d-11on12-reference.md
           items:
             - name: 11on12 接口
@@ -1697,7 +1697,7 @@
               items:
                 - name: D3D11_RESOURCE_FLAGS
                   href: /windows/desktop/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags
-        - name: DirectML 引用
+        - name: DirectML 参考
           href: direct3d-directml-reference.md
           items:
             - name: DirectML 接口
@@ -1746,7 +1746,7 @@
                       href: /windows/desktop/api/directml/nf-directml-idmldevice-createoperator
                     - name: CreateOperatorInitializer
                       href: /windows/desktop/api/directml/nf-directml-idmldevice-createoperatorinitializer
-                    - name: 逐出
+                    - name: Evict
                       href: /windows/desktop/api/directml/nf-directml-idmldevice-evict
                     - name: GetDeviceRemovedReason
                       href: /windows/desktop/api/directml/nf-directml-idmldevice-getdeviceremovedreason
@@ -2009,10 +2009,10 @@
                   href: /windows/desktop/api/directml/ne-directml-dml_tensor_type
             - name: DirectML 常量
               href: direct3d-directml-constants.md
-        - name: 帮助程序结构和对 D3D12 的函数
+        - name: D3D12 的帮助程序结构和函数
           href: helper-structures-and-functions-for-d3d12.md
           items:
-            - name: 对 D3D12 的帮助程序接口
+            - name: D3D12 的帮助程序接口
               href: helper-interfaces-for-d3d12.md
               items:
                 - name: ID3DX12PipelineParserCallbacks
@@ -2068,7 +2068,7 @@
                       href: id3dx12pipelineparsercallbacks-streamoutputcb.md
                     - name: VSCb
                       href: id3dx12pipelineparsercallbacks-vscb.md
-            - name: 对 D3D12 的帮助程序结构
+            - name: D3D12 的帮助程序结构
               href: helper-structures-for-d3d12.md
               items:
                 - name: CD3DX12_BLEND_DESC
@@ -2203,7 +2203,7 @@
                   href: cd3dx12-versioned-root-signature-desc.md
                 - name: CD3DX12_VIEWPORT
                   href: cd3dx12-viewport.md
-            - name: 对 D3D12 的帮助器函数
+            - name: D3D12 的帮助程序函数
               href: helper-functions-for-d3d12.md
               items:
                 - name: CommandListCast
@@ -2228,27 +2228,27 @@
                   href: memcpysubresource.md
                 - name: Updatesubresources
                   href: updatesubresources1.md
-                - name: Updatesubresources （堆分配）
+                - name: Updatesubresources（堆分配）
                   href: updatesubresources2.md
-                - name: Updatesubresources （堆栈分配）
+                - name: Updatesubresources（栈分配）
                   href: updatesubresources3.md
         - name: Direct3D 12 返回代码
           href: d3d12-graphics-reference-returnvalues.md
-        - name: Direct3D 12 Raytracing
+        - name: Direct3D 12 光线跟踪
           href: direct3d-12-raytracing.md
           items:
-            - name: Direct3D 12 Raytracing HLSL 引用
+            - name: Direct3D 12 光线跟踪 HLSL 参考
               href: direct3d-12-raytracing-hlsl-reference.md
               items:
-                - name: Direct3D 12 Raytracing HLSL 枚举
+                - name: Direct3D 12 光线跟踪 HLSL 枚举
                   href: direct3d-12-raytracing-hlsl-enumerations.md
                   items:
                     - name: RAY_FLAG
                       href: ray_flag.md
-                - name: Direct3D 12 Raytracing HLSL 内部函数
+                - name: Direct3D 12 光线跟踪 HLSL 内部函数
                   href: direct3d-12-raytracing-hlsl-intrinsics.md
                   items:
-                    - name: AcceptHitAndEndSearch function
+                    - name: AcceptHitAndEndSearch 函数
                       href: accepthitandendsearch-function.md
                     - name: CallShader 函数
                       href: callshader-function.md
@@ -2258,12 +2258,12 @@
                       href: reporthit-function.md
                     - name: TraceRay 函数
                       href: traceray-function.md
-                - name: Direct3D 12 Raytracing HLSL 资源类型
+                - name: Direct3D 12 光线跟踪 HLSL 资源类型
                   href: direct3d-12-raytracing-hlsl-resource-types.md
                   items:
                     - name: RaytracingAccelerationStructure
                       href: raytracingaccelerationstructure.md
-                - name: Direct3D 12 Raytracing HLSL 着色器
+                - name: Direct3D 12 光线跟踪 HLSL 着色器
                   href: direct3d-12-raytracing-hlsl-shaders.md
                   items:
                     - name: 任何命中着色器
@@ -2272,22 +2272,22 @@
                       href: callable-shader.md
                     - name: 最接近的命中着色器
                       href: closest-hit-shader.md
-                    - name: 交集着色器
+                    - name: 交叉着色器
                       href: intersection-shader.md
                     - name: 未命中着色器
                       href: miss-shader.md
-                    - name: Ray 生成着色器
+                    - name: 光线生成着色器
                       href: ray-generation-shader.md
-                - name: Direct3D 12 Raytracing HLSL 结构
+                - name: Direct3D 12 光线跟踪 HLSL 结构
                   href: direct3d-12-raytracing-hlsl-structures.md
                   items:
                     - name: 调用参数结构
                       href: call-parameter-structure.md
-                    - name: 交集属性结构
+                    - name: 交叉属性结构
                       href: intersection-attributes.md
-                    - name: Ray 的负载结构
+                    - name: 光线有效负载结构
                       href: ray-payload.md
                     - name: RayDesc 结构
                       href: raydesc.md
-    - name: Direct3D 12 的术语表
+    - name: Direct3D 12 术语表
       href: directx-12-glossary.md
