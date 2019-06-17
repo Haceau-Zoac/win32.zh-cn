@@ -1,6 +1,6 @@
 ---
 title: 根签名版本 1.1
-description: 根签名版本 1.1 的目的是使应用程序能够描述符堆中的描述符不会更改或指向的数据描述符时指示驱动程序不会更改。
+description: 根签名版本 1.1 的目的是使应用程序能够在描述符堆中的描述符不更改或数据描述符指向不变的情况下向驱动程序指示。
 ms.assetid: 8FE42C1C-7F1D-4E70-A7EE-D5EC67237327
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,51 +13,51 @@ ms.locfileid: "66224170"
 ---
 # <a name="root-signature-version-11"></a>根签名版本 1.1
 
-根签名版本 1.1 的目的是使应用程序能够描述符堆中的描述符不会更改或指向的数据描述符时指示驱动程序不会更改。 这样，驱动程序进行优化，可能会知道，描述符或它指向的内存静态的某个时间段内的选项。
+根签名版本 1.1 的目的是使应用程序能够在描述符堆中的描述符不更改或数据描述符指向不变的情况下向驱动程序指示。 这使得驱动程序可以选择进行可能的优化，因为知道描述符或它指向的内存在一段时间内是静态的。
 
 -   [概述](#overview)
 -   [静态和易失性标志](#static-and-volatile-flags)
-    -   [描述符\_易失性](https://docs.microsoft.com/windows)
+    -   [DESCRIPTORS\_VOLATILE](https://docs.microsoft.com/windows)
     -   [DATA\_VOLATILE](https://docs.microsoft.com/windows)
     -   [DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE](https://docs.microsoft.com/windows)
     -   [DATA\_STATIC](https://docs.microsoft.com/windows)
-    -   [组合标志](#combining-flags)
-    -   [标记摘要](#flag-summary)
+    -   [合并标志](#combining-flags)
+    -   [标志摘要](#flag-summary)
 -   [版本 1.1 API 摘要](#version-11-api-summary)
     -   [枚举](#enums)
     -   [结构](#helper-structures)
     -   [函数](#functions)
     -   [方法](#methods)
-    -   [帮助程序结构](#helper-structures)
--   [违反静态性标志带来的后果](#consequences-of-violating-static-ness-flags)
+    -   [帮助器结构](#helper-structures)
+-   [违反静态性标志的后果](#consequences-of-violating-static-ness-flags)
 -   [版本管理](#version-management)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="overview"></a>概述
 
-根签名 1.0 版将允许进行内容描述符的堆和自由地更改应用程序时，命令将列出 / 捆绑到引用它们随时在指向的内存可能正在执行中是在 GPU 上。 经常使用，但是，应用程序不实际需要灵活地更改描述符或内存后对其进行引用的命令已记录。
+当引用描述堆和内存的命令列表/捆绑可能正在 GPU 上运行的任何时间，根签名版本 1.0 可让应用程序任意更改它们指向的这些内容。 但是，在引用描述符或内存的命令已记录后，应用程序实际上往往不需要灵活更改这些描述符或内存。
 
-应用程序通常是完全可以：
+应用程序通常能够轻松地：
 
--   绑定描述符表或根描述符上命令列表或捆绑包之前设置描述符 （和可能它们指向的内存）。
--   请确保引用它们命令列表 /bundles 最后一次执行完之前不会更改这些描述符。
--   请确保数据描述符点不会更改为相同的完整持续时间。
+-   在命令列表或捆绑中绑定描述符表或根描述符之前设置描述符（有时还能设置它们指向的内存）。
+-   确保这些描述符在引用它们的命令列表/捆绑最后一次完成执行之前不会发生更改。
+-   确保描述符指向的数据在相同的整个持续时间内不会发生更改。
 
-或者，应用程序可能只能接受数据不会更改的时间更短时间。 特别是数据可能是静态的窗口中当前绑定 （描述符表或根描述符） 的根参数指向的数据的命令列表执行期间的时间。 换而言之，应用程序可能想要更新的时间段之间的某些数据在 GPU 时间线上执行执行它通过根参数，了解将其设置时它将静态设置。
+或者，应用程序只能接受数据在较短持续时间内不会更改。 具体而言，数据可能在执行命令列表期间当根参数绑定（描述符表或根描述符）当前指向数据的时间范围内保持静态。 换而言之，应用程序可能希望在 GPU 时间线中执行，如果知道何时设置为静态，在通过根参数设置的时间段之间，该时间轴会更新某些数据。
 
-如果描述符或数据描述符指向，不会更改，则驱动程序可能会执行的特定优化是特定于，硬件供应商和重要的是它们不会更改行为之外有可能提高性能。 保留有关应用程序意向尽可能知识不会对应用程序中将一种负担。
+如果描述符或描述符所指向的数据不会更改，则驱动程序可以实现的具体优化将特定于硬件供应商，重要的是，它们不会改变行为，而只可能会提高性能。 尽可能多地了解应用程序的意图不会给应用程序造成负担。
 
-一个优化是许多驱动程序可以生成更高效的着色器的内存访问，如果他们知道有关描述符和数据的静态性的承诺可以使应用程序。 例如，驱动程序无法删除一定程度的间接性如果特定的硬件不敏感到根参数大小，将其转换到根描述符访问堆中的描述符。
+一个优化方式是，如果驱动程序知道应用程序在描述符和数据静态性方面做出的承诺，则可以使用许多驱动程序来生成可供着色器访问的更高效内存。 例如，如果特定的硬件对根参数大小不敏感，则驱动程序可以通过将堆中的某个描述符转换为根描述符，来消除访问该描述符时的间接性级别。
 
-开发人员使用 1.1 版的其他任务是使有关波动性和静态状态数据的承诺，只要有可能，以便驱动程序可以做出有意义的优化。 开发人员无需对其做出静态性承诺。
+使用版本 1.1 的开发人员的附加任务是，尽可能地在数据易失性和静态性方面做出承诺，使驱动程序能够实现有意义的优化。 开发人员不必要在静态性方面做出任何承诺。
 
-根签名版本 1.0 将继续不变，但重新编译根签名的应用程序将默认为根签名 1.1，现在 （通过用于强制版本 1.0，如果所需的选项）。
+根签名版本 1.0 会持续按原样正常运行，但重新编译根签名的应用程序现在默认会使用根签名 1.1（有一个选项可按需强制使用版本 1.0）。
 
 ## <a name="static-and-volatile-flags"></a>静态和易失性标志
 
-下列标志则要允许驱动程序选择的策略如何最好地处理单个根自变量，在设置完成后，还将嵌入到管道状态对象 (Pso) 在最初编译时-由于相同的假设的根签名的一部分根签名是 PSO 的一部分。
+以下标志是根签名的一部分，可让驱动程序选择一种策略，以便在设置各个根参数后以最适当的方法处理这些参数；另外，可将相同的假设嵌入到最初编译好的管道状态对象 (PSO) 中 - 因为根签名是 PSO 的一部分。
 
-以下标志由应用程序设置，并将应用于描述符或数据。
+以下标志由应用设置，将应用到描述符或数据。
 
 ``` syntax
 typedef enum D3D12_DESCRIPTOR_RANGE_FLAGS
@@ -78,70 +78,70 @@ typedef enum D3D12_ROOT_DESCRIPTOR_FLAGS
 } D3D12_ROOT_DESCRIPTOR_FLAGS;
 ```
 
-### <a name="descriptorsvolatile"></a>描述符\_易失性
+### <a name="descriptorsvolatile"></a>DESCRIPTORS\_VOLATILE
 
-设置此标志，可以通过应用程序时的命令列表之外的任何时间更改指向的根描述符表描述符堆中的描述符/绑定描述符表的捆绑包已提交和未完成执行。 例如，记录命令列表并随后更改它引用描述符堆中的描述符*之前*提交命令列表的执行就有效。 这是根签名版本 1.0 的唯一受支持的行为。
+设置此标志后，应用程序随时可以更改根描述符表指向的描述符堆中的描述符，但当绑定描述符表的命令列表/捆绑已提交和未完成执行时则不可以。 例如，在提交命令列表供执行之前，记录该命令列表并随后更改它引用的描述符堆中的描述符是有效的操作。  这是根签名版本 1.0 唯一支持的行为。
 
-如果描述符\_易失性标志*不*设置则是静态的描述符。 没有为此模式标志。 静态描述符是指指向根描述符表描述符堆中的描述符都已初始化的描述符表设置命令列表的时间 （在录制），捆绑包和描述符之前不能更改命令列表 /捆绑包已完成最后一次执行。 *对于根签名版本 1.1 中，静态描述符是默认的假设*，并且该应用程序指定描述符\_时所需的易失性标志。
+如果未设置 DESCRIPTORS\_VOLATILE 标志，则描述符是静态的。  此模式没有标志。 静态描述符表示在命令列表/捆绑中设置描述符表时（录制期间）已初始化根描述符表指向的描述符堆中的描述符，并且在命令列表/捆绑最后一次完成执行之前，描述符无法更改。 对于根签名版本 1.1，静态描述符是默认的假设，应用程序必须根据需要指定 DESCRIPTORS\_VOLATILE 标志。 
 
-绑定描述符表使用静态描述符，描述符必须准备开始 （而不是此捆绑包调用时），记录此捆绑包的时间并不变，除非此捆绑包已完成最后一次执行。 指向静态描述符的描述符表必须在捆绑录制过程中设置并不继承到捆绑包。 它是有效的命令列表用于描述符表已在绑定中设置并返回到命令列表的静态描述符。
+对于使用包含静态描述符的描述符表的捆绑，记录捆绑时（而不是调用该捆绑时），描述符必须已准备好启动，并且在该捆绑最后一次完成执行之前不会更改。 必须在记录捆绑期间设置指向静态描述符的描述符表，它们不能继承到捆绑中。 命令列表可以使用包含静态描述符的、已在捆绑中设置的并返回到命令列表的描述符表。
 
-描述符都是静态时另一个需要描述符的行为更改\_易失性标志设置。 带到任何缓冲区边界访问视图 （而不是 Texture1D/二维/三维/多维数据集视图） 无效，并且生成未定义的结果，包括可能的设备重置，而不是返回默认值来读取或删除写入。 删除应用程序依赖于带边界访问权限检查的硬件功能的目的是允许驱动程序选择的用于升级到根描述符访问的静态描述符访问，如果他们认为，更高效。 根描述符不支持的任何带边界检查。
+如果描述符是静态的，另一种行为变化需要设置 DESCRIPTORS\_VOLATILE 标志。 对任何缓冲区视图（而不是 Texture1D/2D/3D/多维视图）进行界外访问都是无效的操作，会生成不确定的结果，包括可能的设备重置，而不是返回读取操作的默认值或丢弃写入操作。 去除应用程序依赖硬件界外访问权限检查的功能的目的在于，在驱动程序认为更有效的情况下，可让驱动程序选择将静态描述符访问权限提升为根描述符访问权限。 根描述符不支持任何界外检查。
 
-如果访问说明符时，应用程序依赖于退出边界内存访问行为的安全，他们需要将访问这些说明符作为描述符的描述符范围标记\_易失性。
+如果应用程序在访问描述符时依赖于安全界外内存访问行为，则它们需要将访问这些描述符的描述符范围标记为 DESCRIPTORS\_VOLATILE。
 
-### <a name="datavolatile"></a>数据\_易失性
+### <a name="datavolatile"></a>DATA\_VOLATILE
 
-设置此标志，指向描述符的数据都可以更改由 CPU 时命令列表之外的任何时间/绑定描述符表的捆绑包已提交和未完成执行。 这是根签名版本 1.0 的唯一受支持的行为。
+设置此标志后，则 CPU 随时可以更改描述符指向的数据，但当绑定描述符表的命令列表/捆绑已提交且尚未完成执行时则不可以。 这是根签名版本 1.0 唯一支持的行为。
 
-该标志可用于描述符范围标志和根描述符标志。
+可在描述符范围标志和根描述符标志中使用该标志。
 
 ### <a name="datastaticwhilesetatexecute"></a>DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE
 
-设置此标志，指向描述符的数据不能更改从上命令列表设置基础根描述符或描述符表是开始 / 捆绑在 GPU 时间线，对执行期间和结束时后续绘制/调度将不再引用的数据。
+设置此标志后，从在 GPU 时间线上执行期间在命令列表/捆绑中设置基础根描述符或描述符表开始，到后续绘制/调度不再引用数据为止，描述符指向的数据无法更改。
 
-前一个根描述符或描述符表上已设置 GPU，此数据*可以*甚至通过相同的命令列表来更改 / 捆绑在一起。 虽然根描述符或指向它的描述符表仍设置上命令列表 / 捆绑包，只要对其进行引用的绘制/调度已完成，也可以更改数据。 但是，这样做需要描述符表重新绑定到命令列表下一次取消引用的根描述符或描述符表之前再次。 这允许要指向的根描述符或描述符表的数据发生更改的驱动程序。
+在 GPU 上设置根描述符或描述符表之前，此数据甚至可由相同的命令列表/捆绑更改。  当引用数据的根描述符或描述符表仍已在命令列表/捆绑中设置时，只要引用该数据的绘制/调度已完成，则也可以更改数据。 但是，这样做需要在下次取消引用根描述符或描述符表之前，将描述符表重新绑定到命令列表。 这样，驱动程序便知道根描述符或描述符表指向的数据已更改。
 
-之间数据的重要区别\_静态\_虽然\_设置\_在\_EXECUTE 和数据\_易失性是使用数据\_易失性驱动程序无法判断是否数据命令列表中的副本已更改为指向的描述符，而无需执行额外状态跟踪的数据。 因此，如果驱动程序，可以插入任何类型的数据预提取到其命令列表 （以使着色器访问为已知的数据更有效，例如），数据的命令\_静态\_虽然\_设置\_在\_EXECUTE 允许驱动程序知道它只需执行数据预提取通过设置目前[ **SetGraphicsRootDescriptorTable**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)， [ **SetComputeRootDescriptorTable** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable)或一种方法来设置常量缓冲区视图、 着色器资源视图或无序的访问视图。
+DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 与 DATA\_VOLATILE 之间的本质差别在于，使用 DATA\_VOLATILE 时，在不执行额外的状态跟踪的情况下，驱动程序无法判断命令列表中的数据副本是否已更改描述符指向的数据。 因此，举例而言，如果驱动程序将任何类型的数据预提取命令插入到其命令列表（例如，使着色器能够更有效地访问已知数据），则 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 可让驱动程序知道，它只需在通过 [**SetGraphicsRootDescriptorTable**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)、[**SetComputeRootDescriptorTable**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable)，或用于设置常量缓冲区视图、着色器资源视图或无序访问视图的某种方法设置时，才执行数据预提取。
 
-对于捆绑包，数据是静态的而在设置执行承诺应用唯一捆绑包的每个执行。
+对于捆绑，在执行时设置的数据静态性承诺将以独特方式应用到捆绑的每个执行。
 
-该标志可用于描述符范围标志和根描述符标志。
+可在描述符范围标志和根描述符标志中使用该标志。
 
-### <a name="datastatic"></a>数据\_静态
+### <a name="datastatic"></a>DATA\_STATIC
 
-如果设置此标志，已由根描述符或描述符表引用内存已设置命令列表的时间初始化指向描述符的数据 / 录制，期间的捆绑包和数据之前不能更改命令列表 / 捆绑包具有 最后一次执行完毕。
+如果设置此标志，记录期间在命令列表/捆绑中设置引用内存的根描述符或描述符表时，将初始化描述符指向的数据，并且在命令列表/捆绑最后一次完成执行之前，该数据无法更改。
 
-捆绑包，静态持续时间开始根描述符或描述符表设置的捆绑包，而不是调用的命令列表的录制录制期间。 此外，还必须设置捆绑包中并不会继承指向静态数据的描述符表。 它适用于要使用指向已在绑定中设置并返回到命令列表的静态数据的描述符表的命令列表。
+对于捆绑，静态持续时间将从记录捆绑而不是记录调用方命令列表期间设置根描述符或描述符表开始。 此外，指向静态数据的描述符表必须在捆绑中设置，而不是继承的。 命令列表可以使用指向静态数据的、已在捆绑中设置的并返回到命令列表的描述符表。
 
-该标志可用于描述符范围标志和根描述符标志。
+可在描述符范围标志和根描述符标志中使用该标志。
 
-### <a name="combining-flags"></a>组合标志
+### <a name="combining-flags"></a>合并标志
 
-可以一次，但不支持数据标志根本由于取样器未指向数据的采样器描述符范围除外指定最多的数据标志之一。
+每次最多可以指定一个 DATA 标志，但根据不支持 DATA 标志的采样器描述符范围除外，因为采样器不指向数据。
 
-如果缺少任何数据标志 SRV 和 CBV 描述符范围意味着，默认值为数据\_静态\_虽然\_设置\_在\_假定执行行为。 此默认值而不是数据选择原因\_静态是该数据\_静态\_时\_设置\_在\_EXECUTE 是更有可能是大多数情况下，安全默认设置时仍能产生比默认值为数据更好一些优化机会\_易失性。
+缺少 SRV 和 CBV 描述符范围的 DATA 标志意味着采用默认的 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 行为。 之所以选择此默认行为而不是 DATA\_STATIC，是因为 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 在大多数情况下更有可能是安全的行为，同时，与默认使用 DATA\_VOLATILE 相比，它仍可以带来某种优化机会。
 
-没有针对 UAV 描述符范围数据标志则意味着默认值为数据\_假定易失性的行为，给定通常 Uav 写入到。
+在通常写入到 UAV 的情况下，缺少 UAV 描述符范围的 DATA 标志意味着采用默认的 DATA\_VOLATILE 行为。
 
-描述符\_可变*不能*与数据结合\_静态的但*可以*与其他数据标志结合使用。 描述符的原因\_易失性可以与数据一起\_静态\_虽然\_设置\_在\_EXECUTE 是易失性描述符仍要求描述符是在准备就绪命令列表 / 捆绑包执行和数据\_静态\_虽然\_设置\_在\_EXECUTE 是仅使有关中命令列表的子集的静态性的承诺 / 捆绑在一起执行。
+DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标志合并。   DESCRIPTORS\_VOLATILE 之所以能够与 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 合并，是因为在执行命令列表/捆绑期间，易失性描述符仍需描述符准备就绪，而 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 只会对命令列表/捆绑执行的子集内部的静态性做出承诺。
 
-### <a name="flag-summary"></a>标记摘要
+### <a name="flag-summary"></a>标志摘要
 
-下表总结了可能采用的标志组合。
+下表汇总了可以采用的标志组合。
 
 
 
 |                                                                |                                                                                                                                                                                                                                                                                                                                                      |
 |----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **有效 D3D12\_描述符\_范围\_标志设置**             | **描述**                                                                                                                                                                                                                                                                                                                                      |
-| 设置任何标志                                                   | 描述符都是静态的 （默认值）。 默认的数据的假设： 对于 SRV/CBV:数据\_静态\_虽然\_设置\_在\_EXECUTE，并为 UAV:数据\_易失性。 这些默认值用于 SRV/CBV 安全地将占满根签名的大多数的使用模式。                                                                                              |
-| 数据\_静态                                                   | 描述符和数据是静态的。 这可最大化驱动程序优化的可能性。                                                                                                                                                                                                                                                          |
-| 数据\_易失性                                                 | 描述符是静态的数据是易失性。                                                                                                                                                                                                                                                                                                     |
-| DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE                          | 描述符是静态的数据是静态的而在设置执行。                                                                                                                                                                                                                                                                                      |
-| 描述符\_易失性                                          | 描述符是易失性，以及有关数据进行默认假设： 对于 SRV/CBV:数据\_静态\_虽然\_设置\_在\_EXECUTE，并为 UAV:数据\_易失性。                                                                                                                                                                                              |
-| 描述符\_可变\|数据\_易失性                        | 描述符和数据是易失性，等效于根签名 1.0。                                                                                                                                                                                                                                                                            |
-| 描述符\_可变\|数据\_静态\_虽然\_设置\_在\_EXECUTE | 描述符是可变的但请注意，仍不允许使用它们在命令列表执行期间更改。 因此，有效组合期间执行 – 数据是静态时通过根描述符表集的其他声明基础描述符是为长于数据正在承诺为静态有效地静态的。 |
+| **有效的 D3D12\_DESCRIPTOR\_RANGE\_FLAGS 设置**             | **描述**                                                                                                                                                                                                                                                                                                                                      |
+| 未设置标志                                                   | 描述符是静态的（默认设置）。 数据的默认假设：对于 SRV/CBV：DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE；对于 UAV：DATA\_VOLATILE。 SRV/CBV 的这些默认设置能够安全适应大多数根签名的使用模式。                                                                                              |
+| DATA\_STATIC                                                   | 描述符和数据都是静态的。 这可以最大化驱动程序优化的潜力。                                                                                                                                                                                                                                                          |
+| DATA\_VOLATILE                                                 | 描述符是静态的，数据是易失性的。                                                                                                                                                                                                                                                                                                     |
+| DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE                          | 描述符是静态的，数据在执行期间设置时是静态的。                                                                                                                                                                                                                                                                                      |
+| DESCRIPTORS\_VOLATILE                                          | 描述符是易失性的，对数据做出默认假设：对于 SRV/CBV：DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE；对于 UAV：DATA\_VOLATILE。                                                                                                                                                                                              |
+| DESCRIPTORS\_VOLATILE \| DATA\_VOLATILE                        | 描述符和数据都是易失性的，等效于根签名 1.0。                                                                                                                                                                                                                                                                            |
+| DESCRIPTORS\_VOLATILE \| DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE | 描述符是易失性的，但请注意，仍不允许它们在执行命令列表期间发生更改。 因此，在执行期间通过根描述符表设置时，可以合并附加的数据静态性声明 – 基础描述符保持静态的时间实际上长于承诺数据保持静态的时间。 |
 
 
 
@@ -151,11 +151,11 @@ typedef enum D3D12_ROOT_DESCRIPTOR_FLAGS
 
 |                                                   |                                                                                                                                                                                                                   |
 |---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **有效 D3D12\_根\_描述符\_标志设置** | **描述**                                                                                                                                                                                                   |
-| 设置任何标志                                      | 默认的数据的假设： 对于 SRV/CBV:数据\_静态\_虽然\_设置\_在\_EXECUTE，并为 UAV:数据\_易失性。 这些默认值用于 SRV/CBV 安全地将占满根签名的大多数的使用模式。 |
-| 数据\_静态                                      | 数据是静态的驱动程序优化的最佳可能性。                                                                                                                                                       |
-| DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE             | 数据是静态的而在设置执行。                                                                                                                                                                              |
-| 数据\_易失性                                    | 等效于根签名 1.0。                                                                                                                                                                                 |
+| **有效的 D3D12\_ROOT\_DESCRIPTOR\_FLAGS 设置** | **描述**                                                                                                                                                                                                   |
+| 未设置标志                                      | 数据的默认假设：对于 SRV/CBV：DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE；对于 UAV：DATA\_VOLATILE。 SRV/CBV 的这些默认设置能够安全适应大多数根签名的使用模式。 |
+| DATA\_STATIC                                      | 数据是静态的，驱动程序优化的潜力最大。                                                                                                                                                       |
+| DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE             | 数据在执行期间设置时是静态的。                                                                                                                                                                              |
+| DATA\_VOLATILE                                    | 等效于根签名 1.0。                                                                                                                                                                                 |
 
 
 
@@ -163,68 +163,68 @@ typedef enum D3D12_ROOT_DESCRIPTOR_FLAGS
 
 ## <a name="version-11-api-summary"></a>版本 1.1 API 摘要
 
-以下 API 调用启用版本 1.1。
+以下 API 调用支持版本 1.1。
 
 ### <a name="enums"></a>枚举
 
-这些枚举包含的关键标志来指定描述符和数据的波动性。
+这些枚举包含用于指定描述符和数据易失性的关键标志。
 
--   [**D3D\_根\_签名\_版本**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version) ： 版本 id。
--   [**D3D12\_描述符\_范围\_标志**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags) ： 标志确定如果描述符或数据不稳定的或静态的范围。
--   [**D3D12\_根\_描述符\_标志**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags) ： 标志，以类似范围[ **D3D12\_描述符\_范围\_标志**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags)，只不过仅数据标记应用到根描述符。
+-   [**D3D\_ROOT\_SIGNATURE\_VERSION**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)：版本 ID。
+-   [**D3D12\_DESCRIPTOR\_RANGE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags)：标志范围，确定描述符或数据是易失性的还是静态的。
+-   [**D3D12\_ROOT\_DESCRIPTOR\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags)：类似于 [**D3D12\_DESCRIPTOR\_RANGE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags) 的标志范围，不过，只会将数据标志应用到根描述符。
 
 ### <a name="structures"></a>结构
 
-更新的结构 （从版本 1.0） 包含对波动性/静态标记的引用。
+更新的结构（版本 1.0 中）包含对易失性/静态标志的引用。
 
--   [**D3D12\_功能\_数据\_根\_签名**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_root_signature) ： 传递到此结构[ **CheckFeatureSupport** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport)到检查根签名版本 1.1 支持。
--   [**D3D12\_VERSIONED\_根\_签名\_DESC** ](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc) ： 可以容纳根签名说明，任何版本，专为与序列化/反序列化一起使用下面列出的函数。
--   这些结构是版本 1.0 中，添加了新的描述符范围和根描述符的标志字段中所用等效的：
+-   [**D3D12\_FEATURE\_DATA\_ROOT\_SIGNATURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_root_signature)：将此结构传递给 [**CheckFeatureSupport**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport) 可以检查对根签名版本 1.1 的支持。
+-   [**D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)：可以保存根签名描述的任何版本，旨在与下面所列的序列化/反序列化函数配合使用。
+-   这些结构等效于版本 1.0 中所用的结构，并添加了描述符范围和根描述符的新标志字段：
 
-    -   [**D3D12\_根\_签名\_DESC1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc1)
-    -   [**D3D12\_描述符\_RANGE1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_range1)
-    -   [**D3D12\_根\_描述符\_TABLE1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor_table1)
-    -   [**D3D12\_根\_1&GT;** ](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor1)
+    -   [**D3D12\_ROOT\_SIGNATURE\_DESC1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc1)
+    -   [**D3D12\_DESCRIPTOR\_RANGE1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_range1)
+    -   [**D3D12\_ROOT\_DESCRIPTOR\_TABLE1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor_table1)
+    -   [**D3D12\_ROOT\_DESCRIPTOR1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor1)
     -   [**D3D12\_ROOT\_PARAMETER1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_parameter1)
 
 ### <a name="functions"></a>函数
 
-此处列出的方法取代原始[ **D3D12SerializeRootSignature** ](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature)并[ **D3D12CreateRootSignatureDeserializer** ](/windows/desktop/api/D3D12/nf-d3d12-d3d12createrootsignaturedeserializer)函数，因为它们旨在在根签名的任何版本上运行。 序列化的形式是传递给[ **CreateRootSignature** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature) API。 如果是具有根签名在其中编写着色器，编译着色器将已包含在其中的序列化的根签名。
+此处所列的方法取代了原始的 [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature) 和 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/D3D12/nf-d3d12-d3d12createrootsignaturedeserializer) 函数，因为它们可以在任何版本的根签名中使用。 序列化格式是传入 [**CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature) API 的格式。 如果编写的着色器包含根签名，则编译的着色器已包含序列化的根签名。
 
--   [**D3D12SerializeVersionedRootSignature** ](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature) ： 如果应用程序虽然产生[ **D3D12\_VERSIONED\_根\_签名**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)数据结构，它必须进行序列化的形式使用此函数。
--   [**D3D12CreateVersionedRootSignatureDeserializer** ](/windows/desktop/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer) ： 一个接口，可以通过返回反序列化的数据结构中，将生成[ **GetUnconvertedRootSignatureDesc** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc).
+-   [**D3D12SerializeVersionedRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature)：如果应用程序遵循过程生成 [**D3D12\_VERSIONED\_ROOT\_SIGNATURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc) 数据结构，则它必须使用此函数生成序列化格式。
+-   [**D3D12CreateVersionedRootSignatureDeserializer**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer)：生成一个可以通过 [**GetUnconvertedRootSignatureDesc**](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc) 返回反序列化数据结构的接口。
 
 ### <a name="methods"></a>方法
 
-[ **ID3D12VersionedRootSignatureDeserializer** ](/windows/desktop/api/d3d12/nn-d3d12-id3d12versionedrootsignaturedeserializer)接口创建要反序列化根签名数据结构。
+创建 [**ID3D12VersionedRootSignatureDeserializer**](/windows/desktop/api/d3d12/nn-d3d12-id3d12versionedrootsignaturedeserializer) 接口的目的是反序列化根签名数据结构。
 
--   [**GetRootSignatureDescAtVersion** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion) ： 将根签名说明结构到请求的版本。
--   [**GetUnconvertedRootSignatureDesc** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc) ： 返回一个指向[ **D3D12\_VERSIONED\_根\_签名\_DESC** ](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)结构。
+-   [**GetRootSignatureDescAtVersion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion)：将根签名描述结构转换为请求的版本。
+-   [**GetUnconvertedRootSignatureDesc**](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc)：返回指向 [**D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc) 结构的指针。
 
-### <a name="helper-structures"></a>帮助程序结构
+### <a name="helper-structures"></a>帮助器结构
 
-添加了帮助器结构，以帮助中的某些版本 1.1 中结构的初始化。
+已添加帮助器结构用于帮助某些版本 1.1 结构的初始化。
 
 -   CD3DX12\_DESCRIPTOR\_RANGE1
 -   CD3DX12\_ROOT\_PARAMETER1
 -   CD3DX12\_STATIC\_SAMPLER1
--   CD3DX12\_VERSIONED\_根\_签名\_DESC
+-   CD3DX12\_VERSIONED\_ROOT\_SIGNATURE\_DESC
 
-请参阅[帮助程序结构和函数对 D3D12](helper-structures-and-functions-for-d3d12.md)。
+请参阅 [D3D12 的帮助器结构和函数](helper-structures-and-functions-for-d3d12.md)。
 
-## <a name="consequences-of-violating-static-ness-flags"></a>违反静态性标志带来的后果
+## <a name="consequences-of-violating-static-ness-flags"></a>违反静态性标志的后果
 
-描述符和数据上面所述的标志 （以及特定标志缺少权限隐含的默认值） 定义完成的 promise 到有关如何将驱动程序应用程序的行为。 如果应用程序不符合该承诺，这是无效行为： 结果是不确定和跨不同的驱动程序和硬件可能会有所不同。
+上述描述符和数据标志（以及缺少特定标志时隐式使用的默认设置）定义应用程序对驱动程序做出的行为承诺。 如果应用程序违反承诺，则这是无效行为：结果是不确定的，并且不同的驱动程序和硬件可能会产生不同的结果。
 
-该调试层的选项可用于验证应用程序遵循其承诺，包括默认承诺的使用而无需设置任何标志的根签名版本 1.1 的。
+调试层提供用于验证应用程序是否遵守其承诺的选项，包括在未设置任何标志的情况下，使用根签名版本 1.1 时附带的默认承诺。
 
 ## <a name="version-management"></a>版本管理
 
-在编译时附加到着色器根签名，较新的 HLSL 编译器将默认为编译版本 1.1 中，根签名，而旧的 HLSL 编译器仅支持 1.0。 请注意，操作系统不支持根签名 1.1 的不适用于 1.1 根签名。
+编译附加到着色器的根签名时，新式 HLSL 编译器默认会编译版本 1.1 的根签名，而旧式 HLSL 编译器仅支持 1.0。 请注意，在不支持根签名 1.1 的 OS 上无法运行 1.1 根签名。
 
-使用着色器编译的根签名版本可以强制为特定版本使用`/force_rootsig_ver <version>`。 强制版本将会成功，如果编译器可以保留根签名正在编译的强制的版本，例如通过删除根签名中的不支持的标志仅出于优化目的提供服务，但不是会影响行为的行为.
+可以使用 `/force_rootsig_ver <version>` 将通过着色器编译的根签名版本强制为特定版本。 如果在强制版本时能够保留所编译的根签名的行为（例如，删除根签名中只为优化目的提供服务，但不影响行为的不受支持标志），则强制版本将会成功。
 
-例如，这种方式应用程序可以时生成应用程序编译到 1.0 和 1.1 的 1.1 根签名并选择在运行时，具体取决于操作系统支持的级别的适当版本。 它将有效，但是，对于应用程序 （尤其是当多个版本所需） 单独编译根签名的空间最多，独立于着色器。 即使使用附加的根签名不最初编译着色器，可以通过使用保留的权益与着色器根签名兼容的编译器验证`/verifyrootsignature`编译器选项。 稍后在运行时，Pso 可以使用创建着色器，其中不包含根签名的值，同时传递所需的根签名 （可能是适当版本支持的操作系统） 作为独立的形参。
+例如，这样可以在生成应用程序时让应用程序将 1.1 根签名同时编译成 1.0 和 1.1，并在运行时根据 OS 支持级别选择适当的版本。 但是，这可以最大程度地提高空间效率，使应用程序能够独立于着色器编译根签名（尤其是需要多个版本时）。 即使着色器最初是使用附加的根签名编译的，也仍可以使用 `/verifyrootsignature` 编译器选项来保留根签名编译器验证与着色器兼容的优势。 以后在运行时，可以使用不包含根签名的着色器，并传递所需的根签名（也许是 OS 支持的适当版本）作为独立的参数，来创建 PSO。
 
 ## <a name="related-topics"></a>相关主题
 

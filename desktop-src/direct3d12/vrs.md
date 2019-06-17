@@ -1,6 +1,6 @@
 ---
-title: 明暗度变量速率 (VRS)
-description: 明暗度变量速率&mdash;或粗略像素阴影&mdash;是一种机制，可让你分配费率因呈现图像的呈现性能/电源。
+title: 可变速率着色 (VRS)
+description: 可变速率着色 &mdash; 或粗略像素着色 &mdash; 是一种机制，可让你以不同渲染图像的速率分配渲染性能/算力。
 ms.topic: article
 ms.date: 04/08/2019
 ms.openlocfilehash: 85cb736b83bea8785146a80ccb12d672ccb48d9c
@@ -10,131 +10,131 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224410"
 ---
-# <a name="variable-rate-shading-vrs"></a>明暗度变量速率 (VRS)
+# <a name="variable-rate-shading-vrs"></a>可变速率着色 (VRS)
 
-## <a name="the-motivation-for-vrs"></a>VRS 动机
-由于性能限制，无法始终提供图形呈现器将传送到其输出图像的每个部分的相同级别的质量。 明暗度变量速率&mdash;或粗略像素阴影&mdash;是一种机制，可让你分配费率因呈现图像的呈现性能/电源。
+## <a name="the-motivation-for-vrs"></a>VRS 的动机
+由于性能限制，图形渲染器不能一直为其输出图像的每个组成部分提供相同的质量级别。 可变速率着色 &mdash; 或粗略像素着色 &mdash; 是一种机制，可让你以不同渲染图像的速率分配渲染性能/算力。
 
-在某些情况下，明暗度速率可减少与可察觉的输出质量; 很少或没有下降从而导致性能的改进是实质上是免费。
+在某些情况下，着色速率可能会轻微降低，或者在可察觉的输出质量方面不会有任何降低，因此可以提高性能，且基本上不会额外增加费用。
 
-## <a name="without-vrsmdashmulti-sample-anti-aliasing-with-supersampling"></a>而无需 VRS&mdash;与超级取样的多重采样抗锯齿
-无变量速率阴影控制明暗度速率的唯一方法是使用多重采样抗锯齿 (MSAA) 和基于示例的执行能力 (也称为 supersampling)。
+## <a name="without-vrsmdashmulti-sample-anti-aliasing-with-supersampling"></a>不使用 VRS &mdash; 结合超采样实现多重采样抗锯齿
+如果不使用可变速率着色，控制着色速率的唯一方法是结合采样执行（也称为超采样）使用多重采样抗锯齿 (MSAA)。
 
-MSAA 是图像的一种机制可减少几何别名，并提高与不使用 MSAA 比较的呈现质量。 MSAA 样本计数，可以是 1 x、 2x、 4 倍，8 倍或 16 x，控制分配给每个呈现器目标像素的样本数。 分配目标，并且以后不能更改时，必须预先知道 MSAA 样本计数。
+MSAA 机制可以减少几何失真，与不使用 MSAA 相比，它可以改善图像的渲染质量。 MSAA 样本计数（可为 1x、2x、4x、8x 或 16x）控制分配给每个渲染器目标像素的样本数。 分配目标时必须预先知道 MSAA 样本计数，以后无法更改此计数。
 
-超级取样导致像素着色器中，每个样本，在更高的质量但也更高性能费用，而每个像素执行调用一次。
+超采样导致以更高的质量为每个样本调用像素着色器中一次，但与按像素的执行相比，还可以提高性价比。
 
-你的应用程序可以通过每个像素基于的执行或超级 MSAA 与取样之间进行选择来控制其明暗度速率。 这些两个选项不提供非常精确地控制。 此外，您可能希望较低的明暗度速率对于某一类的对象的比较的图像的其余部分。 此类对象可能包含后面的 HUD 元素，或透明的模糊 （字段深度、 运动等），或者由于 VR 光纤光扭曲的对象。 但这不是有可能，因为明暗度质量和成本固定的整个图像上方。
+应用程序可以通过选择基于像素的执行或结合超采样的 MSAA，来控制其着色速率。 这些两个选项不提供极精细的控制。 此外，相比于图像的剩余部分，可以较低对象特定类的着色速率。 此类对象可能包括 HUD 元素后面的对象、透明度、模糊度（景深度、动作等），或者 VR 光学产生的光学畸变。 但这种情况不可能出现，因为整个图像的着色质量和成本是固定的。
 
-## <a name="with-variable-rate-shading-vrs"></a>明暗度变量速率 (VRS)
-明暗度变量速率 (VRS) 模型扩展到相反，与 MSAA 超级取样"粗像素"、 方向，通过添加粗略的明暗度的概念。 这是其中明暗度可以执行的频率比一个像素更粗。 换而言之，可以作为单个单元，着色的像素为单位的组和结果然后广播到组中的所有示例。
+## <a name="with-variable-rate-shading-vrs"></a>使用可变速率着色 (VRS)
+可变速率着色 (VRS) 模型增加了“粗略着色”的概念，可将结合 MSAA 的超采样扩展为相反的“粗略像素”方向。 在此模型中，可以使用比像素更粗略的频率执行着色。 换而言之，可将一组像素作为一个单位进行着色，然后，结果将广播到该组中的所有样本。
 
-粗明暗度 API 允许应用程序以指定属于阴影的组的像素数或*粗略像素*。 已分配的呈现器目标后，您可以改变粗略像素大小。 因此，不同的屏幕或不同的绘图传递部分可以有不同的明暗度速率。
+应用程序可以使用粗略着色 API 来指定属于某个着色组的像素（粗略像素）数目。  分配渲染器目标后，可以改变粗略像素大小。 因此，不同的屏幕部分或不同的绘制通道可以采用不同的着色速率。
 
-下面是描述哪些 MSAA 级别支持哪些粗略像素大小的表。 在任何平台上; 不支持某些有条件地启用基于一项功能，其他人时 (*AdditionalShadingRatesSupported*)，由"Cap"。
+下表描述了哪个 MSAA 级别支持哪种粗略像素大小。 有些大小并非在任何平台上均受支持；有些大小只能根据“上限”指示的功能条件 (*AdditionalShadingRatesSupported*) 受到支持。
 
 ![coarsePixelSizeSupport](images/CoarsePixelSizeSupport.PNG "粗略像素大小支持")
 
-在下一节中讨论的功能层，则不存在 coarse-pixel-size-and-sample-count 组合需要跟踪每个像素着色器调用的 16 个以上示例硬件。 这些组合都是上表中的半色调阴影。
+对于下一部分所述的功能层，不存在粗略像素大小与样本计数的组合，每次调用像素着色器，硬件都需要跟踪 16 个以上的样本。 在上表中，这些组合已进行半色调着色。
 
-## <a name="feature-tiers"></a>功能级别
-有两个层到 VRS 实现中，并可以查询的两个功能。 在表格之后更详细地介绍每个层。
+## <a name="feature-tiers"></a>功能层
+VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地描述了每个层。
 
 ![层](images/Tiers.PNG "层")
 
 ### <a name="tier-1"></a>第 1 层
-- 可以仅在每个绘图的基础; 上指定明暗度速率没有更多粒度比的。
-- 明暗度速率适用范围统一独立于其位于该呈现器目标的绘制内容。
+- 只能按绘制指定着色速率；不存在更高的粒度。
+- 无论绘制的内容位于渲染器目标中的哪个位置，着色速率都会统一应用于该内容。
 
 ### <a name="tier-2"></a>第 2 层
-- 可以在每个绘图为基础，如第 1 层中所示指定明暗度速率。 它还可以通过组合的每个绘图为基础，以及指定：
-  - 每个导致顶点，从语义和
-  - 中的屏幕空间映像。
-- 从三个来源的明暗度费率是使用一系列的合并器结合使用。
-- 屏幕空间图像平铺大小是 16 x 16 或更小。
-- 明暗度由你的应用程序请求的速率保证完全 （对于临时和其他重新构造筛选器的精度） 传递。
+- 与第 1 层一样，可以按绘制指定着色速率。 也可以按绘制的组合以及以下条件的组合指定着色速率：
+  - 每个诱发顶点的语义，以及
+  - 屏幕空间图像。
+- 使用一组合并器来合并三个源的着色速率。
+- 屏幕空间图像的图块大小为 16x16 或更小。
+- 保证准确提供应用程序所请求的着色速率（可实现临时过滤器和其他重构过滤器的精度）。
 - 支持 SV_ShadingRate PS 输入。
-- 使用一个视区时，每个人深受启发的顶点 （也称为每个基元） 明暗度速率，是有效和`SV_ViewportArrayIndex`不会写入。
-- 如果可以与多个视区使用的每个人深受启发的顶点速率*SupportsPerVertexShadingRateWithMultipleViewports*功能设置为`true`。 此外，在这种情况下，该速率可能时使用`SV_ViewportArrayIndex`写入。
+- 使用一个视区且未写入 `SV_ViewportArrayIndex` 时，按诱发顶点（也称为“按基元”）的着色速率是有效的。
+- 如果 *SupportsPerVertexShadingRateWithMultipleViewports* 功能设置为 `true`，则可以对多个视区使用按诱发顶点的速率。 此外，在这种情况下，写入 `SV_ViewportArrayIndex` 时可以使用该速率。
 
 ### <a name="list-of-capabilities"></a>功能列表
 - *AdditionalShadingRatesSupported*
-  - 布尔值类型。
-  - 指示是否 2 x 4、 4 x 2 和 4 × 4 像素粗略大小支持单采样呈现;和 2 是否支持粗像素大小 2x4 x MSAA。
+  - 布尔类型。
+  - 指示是否支持使用 2x4、4x2 和 4x4 粗略像素大小进行单一采样渲染，以及 2x MSAA 是否支持粗略像素大小 2x4。
 - *SupportsPerVertexShadingRateWithMultipleViewports*
-  - 布尔值类型。
-  - 指示是否可以使用每个顶点 （也称为每个基元） 明暗度率使用多个视区。
+  - 布尔类型。
+  - 指示是否可对多个视区使用按顶点（也称为“按基元”）的着色速率。
 
-## <a name="specifying-shading-rate"></a>指定明暗度速率
-为应用程序中的灵活性，有多种机制提供用于控制明暗度速率。 具体取决于硬件的功能层提供不同的机制。
+## <a name="specifying-shading-rate"></a>指定着色速率
+为提高应用程序的灵活性，可以使用多种机制来控制着色速率。 可用的机制根据硬件功能层而异。
 
 ### <a name="command-list"></a>命令列表
-这是用于设置明暗度速率的最简单机制。 适用于所有层的。
+这是用于设置着色速率的最简单机制。 它适用于所有层。
 
-你的应用程序可以指定使用粗像素大小[ **ID3D12GraphicsCommandList5::RSSetShadingRate**方法](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate)。 该 API 采用单个枚举参数。 该 API 提供用于呈现的质量级别的总体控件&mdash;能够在每个绘图的基础上设置的明暗度速率。
+应用程序可以使用 [**ID3D12GraphicsCommandList5::RSSetShadingRate** 方法](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate)指定粗略像素大小。 该 API 采用单个枚举参数。 使用该 API 可对渲染质量级别进行整体控制 &mdash; 可按绘制设置着色速率。
 
-此状态的值表示通过[ **D3D12_SHADING_RATE** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)枚举。
+此状态的值通过 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 枚举来表示。
 
-#### <a name="coarse-pixel-size-support"></a>粗像素大小支持
-在所有层中支持的明暗度费率 1 x 1、 1 x 2、 2 x 2 和 2 x 2。
+#### <a name="coarse-pixel-size-support"></a>粗略像素大小支持
+所有层都支持着色速率 1x1、1x2、2x2 和 2x2。
 
-还有一项功能， *AdditionalShadingRatesSupported*，以指示是否在设备上支持 2 x 4、 4 x 2 和 4 × 4。
+*AdditionalShadingRatesSupported* 功能指示设备是否支持 2x4、4x2 和 4x4。
 
-### <a name="screen-space-image-image-based"></a>屏幕空间映像 （基于映像的）
-在第 2 层和更高版本，您可以使用屏幕空间映像指定的像素着色速率。
+### <a name="screen-space-image-image-based"></a>屏幕空间图像（基于图像）
+在第 2 层和更高的层上，可以使用屏幕空间图像指定像素着色速率。
 
-屏幕空间映像允许应用程序以创建"详细级别 (LOD) 掩码"映像，该值指示区域质量不同，如模糊运动将涵盖的方面，深度字段模糊、 透明对象或 HUD UI 元素。 图像的解析位于块效应;它不在呈现器目标的解决方法。 换而言之，明暗度数据的速率处指定的 8 x 8 或 16 x 16 像素磁贴，粒度 VRS 磁贴大小所示。
+屏幕空间图像可让应用程序创建“详细级别 (LOD) 掩码”图像用于指示质量可变的区域，例如运动模糊、景深度模糊、透明对象或 HUD UI 元素覆盖的区域。 图像分辨率以宏块表示；不采用渲染器目标的分辨率。 换而言之，着色速率数据是以 VRS 图块大小指示的 8x8 或 16x16 像素图块粒度指定的。
 
-#### <a name="tile-size"></a>平铺大小
-你的应用程序可以查询一个 API，用于检索其设备的受支持的 VRS 磁贴大小。
+#### <a name="tile-size"></a>图块大小
+应用程序可以查询某个 API 来检索其设备支持的 VRS 图块大小。
 
-磁贴是方形，和大小是指该图块的宽度或高度以纹素。
+图块是方形的，大小是指该图块的宽度或高度（以纹素表示）。
 
-如果硬件不支持第 2 层变量速率明暗度，磁贴大小的功能查询将返回 0。
+如果硬件不支持第 2 层可变速率着色，则针对图块大小的功能查询将返回 0。
 
-如果硬件*does*支持第 2 层变量速率明暗度，然后平铺大小是下列值之一。
+如果硬件支持第 2 层可变速率着色，则图块大小是以下值之一。 
 
 - 8
 - 16
 - 32
 
 #### <a name="screen-space-image-size"></a>屏幕空间图像大小
-对于大小 {rtWidth，rtHeight} 的呈现器目标，使用给定的磁贴大小命名**VRSTileSize**，将介绍它的屏幕空间映像是这些维度。
+对于大小为 {rtWidth, rtHeight}、使用名为 **VRSTileSize** 的给定图块大小的渲染器目标，覆盖该目标的屏幕空间图像将采用这些维度。
 
 ```cpp
 { ceil((float)rtWidth / VRSTileSize), ceil((float)rtHeight / VRSTileSize) }
 ```
 
-屏幕空间图像的左上角 （0，0） 已锁定到呈现器目标的左上角 （0，0）。
+屏幕空间图像的左上坐标 (0, 0) 将锁定为渲染器目标的左上坐标 (0, 0)。
 
-若要查找 （x，y） 坐标的呈现器目标，除窗口空间坐标 (x，y) 按磁贴大小，忽略小数部分位数中特定位置对应的磁贴。
+若要查找某个图块的、对应于渲染器目标中特定位置的 (x,y) 坐标，请将窗口空间坐标 (x, y) 除以图块大小，并忽略分数位。
 
-如果屏幕空间图像是大于它必须能够为给定的呈现器目标，则不会使用到右和/或底部的额外部分。
+如果屏幕空间图像大于给定渲染器目标所需的大小，则不会使用右侧和/或底部的附加部分。
 
-如果屏幕空间映像对于给定的呈现器目标太小，任何尝试的读取超出其实际的盘区的映像从生成 1 x 1 的默认底纹速度。 这是因为屏幕空间图像的左上角 （0，0） 已锁定到呈现器目标的左上角 （0，0） 和"超出了呈现器目标区阅读"x 意味着读取过的很好的值和 y。
+如果屏幕空间图像对于给定的渲染器目标而言太小，尝试从超出目标实际范围的图像读取数据会生成默认的着色速率 1x1。 这是因为，屏幕空间图像的左上坐标 (0, 0) 锁定为渲染器目标的左上坐标 (0, 0)，“超出渲染器目标范围读取”意味着读取的 x 和 y 值太大。
 
-#### <a name="format-layout-resource-properties"></a>格式、 布局、 资源属性
-此图面的格式是一种单通道 8 位面 ([**DXGI_FORMAT_R8_UINT**](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format))。
+#### <a name="format-layout-resource-properties"></a>格式、布局和资源属性
+此图面的格式为单通道 8 位图面 ([**DXGI_FORMAT_R8_UINT**](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format))。
 
-资源是维度**TEXTURE2D**。
+资源的维度为 **TEXTURE2D**。
 
-不能数组或 mipped。 它显式必须具有一个 mip 级别。
+无法对此图面进行阵列处理或 mip 处理。 它必须明确地采用一个 mip 级别。
 
-它具有示例计数 1 和样本质量 0。
+它的样本计数为 1，样本质量为 0。
 
-它具有纹理布局**未知**。 因为不允许跨适配器，它隐式不能为行优先布局。
+它的纹理布局为 **UNKNOWN**。 由于不允许跨适配器，这意味着它不能采用行主序布局。
 
-在其中填充屏幕空间图像数据的预期的方法是为
-1. 使用计算着色器; 将数据写入屏幕空间映像绑定为 UAV 或
-2. 将数据复制到屏幕空间映像。
+填充屏幕空间图像数据的预期方式是
+1. 使用计算着色器写入数据；将屏幕空间图像绑定为 UAV，或
+2. 将数据复制到屏幕空间图像。
 
-创建屏幕空间映像时，允许使用这些标志。
+创建屏幕空间图像时允许使用这些标志。
 
 - NONE
 - ALLOW_UNORDERED_ACCESS
 - DENY_SHADER_RESOURCE
 
-不允许这些标志。
+不允许使用这些标志。
 
 - ALLOW_RENDER_TARGET
 - ALLOW_DEPTH_STENCIL
@@ -142,137 +142,137 @@ MSAA 是图像的一种机制可减少几何别名，并提高与不使用 MSAA 
 - ALLOW_SIMULTANEOUS_ACCESS
 - VIDEO_DECODE_REFERENCE_ONLY
 
-资源的堆类型不能为上传，也不 READBACK。
+资源的堆类型不能是 UPLOAD 或 READBACK。
 
-该资源不能为 SIMULTANEOUS_ACCESS。 该资源不能是跨适配器。
+资源不能是 SIMULTANEOUS_ACCESS。 不允许资源跨适配器。
 
 #### <a name="data"></a>数据
-屏幕空间映像的每个字节对应的值[ **D3D12_SHADING_RATE** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)枚举。
+屏幕空间图像的每个字节对应于 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 枚举的值。
 
 #### <a name="resource-state"></a>资源状态
-转换为只读状态时的屏幕空间映像作为所需要的资源。 只读状态[ **D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)，定义为此目的。
+将资源用作屏幕空间图像时，需将其转换为只读状态。 只读状态 [**D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 是为了实现此目的而定义的。
 
-从该状态中唤醒以再次变得可写状态的图像资源。
+转换出该状态的图像资源将再次可写。
 
 #### <a name="setting-the-image"></a>设置图像
-指定着色器的屏幕空间映像设置上命令列表。
+在命令列表中设置用于指定着色器速率的屏幕空间图像。
 
-无法读取或写入从任何着色器阶段已设置为明暗度率源的资源。
+无法从任何着色器阶段读取或写入已设置为着色速率源的资源。
 
-一个`null`屏幕空间映像可以设置用于指定的着色器速率。 此操作将为 1 x 1 一致地用作从屏幕空间映像所占比例。 一开始可以认为屏幕空间图像设置为`null`。
+可以设置一个 `null` 屏幕空间图像用于指定着色器速率。 这样就可以持续使用 1x1 来实现屏幕空间图像的价值。 最初可以考虑将屏幕空间图像设置为 `null`。
 
-#### <a name="promotion-and-decay"></a>升级和衰减
-屏幕空间图像资源不具有任何特殊影响升级或衰减。
+#### <a name="promotion-and-decay"></a>提升和衰减
+在提升或衰减方面，屏幕空间图像资源不提供任何特别的暗示。
 
-### <a name="per-primitive-attribute"></a>每个基元属性
-每个基元属性添加了指定明暗度速率术语为导致顶点中的某个属性的功能。 此属性是平面着色&mdash;即传播到当前的三角形或基元的行中的所有像素。 每个基元属性的使用可以启用更精细地控制图像质量相比其他明暗度速率说明符。
+### <a name="per-primitive-attribute"></a>按基元的属性
+使用按基元的属性可将某个着色速率条件指定为诱发顶点中的属性。 此属性将平面着色 &mdash; 也就是说，它会传播到当前三角形或线条基元中的所有像素。 与其他着色速率说明符相比，使用按基元的属性可以更精细地控制图像质量。
 
-每个基元属性是一个可设置语义名为`SV_ShadingRate`。 `SV_ShadingRate` 作为的一部分而存在[HLSL 着色器模型 6.4](/windows/desktop/direct3dhlsl/hlsl-shader-model-6-4-features-for-direct3d-12)。
+按基元的属性是名为 `SV_ShadingRate` 的可设置语义。 `SV_ShadingRate` 作为 [HLSL 着色器模型 6.4](/windows/desktop/direct3dhlsl/hlsl-shader-model-6-4-features-for-direct3d-12) 的一部分存在。
 
-如果 VS 或 GS 设置`SV_ShadingRate`，但未启用 VRS，则语义设置不起作用。 如果未设置值`SV_ShadingRate`，则指定每个基元，明暗度速率值为 1 x 1 假定为每个基元贡献。
+如果 VS 或 GS 设置了 `SV_ShadingRate`，但 VRS 未启用，则语义设置不起作用。 如果未按基元指定 `SV_ShadingRate` 的值，则会采用着色速率值 1x1 作为按基元贡献值。
 
-### <a name="combining-shading-rate-factors"></a>组合明暗度速率因素
-使用此关系图序列中应用的明暗度速率各种来源。
+### <a name="combining-shading-rate-factors"></a>合并着色速率因素
+着色速率的各种源是使用此示意图按顺序应用的。
 
-![合并器](images/Combiners.PNG "的合并器")
+![合并器](images/Combiners.PNG "合并器")
 
-每个对 A 和 B 使用合并器组合。
+使用合并器来合并每个 A-B 对。
 
-\* 当通过顶点属性指定着色器速率。
+\* 按顶点属性指定着色器速率时。
 
-- 如果使用几何着色器，则可以通过该指定明暗度的速率。
-- 如果未使用几何着色器，导致顶点由指定的明暗度速率。
+- 如果使用几何着色器，可以通过该着色器指定着色速率。
+- 如果未使用几何着色器，将按诱发顶点指定着色速率。
 
-#### <a name="list-of-combiners"></a>合并器的列表
-支持以下的合并器。 使用 Combiner (C) 和两个输入 （A 和 B）。
+#### <a name="list-of-combiners"></a>合并器列表
+支持以下合并器。 使用合并器 (C) 和两个输入（A 和 B）。
 
-- **传递**。 C.xy = A.xy.
-- **重写**。 C.xy = B.xy.
-- **更高的质量**。 C.xy = min （A.xy，B.xy）。
-- **降低质量**。 C.xy = 最大值 （A.xy，B.xy）。
-- **应用相对于一个成本 B**。C.xy = min(maxRate, A.xy + B.xy).
+- **直通**。 C.xy = A.xy。
+- **重写**。 C.xy = B.xy。
+- **更高的质量**。 C.xy = min(A.xy, B.xy)。
+- **更低的质量**。 C.xy = max(A.xy, B.xy)。
+- **应用相对于 A 的成本 B**。C.xy = min(maxRate, A.xy + B.xy)。
 
-其中`maxRate`是粗略像素在设备上允许的最大维度。 这将是
+其中，`maxRate` 是设备上允许的最大粗略像素维度。 这将是
 
-- **D3D12_AXIS_SHADING_RATE_2X** （即，值为 1） 如果 AdditionalShadingRatesSupported `false`。
-- **D3D12_AXIS_SHADING_RATE_4X** （即，值为 2） 如果 AdditionalShadingRatesSupported `true`。
+- **D3D12_AXIS_SHADING_RATE_2X**（即值 1）（如果 AdditionalShadingRatesSupported 为 `false`）。
+- **D3D12_AXIS_SHADING_RATE_4X**（即值 2）（如果 AdditionalShadingRatesSupported 为 `true`）。
 
-所选变量速率明暗度的合并器的设置通过在命令列表[ **ID3D12GraphicsCommandList5::RSSetShadingRate**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate)。
+通过 [**ID3D12GraphicsCommandList5::RSSetShadingRate**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate) 在命令列表中设置所选的可变速率着色合并器。
 
-如果曾经设置没有的合并器，则它们继续保留在默认情况下，这是传递。
+如果未曾设置过合并器，则合并器将保留默认值，即 PASSTHROUGH。
 
-如果向合并器源[ **D3D12_AXIS_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)，这不允许在支持表中，然后输入净化明暗度速率的*是*支持。
+如果合并器的源为支持表中不允许的 [**D3D12_AXIS_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)，则输入将净化为受支持的着色速率。 
 
-如果的合并器输出不对应平台上支持的明暗度速率，则结果将进行整理到明暗度速率*是*支持。
+如果合并器的输出不对应于平台支持的着色速率，则结果将净化为受支持的着色速率。 
 
-### <a name="default-state-and-state-clearing"></a>默认状态，并声明交换
-所有明暗度速率源，即
+### <a name="default-state-and-state-clearing"></a>默认状态和状态清除
+所有着色速率源，即
 
-- 管道状态指定指定的费率 （上命令列表），
-- 屏幕空间映像指定速率和
-- 每个基元属性
+- 管道状态指定的速率（在命令列表中指定）、
+- 屏幕空间图像指定的速率和
+- 按基元的属性
 
-具有默认值为**D3D12_SHADING_RATE_1X1**。 默认的合并器是 {传递，传递}。
+都具有默认值 **D3D12_SHADING_RATE_1X1**。 默认的合并器为 {PASSTHROUGH, PASSTHROUGH}。
 
-如果指定没有屏幕空间图像，则为 1 x 1 的明暗度速率被推断从该源。
+如果未指定屏幕空间图像，则从该源推断出着色速率 1x1。
 
-如果指定没有每个基元的属性，则为 1 x 1 的明暗度速率被推断从该源。
+如果未指定按基元的属性，则从该源推断出着色速率 1x1。
 
-[ID3D12CommandList::ClearState](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate)将管道状态指定速率重置为默认值，并选择为默认值为"无屏幕空间映像"的屏幕空间映像。
+[ID3D12CommandList::ClearState](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate) 将管道状态指定的速率重置为默认值，并将所选的屏幕空间图像重置为默认值“无屏幕空间图像”。
 
-## <a name="querying-shading-rate-by-using-svshadingrate"></a>通过使用 SV_ShadingRate 查询明暗度速率
-它可用于了解在任何给定的像素着色器调用的硬件选择了什么明暗度速率。 这可能会使各种 PS 代码中的优化。 一个仅限 PS 的系统变量， `SV_ShadingRate`，提供有关明暗度速率的信息。
+## <a name="querying-shading-rate-by-using-svshadingrate"></a>使用 SV_ShadingRate 查询着色速率
+调用任意给定的像素着色器时，知道硬件选择了哪种着色速率会很有用。 这样可以在 PS 代码中实现各种优化。 仅限 PS 的系统变量 `SV_ShadingRate` 提供有关着色速率的信息。
 
 ### <a name="type"></a>在任务栏的搜索框中键入
-这种语义的类型是 uint。
+此语义的类型为 uint。
 
-### <a name="data-interpretation"></a>数据的解释
-数据被解释为值[ **D3D12_SHADING_RATE** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)枚举。
+### <a name="data-interpretation"></a>数据解释
+数据将解释为 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 枚举的值。
 
 ### <a name="if-vrs-is-not-being-used"></a>如果未使用 VRS
-如果粗略像素明暗度未使用，然后`SV_ShadingRate`读回为 1 x 1，表示正常的像素为单位的值。
+如果未使用粗略像素着色，则读回值为 1x1 的 `SV_ShadingRate`（表示精细像素）。
 
-### <a name="behavior-under-sample-based-execution"></a>在基于样本的执行行为
-如果其输入像素着色器编译将失败`SV_ShadingRate`并使用基于样本的执行&mdash;例如，通过输入`SV_SampleIndex`，也可以使用示例内插关键字。
+### <a name="behavior-under-sample-based-execution"></a>基于样本的执行的行为
+如果像素着色器输入了 `SV_ShadingRate` 并使用基于样本的执行 &mdash; 例如，输入 `SV_SampleIndex` 或使用样本内插关键字，则该像素着色器将无法编译。
 
-> ### <a name="remarks-on-deferred-shading"></a>在延迟的明暗度的备注
+> ### <a name="remarks-on-deferred-shading"></a>有关延迟着色的备注
 >
-> 延迟的明暗度应用程序的照明阶段可能需要知道什么明暗度速率使用屏幕上的哪些区域。 这是以便照明传递调度粗费率可以启动。 `SV_ShadingRate`变量可用于实现此目的，如果写出到 gbuffer。
+> 延迟着色应用程序的照明通道可能需要知道对屏幕的哪个区域使用了哪种着色速率。 这样，便能够以更粗略的速率启动照明通道调度。 如果将 `SV_ShadingRate` 变量写出到 gbuffer，可以使用该变量来实现此目的。
 
 ## <a name="depth-and-stencil"></a>深度和模具
-使用粗像素明暗度时，会始终计算的深度和模具和覆盖并将其发出的完整示例解析。
+使用粗略像素着色时，始终会计算深度、模具和覆盖度，并以完全样本分辨率发出此信息。
 
-## <a name="using-the-shading-rate-requested"></a>使用请求的明暗度费率
-对于所有层，它应该，如果明暗度速率不请求，并且它支持设备-和-MSAA-级别的组合，那么它就是由硬件提供的明暗度速率。
+## <a name="using-the-shading-rate-requested"></a>使用请求的着色速率
+对于所有层，如果请求了某种着色速率，并且该速率受设备和 MSAA 级别组合的支持，则该速率预期是硬件提供的着色速率。
 
-请求的明暗度速率意味着明暗度速率计算作为的合并器输出 (请参阅[组合明暗度速率因素](#combining-shading-rate-factors)本主题中的部分)。
+请求的着色速率表示计算为合并器的输出的着色速率（请参阅本主题的[合并着色速率因素](#combining-shading-rate-factors)部分）。
 
-受支持的明暗度速率是 1 x 1，1 x 2、 2 x 1 或 2 x 2 英寸呈现操作其中的样本数小于或等于四个。 如果*AdditionalShadingRatesSupported*功能`true`，则某些样本计数为 2 x 4、 4 x 2 和 4 × 4 是否还支持明暗度费率 (请参阅中的表[明暗度变量速率 (VRS)](#with-variable-rate-shading-vrs)本主题中的部分)。
+在样本数小于或等于 4 的渲染操作中，支持的着色速率为 1x1、1x2、2x1 或 2x2。 如果 *AdditionalShadingRatesSupported* 功能为 `true`，则 2x4、4x2 和 4x4 也是某些样本计数支持的着色速率（请参阅本主题的[使用可变速率着色 (VRS)](#with-variable-rate-shading-vrs) 部分中的表格）。
 
-## <a name="screen-space-derivatives"></a>屏幕空间派生类
-粗像素明暗度会影响计算的相邻像素到渐变。 例如，当使用 2 x 2 粗略像素时，渐变相比大小的两倍时将不使用粗像素为单位。 你的应用程序可能要调整着色器对此进行弥补&mdash;或不是，根据所需的功能。
+## <a name="screen-space-derivatives"></a>屏幕空间派生对象
+相邻像素渐变的计算受粗略像素着色的影响。 例如，使用 2x2 粗略像素时，渐变大小是不使用粗略像素时的两倍。 应用程序可能需要调整着色器以进行相应的补偿 &mdash; 根据所需的功能，也可以不调整。
 
-由于 mips 的选择依据的屏幕空间派生，粗略像素明暗度的使用情况会影响 mip 所选内容。 粗像素明暗度的使用情况会导致较少详细信息的 mips 选择相比较时不使用粗像素为单位。
+由于 mip 是根据屏幕空间派生对象选择的，因此，使用粗略像素着色会影响 mip 的选择。 与不使用粗略像素相比，使用粗略像素着色会导致选择细节更少的 mip。
 
 ## <a name="attribute-interpolation"></a>属性内插
-像素着色器的输入可能会基于其源顶点内插。 由于变量速率明暗度会影响由像素着色器每次调用写入目标的区域，它与交互，属性内插。 三种类型的内插是 center、 质心和示例。
+可以根据源顶点内插像素着色器的输入。 由于可变速率着色会影响每次调用像素着色器时写入的目标区域，因此，着色器将与属性内插交互。 有三种类型的内插：中点、质心和样本。
 
-### <a name="center"></a>中心
-粗像素的中心内插位置是完整粗略像素区域的几何中心。 `SV_Position` 始终在粗像素区域的中心插入。
+### <a name="center"></a>中点
+粗略像素的中点内插位置是完整粗略像素区域的几何中心。 `SV_Position` 始终在粗略像素区域的中心内插。
 
 ### <a name="centroid"></a>质心
-粗像素明暗度用于 MSAA 时, 为每个正常像素，但仍然会将写入到示例为目标的 MSAA 级别分配的全部数量。 因此，质心内插位置，将考虑粗略像素中的正常像素的所有示例。 话虽如此，质心内插位置被定义为第一个涵盖示例，示例索引按升序排列。 该示例的有效范围是 AND ed 与光栅器状态 SampleMask 的相应位。
+将粗略像素着色与 MSAA 配合使用时，对于每个精细像素，仍会写入到为目标 MSAA 级别分配的完整数量的样本。 因此，质心内插位置会考虑粗略像素中的精细像素的所有样本。 话虽如此，质心内插位置将按样本索引的升序定义为第一个覆盖的样本。 该样本的有效覆盖范围将通过 AND 运算符与光栅器状态 SampleMask 的相应位合并。
 
 > [!NOTE]
-> 在第 1 层上使用粗像素明暗度时，SampleMask 始终是一个完整的掩码。 如果 SampleMask 配置为不是完整的掩码，粗略像素明暗度时禁用了第 1 层。
+> 在第 1 层上使用粗略像素着色时，SampleMask 始终是完整掩码。 如果 SampleMask 未配置为完整掩码，则会在第 1 层上禁用粗略像素着色。
 
 ### <a name="sample-based-execution"></a>基于样本的执行
-基于样本的执行，或*超级取样*&mdash;这导致的使用示例内插功能&mdash;可以用于粗像素明暗度，并导致像素着色器调用每个样本。 像素着色器调用的目标的样本计数 N，N 次，每个正常的像素。
+通过样本内插功能进行的基于样本的执行（或“超采样”）可与粗略像素着色配合使用，它会导致按样本调用像素着色器。  对于样本计数 N 的目标，将按精细像素调用像素着色器 N 次。
 
 ### <a name="evaluateattributesnapped"></a>EvaluateAttributeSnapped
-拉取模型内部函数都不符合第 1 层上的粗略像素明暗度。 如果尝试在第 1 层的粗略像素明暗度中使用拉模型内部函数，则会自动禁用粗略像素明暗度。
+提取模型内部函数与第 1 层上的粗略像素着色不兼容。 如果尝试在第 1 层上将提取模型内部函数与粗略像素着色配合使用，将会自动禁用粗略像素着色。
 
-内部函数`EvaluateAttributeSnapped`允许用于在第 2 层的粗略像素明暗度。 始终是因为，其语法都是相同的。
+允许在第 2 层上将内部函数 `EvaluateAttributeSnapped` 与粗略像素着色配合使用。 其语法一直未有变化。
 
 ```hlsl
 numeric EvaluateAttributeSnapped(   
@@ -280,31 +280,31 @@ numeric EvaluateAttributeSnapped(
     in int2 offset);
 ```
 
-有关上下文，`EvaluateAttributeSnapped`具有两个字段是偏移量的参数。 当使用没有粗略像素明暗度的情况下，只需较低序位四个出完整的 32 使用位。 这些四位代表范围 [-8，7 之内]。 此范围内像素的 16x16 网格。 范围表示这类像素的顶部和左侧边缘为包括在内，并且不是下边框和右边缘。 偏移量 （-8，-8） 位于左上角，偏移量 （7，7） 为通过右下角。 偏移量 （0，0） 是像素的中心。
+在上下文方面，`EvaluateAttributeSnapped` 提供一个带有两个字段的偏移量参数。 在不使用粗略像素着色的情况下使用该函数时，只会使用 32 个位中的 4 个低序位。 这 4 个位表示范围 [-8, 7]。 此范围跨越像素中的一个 16x16 网格。 该范围覆盖该像素的顶部和左侧边缘，但不覆盖底部和右侧边缘。 偏移量 (-8, -8) 位于左上角，偏移量 (7, 7) 靠近右下角。 偏移量 (0, 0) 位于像素的中心。
 
-与粗糙像素明暗度一起使用时`EvaluateAttributeSnapped`的偏移量参数是能够指定更多的位置。 偏移量的参数选择一个 16x16 网格，用于正常的每个像素，并且有多个正常的像素为单位。 可表示的范围和后续使用的比特数取决于粗像素大小。 粗像素的顶部和左侧边缘为包括在内，并且下边框和右边缘不。
+与粗略像素着色配合使用时，`EvaluateAttributeSnapped` 的偏移量参数能够指定更多的位置。 偏移量参数选择每个精细像素的 16x16 网格，并且存在多个精细像素。 可表示的范围和使用的相应位数取决于粗略像素大小。 覆盖粗略像素的顶部和左侧边缘，但不覆盖底部和右侧边缘。
 
-下表描述了的解释`EvaluateAttributeSnapped`的偏移量的每个粗糙的像素大小参数。
+下表描述了每个粗略像素大小的 `EvaluateAttributeSnapped` 偏移量参数的内插。
 
-#### <a name="evaluateattributesnappeds-offset-range"></a>EvaluateAttributeSnapped 的偏移量范围
+#### <a name="evaluateattributesnappeds-offset-range"></a>EvaluateAttributeSnapped 的偏移范围
 
-|粗像素大小  |可编制索引的范围             |可表示的范围大小  |所需的位数 {x，y}  |可使用的位的二进制掩码          |    
+|粗略像素大小  |可编制索引的范围             |可表示的范围大小  |所需的位数 {x, y}  |可用位的二进制掩码          |    
 |------------------:|---------------------------:|-------------------------:|-----------------------------:|-----------------------------------:|    
-|1 x 1 （精确）         |{\[-8, 7\], \[-8, 7\]}      |{16, 16}                  |{4, 4}                        |{000000000000xxxx，000000000000xxxx}|    
-|1x2                |{\[-8, 7\], \[-16, 15\]}    |{16, 32}                  |{4, 5}                        |{000000000000xxxx，00000000000xxxxx}|    
-|2x1                |{\[-16, 15\], \[-8, 7\]}    |{32, 16}                  |{5, 4}                        |{00000000000xxxxx，000000000000xxxx}|    
-|2x2                |{\[-16, 15\], \[-16, 15\]}  |{32, 32}                  |{5, 5}                        |{00000000000xxxxx，00000000000xxxxx}|    
-|2x4                |{\[-16, 15\], \[-32, 31\]}  |{32, 64}                  |{5, 6}                        |{00000000000xxxxx，0000000000xxxxxx}|    
-|4x2                |{\[-32, 31\], \[-16, 15\]}  |{64, 32}                  |{6, 5}                        |{0000000000xxxxxx，00000000000xxxxx}|    
-|4x4                |{\[-32, 31\], \[-32, 31\]}  |{64, 64}                  |{6, 6}                        |{0000000000xxxxxx，0000000000xxxxxx}|   
+|1x1（精细）         |{\[-8, 7\], \[-8, 7\]}      |{16, 16}                  |{4, 4}                        |{000000000000xxxx, 000000000000xxxx}|    
+|1x2                |{\[-8, 7\], \[-16, 15\]}    |{16, 32}                  |{4, 5}                        |{000000000000xxxx, 00000000000xxxxx}|    
+|2x1                |{\[-16, 15\], \[-8, 7\]}    |{32, 16}                  |{5, 4}                        |{00000000000xxxxx, 000000000000xxxx}|    
+|2x2                |{\[-16, 15\], \[-16, 15\]}  |{32, 32}                  |{5, 5}                        |{00000000000xxxxx, 00000000000xxxxx}|    
+|2x4                |{\[-16, 15\], \[-32, 31\]}  |{32, 64}                  |{5, 6}                        |{00000000000xxxxx, 0000000000xxxxxx}|    
+|4x2                |{\[-32, 31\], \[-16, 15\]}  |{64, 32}                  |{6, 5}                        |{0000000000xxxxxx, 00000000000xxxxx}|    
+|4x4                |{\[-32, 31\], \[-32, 31\]}  |{64, 64}                  |{6, 6}                        |{0000000000xxxxxx, 0000000000xxxxxx}|   
 
-下表是转换到从定点十进制和小数部分组成的表示形式的指南。 中的二进制掩码的第一个可用位是符号位和二进制掩码的其余部分包含的数值部分。
+下表提供了从定点数到十进制数和分数表示形式的转换指南。 二进制掩码中的第一个可用位是符号位，剩余的二进制掩码由数字部分构成。
 
-传递给四位值的数字方案`EvaluateAttributeSnapped`并不特定于变量速率明暗度。 它是此处各个出于完整性的考虑。
+传入 `EvaluateAttributeSnapped` 的 4 位值的数字方案并不特定于可变速率着色。 出于完整性，此处的方案是反复迭代的。
 
-四位值。
+对于 4 位值。
 
-| 二进制值 | 十进制  | 小数 |
+| 二进制值 | 十进制  | 分数 |
 |-------------:|---------:|-----------:|
 |         1000 |-0.5f     |-8 / 16     |
 |         1001 |-0.4375f  |-7 / 16|    |
@@ -323,9 +323,9 @@ numeric EvaluateAttributeSnapped(
 |         0110 |-0.375f   |6 / 16      |
 |         0111 |-0.4375f  |7 / 16      |
 
-为五位值。
+对于 5 位值。
 
-| 二进制值 | 十进制  | 小数 |
+| 二进制值 | 十进制  | 分数 |
 |-------------:|---------:|-----------:|
 |        10000 |-1        |-16 / 16    |
 |        10001 |-0.9375   |-15 / 16    |
@@ -360,9 +360,9 @@ numeric EvaluateAttributeSnapped(
 |        01110 |0.875     |14 / 16     |
 |        01111 |0.9375    |15 / 16     |
 
-六位值。
+对于 6 位值。
 
-| 二进制值 | 十进制  | 小数 |
+| 二进制值 | 十进制  | 分数 |
 |-------------:|---------:|-----------:|
 |       100000 |-2        |-32 / 16    |
 |       100001 |-1.9375   |-31 / 16    |
@@ -429,73 +429,73 @@ numeric EvaluateAttributeSnapped(
 |       011110 |1.875     |30 / 16     |
 |       011111 |1.9375    |31 / 16     |
 
-在使用正常的像素与相同的方式`EvaluateAttributeSnapped`的网格 evaluateable 位置居中粗略像素中心时使用粗像素明暗度。
+与使用精细像素时一样，在使用粗略像素着色时，可评估位置的 `EvaluateAttributeSnapped` 网格的中点位于粗略像素的中心。
 
 ## <a name="setsamplepositions"></a>SetSamplePositions
-当 API [ **ID3D12GraphicsCommandList1::SetSamplePositions** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setsamplepositions)用于粗明暗度，该示例将定位正常像素的 API 集。
+如果将 API [**ID3D12GraphicsCommandList1::SetSamplePositions**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setsamplepositions) 用于粗略着色，该 API 会设置精细像素的样本位置。
 
 ## <a name="svcoverage"></a>SV_Coverage
-如果`SV_Coverage`是声明为着色器输入或输出在第 1 层，则禁用粗略像素明暗度。
+如果在第 1 层上将 `SV_Coverage` 声明为着色器的输入或输出，则会禁用粗略像素着色。
 
-可以使用`SV_Coverage`语义与粗糙像素着色第 2 层，和它反映 MSAA 目标的示例正在编写的。
+在第 2 层上可对粗略像素着色使用 `SV_Coverage` 语义，该语义反映正在写入 MSAA 目标的哪些样本。
 
-何时使用粗像素着色&mdash;允许多个源像素组成磁贴&mdash;覆盖率掩码表示来自该磁贴的所有示例。
+如果使用粗略像素着色（允许使用多个源像素来构成一个图块），覆盖掩码表示来自该图块的所有样本。
 
-提供与 MSAA 粗略像素明暗度的兼容性，指定所需的覆盖率比特数而异。 例如，使用 4 个 x MSAA 资源使用[ **D3D12_SHADING_RATE_2x2**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)、 粗略的每个像素写入四个正常的像素为单位，并很好的每个像素具有四个示例。 这意味着每个粗糙像素写入 4 * 4 = 16 个示例。
+假设粗略像素着色与 MSAA 兼容，需要指定的覆盖位数可能不同。 例如，如果某个 4x MSAA 资源使用 [**D3D12_SHADING_RATE_2x2**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)，则每个粗略像素将写入 4 个精细像素，而每个像素具有 4 个样本。 这意味着，每个粗略像素总共会写入 4 * 4 = 16 个样本。
 
-### <a name="number-of-coverage-bits-needed"></a>所需的覆盖率比特数
-下表指示多少个覆盖率位所需的粗略像素大小和 MSAA 级别的每个组合。
+### <a name="number-of-coverage-bits-needed"></a>所需的覆盖位数
+下表指出了粗略像素大小与 MSAA 级别的每种组合需要多少个覆盖位。
 
 ![NumberOfCoverageBits](images/NumberOfCoverageBits.PNG "NumberOfCoverageBits")
 
-如下表所示，不能使用粗像素来写入到 16 个以上示例使用变量速率明暗度功能通过 Direct3D 12 公开一次。 此限制的原因有关的 MSAA 级别允许使用何种粗略的像素大小的 Direct3D 12 的约束 (请参阅中的表[明暗度变量速率 (VRS)](#with-variable-rate-shading-vrs)本主题中的部分)。
+如下表所示，无法使用粗略像素通过 Direct3D 12 公开的可变速率着色功能一次性写入 16 个以上的样本。 施加此限制的原因在于，Direct3D 12 对不同的 MSAA 级别允许的粗略像素大小施加了约束（请参阅本主题的[使用可变速率着色 (VRS)](#with-variable-rate-shading-vrs) 部分中的表格）。
 
-### <a name="ordering-and-format-of-bits-in-the-coverage-mask"></a>排序和格式中的覆盖率掩码的位数
-覆盖掩码的位遵循明确定义的顺序。 掩码包含 coverages 从左到右、 自上而下的像素到下 （列优先） 的顺序。 覆盖率 bits 是语义的覆盖范围的低顺序位和密集打包在一起。
+### <a name="ordering-and-format-of-bits-in-the-coverage-mask"></a>覆盖掩码中的位的排序和格式
+覆盖掩码的位遵循明确定义的顺序。 掩码由像素中从左到右、自上到下（列主序）顺序的覆盖范围组成。 覆盖位是覆盖语义的低序位，它们密集打包在一起。
 
-下表显示了支持的粗略像素大小和 MSAA 级别的组合覆盖率掩码格式。
+下表显示了支持的粗略像素大小与 MSAA 级别组合的覆盖掩码格式。
 
 ![Coverage1x](images/Coverage1x.PNG "Coverage1x")
 
-下表描述了其中每个像素都有两个示例的索引 0 和 1 2 x MSAA 个像素。
+下表描述了 2x MSAA 像素，其中的每个像素具有索引为 0 和 1 的两个样本。
 
-像素中的标签的位置用于说明用途，并且并不一定意味着该像素; 上的取样空间 {X，Y} 位置尤其是考虑到示例的位置，可以以编程方式更改。 示例引用通过它们从 0 开始的索引。
+像素中样本标签的位置用于演示目的，不一定表示该像素中的样本的空间 {X, Y} 位置，尤其是能够以编程方式更改该样本位置的情况下。 样本按其从 0 开始的索引引用。
 
 ![Coverage2x](images/Coverage2x.PNG "Coverage2x")
 
-下表显示 4 个 x MSAA 像素，其中每个像素都有四个示例的索引 0、 1、 2 和 3。
+下表显示了 4x MSAA 像素，其中的每个像素具有索引为 0、1、2 和 3 的四个样本。
 
 ![Coverage4x](images/Coverage4x.PNG "Coverage4x")
 
 ## <a name="discard"></a>丢弃
-当语义 HLSL`discard`使用了粗略的像素着色粗略的像素为单位将被丢弃。
+对粗略像素着色使用 HLSL 语义 `discard` 时，会丢弃粗略像素。
 
-## <a name="target-independent-rasterization-tir"></a>独立于目标的光栅化 (TIR)
-使用粗像素明暗度时，不支持 TIR。
+## <a name="target-independent-rasterization-tir"></a>目标独立的光栅化 (TIR)
+使用粗略像素着色时，不支持 TIR。
 
-## <a name="raster-order-views-rovs"></a>光栅顺序视图 (ROVs)
-ROV 联锁被指定为运行正常的像素的粒度。 如果明暗度执行每个样本，然后联锁操作示例粒度。
+## <a name="raster-order-views-rovs"></a>光栅顺序视图 (ROV)
+ROV 联锁指定为以精细像素粒度运行。 如果按样本执行着色，则联锁将以样本粒度运行。
 
-## <a name="conservative-rasterization"></a>传统型光栅化
-传统型光栅化可使用变量速率明暗度。 传统型光栅化用于粗像素明暗度，粗略像素中的正常像素的保守光栅化获得完整的覆盖范围。
+## <a name="conservative-rasterization"></a>保守光栅化
+可对可变速率着色使用保守光栅化。 对粗略像素着色使用保守光栅化时，将按给定的完整覆盖范围，以保守方式将不包含精细像素的精细像素光栅化。
 
 ### <a name="coverage"></a>覆盖范围
-使用传统型光栅化时，语义的覆盖范围将包含完整掩码正常像素的介绍和正常像素，且不为 0。
+使用保守光栅化时，覆盖语义将包含所覆盖的精细像素的完整掩码，并为未覆盖的精细像素包含 0。
 
-## <a name="bundles"></a>捆绑包
-您可以在绑定上调用变量速率明暗度 Api。
+## <a name="bundles"></a>捆绑
+可以针对捆绑调用可变速率着色 API。
 
-## <a name="render-passes"></a>呈现阶段
-可以调用变量速率明暗度 Api[呈现处理](/windows/desktop/direct3d12/direct3d-12-render-passes)。
+## <a name="render-passes"></a>渲染器通道
+可以在[渲染器通道](/windows/desktop/direct3d12/direct3d-12-render-passes)中调用可变速率着色 API。
 
-## <a name="calling-the-vrs-apis"></a>调用 VRS Api
-此下一节介绍其明暗度变量速率进行到 Direct3D 12 应用程序访问的方式。
+## <a name="calling-the-vrs-apis"></a>调用 VRS API
+以下部分介绍应用程序通过 Direct3D 12 访问可变速率着色的方式。
 
-### <a name="capability-querying"></a>查询功能
+### <a name="capability-querying"></a>功能查询
 
-若要查询的适配器的明暗度变量速率功能，请调用[ **ID3D12Device::CheckFeatureSupport** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)与[ **D3D12_FEATURE::D3D12_FEATURE_D3D12_OPTIONS6** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature)，并提供[ **D3D12_FEATURE_DATA_D3D12_OPTIONS6**结构](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)要为你填充的函数。 **D3D12_FEATURE_DATA_D3D12_OPTIONS6**结构包含多个成员，其中一个枚举类型的[ **D3D12_VARIABLE_SHADING_RATE_TIER** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier) (D3D12_FEATURE_DATA_D3D12_OPTIONS6::VariableShadingRateTier)，和一个指示是否支持后台处理 (D3D12_FEATURE_DATA_D3D12_OPTIONS6::BackgroundProcessingSupported)。
+若要查询适配器的可变速率着色功能，请结合 [**D3D12_FEATURE::D3D12_FEATURE_D3D12_OPTIONS6**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature) 调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)，并提供函数要为你填充的 [**D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)。 **D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构包含多个成员，这些成员包括一个 [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier) (D3D12_FEATURE_DATA_D3D12_OPTIONS6::VariableShadingRateTier) 枚举类型的成员，以及一个指示是否支持后台处理的成员 (D3D12_FEATURE_DATA_D3D12_OPTIONS6::BackgroundProcessingSupported)。
 
-若要查询的第 1 层功能，例如，你可以执行此操作。
+例如，若要查询第 1 层功能，可以执行此操作。
 
 ```cpp
 D3D12_FEATURE_DATA_D3D12_OPTIONS6 options;
@@ -507,11 +507,11 @@ return
     options.ShadingRateTier == D3D12_SHADING_RATE_TIER_1;
 ```
 
-### <a name="shading-rates"></a>明暗度费率
+### <a name="shading-rates"></a>着色速率
 
-中的值[ **D3D12_SHADING_RATE**枚举](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)组织，使明暗度的速率是到两个轴，可以轻松地分解每个轴的值简洁表示对数空间中根据[ **D3D12_AXIS_SHADING_RATE**枚举](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)。
+[**D3D12_SHADING_RATE** 枚举](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)中的值将经过适当的组织，使着色速率可轻松分解成两个轴，其中每个轴的值将会根据 [**D3D12_AXIS_SHADING_RATE** 枚举](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)以对数空间的形式精简表示。
 
-您可以编写一个宏来组合两个轴明暗度费率到如下的明暗度率。
+可以编写一个宏，以将两个轴着色速率组合成如下所示的着色速率。
 
 ```cpp
 #define D3D12_MAKE_COARSE_SHADING_RATE(x,y) ((x) << 2 | (y))
@@ -520,32 +520,32 @@ D3D12_MAKE_COARSE_SHADING_RATE(
     D3D12_AXIS_SHADING_RATE_1X)
 ```
 
-该平台还提供了在中定义这些宏`d3d12.h`。
+平台也提供这些宏（在 `d3d12.h` 中定义）。
 
 ```cpp
 #define D3D12_GET_COARSE_SHADING_RATE_X_AXIS(x) ((x) >> 2 )
 #define D3D12_GET_COARSE_SHADING_RATE_Y_AXIS(y) ((y) & 3 )
 ```
 
-这些可用于剖析和了解`SV_ShaderRate`。
+这些宏可用于剖析和了解 `SV_ShaderRate`。
 
 > [!NOTE]
-> 此数据解释被专门针对描述屏幕空间映像，可以由着色器操作。 讨论的前面的章节中进一步。 但没有理由不具有一致的粗略像素大小，以将定义使用无处不在包括设置命令级别明暗度速率时。
+> 此数据解释专门用于描述屏幕空间图像，可由着色器操纵。 前面的部分进一步讨论了此功能。 但是，没有理由不在任何位置使用一致的粗略像素大小定义，包括何时设置命令级着色速率。
 
-### <a name="setting-command-level-shading-rate-and-combiners"></a>设置命令级别明暗度速率和合并器
-通过指定明暗度速率和 （可选） 的合并器[ **ID3D12GraphicsCommandList5::RSSetShadingRate** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate)方法。 您传递[ **D3D12_SHADING_RATE** ](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate)值的基的明暗度速率和的可选数组[D3D12_SHADING_RATE_COMBINER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner)值。
+### <a name="setting-command-level-shading-rate-and-combiners"></a>设置命令级着色速率与合并器
+着色速率和（可选的）合并器是通过 [**ID3D12GraphicsCommandList5::RSSetShadingRate**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrate) 方法指定的。 为基本着色速率传递 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 值，并传递可选的 [D3D12_SHADING_RATE_COMBINER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate_combiner) 值数组。
 
-### <a name="preparing-the-screen-space-image"></a>准备屏幕空间映像
-指定可使用明暗度速率映像的只读资源状态指[D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)。
+### <a name="preparing-the-screen-space-image"></a>准备屏幕空间图像
+指定可用着色速率图像的只读资源状态将定义为 [D3D12_RESOURCE_STATES::D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)。
 
 ### <a name="setting-the-screen-space-image"></a>设置屏幕空间图像
-指定通过屏幕空间图像[ **ID3D12GraphicsCommandList5::RSSetShadingRateImage** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrateimage)方法。
+通过 [**ID3D12GraphicsCommandList5::RSSetShadingRateImage**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist5-rssetshadingrateimage) 方法指定屏幕空间图像。
 
 ```cpp
 m_commandList->RSSetShadingRateImage(screenSpaceImage);
 ```
 
-### <a name="querying-the-tile-size"></a>查询平铺大小
-您可以查询的磁贴大小[ **D3D12_FEATURE_DATA_D3D12_OPTIONS6::ShadingRateImageTileSize** ](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)成员。 请参阅[功能查询](#capability-querying)上面。
+### <a name="querying-the-tile-size"></a>查询图块大小
+可以从 [**D3D12_FEATURE_DATA_D3D12_OPTIONS6::ShadingRateImageTileSize**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6) 成员查询图块大小。 请参阅前面的[功能查询](#capability-querying)。
 
-检索一个维度时，由于水平和垂直尺寸始终相同。 如果系统的功能[ **D3D12_SHADING_RATE_TIER_NOT_SUPPORTED**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier)，然后平铺大小，则返回 0。
+将检索一个维度，因为水平和垂直维度始终相同。 如果系统的功能为 [**D3D12_SHADING_RATE_TIER_NOT_SUPPORTED**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier)，则返回的图块大小为 0。

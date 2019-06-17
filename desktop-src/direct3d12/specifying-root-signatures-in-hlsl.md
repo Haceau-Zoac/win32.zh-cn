@@ -1,6 +1,6 @@
 ---
 title: 在 HLSL 中指定根签名
-description: HLSL 着色器模型 5.1 中指定根签名并指定它们中的替代方法C++代码。
+description: 如果在 HLSL 着色器模型 5.1 中指定根签名，则无需在 C++ 代码中指定这些根签名。
 ms.assetid: 399F5E91-B017-4F5E-9037-DC055407D96F
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,7 +13,7 @@ ms.locfileid: "66223765"
 ---
 # <a name="specifying-root-signatures-in-hlsl"></a>在 HLSL 中指定根签名
 
-HLSL 着色器模型 5.1 中指定根签名并指定它们中的替代方法C++代码。
+如果在 HLSL 着色器模型 5.1 中指定根签名，则无需在 C++ 代码中指定这些根签名。
 
 -   [示例 HLSL 根签名](#an-example-hlsl-root-signature)
     -   [根签名版本 1.0](#root-signature-version-10)
@@ -21,19 +21,19 @@ HLSL 着色器模型 5.1 中指定根签名并指定它们中的替代方法C++�
 -   [RootFlags](#rootflags)
 -   [根常量](#root-constants)
 -   [可见性](#visibility)
--   [Root-level CBV](#root-level-cbv)
--   [Root-level SRV](#root-level-srv)
--   [Root-level UAV](#root-level-uav)
+-   [根级 CBV](#root-level-cbv)
+-   [根级 SRV](#root-level-srv)
+-   [根级 UAV](#root-level-uav)
 -   [描述符表](#descriptor-table)
--   [静态取样器](#static-sampler)
+-   [静态采样器](#static-sampler)
 -   [编译 HLSL 根签名](#compiling-an-hlsl-root-signature)
--   [操作使用 FXC 编译器根签名](#manipulating-root-signatures-with-the-fxc-compiler)
+-   [使用 FXC 编译器处理根签名](#manipulating-root-signatures-with-the-fxc-compiler)
 -   [注意](#notes)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="an-example-hlsl-root-signature"></a>示例 HLSL 根签名
 
-根签名可以在 HLSL 中指定为字符串。 该字符串包含一个以逗号分隔的子句描述根签名构成组件的集合。 任何一个管道状态对象 (PSO) 的着色器根签名应相同。 下面是一个示例：
+可在 HLSL 中将根签名指定为字符串。 该字符串包含一个逗号分隔的子句集合，这些子句描述根签名的组成部分。 根签名在任何一个管道状态对象 (PSO) 的不同着色器中应该相同。 下面是一个示例：
 
 ### <a name="root-signature-version-10"></a>根签名版本 1.0
 
@@ -60,7 +60,7 @@ HLSL 着色器模型 5.1 中指定根签名并指定它们中的替代方法C++�
 
 ### <a name="root-signature-version-11"></a>根签名版本 1.1
 
-[根签名版本 1.1](root-signature-version-1-1.md)启用根签名描述符和数据驱动程序优化。
+使用[根签名版本 1.1](root-signature-version-1-1.md) 可以针对根签名描述符和数据进行驱动程序优化。
 
 ``` syntax
 #define MyRS1 "RootFlags( ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | " \
@@ -81,20 +81,20 @@ HLSL 着色器模型 5.1 中指定根签名并指定它们中的替代方法C++�
                              "filter = FILTER_MIN_MAG_MIP_LINEAR )"
 ```
 
-此定义将得到以下根签名，注意：
+此定义将提供以下根签名，请注意：
 
--   使用默认参数。
--   b0 和 (b0，空间 = 1) 不会发生冲突
--   u0 时才会显示为几何着色器
--   u4 和 u5 是化名为堆中的相同描述符
+-   使用了默认参数。
+-   b0 和 (b0, space=1) 不冲突
+-   u0 仅对几何着色器可见
+-   u4 和 u5 是堆中同一描述符的别名
 
-![使用高级别着色器语言指定根签名](images/hlsl-root-signature.png)
+![使用高级着色器语言指定了一个根签名](images/hlsl-root-signature.png)
 
-HLSL 根签名语言密切对应于C++根签名 Api 并具有等效的表达能力。 根签名被指定为一系列子句，用逗号分隔的。 子句的顺序至关重要，因为分析的顺序决定的插槽中的根签名。 每个子句采用一个或多个命名的参数。 参数的顺序不重要，但是使用。
+HLSL 根签名语言密切对应于 C++ 根签名 API，具有同等的表达力。 根签名指定为逗号分隔的子句序列。 子句的顺序非常重要，因为分析顺序决定了根签名中的槽位置。 每个子句采用一个或多个命名参数。 但是，参数的顺序并不重要。
 
 ## <a name="rootflags"></a>RootFlags
 
-可选*RootFlags*子句将为 0 （默认值以不指示任何标志），或一个或多个预定义的根的标志值，通过或连接\|运算符。 允许的根的标志值定义由[ **D3D12\_根\_签名\_标志**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)。
+可选的 *RootFlags* 子句采用 0（默认值，表示无标志），或一个或多个预定义的根标志值（通过 OR“\|”运算符连接）。 允许的根标志值由 [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags) 定义。
 
 例如：
 
@@ -106,7 +106,7 @@ RootFlags(ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT | DENY_VERTEX_SHADER_ROOT_ACCESS)
 
 ## <a name="root-constants"></a>根常量
 
-*RootConstants*子句指定根常量中的根签名。 有两个必需参数： *num32BitConstants*并*bReg* (注册对应于*BaseShaderRegister*在C++Api) 的*cbuffer*。 空间 (*RegisterSpace*中C++Api) 和可见性 (*ShaderVisibility*中C++) 参数是可选的并且默认值：
+*RootConstants* 子句指定根签名中的根常量。 两个必需的参数是：*cbuffer* 的 *num32BitConstants* 和 *bReg*（对应于 C++ API 中 *BaseShaderRegister* 的寄存器）。 space（C++ API 中的 *RegisterSpace*）和 visibility（C++ 中的 *ShaderVisibility*）参数是可选的，默认值为：
 
 ``` syntax
 RootConstants(num32BitConstants=N, bReg [, space=0, 
@@ -121,15 +121,15 @@ RootConstants(num32BitConstants=3, b3)
 
 ## <a name="visibility"></a>可见性
 
-可见性是一个可选参数，可以从值之一[ **D3D12\_着色器\_可见性**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)。
+Visibility 是一个可选参数，可以使用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility) 中的值之一。
 
-着色器\_可见性\_所有广播到所有着色器根自变量。 某些硬件上这样做产生的费用，但在其他硬件上没有进行分叉到所有着色器阶段的数据的成本。 设置其中一个选项，如着色器\_可见性\_顶点，限制到单个的着色器阶段的根参数。
+SHADER\_VISIBILITY\_ALL 将根参数广播到所有着色器。 在某些硬件上，此操作不会造成开销，但在其他硬件上，将数据分叉到所有着色器阶段会造成开销。 设置其中一个选项（例如 SHADER\_VISIBILITY\_VERTEX）会将根参数限制到单个着色器阶段。
 
-将根自变量设置为单一的着色器阶段允许在不同阶段使用的相同绑定名称。 例如，SRV 绑定`t0,SHADER_VISIBILITY_VERTEX`和 SRV 绑定`t0,SHADER_VISIBILITY_PIXEL`会有效。 但是，如果可见性设置以前`t0,SHADER_VISIBILITY_ALL`根签名将无效的绑定之一。
+将根参数设置到单个着色器阶段可在不同的阶段使用相同的绑定名称。 例如，`t0,SHADER_VISIBILITY_VERTEX` SRV 绑定和 `t0,SHADER_VISIBILITY_PIXEL` SRV 绑定是有效的。 但是，如果某个绑定的可见性设置为 `t0,SHADER_VISIBILITY_ALL`，则根签名是无效的。
 
-## <a name="root-level-cbv"></a>Root-level CBV
+## <a name="root-level-cbv"></a>根级 CBV
 
-`CBV` （常量缓冲区视图） 子句指定的根级别常量缓冲区 b 登记注册表条目。 请注意，这是该标量项;不能指定根级别的范围。
+`CBV`（常量缓冲区视图）子句指定根级常量缓冲区 b-register 寄存器条目。 请注意，这是一个标量条目；无法指定根级别的范围。
 
 ``` syntax
 CBV(bReg [, space=0, visibility=SHADER_VISIBILITY_ALL ])    //   Version 1.0
@@ -137,9 +137,9 @@ CBV(bReg [, space=0, visibility=SHADER_VISIBILITY_ALL,      // Version 1.1
             flags=DATA_STATIC_WHILE_SET_AT_EXECUTE ])
 ```
 
-## <a name="root-level-srv"></a>Root-level SRV
+## <a name="root-level-srv"></a>根级 SRV
 
-`SRV` （着色器资源视图） 子句指定的根级别 SRV t 登记注册表条目。 请注意，这是该标量项;不能指定根级别的范围。
+`SRV`（着色器资源视图）子句指定根级 SRV t-register 寄存器条目。 请注意，这是一个标量条目；无法指定根级别的范围。
 
 ``` syntax
 SRV(tReg [, space=0, visibility=SHADER_VISIBILITY_ALL ])    //   Version 1.0
@@ -147,9 +147,9 @@ SRV(tReg [, space=0, visibility=SHADER_VISIBILITY_ALL,      // Version 1.1
             flags=DATA_STATIC_WHILE_SET_AT_EXECUTE ])
 ```
 
-## <a name="root-level-uav"></a>Root-level UAV
+## <a name="root-level-uav"></a>根级 UAV
 
-`UAV` （无序的访问视图） 子句指定的根级别 UAV u 登记注册表条目。 请注意，这是该标量项;不能指定根级别的范围。
+`UAV`（无序访问视图）子句指定根级 UAV u-register 寄存器条目。 请注意，这是一个标量条目；无法指定根级别的范围。
 
 ``` syntax
 UAV(uReg [, space=0, visibility=SHADER_VISIBILITY_ALL ])    //   Version 1.0
@@ -165,14 +165,14 @@ UAV(u3)
 
 ## <a name="descriptor-table"></a>描述符表
 
-`DescriptorTable`子句本身就是一系列以逗号分隔的描述符表子句，以及可选的可见性参数。 *DescriptorTable*子句包括 CBV、 SRV、 UAV 和采样器。 请注意，其参数不同于那些根级别子句。
+`DescriptorTable` 子句本身是逗号分隔的描述符表子句列表，以及可选的可见性参数。 *DescriptorTable* 子句包括 CBV、SRV、UAV 和采样器。 请注意，其参数不同于根级子句的参数。
 
 ``` syntax
 DescriptorTable( DTClause1, [ DTClause2, … DTClauseN,
                  visibility=SHADER_VISIBILITY_ALL ] )
 ```
 
-描述符表`CBV`具有以下语法：
+描述符表 `CBV` 采用以下语法：
 
 ``` syntax
 CBV(bReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND ])   // Version 1.0
@@ -186,9 +186,9 @@ CBV(bReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND    
 DescriptorTable(CBV(b0),SRV(t3, numDescriptors=unbounded))
 ```
 
-必需的参数*bReg*指定开始 Reg cbuffer 范围。 *NumDescriptors*参数中连续 cbuffer 指定说明符的数目范围; 默认值为 1。 该条目声明 cbuffer 范围` [Reg, Reg + numDescriptors - 1]`，当*numDescriptors*是一个数字。 如果*numDescriptors*是等于"unbounded"，范围是`[Reg, UINT_MAX]`，这意味着应用程序必须确保它未引用超出边界区域。 *偏移量*字段表示*OffsetInDescriptorsFromTableStart*中的参数C++Api，即中的偏移量 （描述符） 从表开始。 如果偏移量设置为描述符\_范围\_偏移量\_追加 （默认值），它表示的范围是直接在上一个范围之后。 但是，输入特定偏移量允许的范围重叠，从而允许注册别名。
+必需的参数 *bReg* 指定 cbuffer 范围的起始寄存器。 *numDescriptors* 参数指定连续 cbuffer 范围中的描述符数目；默认值为 1。 当 *numDescriptors* 为数字时，该条目声明 cbuffer 范围 ` [Reg, Reg + numDescriptors - 1]`。 如果 *numDescriptors* 等于“unbounded”，则范围为 `[Reg, UINT_MAX]`，这意味着，应用必须确保它不会引用界外区域。 *offset* 字段表示  C++ API 中的 *OffsetInDescriptorsFromTableStart* 参数，即，与表开头位置的偏移量（描述符中）。 如果 offset 设置为 DESCRIPTOR\_RANGE\_OFFSET\_APPEND（默认值），则表示该范围紧接在上一个范围之后。 但是，输入特定的偏移量将允许范围相互重叠，因而允许寄存器别名。
 
-描述符表`SRV`具有以下语法：
+描述符表 `SRV` 采用以下语法：
 
 ``` syntax
 SRV(tReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND ])    // Version 1.0
@@ -196,9 +196,9 @@ SRV(tReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND,   
             flags=DATA_STATIC_WHILE_SET_AT_EXECUTE ])
 ```
 
-这是类似于描述符表`CBV`条目，但指定的范围是用于着色器资源视图。
+这类似于描述符表 `CBV` 条目，但指定的范围用于着色器资源视图。
 
-描述符表`UAV`具有以下语法：
+描述符表 `UAV` 采用以下语法：
 
 ``` syntax
 UAV(uReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND ])    // Version 1.0
@@ -206,9 +206,9 @@ UAV(uReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND,   
             flags=DATA_VOLATILE ])
 ```
 
-这是类似于描述符表`CBV`条目，但指定的范围是无序的访问视图。
+这类似于描述符表 `CBV` 条目，但指定的范围用于无序访问视图。
 
-描述符表`Sampler`具有以下语法：
+描述符表 `Sampler` 采用以下语法：
 
 ``` syntax
 Sampler(sReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND ])  // Version 1.0
@@ -216,11 +216,11 @@ Sampler(sReg [, numDescriptors=1, space=0, offset=DESCRIPTOR_RANGE_OFFSET_APPEND
                 flags=0 ])
 ```
 
-这是类似于描述符表`CBV`条目指定的范围是为着色器取样器除外。 请注意，（因为它们是单独描述符堆中） 不能与其他类型的同一个描述符表中的描述符混合取样器。
+这类似于描述符表 `CBV` 条目，但指定的范围用于着色器采样器。 请注意，采样器不能与同一描述符表中其他类型的描述符相混合（因为它们在独立的描述符堆中）。
 
-## <a name="static-sampler"></a>静态取样器
+## <a name="static-sampler"></a>静态采样器
 
-静态取样器表示[ **D3D12\_静态\_采样器\_DESC** ](/windows/desktop/api/d3d12/ns-d3d12-d3d12_static_sampler_desc)结构。 必需参数*StaticSampler*是标量，采样器的寄存器地区其他参数是可选的如下所示的默认值。 大多数字段接受一组预定义的枚举。
+静态采样器表示 [**D3D12\_STATIC\_SAMPLER\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_static_sampler_desc) 结构。 *StaticSampler* 的必需参数是一个标量采样器 s-register 寄存器。其他参数是可选的，默认值如下所示。 大多数字段接受一组预定义的枚举。
 
 ``` syntax
 StaticSampler( sReg,
@@ -244,21 +244,21 @@ StaticSampler( sReg,
 StaticSampler(s4, filter=FILTER_MIN_MAG_MIP_LINEAR)
 ```
 
-参数选项为非常类似于C++API 调用除外*borderColor*，这仅限于在 HLSL 中枚举。
+参数选项非常类似于C++ API 调用，但 *borderColor* 除外，它限制为 HLSL 中的某个枚举。
 
-筛选器字段可以是之一[ **D3D12\_筛选器**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter)。
+过滤器字段可以是某个 [**D3D12\_FILTER**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter)。
 
-地址字段可以每个是之一[ **D3D12\_纹理\_地址\_模式**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_texture_address_mode)。
+每个地址字段可以是某个 [**D3D12\_TEXTURE\_ADDRESS\_MODE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_texture_address_mode)。
 
-比较函数可以是之一[ **D3D12\_比较\_FUNC**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_comparison_func)。
+比较函数可以是某个 [**D3D12\_COMPARISON\_FUNC**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_comparison_func)。
 
-边框颜色字段可以是之一[ **D3D12\_静态\_边框\_颜色**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_static_border_color)。
+边框颜色字段可以是某个 [**D3D12\_STATIC\_BORDER\_COLOR**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_static_border_color)。
 
-可见性可以是之一[ **D3D12\_着色器\_可见性**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)。
+可见性可以是某个 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)。
 
 ## <a name="compiling-an-hlsl-root-signature"></a>编译 HLSL 根签名
 
-有两种机制来编译 HLSL 根签名。 首先，就可以将根签名字符串附加到通过特定的着色器*RootSignature*属性 (在以下示例中，使用**MyRS1**入口点):
+可以使用两种机制来编译 HLSL 根签名。 首先，可以通过 *RootSignature* 属性将根签名字符串附加到特定的着色器（以下示例使用 **MyRS1** 入口点）：
 
 ``` syntax
 [RootSignature(MyRS1)]
@@ -268,47 +268,47 @@ float4 main(float4 coord : COORD) : SV_Target
 }
 ```
 
-编译器将创建和验证为着色器根签名 blob 并将它与着色器字节代码一起嵌入到着色器 blob。 编译器支持的着色器模型 5.0 及更高版本的根签名语法。 如果根签名嵌入在着色器模型 5.0 着色器和该着色器发送到 D3D11 运行时，而不是 D3D12，根签名部分将获取以无提示方式忽略 D3D11。
+编译器将创建并验证着色器的根签名 Blob，并将它连同着色器字节码一起嵌入到着色器 Blob。 编译器支持着色器模型 5.0 及更高版本的根签名语法。 如果根签名嵌入在着色器模型 5.0 着色器中，而该着色器已发送到 D3D11 运行时，则不同于 D3D12，D3D11 会以无提示方式忽略根签名部分。
 
-其他机制是创建一个独立根签名 blob，可能要重用与大量的着色器，节省空间。 [效果编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919)(FXC) 同时支持两者**rootsig\_1\_0**并**rootsig\_1\_1**着色器模型。 通过常用 /E 参数指定的定义字符串的名称。 例如：
+另一种机制是创建独立的根签名 Blob。也许可对大量的着色器重用该 Blob，以节省空间。 [效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919) (FXC) 支持 **rootsig\_1\_0** 和 **rootsig\_1\_1** 着色器模型。 通过常用的 /E 参数指定定义字符串的名称。 例如：
 
 ``` syntax
 fxc.exe /T rootsig_1_1 MyRS1.hlsl /E MyRS1 /Fo MyRS1.fxo
 ```
 
-请注意，根签名字符串定义还可以传递命令行，例如、 /D MyRS1 ="..."。
+请注意，也可以在命令行中传递根签名字符串定义，例如 /D MyRS1 ="..."。
 
-## <a name="manipulating-root-signatures-with-the-fxc-compiler"></a>操作使用 FXC 编译器根签名
+## <a name="manipulating-root-signatures-with-the-fxc-compiler"></a>使用 FXC 编译器处理根签名
 
-FXC 编译器从 HLSL 源文件创建着色器字节代码。 有很多此编译器的可选参数，请参阅[效果编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919)。
+FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多的可选参数，具体请参阅[效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919)。
 
-用于管理 HLSL 创作根签名下, 表提供了使用 FXC 的一些示例。
+下表提供了一些使用 FXC 的示例，供你在管理 HLSL 创作的根签名时参考。
 
 
 
 | Line | 命令行                                                                 | 描述                                                                                                                                                                                                                              |
 |------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| 1    | `fxc /T ps_5_1 shaderWithRootSig.hlsl /Fo rs1.fxo`                           | 编译的着色器对像素着色器 5.1 目标，着色器源处于 shaderWithRootSig.hlsl 文件，其中包含的根签名。 作为单独的 blob rs1.fxo 二进制文件中编译着色器和根签名。    |
-| 2    | `fxc /dumpbin rs1.fxo /extractrootsignature /Fo rs1.rs.fxo`                  | 从创建第 1 行，因此 rs1.rs.fxo 文件包含只是根签名的文件中提取根签名。                                                                                                                      |
-| 3    | `fxc /dumpbin rs1.fxo /Qstrip_rootsignature /Fo rs1.stripped.fxo`            | 删除创建的第 1 行，因此 rs1.stripped.fxo 文件包含与任何根签名的着色器文件的根签名。                                                                                                       |
-| 4    | `fxc /dumpbin rs1.stripped.fxo /setrootsignature rs1.rs.fxo /Fo rs1.new.fxo` | 将合并到包含这两个 blob 的二进制文件的单独文件中的着色器和根签名。 在此示例中 rs1.new.fx0 将具有与在第 1 行 rs1.fx0 相同。                                                           |
-| 5    | `fxc /T rootsig_1_0 rootSigAndMaybeShaderInHereToo.hlsl /E RS1 /Fo rs2.fxo`  | 从可能包含不止是根签名的源创建一个独立根签名二进制文件。 请注意 rootsig\_1\_0 目标和 RS1 是根签名的名称 (\#定义) 宏 HLSL 文件中的字符串。 |
+| 1    | `fxc /T ps_5_1 shaderWithRootSig.hlsl /Fo rs1.fxo`                           | 为像素着色器 5.1 目标编译着色器，着色器源位于包含根签名的 shaderWithRootSig.hlsl 文件中。 着色器和根签名在 rs1.fxo 二进制文件中编译为独立的 Blob。    |
+| 2    | `fxc /dumpbin rs1.fxo /extractrootsignature /Fo rs1.rs.fxo`                  | 从第 1 行创建的文件中提取根签名，因此，rs1.rs.fxo 文件仅包含根签名。                                                                                                                      |
+| 3    | `fxc /dumpbin rs1.fxo /Qstrip_rootsignature /Fo rs1.stripped.fxo`            | 从第 1 行创建的文件中删除根签名，因此，rs1.stripped.fxo 文件包含不带根签名的着色器。                                                                                                       |
+| 4    | `fxc /dumpbin rs1.stripped.fxo /setrootsignature rs1.rs.fxo /Fo rs1.new.fxo` | 将位于不同文件中的着色器和根签名合并到包含上述两个 Blob 的二进制文件中。 在此示例中，rs1.new.fx0 与第 1 行中的 rs1.fx0 相同。                                                           |
+| 5    | `fxc /T rootsig_1_0 rootSigAndMaybeShaderInHereToo.hlsl /E RS1 /Fo rs2.fxo`  | 从不仅可以包含根签名的源创建独立的根签名二进制文件。 请注意 rootsig\_1\_0 目标，RS1 是 HLSL 文件中根签名 (\#define) 宏字符串的名称。 |
 
 
 
  
 
-可通过 FXC 功能也是可以以编程方式使用[ **D3DCompile** ](https://msdn.microsoft.com/library/windows/desktop/dd607324)函数。 此调用将编译的着色器根签名或独立根签名 (设置 rootsig\_1\_0 目标)。 [**D3DGetBlobPart** ](https://msdn.microsoft.com/library/windows/desktop/ff728674)并[ **D3DSetBlobPart** ](https://msdn.microsoft.com/library/windows/desktop/hh446880)可以提取并将根签名附加到现有 blob。  D3D\_BLOB\_根\_签名用于指定根签名 blob 部分类型。 [**D3DStripShader** ](https://msdn.microsoft.com/library/windows/desktop/dd607335)移除根签名 (使用 D3DCOMPILER\_条带\_根\_签名标志) 从 blob。
+可通过 FXC 使用的功能也可以通过 [**D3DCompile**](https://msdn.microsoft.com/library/windows/desktop/dd607324) 函数以编程方式使用。 此调用将编译带有根签名的着色器，或独立的根签名（设置 rootsig\_1\_0 目标）。 [**D3DGetBlobPart**](https://msdn.microsoft.com/library/windows/desktop/ff728674) 和 [**D3DSetBlobPart**](https://msdn.microsoft.com/library/windows/desktop/hh446880) 可将根签名提取和附加到现有 Blob。  D3D\_BLOB\_ROOT\_SIGNATURE 用于指定根签名 Blob 部分类型。 [**D3DStripShader**](https://msdn.microsoft.com/library/windows/desktop/dd607335) 从 Blob 中删除根签名（使用 D3DCOMPILER\_STRIP\_ROOT\_SIGNATURE 标志）。
 
 ## <a name="notes"></a>注释
 
 > [!Note]  
-> 强烈建议脱机的着色器编译，如果着色器必须在运行时编译，而是指的备注[ **D3DCompile2**](https://msdn.microsoft.com/library/windows/desktop/hh446869)。
+> 尽管我们强烈建议对着色器进行脱机编译，但如果必须在运行时编译着色器，请参阅 [**D3DCompile2**](https://msdn.microsoft.com/library/windows/desktop/hh446869) 的备注。
 
  
 
 > [!Note]  
-> HLSL 的现有资产不需要更改以处理根签名与它们一起使用。
+> 无需更改现有的 HLSL 资产即可处理要对其使用的根签名。
 
  
 
@@ -316,16 +316,16 @@ FXC 编译器从 HLSL 源文件创建着色器字节代码。 有很多此编译
 
 <dl> <dt>
 
-[动态索引使用 HLSL 5.1](dynamic-indexing-using-hlsl-5-1.md)
+[使用 HLSL 5.1 的动态索引](dynamic-indexing-using-hlsl-5-1.md)
 </dt> <dt>
 
-[HLSL 着色器模型 5.1 功能对于 Direct3D 12](https://msdn.microsoft.com/library/windows/desktop/dn933267)
+[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://msdn.microsoft.com/library/windows/desktop/dn933267)
 </dt> <dt>
 
 [资源绑定](resource-binding.md)
 </dt> <dt>
 
-[在 HLSL 中绑定的资源](resource-binding-in-hlsl.md)
+[HLSL 中的资源绑定](resource-binding-in-hlsl.md)
 </dt> <dt>
 
 [根签名](root-signatures.md)
@@ -334,10 +334,10 @@ FXC 编译器从 HLSL 源文件创建着色器字节代码。 有很多此编译
 [着色器模型 5.1](https://msdn.microsoft.com/library/windows/desktop/dn933277)
 </dt> <dt>
 
-[着色器指定模具参考值](shader-specified-stencil-reference-value.md)
+[着色器指定的模具参考值](shader-specified-stencil-reference-value.md)
 </dt> <dt>
 
-[类型化无序的访问视图加载](typed-unordered-access-view-loads.md)
+[类型化无序访问视图加载](typed-unordered-access-view-loads.md)
 </dt> </dl>
 
  
