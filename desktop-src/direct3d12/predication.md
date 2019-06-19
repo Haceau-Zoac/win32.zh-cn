@@ -1,6 +1,6 @@
 ---
-title: 断言而
-description: 断言而是一项功能，使 GPU 而不是 CPU 来确定不绘制、 复制或调度对象。
+title: 预测
+description: 预测是一种功能，使 GPU 而不是 CPU 能够决定不绘制、复制或调度对象。
 ms.assetid: 5c5138c7-f6e8-4646-961a-0e2312b5356b
 ms.topic: article
 ms.date: 05/31/2018
@@ -11,46 +11,46 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224242"
 ---
-# <a name="predication"></a>断言而
+# <a name="predication"></a>预测
 
-断言而是一项功能，使 GPU 而不是 CPU 来确定不绘制、 复制或调度对象。
+预测是一种功能，使 GPU 而不是 CPU 能够决定不绘制、复制或调度对象。
 
 -   [概述](#overview)
 -   [SetPredication](#setpredication)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="overview"></a>概述
 
-断言而的典型用途是与封闭;如果边界框绘制，并且封闭的像素，，是显然没有必要再绘制对象本身。 在这种情况下绘制的对象可以是"取决于所设计"，启用 gpu 的实际呈现从其删除。
+预测的典型用途是封闭；如果绘制了一个边界框并对其进行了封闭，则在绘制对象本身时显然没有任何意义。 在这种情况下，对象的绘制可以“预测”，从而使 GPU 能够将其从实际渲染中删除。
 
-与 Direct3D 11 断言而脱离了查询，以及在 Direct3D 12 中启用对基于应用程序开发人员可以决定 （而不仅仅是封闭） 任何推理的谓词对象的应用程序中扩展。
+与 Direct3D 11 不同，预测与查询分离，并在 Direct3D 12 中进行扩展，以使应用程序能够根据应用开发人员可能决定的任何推理（而不仅仅是封闭）来预测对象。
 
 ## <a name="setpredication"></a>SetPredication
 
-断言而可以基于设置的缓冲区中的 64 位值 (请参阅[ **D3D12\_断言而\_OP**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_predication_op))。
+可以基于缓冲区内的 64 位值来设置预测（请参考 [D3D12\_PREDICATION\_OP](/windows/desktop/api/D3D12/ne-d3d12-d3d12_predication_op)）  。
 
-当执行 GPU [ **SetPredication** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication)命令在缓冲区中，它会对齐值。 将来对缓冲区中的数据的更改不以追溯方式影响断言而状态。
+当 GPU 执行 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication) 命令时，它会提取缓冲区中的值快照  。 缓冲区中数据的未来更改不会追溯性地影响预测状态。
 
-如果输入的参数缓冲区为 NULL，则会禁用断言而。
+如果输入参数缓冲区为 NULL，则禁用预测。
 
-断言而提示中不存在 D3D12 API，并允许断言而上直接，并在计算命令列表。 源缓冲区可以是任何堆类型 （默认值上, 传，readback）。
+D3D12 API 中不存在预测提示，但在 Direct 和 Compute 命令列表中允许进行预测。 源缓冲区可以是任何堆类型（默认、上传、回读）。
 
-核心运行时将验证以下：
+核心运行时将验证以下内容：
 
--   *AlignedBufferOffset*是 8 个字节的倍数
+-   AlignedBufferOffset 是 8 个字节的倍数 
 -   资源是一个缓冲区
--   该操作是枚举的有效成员
--   [**SetPredication** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication)捆绑包中不能从调用
--   命令列表类型支持断言而
--   偏移量不超出缓冲区大小
+-   操作是枚举的有效成员
+-   无法从捆绑包中调用 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication) 
+-   命令列表类型支持预测
+-   偏移量不超过缓冲区大小
 
-调试层将发出错误，如果源缓冲区不在 D3D12\_资源\_状态\_顶点\_AND\_常量\_缓冲区状态。
+如果源缓冲区不处于 D3D12\_RESOURCE\_STATE\_VERTEX\_AND\_CONSTANT\_BUFFER 状态，则调试层将发出错误。
 
-一组操作可以断定其是：
+可以预测的操作集是：
 
 -   [**DrawInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)
 -   [**DrawIndexedInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced)
--   [**调度**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)
+-   [**Dispatch**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)
 -   [**CopyTextureRegion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion)
 -   [**CopyBufferRegion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion)
 -   [**CopyResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource)
@@ -62,9 +62,9 @@ ms.locfileid: "66224242"
 -   [**ClearUnorderedAccessViewFloat**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat)
 -   [**ExecuteIndirect**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect)
 
-[**ExecuteBundle** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle)不断言本身。 相反，一端捆绑包中包含从上面的列表中的各个操作都取决于所设计。
+[ExecuteBundle](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle) 本身不可预测  。 相反，上面列表中包含在捆绑包一侧的各个操作都可预测。
 
-ID3D12GraphicsCommandList 方法[ **ResolveQueryData**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)， [ **BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)并[ **EndQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)不断定。
+ID3D12GraphicsCommandList 方法 [ResolveQueryData](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)[BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 不可预测    。
 
 ## <a name="related-topics"></a>相关主题
 
@@ -76,7 +76,7 @@ ID3D12GraphicsCommandList 方法[ **ResolveQueryData**](/windows/desktop/api/d3d
 [性能度量](performance-measurement.md)
 </dt> <dt>
 
-[断言而查询演练](predication-queries.md)
+[预测查询演练](predication-queries.md)
 </dt> </dl>
 
  

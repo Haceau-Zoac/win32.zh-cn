@@ -1,6 +1,6 @@
 ---
-title: 通过缓冲区读取后数据
-description: 若要从 （例如，若要捕获屏幕快照） GPU 读取后的数据，您使用 readback 堆。
+title: 通过缓冲区读回数据
+description: 若要从 GPU 回读数据（例如，捕获屏幕截图），需使用回读堆。
 ms.assetid: 2F515B2C-3317-4AA8-81E1-7762ED895F77
 ms.topic: article
 ms.date: 12/17/2018
@@ -11,17 +11,17 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224209"
 ---
-# <a name="read-back-data-via-a-buffer"></a>通过缓冲区读取后数据
+# <a name="read-back-data-via-a-buffer"></a>通过缓冲区读回数据
 
-若要从 （例如，若要捕获屏幕快照） GPU 读取后的数据，您使用 readback 堆。 此技术与相关[将通过一个缓冲区的纹理数据上传](upload-and-readback-of-texture-data.md)，有一些区别。
+若要从 GPU 回读数据（例如，捕获屏幕截图），需使用回读堆。 这种技术与[通过缓冲区上传纹理数据](upload-and-readback-of-texture-data.md)有关，但有一些不同。
 
-- 若要读取数据后，您创建与堆**D3D12_HEAP_TYPE**设置为[D3D12_HEAP_TYPE_READBACK](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_type)，而不是 D3D12_HEAP_TYPE_UPLOAD。
-- 一种保护用于检测 GPU 完成处理帧 （完成后将数据写入到输出缓冲区）。 这很重要，因为[ **ID3D12Resource::Map** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map)方法不会同步与 GPU (相反，Direct3D 11 等效*does*同步)。 Direct3D 12**映射**呼叫行为就像调用 NO_OVERWRITE 标志的 Direct3D 11 等效项。
-- 数据 （包括任何必需的资源屏障） 准备就绪后，调用[ **ID3D12Resource::Map** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map)使 readback 数据对 CPU 可见。
+- 若要回读数据，请创建一个堆，将 D3D12_HEAP_TYPE 设置为 [D3D12_HEAP_TYPE_READBACK](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_type)，而不是设置为 D3D12_HEAP_TYPE_UPLOAD  。
+- 使用栅栏来检测 GPU 完成帧处理的时间（当它完成将数据写入输出缓冲区时）。 这很重要，因为 [ID3D12Resource::Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map) 方法不与 GPU 同步（相反，Direct3D 11 的对应方法会与之同步）   。 Direct3D 12 映射调用的运行状况类似于使用 NO_OVERWRITE 标志调用 Direct3D 11 对应映射  。
+- 数据准备就绪后（包括任何必要的资源屏障），调用 [ID3D12Resource::Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map)，使回读数据对 CPU 可见  。
 
 ## <a name="code-example"></a>代码示例
 
-下面的代码示例显示从 GPU 的后数据读取到缓冲区通过 CPU 的过程的概要。
+下方的代码示例显示通过缓冲区将数据从 GPU 回读到 CPU 的过程的概要。
 
 ```cppwinrt
 
@@ -94,4 +94,4 @@ readbackBuffer->Unmap
 
 ## <a name="related-topics"></a>相关主题
 
-* [缓冲区中的子分配](large-buffers.md)
+* [缓冲区中的二次分配](large-buffers.md)

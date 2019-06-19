@@ -1,6 +1,6 @@
 ---
-title: Stream 输出计数器、 UAV 计数器、 查询和断言而
-description: Stream 输出和 UAV 计数器操作在 Direct3D 12 中类似的方法，到 Direct3D 11 中，现在必须由应用程序分配内存的计数器，但该驱动程序不会执行该操作。
+title: 流输出计数器、UAV 计数器、查询和预测
+description: 流输出和 UAV 计数器在 Direct3D 12 中以类似于 Direct3D 11 的方法操作，尽管现在计数器的内存必须由应用分配，但驱动程序不会执行该操作。
 ms.assetid: 8BDDAFEF-57D4-4EF5-BB0C-6C96AF557A45
 ms.topic: article
 ms.date: 05/31/2018
@@ -11,9 +11,9 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224287"
 ---
-# <a name="stream-output-counters-uav-counters-queries-and-predication"></a>Stream 输出计数器、 UAV 计数器、 查询和断言而
+# <a name="stream-output-counters-uav-counters-queries-and-predication"></a>流输出计数器、UAV 计数器、查询和预测
 
-Stream 输出和 UAV 计数器操作在 Direct3D 12 中类似的方法，到 Direct3D 11 中，现在必须由应用程序分配内存的计数器，但该驱动程序不会执行该操作。 Direct3D 12 中的查询所更不同于那些在 Direct3D 11 中，通过添加护栏和消除为某些查询类型需要其他进程。
+流输出和 UAV 计数器在 Direct3D 12 中以类似于 Direct3D 11 的方法操作，尽管现在计数器的内存必须由应用分配，但驱动程序不会执行该操作。 Direct3D 12 中的查询与 Direct3D 11 中的查询更加不同，添加了栅栏和其他无需某些查询类型的进程。
 
 ## <a name="in-this-section"></a>本部分内容
 
@@ -21,9 +21,9 @@ Stream 输出和 UAV 计数器操作在 Direct3D 12 中类似的方法，到 Dir
 
 | 主题                                                           | 描述                                                                                                                                                                                  |
 |-----------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Stream 输出计数器](stream-output-counters.md)<br/> | Stream 输出是 GPU 能够写入缓冲区的顶点。 流输出计数器监视进度。<br/>                                                               |
-| [UAV 计数器](uav-counters.md)<br/>                     | UAV 计数器可用来将 32 位原子计数器与无序访问的视图 (UAV) 相关联。<br/>                                                                                |
-| [查询](queries.md)<br/>                               | 在 Direct3D 12 中，查询进行分组的查询称为查询堆的数组。 查询堆有类型用于定义可用于该堆的查询的有效类型。<br/> |
+| [流输出计数器](stream-output-counters.md)<br/> | 流输出是 GPU 将顶点写入缓冲区的能力。 流输出计数器用于监视进度。<br/>                                                               |
+| [UAV 计数器](uav-counters.md)<br/>                     | UAV 计数器可用于将 32 位原子计数器与无序访问视图 (UAV) 关联。<br/>                                                                                |
+| [查询](queries.md)<br/>                               | 在 Direct3D 12 中，查询会分组为称为查询堆的查询数组。 查询堆具有一个类型，该类型用于定义可与该堆配合使用的有效查询类型。<br/> |
 
 
 

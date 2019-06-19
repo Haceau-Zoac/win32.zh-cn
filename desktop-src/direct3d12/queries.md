@@ -1,6 +1,6 @@
 ---
 title: 查询
-description: 在 Direct3D 12 中，查询进行分组的查询称为查询堆的数组。 查询堆有类型用于定义可用于该堆的查询的有效类型。
+description: 在 Direct3D 12 中，查询会分组为称为查询堆的查询数组。 查询堆具有一个类型，该类型用于定义可与该堆配合使用的有效查询类型。
 ms.assetid: d7403b5d-7e1b-4dd2-ae45-52e1153233c6
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,87 +13,87 @@ ms.locfileid: "66224233"
 ---
 # <a name="queries"></a>查询
 
-在 Direct3D 12 中，查询进行分组的查询称为查询堆的数组。 查询堆有类型用于定义可用于该堆的查询的有效类型。
+在 Direct3D 12 中，查询会分组为称为查询堆的查询数组。 查询堆具有一个类型，该类型用于定义可与该堆配合使用的有效查询类型。
 
--   [在查询中的区别 Direct3D 11 到 Direct3D 12](#differences-in-queries-from-direct3d-11-to-direct3d-12)
+-   [从 Direct3D 11 到 Direct3D 12 的查询差异](#differences-in-queries-from-direct3d-11-to-direct3d-12)
 -   [查询堆](#query-heaps)
--   [堆创建查询](#creating-query-heaps)
+-   [创建查询堆](#creating-query-heaps)
 -   [从查询中提取数据](#extracting-data-from-a-query)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
-## <a name="differences-in-queries-from-direct3d-11-to-direct3d-12"></a>在查询中的区别 Direct3D 11 到 Direct3D 12
+## <a name="differences-in-queries-from-direct3d-11-to-direct3d-12"></a>从 Direct3D 11 到 Direct3D 12 的查询差异
 
-下列查询类型不再存在在 Direct3D 12 中，它们合并到其他进程的功能：
+Direct3D 12 不再使用以下查询类型，而是将其功能合并到其他进程：
 
--   **事件查询**-事件功能现在由处理界定。
--   **不连续的时间戳查询**-GPU 时钟可以设置为在 Direct3D 12 中的稳定状态 (请参阅[计时](timing.md)部分)。 GPU 时钟比较不是 GPU 空闲根本状态之间的时间戳 （称为非连续查询） 的情况下有意义的。 与发出不同的命令从稳定电源两个时间戳查询列表是可靠地比较。 同一个命令列表中的两个时间戳始终是可靠地比较。
--   **流输出统计信息查询**-Direct3D 12 中没有任何单个流输出 (SO) 溢出查询所有输出流。 应用程序需要发出多个单一流查询，然后将结果关联起来。
--   **Stream 输出统计信息谓词和封闭谓词查询**的查询 （它写入内存） 和[断言而](predication.md)不再耦合 （从内存的读取），并因此不需要这些查询类型。
+-   **事件查询** - 事件功能现由栅栏处理。
+-   **不连续的时间戳查询** - GPU 时钟可在 Direct3D 12 中设置为稳定状态（请参见[计时](timing.md)一节）。 如果 GPU 在时间戳之间完全空闲（称为不连续查询），那么 GPU 时钟比较就没有意义。 通过稳定的电源，可以可靠地比较从不同命令列表发出的两个时间戳查询。 同一命令列表中的两个时间戳始终可以可靠地进行比较。
+-   **流输出统计信息查询** - Direct3D 12 中没有适用于所有输出流的单个流输出 (SO) 溢出查询。 应用需要发出多个单流查询，然后关联结果。
+-   **流输出统计信息预测和封闭预测查询** - 查询（写入内存）和[预测](predication.md)（读取内存）不再耦合，因此不需要这些查询类型。
 
-到 Direct3D 12 中添加了新的二进制封闭查询类型。
+新的二进制封闭查询类型已添加到 Direct3D 12。
 
 ## <a name="query-heaps"></a>查询堆
 
-查询可以是一个来自多种类型 ([**D3D12\_查询\_堆\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_heap_type))，并且会组合到查询堆之前提交至 GPU。
+查询可以是多种类型（[D3D12\_QUERY\_HEAP\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_heap_type)）中的一种，并先分组为查询堆，然后再提交到 GPU  。
 
-新的查询类型 D3D12\_查询\_类型\_二进制\_封闭并且可像 D3D12\_查询\_类型\_封闭，不同之处返回二进制 0/1结果：0 表示没有样本传递深度和模具测试，1 表示，至少一个示例传递深度和模具测试。 这使封闭查询以不会干扰任何与深度/模具测试关联的 GPU 性能优化。
+新查询类型 D3D12\_QUERY\_TYPE\_BINARY\_OCCLUSION 可用，除会返回二进制 0/1 结果以外，其作用类似于 D3D12\_QUERY\_TYPE\_OCCLUSION：0 表示没有示例通过深度和模板测试，1 表示至少一个示例通过深度和模具测试。 这确保封闭查询不会干扰任何与深度/模具测试相关的 GPU 性能优化。
 
-## <a name="creating-query-heaps"></a>堆创建查询
+## <a name="creating-query-heaps"></a>创建查询堆
 
-与堆创建查询相关的 Api 是枚举[ **D3D12\_查询\_堆\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_heap_type)，该结构[ **D3D12\_查询\_堆\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_query_heap_desc)，和方法[ **CreateQueryHeap**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createqueryheap)。
+与创建查询堆相关的 API 包括 [D3D12\_QUERY\_HEAP\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_heap_type) 枚举、[D3D12\_QUERY\_HEAP\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_query_heap_desc) 结构和 [CreateQueryHeap](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createqueryheap) 方法    。
 
-核心运行时将验证查询堆类型是有效的成员[ **D3D12\_堆\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_type)枚举和 count 值大于 0。
+核心运行时将验证查询堆类型是否为 [D3D12\_HEAP\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_type) 枚举的有效成员，以及计数是否大于 0  。
 
-可以启动和停止单独查询堆中的每个单个查询元素。
+查询堆中的每个独立查询元素都可以分别启动和停止。
 
-对于堆使用的查询的 Api 是枚举[ **D3D12\_查询\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type)，和方法[ **BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)并[ **EndQuery**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)。
+使用查询堆的 API 包括 [D3D12\_QUERY\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type) 枚举以及 [BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 方法    。
 
-D3D12\_查询\_类型\_时间戳是支持的唯一查询[ **EndQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)仅。 所有其他查询类型需要[ **BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)并**EndQuery**。
+D3D12\_QUERY\_TYPE\_TIMESTAMP 是仅支持 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 的唯一查询  。 其他所有查询类型都需要 [BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 EndQuery   。
 
-调试层将验证以下：
+调试层将验证以下内容：
 
--   您不能两次这些操作都无需结束 （适用于给定的元素） 开始查询。 执行的查询需要同时开始和结束时，它是非法的结束之前相应开始新的 （适用于给定的元素） 的查询。
--   查询类型传递给[ **BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)必须匹配查询类型传递给[ **EndQuery**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)。
+-   在不结束查询（对于给定元素而言）的情况下开始两次查询是非法的。 对于需要开始和结束的查询而言，在相应的开始（对于给定元素而言）之前结束查询是非法的。
+-   传递到 [BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 的查询类型必须与传递到 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 的查询类型相匹配   。
 
-核心运行时将验证以下：
+核心运行时将验证以下内容：
 
--   [**BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)不能调用上的时间戳查询。
--   为支持这两个的查询类型[ **BeginQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)并[ **EndQuery** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) （所有除外时间戳），必须针对给定元素的查询不跨命令列表边界。
--   *ElementIndex*必须在范围内。
--   查询类型是有效的成员[ **D3D12\_查询\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type)枚举。
--   查询类型必须与查询堆兼容。 下表显示了每个查询类型的所需的查询堆类型：
+-   无法在时间戳查询上调用 [BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery)  。
+-   对于支持 [BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery)（除时间戳之外的所有）的查询类型，给定元素的查询不得跨越命令列表边界   。
+-   ElementIndex 必须在范围内  。
+-   查询类型是 [D3D12\_QUERY\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type) 枚举的有效成员  。
+-   查询类型必须与查询堆兼容。 下表显示每个查询类型所需的查询堆类型：
 
     
 
     | 查询类型                                  | 查询堆类型                                      |
     |---------------------------------------------|------------------------------------------------------|
-    | D3D12\_查询\_类型\_封闭               | D3D12\_查询\_类型\_堆\_类型\_封闭            |
-    | D3D12\_查询\_类型\_二进制\_封闭       | D3D12\_查询\_类型\_堆\_类型\_封闭            |
-    | D3D12\_查询\_类型\_时间戳               | D3D12\_查询\_类型\_堆\_类型\_时间戳            |
-    | D3D12\_查询\_类型\_管道\_统计信息    | D3D12\_查询\_类型\_堆\_类型\_管道\_统计信息 |
-    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM0 | D3D12\_查询\_类型\_堆\_类型\_因此\_统计信息       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM1 | D3D12\_查询\_类型\_堆\_类型\_因此\_统计信息       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM2 | D3D12\_查询\_类型\_堆\_类型\_因此\_统计信息       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM3 | D3D12\_查询\_类型\_堆\_类型\_因此\_统计信息       |
+    | D3D12\_QUERY\_TYPE\_OCCLUSION               | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_OCCLUSION            |
+    | D3D12\_QUERY\_TYPE\_BINARY\_OCCLUSION       | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_OCCLUSION            |
+    | D3D12\_QUERY\_TYPE\_TIMESTAMP               | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_TIMESTAMP            |
+    | D3D12\_QUERY\_TYPE\_PIPELINE\_STATISTICS    | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_PIPELINE\_STATISTICS |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM0 | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_SO\_STATISTICS       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM1 | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_SO\_STATISTICS       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM2 | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_SO\_STATISTICS       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM3 | D3D12\_QUERY\_TYPE\_HEAP\_TYPE\_SO\_STATISTICS       |
 
     
 
      
 
--   命令列表类型所支持的查询类型。 下表显示了哪些命令列表类型支持的查询。
+-   命令列表类型支持查询类型。 下表显示哪些命令列表类型支持哪些查询。
 
     
 
     | 查询类型                                  | 支持的命令列表类型 |
     |---------------------------------------------|------------------------------|
-    | D3D12\_查询\_类型\_封闭               | 直接                       |
-    | D3D12\_查询\_类型\_二进制\_封闭       | 直接                       |
-    | D3D12\_查询\_类型\_时间戳               | 直接和计算           |
-    | D3D12\_查询\_类型\_管道\_统计信息    | 直接                       |
-    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM0 | 直接                       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM1 | 直接                       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM2 | 直接                       |
-    | D3D12\_查询\_类型\_因此\_统计信息\_STREAM3 | 直接                       |
+    | D3D12\_QUERY\_TYPE\_OCCLUSION               | Direct                       |
+    | D3D12\_QUERY\_TYPE\_BINARY\_OCCLUSION       | Direct                       |
+    | D3D12\_QUERY\_TYPE\_TIMESTAMP               | Direct 和 Compute           |
+    | D3D12\_QUERY\_TYPE\_PIPELINE\_STATISTICS    | Direct                       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM0 | Direct                       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM1 | Direct                       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM2 | Direct                       |
+    | D3D12\_QUERY\_TYPE\_SO\_STATISTICS\_STREAM3 | Direct                       |
 
     
 
@@ -101,7 +101,7 @@ D3D12\_查询\_类型\_时间戳是支持的唯一查询[ **EndQuery** ](/window
 
 ## <a name="extracting-data-from-a-query"></a>从查询中提取数据
 
-若要从查询中提取数据的方法是使用[ **ResolveQueryData** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)方法。 **ResolveQueryData**可以处理所有堆类型 （默认、 上载和 readback）。
+从查询中提取数据的方法是使用 [ResolveQueryData](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata) 方法  。 **ResolveQueryData** 可使用所有堆类型（默认、上传和回读）。
 
 ## <a name="related-topics"></a>相关主题
 
@@ -110,7 +110,7 @@ D3D12\_查询\_类型\_时间戳是支持的唯一查询[ **EndQuery** ](/window
 [计数器和查询](counters-and-queries.md)
 </dt> <dt>
 
-[断言而查询演练](predication-queries.md)
+[预测查询演练](predication-queries.md)
 </dt> </dl>
 
  

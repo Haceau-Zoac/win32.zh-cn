@@ -1,6 +1,6 @@
 ---
-title: D2D 使用 D3D11on12
-description: D3D1211on12 示例演示如何呈现 D2D 内容对 D3D12 的内容由 11 的基于的设备和 12 的基于的设备之间共享资源。
+title: 使用 D3D11on12 的 D2D
+description: D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设备之间共享资源，通过 D3D12 呈现 D2D 内容。
 ms.assetid: FAEF1412-053C-4B5F-80FA-85396C2586B4
 ms.topic: article
 ms.date: 05/31/2018
@@ -11,9 +11,9 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224470"
 ---
-# <a name="d2d-using-d3d11on12"></a>D2D 使用 D3D11on12
+# <a name="d2d-using-d3d11on12"></a>使用 D3D11on12 的 D2D
 
-**D3D1211on12**示例演示如何呈现 D2D 内容对 D3D12 的内容由 11 的基于的设备和 12 的基于的设备之间共享资源。
+D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设备之间共享资源，通过 D3D12 呈现 D2D 内容  。
 
 -   [创建 ID3D11On12Device](#create-an-id3d11on12device)
 -   [创建 D2D 工厂](#create-a-d2d-factory)
@@ -21,13 +21,13 @@ ms.locfileid: "66224470"
 -   [创建基本 D2D 文本对象](#create-basic-d2d-text-objects)
 -   [更新主呈现循环](#updating-the-main-render-loop)
 -   [运行示例](#run-the-sample)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="create-an-id3d11on12device"></a>创建 ID3D11On12Device
 
-第一步是创建[ **ID3D11On12Device** ](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device)后[ **ID3D12Device** ](/windows/desktop/api/D3D12/nn-d3d12-id3d12device)创建后，这涉及到创建[**ID3D11Device** ](https://msdn.microsoft.com/library/windows/desktop/ff476379)包装在**ID3D12Device**通过 API [ **D3D11On12CreateDevice** ](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice). 此 API 还会在中，在其他参数之间[ **ID3D12CommandQueue** ](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) ，以便 11On12 设备可以提交其命令。 之后**ID3D11Device**创建后，您可以查询**ID3D11On12Device**从它的接口。 这是将用于设置 D2D 的主要设备对象。
+首先是在创建 [ID3D12Device](/windows/desktop/api/D3D12/nn-d3d12-id3d12device) 之后创建一个 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device)，这包括创建一个通过 [API D3D11On12CreateDevice](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice) 包装在 ID3D12Device 上的 [ID3D11Device](https://msdn.microsoft.com/library/windows/desktop/ff476379)      。 该 API 还采用 [ID3D12CommandQueue](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 等参数，以便 11On12 设备能够提交其命令  。 创建 ID3D11Device 之后，可从中查询 ID3D11On12Device 接口   。 这是用于设置 D2D 的主要设备对象。
 
-在中**LoadPipeline**方法，设置设备。
+在 LoadPipeline 方法中设置设备  。
 
 ``` syntax
  // Create an 11 device wrapped around the 12 device and share
@@ -52,7 +52,7 @@ ms.locfileid: "66224470"
 
 
 
-| 呼叫流                                              | 参数 |
+| 调用流程                                              | 参数 |
 |--------------------------------------------------------|------------|
 | [**ID3D11Device**](https://msdn.microsoft.com/library/windows/desktop/ff476379)            |            |
 | [**D3D11On12CreateDevice**](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice) |            |
@@ -63,9 +63,9 @@ ms.locfileid: "66224470"
 
 ## <a name="create-a-d2d-factory"></a>创建 D2D 工厂
 
-现在，我们已 11On12 设备，我们使用它来创建 D2D 工厂和设备，就像通常会用 D3D11 完成。
+现在我们有了 11On12 设备，我们用它来创建 D2D 工厂和设备，就像使用 D3D11 时的通常做法一样。
 
-将添加到**LoadAssets**方法。
+添加到 LoadAssets 方法  。
 
 ``` syntax
  // Create D2D/DWrite components.
@@ -82,14 +82,14 @@ ms.locfileid: "66224470"
 
 
 
-| 呼叫流                                                                        | 参数                                                   |
+| 调用流程                                                                        | 参数                                                   |
 |----------------------------------------------------------------------------------|--------------------------------------------------------------|
 | [**D2D1\_DEVICE\_CONTEXT\_OPTIONS**](https://msdn.microsoft.com/library/windows/desktop/hh446998)     |                                                              |
-| [**D2D1CreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368034)                              | [**D2D1\_工厂\_类型**](https://msdn.microsoft.com/library/windows/desktop/dd368104)        |
+| [**D2D1CreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368034)                              | [**D2D1\_FACTORY\_TYPE**](https://msdn.microsoft.com/library/windows/desktop/dd368104)        |
 | [**IDXGIDevice**](https://msdn.microsoft.com/library/windows/desktop/bb174527)                                      |                                                              |
 | [**ID2D1Factory3::CreateDevice**](https://msdn.microsoft.com/library/windows/desktop/dn900395)           |                                                              |
 | [**ID2D1Device::CreateDeviceContext**](https://msdn.microsoft.com/library/windows/desktop/hh404545) |                                                              |
-| [**DWriteCreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368040)                       | [**DWRITE\_工厂\_类型**](https://msdn.microsoft.com/library/windows/desktop/dd368057) |
+| [**DWriteCreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368040)                       | [**DWRITE\_FACTORY\_TYPE**](https://msdn.microsoft.com/library/windows/desktop/dd368057) |
 
 
 
@@ -97,7 +97,7 @@ ms.locfileid: "66224470"
 
 ## <a name="create-a-render-target-for-d2d"></a>为 D2D 创建呈现器目标
 
-D3D12 拥有交换链，因此如果我们想要呈现到后台缓冲区使用我们 11On12 设备 （D2D 内容），然后我们需要创建已包装的类型的资源[ **ID3D11Resource** ](https://msdn.microsoft.com/library/windows/desktop/ff476584)从类型的后台缓冲区[ **ID3D12Resource**](/windows/desktop/api/D3D12/nn-d3d12-id3d12resource)。 此链接**ID3D12Resource**用 D3D11 基于接口，以便用于 11On12 设备。 我们已包装的资源后，我们可以创建 D2D 来呈现，也可在呈现目标图面**LoadAssets**方法。
+D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容）呈现到后台缓冲区，则需要基于 [ID3D12Resource](/windows/desktop/api/D3D12/nn-d3d12-id3d12resource) 类型的后台缓冲区创建 [ID3D11Resource](https://msdn.microsoft.com/library/windows/desktop/ff476584) 类型的包装资源   。 这会将 ID3D12Resource 与基于 D3D11 的接口相关联，使它能够与 11On12 设备配合使用  。 在拥有包装资源后，然后就可为 D2D 创建一个要呈现到的呈现器目标，这也是在 LoadAssets 方法中创建的  。
 
 ``` syntax
  // Query the desktop's dpi settings, which will be used to create
@@ -158,7 +158,7 @@ D3D12 拥有交换链，因此如果我们想要呈现到后台缓冲区使用�
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -217,7 +217,7 @@ D3D12 拥有交换链，因此如果我们想要呈现到后台缓冲区使用�
 
 ## <a name="create-basic-d2d-text-objects"></a>创建基本 D2D 文本对象
 
-现在我们有[ **ID3D12Device** ](/windows/desktop/api/D3D12/nn-d3d12-id3d12device)呈现 3D 内容， [ **ID2D1Device** ](https://msdn.microsoft.com/library/windows/desktop/hh404478)共享与我们 12 的设备通过[**ID3D11On12Device** ](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device) -而我们可以使用它们来呈现 2D 内容-它们都配置为向相同的交换链呈现。 此示例只需使用 D2D 设备对三维场景，类似于游戏呈现它们的 UI 的方式呈现文本。 我们需要为此，请创建一些基本的 D2D 对象仍处于**LoadAssets**方法。
+现在我们有一个 [ID3D12Device](/windows/desktop/api/D3D12/nn-d3d12-id3d12device) 用于呈现 3D 内容，一个 [ID2D1Device](https://msdn.microsoft.com/library/windows/desktop/hh404478) 通过可用于呈现 2D 内容的 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device) 与 12 设备共享内容，而且这两个都配置为呈现到同一交换链    。 此示例仅使用 D2D 设备在 3D 场景上呈现文本，类似于游戏呈现其 UI 的方式。 为此，我们需要仍然使用 LoadAssets 方法创建一些基本的 D2D 对象  。
 
 ``` syntax
  // Create D2D/DWrite objects for rendering text.
@@ -240,12 +240,12 @@ D3D12 拥有交换链，因此如果我们想要呈现到后台缓冲区使用�
 
 
 
-| 呼叫流                                                                                           | 参数                                                                 |
+| 调用流程                                                                                           | 参数                                                                 |
 |-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
 | [**ID2D1RenderTarget::CreateSolidColorBrush**](https://msdn.microsoft.com/library/windows/desktop/dd742843)    | [**ColorF**](https://msdn.microsoft.com/library/windows/desktop/dd370907)                                              |
-| [**IDWriteFactory::CreateTextFormat**](https://msdn.microsoft.com/library/windows/desktop/dd368203)                 | [**DWRITE\_字体\_权重**](https://msdn.microsoft.com/library/windows/desktop/dd368082)                 |
-| [**IDWriteTextFormat::SetTextAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316709)           | [**DWRITE\_文本\_对齐方式**](https://msdn.microsoft.com/library/windows/desktop/dd368131)           |
-| [**IDWriteTextFormat::SetParagraphAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316702) | [**DWRITE\_段落\_对齐方式**](https://msdn.microsoft.com/library/windows/desktop/dd368112) |
+| [**IDWriteFactory::CreateTextFormat**](https://msdn.microsoft.com/library/windows/desktop/dd368203)                 | [**DWRITE\_FONT\_WEIGHT**](https://msdn.microsoft.com/library/windows/desktop/dd368082)                 |
+| [**IDWriteTextFormat::SetTextAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316709)           | [**DWRITE\_TEXT\_ALIGNMENT**](https://msdn.microsoft.com/library/windows/desktop/dd368131)           |
+| [**IDWriteTextFormat::SetParagraphAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316702) | [**DWRITE\_PARAGRAPH\_ALIGNMENT**](https://msdn.microsoft.com/library/windows/desktop/dd368112) |
 
 
 
@@ -253,7 +253,7 @@ D3D12 拥有交换链，因此如果我们想要呈现到后台缓冲区使用�
 
 ## <a name="updating-the-main-render-loop"></a>更新主呈现循环
 
-现在，该示例的初始化已完成，我们可以转到主呈现循环。
+现已完成示例的初始化，可执行主呈现循环了。
 
 ``` syntax
 // Render the scene.
@@ -277,7 +277,7 @@ void D3D1211on12::OnRender()
 
 
 
-| 呼叫流                                                              | 参数 |
+| 调用流程                                                              | 参数 |
 |------------------------------------------------------------------------|------------|
 | [**ID3D12CommandList**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandlist)                         |            |
 | [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)  |            |
@@ -287,9 +287,9 @@ void D3D1211on12::OnRender()
 
  
 
-我们呈现循环到新的唯一内容是**RenderUI**调用，它将使用 D2D 呈现我们的 UI。 请注意，我们执行所有第一次来呈现三维场景，我们 D3D12 命令列表，然后我们在最重要的是呈现我们的 UI。 在我们深入之前**RenderUI**，我们必须考虑到更改**PopulateCommandLists**。 其他示例中我们通常将资源屏障上命令列表之前关闭后从呈现器目标状态缓冲到数据库的当前状态的转换。 但是，在此示例中我们删除该资源屏障，因为我们仍然需要呈现到与 D2D 后台缓冲区。 请注意，当我们创建了我们已包装的资源的后台缓冲区，我们指定的呈现目标状态为"IN"状态和为"OUT"状态的当前状态。
+呈现循环中唯一新功能是 RenderUI 调用，它将使用 D2D 来呈现 UI  。 请注意，我们首先执行所有 D3D12 命令列表以呈现 3D 场景，然后在此基础上呈现 UI。 在深入研究 RenderUI 之前，必须查看对 PopulateCommandLists 的更改   。 在其他示例中，我们通常在关闭命令列表之前在列表上放置一个资源屏障，以便将后台缓冲区从呈现目标状态转换为当前状态。 但是，在此示例中，我们移除了该资源屏障，因为我们仍然需要使用 D2D 呈现到后台缓冲区。 注意，当我们创建后台缓冲区的包装资源时，我们将呈现目标状态指定为“IN”状态，将当前状态指定为“OUT”状态。
 
-**RenderUI**是相当简单-直接在 D2D 使用情况方面。 我们设置我们呈现器目标并呈现文本。 但是，在之前 11On12 设备上使用已包装的任何资源，如我们后台缓冲区呈现器目标，我们必须调用[ **AcquireWrappedResources** ](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources) 11On12 设备上的 API。 呈现后，我们调用[ **ReleaseWrappedResources** ](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources) 11On12 设备上的 API。 通过调用**ReleaseWrappedResources**我们会产生在后台将转换为在创建时指定的"OUT"状态的指定的资源的资源障碍。 在本例中，这是数据库的当前状态。 最后，才能提交命令的所有设备上执行 11On12 共享[ **ID3D12CommandQueue**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue)，我们必须调用[**刷新**](https://msdn.microsoft.com/library/windows/desktop/ff476425)上[ **ID3D11DeviceContext**](https://msdn.microsoft.com/library/windows/desktop/ff476385)。
+RenderUI 在 D2D 使用方面非常简单  。 我们设置呈现器目标并呈现文本。 但是，在 11On12 设备上使用任何包装资源（例如后台缓冲区呈现目标）之前，必须在 11On12 设备上调用 [AcquireWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources) API  。 呈现后，我们在 11On12 设备上调用 [ReleaseWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources) API  。 通过调用 ReleaseWrappedResources，将在后台生成一个资源屏障，它将把指定的资源转换为创建时指定的“OUT”状态  。 在本例中，就是指当前状态。 最后，为了将在 11On12 设备上执行的所有命令提交到共享的 [ID3D12CommandQueue](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue)，必须在 [ID3D11DeviceContext](https://msdn.microsoft.com/library/windows/desktop/ff476385) 上调用[刷新](https://msdn.microsoft.com/library/windows/desktop/ff476425)    。
 
 ``` syntax
 // Render text over D3D12 using D2D via the 11On12 device.
@@ -327,7 +327,7 @@ void D3D1211on12::RenderUI()
 
 
 
-| 呼叫流                                                                                                                                                                                 | 参数                            |
+| 调用流程                                                                                                                                                                                 | 参数                            |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
 | [**D2D1\_SIZE\_F**](https://msdn.microsoft.com/library/windows/desktop/dd368160)                                                                                                                                                 |                                       |
 | [**D2D1\_RECT\_F**](https://msdn.microsoft.com/library/windows/desktop/dd368151)                                                                                                                                                 | [**RectF**](https://msdn.microsoft.com/library/windows/desktop/dd372343)           |
@@ -346,7 +346,7 @@ void D3D1211on12::RenderUI()
 
 ## <a name="run-the-sample"></a>运行示例
 
-![在 12 示例 11 最终输出](images/11on12image.png)
+![12 示例上的 11 最终输出](images/11on12image.png)
 
 ## <a name="related-topics"></a>相关主题
 
@@ -355,13 +355,13 @@ void D3D1211on12::RenderUI()
 [D3D12 代码演练](d3d12-code-walk-throughs.md)
 </dt> <dt>
 
-[在 12 Direct3D 11](direct3d-11-on-12.md)
+[Direct3D 11 on 12](direct3d-11-on-12.md)
 </dt> <dt>
 
-[Direct3D 12 的互操作](direct3d-12-interop.md)
+[Direct3D 12 互操作](direct3d-12-interop.md)
 </dt> <dt>
 
-[11on12 引用](direct3d-11on12-reference.md)
+[11on12 参考](direct3d-11on12-reference.md)
 </dt> </dl>
 
  

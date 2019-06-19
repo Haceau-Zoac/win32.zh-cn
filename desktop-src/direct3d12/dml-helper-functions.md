@@ -1,6 +1,6 @@
 ---
 title: DirectML 中的绑定
-description: 基本 DirectML 帮助程序函数的某些代码列表。
+description: 基础 DirectML 帮助程序函数的部分代码列表。
 ms.custom: 19H1
 ms.topic: article
 ms.date: 03/13/2019
@@ -11,18 +11,18 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66223999"
 ---
-# <a name="directml-helper-functions"></a>DirectML 帮助器函数
+# <a name="directml-helper-functions"></a>DirectML 帮助程序函数
 
 ## <a name="dmlcalcbuffertensorsize"></a>DMLCalcBufferTensorSize
 
-此 helper 函数计算最小缓冲区 tensor 存储与指定的类型、 大小和进步所需的字节数。 该公式可以表示如下所示。
+该帮助程序函数计算存储具有指定类型、大小和步幅的缓冲区张量所需的最小字节数。 公式可如下表示。
 
 ```cpp
 IndexOfLastElement = dot(Sizes - 1, Strides);
 MinimumImpliedSizeInBytes = roundup((IndexOfLastElement + 1) * ElementSizeInBytes, 4)
 ```
 
-换而言之，tensor 的最小大小是乘以元素大小的一个过去的结束元素的索引 (例如，为 2 个字节**FLOAT16** tensor)。 此外，DirectML 要求所有绑定的缓冲区必须具有的总大小**DWORD**-对齐，因此所需的最低暗示的以字节为单位的大小必须向上舍入到最接近的 4 字节边界。
+换言之，张量的最小大小是乘以元素大小（例如，FLOAT16 张量的 2 字节）的超尾后的任何一个元素的索引  。 此外，DirectML 要求所有绑定的缓冲区的总大小必须是 DWORD 对齐，因此以字节为单位的最小隐含大小必须上调取整为最接近的 4 字节边界  。
 
 ```cppwinrt
 inline UINT64 DMLCalcBufferTensorSize(
@@ -86,7 +86,7 @@ inline UINT64 DMLCalcBufferTensorSize(
 
 ## <a name="calculatestrides"></a>CalculateStrides
 
-此 helper 函数计算 4 D tensors NCHW 或 NHWC 布局和可选广播的进步。
+该帮助程序函数计算具有 NCHW 或 NHWC 布局以及可选广播的 4D 张量的步幅。
 
 ```cppwinrt
 enum class Layout

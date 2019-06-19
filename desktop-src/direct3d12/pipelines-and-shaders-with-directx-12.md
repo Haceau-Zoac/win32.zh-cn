@@ -1,6 +1,6 @@
 ---
-title: 管道和着色器使用 Direct3D 12
-description: Direct3D 12 可编程管道会大大提高呈现性能相比上一代图形编程接口。
+title: Direct3D 12 的管道和着色器
+description: 相较于上一代图形编程接口，Direct3D 12 可编程管道显著提高了渲染性能。
 ms.assetid: 329882F5-D2A9-4D6D-AC3B-29F370D22C97
 ms.topic: article
 ms.date: 05/31/2018
@@ -11,48 +11,48 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66223909"
 ---
-# <a name="pipelines-and-shaders-with-direct3d-12"></a>管道和着色器使用 Direct3D 12
+# <a name="pipelines-and-shaders-with-direct3d-12"></a>Direct3D 12 的管道和着色器
 
-Direct3D 12 可编程管道会大大提高呈现性能相比上一代图形编程接口。
+相较于上一代图形编程接口，Direct3D 12 可编程管道显著提高了渲染性能。
 
 -   [Direct3D 12 图形管道](#direct3d-12-graphics-pipeline)
 -   [管道状态对象](#pipeline-state-objects)
--   [Direct3D 12 个计算管道](#direct3d-12-compute-pipeline)
--   [相关的主题](#related-topics)
+-   [Direct3D 12 计算管道](#direct3d-12-compute-pipeline)
+-   [相关主题](#related-topics)
 
 ## <a name="direct3d-12-graphics-pipeline"></a>Direct3D 12 图形管道
 
 下图说明了 Direct3D 12 图形管道和状态。
 
-![演示如何 direct3d 12 管道和状态的关系图](images/pipeline.png)
+![说明 direct3d 12 管道和状态的图示](images/pipeline.png)
 
-图形管道是数据输入的顺序流，并输出 GPU 呈现的帧。 给定的管道状态和输入，GPU 执行一的系列操作创建了生成的映像。 图形管道包含执行可编程的呈现效果和计算和固定的函数操作的着色器。
+图形管道是 GPU 渲染帧时数据输入和输出的顺序流。 根据管道状态和输入，GPU 执行一系列操作来创建生成的图像。 图形管道包含着色器，后者执行可编程的渲染效果和计算，以及固定的函数操作。
 
-当指管道状态关系图时，请注意以下：
+参考管道状态图时，请注意以下内容：
 
--   可以随意排列描述符表和堆：SRVs、 CBVs 和 Uav 可以引用并按任何顺序分配。
--   管道的一些操作进行配置。 例如，输出合并器运营方式通常是读取-修改-写入按与呈现器目标和深度模具视图。 但是可以配置管道，以便其中一个视图是只读或只写。
--   静态取样器不是根自变量的一部分，因为它们是静态。
+-   描述符表和堆可任意排列：SRV、CBV 和 UAV 可按任意顺序引用和分配。
+-   管道的部分操作为可配置操作。 例如，输出合并通常以“读取-修改-写入”为基础对呈现器目标和深度模具视图进行操作。 但可以配置管道，使任一视图为只读或只写。
+-   静态采样器是静态的，因此它不属于根参数。
 
 ## <a name="pipeline-state-objects"></a>管道状态对象
 
-Direct3D 12 中引入了管道状态对象 (PSO)。 而不是存储和跨大量的高级别对象表示管道状态，管道组件的状态等输入装配器光栅器、 像素着色器和输出合并器存储在 pso 的步骤。 Pso 的步骤是在创建后不可变的统一的管道状态对象。 快速、 动态地，可以更改当前所选的 PSO，硬件和驱动程序可以直接将 PSO 转换的本机硬件说明和状态，将准备就绪的图形处理 GPU。 若要将 PSO 应用，硬件将直接与硬件寄存器复制最少量的预先计算的状态。 这会删除由不断地重新计算基于所有当前适用的呈现和管道设置的硬件状态图形驱动程序引起的开销。 结果是显著降低了的绘图调用开销，提高了性能，并且多个绘图调用每个框架。
+Direct3D 12 引入了管道状态对象 (PSO)。 不是跨大量高级对象存储和表示管道状态，而是在 PSO 中存储管道组件（如输入汇编程序、光栅化程序、象素着色器和输出合并）的状态。 PSO 是统一的管道状态对象，且创建后不可改变。 当前选择的 PSO 可快速、动态地进行改变，硬件和驱动程序可直接将 PSO 转换为本机硬件指令和状态，以便 GPU 能够进行图形处理。 为应用 PSO，硬件将尽可能少的预计算状态直接复制到硬件寄存器。 这消除了由于图形驱动程序基于当前所有适用的渲染和管道设置不断重新计算硬件状态而产生的开销。 其结果是显著减少了绘制调用开销、提高了性能，并且每一帧可进行更多次绘制调用。
 
-当前应用的 PSO 定义，并将在呈现管道中使用的着色器的所有连接。 [Microsoft 高级别着色器语言 (HLSL)](https://msdn.microsoft.com/library/windows/desktop/bb509561)是到着色器对象，然后使用在运行时作为输入管道状态对象的预编译。 PSO 图形管道中的运行方式的详细信息，请参阅[管理图形管道 Direct3D 12 中的状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
+当前应用的 PSO 定义并连接渲染管道中使用的所有着色器。 [Microsoft 高级着色器语言 (HLSL)](https://msdn.microsoft.com/library/windows/desktop/bb509561) 预先编译到着色器对象中，然后在运行时后者用作管道状态对象的输入。 如需深入了解 PSO 在图形管道中的工作原理，请参阅[在 Direct3D 12 中管理图形管道状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
 
-## <a name="direct3d-12-compute-pipeline"></a>Direct3D 12 个计算管道
+## <a name="direct3d-12-compute-pipeline"></a>Direct3D 12 计算管道
 
-下图说明了管道 Direct3D 12 计算和状态。
+下图说明了 Direct3D 12 计算管道和状态。
 
 ![](images/compute-pipeline.png)
 
-堆有在此管道，但是描述符堆，采样器没有固定的功能单位，静态取样器都在计算中仍然可用。
+此管道中没有固定函数单元，但计算时仍可使用描述符堆、采样器堆和静态采样器。
 
 ## <a name="related-topics"></a>相关主题
 
 <dl> <dt>
 
-[提交工作在 Direct3D 12](command-queues-and-command-lists.md)
+[Direct3D 12 中的工作提交](command-queues-and-command-lists.md)
 </dt> </dl>
 
  

@@ -1,6 +1,6 @@
 ---
 title: DirectML 中的绑定
-description: 本主题讨论如何调试 DirectML 设备-删除或其他错误情况。
+description: 本主题论述如何调试 DirectML 设备删除和其他错误条件。
 ms.custom: 19H1
 ms.topic: article
 ms.date: 03/14/2019
@@ -11,23 +11,23 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66224008"
 ---
-# <a name="handling-errors-and-device-removal-in-directml"></a>处理错误和设备-删除 DirectML 中
+# <a name="handling-errors-and-device-removal-in-directml"></a>在 DirectML 中处理错误和设备删除
 
 ## <a name="device-removal"></a>设备删除
 
-如果出现不可恢复的错误，DirectML 设备可能会进入"设备删除"状态。 发生了不可恢复错误，导致设备删除包含无效的 API 使用情况 (不返回的方法[ **HRESULT**](/windows/desktop/com/structure-of-com-error-codes))，驱动程序错误、 硬件故障或-内存不足 (OOM) 条件。
+如果发生不可恢复的错误，DirectML 设备可能会进入“设备删除”状态。 导致设备删除的不可恢复错误包括无效的 API 用法（对于不返回 [HRESULT](/windows/desktop/com/structure-of-com-error-codes) 的方法）、驱动程序错误、硬件故障或内存不足 (OOM) 条件  。
 
-移除某个 DirectML 设备后，在设备上的所有方法都调用，并由该设备创建每个对象都将变为进行任何操作。 返回的方法[ **HRESULT**](/windows/desktop/com/structure-of-com-error-codes)即[ **DXGI_ERROR_DEVICE_REMOVED** ](/windows/desktop/direct3ddxgi/dxgi-error)返回错误代码。 可以使用[ **IDMLDevice::GetDeviceRemovedReason**方法](/windows/desktop/api/directml/nf-directml-idmldevice-getdeviceremovedreason)来检查是否已移除 DirectML 设备，并检索更详细的错误代码。
+删除 DirectML 设备时，设备上的所有方法调用以及该设备创建的每个对象都变为 no-op。 对于返回 [HRESULT](/windows/desktop/com/structure-of-com-error-codes) 的方法，会返回[DXGI_ERROR_DEVICE_REMOVED](/windows/desktop/direct3ddxgi/dxgi-error) 错误代码   。 可以使用 [IDMLDevice::GetDeviceRemovedReason 方法](/windows/desktop/api/directml/nf-directml-idmldevice-getdeviceremovedreason)来检查是否已删除 DirectML 设备，并检索更为详细的错误代码  。
 
-不能通过释放受影响的设备及其所有子级，然后重新创建从零开始的 DirectML 设备从此设备删除除外。
+除非释放受影响的设备及其所有子设备，然后从头重新创建 DirectML 设备，否则无法从设备删除中恢复。
 
-设备删除的基础 Direct3D 12 设备也会使 DirectML 设备中删除。 但是，反之不成立。 DirectML 设备删除不一定导致变得删除的基础 Direct3D 12 设备。
+基础 Direct3D 12 设备的设备删除也会导致删除 DirectML 设备。 但反之却不成立。 DirectML 设备删除不一定会导致删除基础 Direct3D 12 设备。
 
-## <a name="debugging-directml-device-removal-and-other-errors"></a>调试 DirectML 设备-删除和其他错误
+## <a name="debugging-directml-device-removal-and-other-errors"></a>调试 DirectML 设备删除和其他错误
 
-DirectML 错误的最常见原因是 API 用法无效。 无效的 API 使用情况可能会导致**E_INVALIDARG** HRESULT 错误代码，或它可能会导致设备删除。
+DirectML 错误最常见的原因是无效的 API 用法。 无效的 API 用法可能导致 E_INVALIDARG HRESULT 错误代码，或者可能导致设备删除  。
 
-我们强烈建议您启用[DirectML 调试层](dml-debug-layer.md)期间您的开发，以便捕获并调试此类错误。 DirectML 调试层执行大量验证的方法参数和 API 使用情况和它将发出调试输出消息，以帮助您调试。
+我们强烈建议在开发期间启用 [DirectML 调试层](dml-debug-layer.md)，以便捕获并调试此类错误。 DirectML 调试层执行方法参数和 API 用法的广泛验证，它将发出调试输出消息来帮助进行调试。
 
 ## <a name="see-also"></a>另请参阅
 

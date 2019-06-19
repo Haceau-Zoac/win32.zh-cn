@@ -1,6 +1,6 @@
 ---
 title: 11on12 函数
-description: 以下函数声明中 d3d11on12.h。
+description: 以下函数是在 d3d11on12.h 中声明的。
 ms.assetid: 99DDA586-ACFD-4326-B25E-EF8875901690
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,7 +13,7 @@ ms.locfileid: "66224416"
 ---
 # <a name="11on12-functions"></a>11on12 函数
 
-以下函数声明中 d3d11on12.h。
+以下函数是在 d3d11on12.h 中声明的。
 
 ## <a name="in-this-section"></a>本部分内容
 
@@ -21,7 +21,7 @@ ms.locfileid: "66224416"
 
 | 主题                                                             | 描述                                                                                                                                       |
 |-------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------|
-| [**D3D11On12CreateDevice**](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice)<br/> | 创建在 Direct3D 12 中，指定预先存在的 D3D12 设备使用 D3D11 互操作中使用 Direct3D 11 功能的设备。 <br/> |
+| [**D3D11On12CreateDevice**](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice)<br/> | 创建在 Direct3D 12 中使用 Direct3D 11 功能的设备，并指定已有的 D3D12 设备用于 D3D11 互操作。 <br/> |
 
 
 

@@ -1,6 +1,6 @@
 ---
 title: 定时
-description: 本节介绍了查询时间戳，并校准 GPU 和 CPU 时间戳计数器。
+description: 本节介绍如何查询时间戳，以及如何校准 GPU 和 CPU 时间戳计数器。
 ms.assetid: CC1E5BAB-4363-43FF-BF5B-6C9AEBECD6CA
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,25 +13,25 @@ ms.locfileid: "66224341"
 ---
 # <a name="timing"></a>定时
 
-本节介绍了查询时间戳，并校准 GPU 和 CPU 时间戳计数器。
+本节介绍如何查询时间戳，以及如何校准 GPU 和 CPU 时间戳计数器。
 
 -   [时间戳频率](#timestamp-frequency)
 -   [时间戳校准](#timestamp-calibration)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="timestamp-frequency"></a>时间戳频率
 
-应用程序可以查询每个命令队列的基础上的 GPU 时间戳频率 (请参阅[ **ID3D12CommandQueue::GetTimestampFrequency** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency)方法)。
+应用程序可以基于每个命令队列查询 GPU 时间戳频率（请参阅 [ID3D12CommandQueue::GetTimestampFrequency](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency) 方法）  。
 
-返回的频率以赫兹 （计时周期数/秒）。 此 API 将失败 (并返回电子\_失败) 如果指定的命令队列不支持时间戳 (请参阅中的表[查询](queries.md)部分)。
+返回的频率以 Hz（时钟周期/秒）为单位。 如果指定的命令队列不支持时间戳，则此 API 失败（并返回 E\_FAIL）（请参阅[查询](queries.md)部分中的表）。
 
 ## <a name="timestamp-calibration"></a>时间戳校准
 
-D3D12 使应用程序可以将结果从时间戳查询中获取与调用获得的结果相互关联`QueryPerformanceCounter`。 启用此功能通过调用[ **ID3D12CommandQueue::GetClockCalibration**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration)。
+D3D12 使应用程序能够将从时间戳查询获得的结果与从调用 `QueryPerformanceCounter` 获得的结果相关联。 这是通过调用 [ID3D12CommandQueue::GetClockCalibration](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration) 实现的  。
 
-[**GetClockCalibration** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration)提供的示例为给定的命令队列的 GPU 时间戳计数器和示例通过 CPU 计数器`QueryPerformanceCounter`在几乎在同一时间。 此 API 再次失败 (返回电子\_失败) 如果指定的命令队列不支持时间戳 (请参阅中的表[查询](queries.md)部分)。
+[GetClockCalibration](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-getclockcalibration) 对给定命令队列的 GPU 时间戳计数器进行采样，并通过 `QueryPerformanceCounter` 对 CPU 计数器进行采样  ，这两项操作几乎同时进行。 如果指定的命令队列不支持时间戳，则此再次 API 失败（返回 E\_FAIL）（请参阅[查询](queries.md)部分中的表）。
 
-请注意，GPU 和 CPU 时间戳计数器不一定直接与这些处理器的时钟速度，但改为工作由时间戳刻度数。
+请注意，GPU 和 CPU 时间戳计数器不一定与这些处理器的时钟速度直接相关，而是从时间戳时钟周期开始工作。
 
 ## <a name="related-topics"></a>相关主题
 

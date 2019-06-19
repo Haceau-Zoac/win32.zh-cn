@@ -1,6 +1,6 @@
 ---
 title: DirectML 示例应用程序
-description: DirectML 示例应用程序，包括最小 DirectML 应用程序的示例的链接。
+description: 链接到 DirectML 示例应用程序，其中包括最小的 DirectML 应用程序示例。
 ms.custom: 19H1
 ms.topic: article
 ms.date: 03/14/2019
@@ -13,4 +13,4 @@ ms.locfileid: "66223981"
 ---
 ## <a name="directml-sample-applications"></a>DirectML 示例应用程序
 
-有关 DirectML 示例应用程序，包括最小的 DirectML 应用程序的示例，请参阅[DirectML 示例](https://github.com/Microsoft/DirectML-Samples)。
+至于其中包括最小 DirectML 应用程序示例的 DirectML 示例应用程序，请参阅 [DirectML 示例](https://github.com/Microsoft/DirectML-Samples)。

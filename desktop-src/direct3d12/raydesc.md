@@ -1,5 +1,5 @@
 ---
-Description: 传递给 TraceRay 函数来定义源、 方向和的射线的盘区。
+Description: 传递到 TraceRay 函数，以定义射线的原点、方向和范围。
 ms.assetid: ''
 title: RayDesc 结构
 ms.topic: structure
@@ -20,7 +20,7 @@ ms.locfileid: "66224230"
 ---
 # <a name="raydesc-structure"></a>RayDesc 结构
 
-传递给[ **TraceRay** ](traceray-function.md)函数来定义源、 方向和的射线的盘区。
+传递到 [TraceRay](traceray-function.md) 函数，以定义射线的原点、方向和范围  。
 
 ## <a name="syntax"></a>语法
 
@@ -42,7 +42,7 @@ struct RayDesc
 
 <dl> <dt>
 
-<span id="Origin"></span><span id="origin"></span>**Origin**
+<span id="Origin"></span><span id="origin"></span>原点 
 </dt> <dd>
 
 射线的原点。
@@ -52,12 +52,12 @@ struct RayDesc
 <span id="TMin"></span><span id="tmin"></span>**TMin**
 </dt> <dd>
 
-最小的射线的范围。
+射线的最小范围。
 
 
 </dd> <dt>
 
-<span id="Direction"></span><span id="direction"></span>**Direction**
+<span id="Direction"></span><span id="direction"></span>方向 
 </dt> <dd>
 
 射线的方向。
@@ -68,7 +68,7 @@ struct RayDesc
 <span id="TMax"></span><span id="tmax"></span>**TMax**
 </dt> <dd>
 
-最大的射线的程度。
+射线的最大范围。
 
 
 </dd>
@@ -81,7 +81,7 @@ struct RayDesc
 
 <dl> <dt>
 
-[Direct3D 12 Raytracing HLSL 引用](direct3d-12-raytracing-hlsl-reference.md)
+[Direct3D 12 光线跟踪 HLSL 参考](direct3d-12-raytracing-hlsl-reference.md)
 </dt> </dl>
 
  
