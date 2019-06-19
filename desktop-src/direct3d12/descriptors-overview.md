@@ -1,6 +1,6 @@
 ---
 title: 描述符概述
-description: 描述符创建的 API 调用和标识的资源。
+description: 描述符由 API 调用创建并标识资源。
 ms.assetid: 64721226-5533-4816-865E-9429032FCC86
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,74 +13,74 @@ ms.locfileid: "66224101"
 ---
 # <a name="descriptors-overview"></a>描述符概述
 
-描述符创建的 API 调用和标识的资源。
+描述符由 API 调用创建并标识资源。
 
 -   [描述符数据](#descriptor-data)
 -   [描述符句柄](#descriptor-handles)
 -   [Null 描述符](#null-descriptors)
 -   [默认描述符](#default-descriptors)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="descriptor-data"></a>描述符数据
 
-描述符是完全描述一个对象到 GPU GPU 特定不透明格式的数据相对较小块。 有许多不同类型的描述符：着色器资源视图 (SRVs)、 无序访问视图 (Uav)、 常量缓冲区视图 (CBVs) 和取样器是一些示例。
+描述符是一个相对较小的数据块，以 GPU 特定的不透明格式完全描述提交到 GPU 的对象。 有多种不同类型的描述符：着色器资源视图 (SRV)、无序访问视图 (UAV)、常量缓冲区视图 (CBV) 和采样器就是其中的几个例子。
 
-描述符具有不同大小的通常 SRV、 UAV 或 CBV 32 到 64 字节 （具体取决于 GPU 硬件），并且显示在本文档中作为不可分的单元，例如：
+描述符具有不同的大小（对于 SRV、UAV 或 CBV 通常为 32 到 64 个字节（具体取决于 GPU 硬件）），并在本文档中显示为不可分割的单元，例如：
 
-![srv、 cbv、 uav 和采样器](images/single-descriptor.png)
+![srv、cbv、uav 和采样器](images/single-descriptor.png)
 
-描述符创建的 API 调用，将包括如资源的信息并且想要包含的描述符 mip 贴图。
+描述符由 API 调用创建，并且将包括希望描述符包含的资源和 mip-map 等信息。
 
-该驱动程序不会跟踪或具有对描述符的引用，它最多是应用程序以确保正确描述符类型正在使用，并且信息是最新。 还有一个小例外;该驱动程序 does 检查呈现器目标绑定，以确保交换链工作正常。
+驱动程序不会跟踪或保存对描述符的引用，由应用来确保正在使用正确的描述符类型，并且信息是最新的。 此情况有一个小例外；驱动程序会检查呈现器目标绑定以确保交换链正常工作。
 
-对象描述符不必释放或释放。 驱动程序不附加任何分配的描述符创建。 描述符可能，但是，对为其应用程序拥有生存期其他分配对引用进行编码。 例如，SRV 的说明符必须包含 SRV 指 D3D 资源 （例如纹理） 的虚拟地址。 它是应用程序的责任，以确保它不会使用 SRV 描述符，这取决于基础 D3D 资源已被销毁或正在修改 （如被声明为外来） 时。
+无需释放对象描述符。 驱动程序不会为描述符创建附加任何分配。 但是，描述符可能会对应用程序永久拥有的其他分配的引用进行编码。 例如，SRV 的描述符必须包含 SRV 引用的 D3D 资源（例如纹理）的虚拟地址。 由应用来确保在 SRV 描述符所依赖的基础 D3D 资源已被销毁或修改（例如，声明为非常驻）时不使用该描述符。
 
-使用描述符的主要方法是将它们放在描述符堆，这支持的内存用于描述符。
+使用描述符的主要方法是将它们放置在描述符堆中，这些描述符堆是描述符的后备内存。
 
 ## <a name="descriptor-handles"></a>描述符句柄
 
-描述符句柄是描述符的唯一地址。 它类似于一个指针，但不透明的因为其实现是特定于硬件。 句柄是唯一的描述符堆，因此，例如，一个句柄数组可以引用多个堆中的描述符。
+描述符句柄是描述符的唯一地址。 它类似于指针，但不透明，因为其实现特定于硬件。 句柄在描述符堆唯一，例如，句柄数组可以引用多个堆中的描述符。
 
-立即使用，如将复制的源和目标需要确定是 CPU 句柄。
+CPU 句柄可供立即使用，例如，需要同时确定源和目标的复制。
 
-GPU 句柄不立即使用，它们确定从命令列表，以便在 GPU 执行时间使用的位置。
+GPU 句柄不可供立即使用，它们从命令列表中确定位置，以便在 GPU 执行时使用。
 
-若要创建堆，开头的描述符句柄创建描述符堆本身后，请调用以下方法之一：
+若要在创建描述符堆本身之后为堆的开头创建描述符句柄，请调用以下方法之一：
 
 -   [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)
 -   [**ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)
 
-这些方法返回了以下结构：
+这些方法返回以下结构：
 
 -   [**D3D12\_CPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle)
 -   [**D3D12\_GPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle)
 
-随着硬件，以获取每个描述符堆使用之间的增量的说明符的大小变化：
+由于描述符大小因硬件而异，因此若要获得堆中的每个描述符之间的增量，请使用：
 
 -   [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)
 
-它可以安全地递增，来复制句柄，并将句柄传递到 API 调用数与起始位置的偏移。 不安全，若要取消引用句柄，就像它是有效的 CPU 指针，也不分析中一个句柄的位。
+可以安全地使用若干增量偏移起始位置，复制句柄并将句柄传递到 API 调用数中。 取消引用句柄（如同有效的 CPU 指针一样）不安全，分析句柄中的位数也不安全。
 
-已添加一些帮助器结构，与初始化成员，以更简单管理图柄。
+已添加一些具有初始化成员的帮助程序结构，以便更易于管理句柄。
 
 -   [**CD3DX12\_CPU\_DESCRIPTOR\_HANDLE**](cd3dx12-cpu-descriptor-handle.md)
 -   [**CD3DX12\_GPU\_DESCRIPTOR\_HANDLE**](cd3dx12-gpu-descriptor-handle.md)
 
 ## <a name="null-descriptors"></a>Null 描述符
 
-在创建时，通过调用 API 的描述符，应用程序传递要达到的效果的任何内容时访问的着色器绑定的描述符定义中的资源指针为 NULL。
+使用 API 调用创建描述符时，应用程序针对描述符定义中的资源指针传递 NULL 以达到被着色器访问时未绑定的效果。
 
-必须尽可能多地填充描述符的其余部分。 例如，在着色器资源视图 (SRVs) 的情况下描述符可用来区分类型的视图是 （Texture1D、 Texture2D，等）。 中的视图描述符，例如 mipmap，数的数字参数必须全部设置为有效的资源的值。
+必须尽可能多地填充描述符的其余部分。 例如，如果是着色器资源视图 (SRV)，描述符可用于区分视图的类型（Texture1D、Texture2D 等）。 视图描述符中的数值参数（例如 mipmap 数）必须全部设置为适用于资源的值。
 
-在许多情况下，没有用于访问未绑定的资源，如 SRVs 返回默认值已定义的行为。 访问 NULL 描述符，前提是与描述符类型兼容的着色器访问类型时，这些将起作用。 例如，如果着色器期望 Texture2D SRV 和 NULL SRV 定义为 Texture1D 的访问，该行为将是不确定，可能会导致设备重置。
+在许多情况下，有访问未绑定资源的已定义行为，例如返回默认值的 SRV。 访问 NULL 描述符时支持这些情况，前提是着色器访问的类型与描述符类型兼容。 例如，如果着色器需要 Texture2D SRV 并访问定义为 Texture1D 的 NULL SRV，则该行为是未定义的，并且可能会导致设备重置。
 
-总之，若要创建空的描述符，请将传递`null`有关*pResource*参数，如使用方法创建视图时[ **CreateShaderResourceView** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview). 为视图说明参数*pDesc*，设置配置的那样如果资源不是 null （否则崩溃可能会出现一些硬件上）。
+总之，若要创建 null 描述符，请在使用 [**CreateShaderResourceView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview) 等方法创建视图时针对 pResource  参数传递 `null`。 对于视图描述参数 pDesc  ，设置在资源不是 null 时可行的配置（否则，某些硬件可能会崩溃）。
 
-根描述符但是，不应设置为 null。
+但是，根描述符不应设置为 null。
 
 ## <a name="default-descriptors"></a>默认描述符
 
-若要创建的特定视图的默认描述符，请将传递中的有效*pResource* create 视图方法的参数 (如[ **CreateShaderResourceView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview))，但在传递为 null *pDesc*参数。 例如，如果该资源包含 14 mips，视图将包含 14 mips。 默认情况下包括到视图资源的最明显的映射。 这需要资源的分配具有完全限定的格式名称 (例如 DXGI\_格式\_R8G8B8A8\_UNORM\_SRGB 而不是 DXGI\_格式\_R8G8B8A8\_无类型）。
+若要创建特定视图的默认描述符，请将有效的 pResource  参数传递到创建视图方法（例如，[**CreateShaderResourceView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview)），但针对 pDesc  参数传递 null。 例如，如果资源包含 14 个 mip，则视图将包含 14 个 mip。 默认情况包含资源到视图的最明显映射。 这需要资源分配有完全限定的格式名称（例如，DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB，而不是 DXGI\_FORMAT\_R8G8B8A8\_TYPELESS）。
 
 ## <a name="related-topics"></a>相关主题
 

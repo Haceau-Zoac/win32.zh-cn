@@ -1,6 +1,6 @@
 ---
 title: 上传不同类型的资源
-description: 演示如何使用一个缓冲区以将常量缓冲区数据和顶点缓冲区数据上载到 GPU，以及如何正确二次分配，并将缓冲区中的数据。
+description: 演示如何使用缓冲区将常量缓冲区数据和顶点缓冲区数据上载到 GPU，以及如何在缓冲区中正确地二次分配和放置数据。
 ms.assetid: 255B0482-21D6-4276-8009-3F3891879CA1
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,7 +13,7 @@ ms.locfileid: "66224308"
 ---
 # <a name="uploading-different-types-of-resources"></a>上传不同类型的资源
 
-演示如何使用一个缓冲区以将常量缓冲区数据和顶点缓冲区数据上载到 GPU，以及如何正确二次分配，并将缓冲区中的数据。 一个单一的缓冲区的使用会增加内存使用情况的灵活性，并提供具有更严格的控制的内存使用情况的应用程序。 此外显示了 D3D11 和 D3D12 模型用于上传不同类型的资源之间的差异。
+演示如何使用缓冲区将常量缓冲区数据和顶点缓冲区数据上载到 GPU，以及如何在缓冲区中正确地二次分配和放置数据。 使用单个缓冲区可提高内存使用灵活性，并为应用程序提供更严格的内存使用控制。 还显示了 D3D11 和 D3D12 模型之间在上传不同类型资源方面的差异。
 
 -   [上传不同类型的资源](#upload-different-types-of-resources)
     -   [代码示例：D3D11](#code-example-d3d11)
@@ -21,16 +21,16 @@ ms.locfileid: "66224308"
 -   [常量](#constants)
 -   [资源](#uploading-different-types-of-resources)
 -   [资源大小反射](#resource-size-reflection)
--   [缓冲区对齐方式](#buffer-alignment)
--   [相关的主题](#related-topics)
+-   [缓冲区对齐](#buffer-alignment)
+-   [相关主题](#related-topics)
 
 ## <a name="upload-different-types-of-resources"></a>上传不同类型的资源
 
-D3D12，在应用程序创建一个缓冲区以容纳不同类型的资源数据的上传，并按不同的资源数据类似的方式将资源数据复制到同一缓冲区。 然后，创建单个视图，以便将这些资源数据绑定到新的资源绑定模型中的图形管道。
+在 D3D12 中，应用程序创建一个缓冲区以容纳不同类型的资源数据上传，并按不同资源数据的相似方式将资源数据复制到同一个缓冲区。 然后，创建单个视图以将这些资源数据绑定到新资源绑定模型中的图形管道。
 
-D3D11，应用程序创建不同类型的资源数据的单独缓冲区 (请注意不同`BindFlags`D3D11 下面的代码示例中使用)、 显式绑定到图形管道的每个资源缓冲区和更新使用的资源数据基于不同的资源类型的不同方法。
+在 D3D11 中，应用程序为不同类型的资源数据创建单独的缓冲区（请注意，以下 D3D11 代码示例中使用的不同 `BindFlags`），将每个资源缓冲区显式绑定到图形管道，并基于不同的资源类型使用不同的方法更新资源数据。
 
-在 D3D12 和 D3D11，应用程序只应使用上传资源的 CPU 会将数据写入一次和 GPU 将一次读取。 如果 GPU 将读取数据多次，GPU 将线性增长，读取的数据或呈现已显著 GPU 受限。 更好的选择可能是使用[ **ID3D12GraphicsCommandList::CopyTextureRegion** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion)或[ **ID3D12GraphicsCommandList::CopyBufferRegion** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion)将缓冲区中上载的数据复制到默认资源。 默认资源可以驻留在离散的 Gpu 上的物理视频内存。
+在 D3D12 和 D3D11 中，应用程序应仅使用 CPU 将写入一次数据和 GPU 将读取一次数据的上传资源。 如果 GPU 将多次读取数据，则 GPU 不会线性读取数据，或呈现已显著受到 GPU 限制。 最好使用 [**ID3D12GraphicsCommandList::CopyTextureRegion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion) 或 [**ID3D12GraphicsCommandList::CopyBufferRegion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copybufferregion) 将上传缓冲区数据复制到默认资源。 默认资源可以驻留在离散 GPU 上的物理视频内存中。
 
 ### <a name="code-example-d3d11"></a>代码示例：D3D11
 
@@ -264,11 +264,11 @@ UINT Align(UINT uLocation, UINT uAlign)
 }
 ```
 
-请注意使用的帮助器结构[ **CD3DX12\_堆\_属性**](cd3dx12-heap-properties.md)并[ **CD3DX12\_资源\_DESC**](cd3dx12-resource-desc.md)。
+请注意帮助程序结构 [**CD3DX12\_HEAP\_PROPERTIES**](cd3dx12-heap-properties.md) 和 [**CD3DX12\_RESOURCE\_DESC**](cd3dx12-resource-desc.md) 的用法。
 
 ## <a name="constants"></a>常量
 
-若要设置常量、 顶点和上传或 Readback 堆中的索引，请使用以下 Api:
+若要设置上传或读回堆中的常量、顶点和索引，请使用以下 API：
 
 -   [**ID3D12Device::CreateConstantBufferView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createconstantbufferview)
 -   [**ID3D12GraphicsCommandList::IASetVertexBuffers**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)
@@ -276,49 +276,49 @@ UINT Align(UINT uLocation, UINT uAlign)
 
 ## <a name="resources"></a>资源
 
-资源是 D3D 概念，它将提取的 GPU 物理内存使用情况。 资源需要 GPU 虚拟地址空间访问物理内存。 创建资源是自由线程。
+资源是提取 GPU 物理内存使用情况的 D3D 概念。 资源需要 GPU 虚拟地址空间来访问物理内存。 资源创建是自由线程。
 
-有三种类型的相对虚拟地址创建而又灵活的 D3D12 于的资源：
+对于 D3D12 中的虚拟地址创建和灵活性，有以下三种类型的资源：
 
--   已提交的资源
+-   提交的资源
 
-    已提交的资源是通过代 D3D 资源的最常见的想法。 创建此类资源分配的虚拟地址范围的隐式堆，足以容纳整个资源，并提交到堆中的物理内存的虚拟地址范围。 必须传递隐式堆属性以匹配与以前的 D3D 版本相同的功能。 请参阅[ **ID3D12Device::CreateCommittedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource)。
+    提交的资源是各代 D3D 资源的最常见想法。 创建此类资源会分配虚拟地址范围（足以容纳整个资源的隐式堆），并将虚拟地址范围提交由堆封装的物理内存。 必须传递隐式堆属性以将功能奇偶校验与以前的 D3D 版本匹配。 请参阅 [**ID3D12Device::CreateCommittedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource)。
 
--   保留的资源
+-   预留的资源
 
-    等效于 D3D11 平铺资源预留的资源。 在其创建时，只是虚拟的地址范围分配和未映射到任何堆。 应用程序将更高版本将此类资源映射到堆中。 此类资源的功能为当前未更改 D3D11，通过将它们映射到某一堆在使用 64 KB 磁贴粒度[ **UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings)。 请参阅[ **ID3D12Device::CreateReservedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createreservedresource)
+    预留的资源等效于 D3D11 平铺资源。 创建时，仅分配虚拟地址范围，并且不会将其映射到任何堆。 应用程序稍后会将此类资源映射到堆。 此类资源的功能当前在 D3D11 中保持不变，因为可以使用 [**UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings) 将这些功能映射到磁贴粒度为 64 KB 的堆。 请参阅 [**ID3D12Device::CreateReservedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createreservedresource)
 
 -   放置的资源
 
-    新的 D3D12，应用程序可能会创建堆单独从资源。 然后，应用程序可能会查找单个堆中的多个资源。 这可以而无需创建平铺或保留资源，使能够直接由应用程序创建的所有资源类型的功能。 多个资源可能会重叠，并且该应用程序必须使用`TiledResourceBarrier`若要重新正确使用物理内存。 请参阅[ **ID3D12Device::CreatePlacedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createplacedresource)
+    这是 D3D12 的新增资源，应用程序可能会创建独立于资源的堆。 然后，应用程序可能会查找单个堆中的多个资源。 无需创建平铺或预留的资源即可完成此操作，从而启用能够通过应用程序直接创建的所有资源类型的功能。 多个资源可能会重叠，应用程序必须使用 `TiledResourceBarrier` 来正确地重复使用物理内存。 请参阅 [**ID3D12Device::CreatePlacedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createplacedresource)
 
 ## <a name="resource-size-reflection"></a>资源大小反射
 
-应用程序必须使用资源大小反射来了解多少空间纹理具有未知的纹理布局需要在堆中。 缓冲区也支持，但主要是为方便起见。
+应用程序必须使用资源大小反射来了解具有未知纹理布局的纹理在堆中需要多少空间。 还支持缓冲区，但主要是为了方便起见。
 
-应用程序应注意的主要的对齐方式的差异，以便更密集地帮助资源的包。
+应用程序应注意主要对齐差异，以便更密集地打包资源。
 
-例如，一个字节缓冲区的单个元素数组的大小为 64 KB 和 64 KB 的对齐方式作为返回的缓冲区当前只能是 64KB 对齐。
+例如，具有单字节缓冲区的单元素数组返回 64 KB 的大小和 64 KB 的对齐，因为缓冲区当前只有 64 KB 对齐。
 
-此外，两个单纹素 64KB 对齐纹理和纹素的单 4MB 对齐纹理的三个元素数组报告根据顺序数组的大小不同。 中间对齐 4 MB 纹理时，所生成的大小为 12 MB。 否则，所生成的大小为 8 MB。 返回的对齐方式将始终为 4 MB，所有的资源数组中的对齐方式的超级集。
+此外，具有两个单纹素 64 KB 对齐纹理和单纹素 4 MB 对齐纹理的三元素数组根据数组顺序报告了不同的大小。 如果有 4 MB 对齐的纹理位于中间，则生成的大小为 12 MB。 否则，生成的大小为 8 MB。 返回的对齐将始终为 4 MB（资源数组中所有对齐的超集）。
 
-参考以下 Api:
+引用以下 API：
 
--   [**D3D12\_资源\_分配\_信息**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_resource_allocation_info)
+-   [**D3D12\_RESOURCE\_ALLOCATION\_INFO**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_resource_allocation_info)
 -   [**GetResourceAllocationInfo**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getresourceallocationinfo)
 
-## <a name="buffer-alignment"></a>缓冲区对齐方式
+## <a name="buffer-alignment"></a>缓冲区对齐
 
-缓冲区对齐限制未更改从 D3D11，值得注意的是：
+值得注意的是，缓冲区对齐限制自 D3D11 起未发生更改：
 
--   对于多重采样的纹理的 4 MB。
--   单示例纹理和缓冲区的 64 KB。
+-   对于多重采样纹理，则为 4 MB。
+-   对于单采样纹理和缓冲区，则为 64 KB。
 
 ## <a name="related-topics"></a>相关主题
 
 <dl> <dt>
 
-[在缓冲区中的子分配](large-buffers.md)
+[缓冲区中的二次分配](large-buffers.md)
 </dt> </dl>
 
  

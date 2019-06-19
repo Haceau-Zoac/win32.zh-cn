@@ -1,6 +1,6 @@
 ---
-title: 间接绘制和 GPU 消除
-description: D3D12ExecuteIndirect 示例演示如何使用间接命令来绘制内容。 它还演示了如何这些命令可以操作计算着色器中的 GPU 上发出之前，是。
+title: 间接绘制和 GPU 精选
+description: D3D12ExecuteIndirect 示例演示如何使用间接命令来绘制内容。 它还演示如何在发出这些命令之前在计算着色器中的 GPU 上对其进行操作。
 ms.assetid: 09F90837-D6BF-498E-8018-5C28EDD9BDC3
 ms.topic: article
 ms.date: 05/31/2018
@@ -11,29 +11,29 @@ ms.contentlocale: zh-CN
 ms.lasthandoff: 05/27/2019
 ms.locfileid: "66223825"
 ---
-# <a name="indirect-drawing-and-gpu-culling"></a>间接绘制和 GPU 消除
+# <a name="indirect-drawing-and-gpu-culling"></a>间接绘制和 GPU 精选
 
-D3D12ExecuteIndirect 示例演示如何使用间接命令来绘制内容。 它还演示了如何这些命令可以操作计算着色器中的 GPU 上发出之前，是。
+D3D12ExecuteIndirect 示例演示如何使用间接命令来绘制内容。 它还演示如何在发出这些命令之前在计算着色器中的 GPU 上对其进行操作。
 
 -   [定义间接命令](#define-the-indirect-commands)
 -   [创建图形和计算根签名](#create-a-graphics-and-compute-root-signature)
--   [创建的计算着色器的着色器资源视图 (SRV)](#create-a-shader-resource-view-srv-for-the-compute-shader)
+-   [为计算着色器创建着色器资源视图 (SRV)](#create-a-shader-resource-view-srv-for-the-compute-shader)
 -   [创建间接命令缓冲区](#create-the-indirect-command-buffers)
--   [创建计算 Uav](#create-the-compute-uavs)
--   [绘制在帧](#drawing-the-frame)
+-   [创建计算 UAV](#create-the-compute-uavs)
+-   [绘制帧](#drawing-the-frame)
 -   [运行示例](#run-the-sample)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
-该示例创建描述 1024年绘图调用的命令缓冲区。 每个绘图调用呈现带有随机颜色、 位置和速度的三角形。 三角形设置动画效果无休止地在屏幕上。 在此示例中有两种模式。 在第一个模式下，计算着色器检查间接命令，并决定将该命令添加到无序的访问视图 (UAV) 描述的命令应执行的。 在第二个模式下，只需执行的所有命令。 按空格键将模式之间进行切换。
+该示例创建描述 1024 个绘制调用的命令缓冲区。 每个绘制调用呈现带有随机颜色、位置和速度的三角形。 这些三角形在屏幕上不断地创建动画。 此示例中有两种模式。 在第一种模式下，计算着色器检查间接命令，并决定是否将该命令添加到描述应执行哪些命令的无序访问视图 (UAV)。 在第二种模式下，只需执行所有命令。 按空格键将在模式之间进行切换。
 
 ## <a name="define-the-indirect-commands"></a>定义间接命令
 
-我们首先定义间接命令应如下所示。 在此示例中我们想要执行的命令是：
+我们首先定义应如何显示间接命令。 在此示例中，我们想要执行的命令用于：
 
 <dl> 1. 更新常量缓冲区视图 (CBV)。 2. 绘制三角形。  
 </dl>
 
-中的以下结构将显示这些绘制命令**D3D12ExecuteIndirect**类定义。 此结构中定义的顺序按顺序执行命令。
+这些绘制命令由 D3D12ExecuteIndirect  类定义中的以下结构表示。 按此结构中定义的顺序执行命令。
 
 ``` syntax
   
@@ -47,16 +47,16 @@ struct IndirectCommand
 
 
 
-| 呼叫流                                              | 参数 |
+| 调用流程                                              | 参数 |
 |--------------------------------------------------------|------------|
-| D3D12\_GPU\_虚拟\_地址 (只需 UINT64)         |            |
-| [**D3D12\_绘制\_参数**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_draw_arguments) |            |
+| D3D12\_GPU\_VIRTUAL\_ADDRESS（只是一个 UINT64）         |            |
+| [**D3D12\_DRAW\_ARGUMENTS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_draw_arguments) |            |
 
 
 
  
 
-随附的数据结构，命令创建的签名是还指示如何解释数据传递给 GPU [ **ExecuteIndirect** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) API。 此操作，和充分利用以下代码添加到**LoadAssets**方法。
+若要随附于数据结构，还会创建命令签名，指示 GPU 如何解释传递给 [ExecuteIndirect](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) API 的数据  。 此命令签名和大部分以下代码将添加到 LoadAssets  方法。
 
 ``` syntax
 // Create the command signature used for indirect drawing.
@@ -78,10 +78,10 @@ struct IndirectCommand
 
 
 
-| 呼叫流                                                               | 参数                                                              |
+| 调用流程                                                               | 参数                                                              |
 |-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| [**D3D12\_间接\_自变量\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_indirect_argument_desc) | [**D3D12\_间接\_自变量\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_indirect_argument_type) |
-| [**D3D12\_命令\_签名\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_command_signature_desc) |                                                                         |
+| [**D3D12\_INDIRECT\_ARGUMENT\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_indirect_argument_desc) | [**D3D12\_INDIRECT\_ARGUMENT\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_indirect_argument_type) |
+| [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_command_signature_desc) |                                                                         |
 | [**CreateCommandSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandsignature)   |                                                                         |
 
 
@@ -90,17 +90,17 @@ struct IndirectCommand
 
 ## <a name="create-a-graphics-and-compute-root-signature"></a>创建图形和计算根签名
 
-我们还创建图形和计算根签名。 图形根签名只是定义根 CBV。 请注意我们在此根参数的索引映射[ **D3D12\_间接\_参数\_DESC** ](/windows/desktop/api/D3D12/ns-d3d12-d3d12_indirect_argument_desc) （如上所示） 定义的命令签名时。 计算根签名定义：
+我们还会创建图形和计算根签名。 图形根签名仅定义根 CBV。 请注意，在定义命令签名时，我们会映射 [**D3D12\_INDIRECT\_ARGUMENT\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_indirect_argument_desc)（如上所示）中的此根参数的索引。 计算根签名定义：
 
--   具有三个插槽 （两个 SRV 和一个 UAV） 的常见描述符表：
-    -   一个 SRV 公开到计算着色器常量缓冲区
-    -   一个 SRV 公开计算着色器的命令缓冲区
-    -   UAV 是计算着色器将可见三角形命令保存到其中
+-   具有三个槽（两个 SRV 和一个 UAV）的常见描述符表：
+    -   一个 SRV 向计算着色器公开常量缓冲区
+    -   一个 SRV 向计算着色器公开命令缓冲区
+    -   UAV 是计算着色器保存可见三角形的命令的位置
 -   四个根常量：
-    -   一侧的三角形的宽度的一半
+    -   三角形一侧的一半宽度
     -   三角形顶点的 z 位置
-    -   + /-X 偏移量的同构的空间中的精选平面\[-1，1\]
-    -   命令缓冲区中间接命令数
+    -   均质空间 \[-1,1\] 中的精选平面的 +/- x 偏移量
+    -   命令缓冲区中的间接命令数
 
 ``` syntax
 // Create the root signatures.
@@ -135,27 +135,27 @@ struct IndirectCommand
 
 
 
-| 呼叫流                                                             | 参数                                                            |
+| 调用流程                                                             | 参数                                                            |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [**D3D12\_着色器\_可见性**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)          |
-| [**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md) | [**D3D12\_根\_签名\_标志**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)   |
+| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)          |
+| [**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md) | [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)   |
 | [**ID3DBlob**](https://msdn.microsoft.com/library/windows/desktop/ff728743)                                   |                                                                       |
-| [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature)    | [**D3D\_根\_签名\_版本**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)   |
+| [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature)    | [**D3D\_ROOT\_SIGNATURE\_VERSION**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)   |
 | [**CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature)       |                                                                       |
-| [**CD3DX12\_DESCRIPTOR\_RANGE**](cd3dx12-descriptor-range.md)        | [**D3D12\_描述符\_范围\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_range_type) |
-| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [**D3D12\_着色器\_可见性**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)          |
-| [**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md) | [**D3D12\_根\_签名\_标志**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)   |
+| [**CD3DX12\_DESCRIPTOR\_RANGE**](cd3dx12-descriptor-range.md)        | [**D3D12\_DESCRIPTOR\_RANGE\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_range_type) |
+| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)          |
+| [**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md) | [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)   |
 | [**ID3DBlob**](https://msdn.microsoft.com/library/windows/desktop/ff728743)                                   |                                                                       |
-| [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature)    | [**D3D\_根\_签名\_版本**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)   |
+| [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature)    | [**D3D\_ROOT\_SIGNATURE\_VERSION**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)   |
 | [**CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature)       |                                                                       |
 
 
 
  
 
-## <a name="create-a-shader-resource-view-srv-for-the-compute-shader"></a>创建的计算着色器的着色器资源视图 (SRV)
+## <a name="create-a-shader-resource-view-srv-for-the-compute-shader"></a>为计算着色器创建着色器资源视图 (SRV)
 
-创建管道状态对象、 顶点缓冲区、 深度模具和常量缓冲区后，该示例然后创建着色器资源视图 (SRV) 的常量缓冲区，以便计算着色器可以访问常量缓冲区中的数据。
+创建管道状态对象、顶点缓冲区、深度模具和常量缓冲区后，该示例则会创建常量缓冲区的着色器资源视图 (SRV)，以便计算着色器可以访问常量缓冲区中的数据。
 
 ``` syntax
 // Create shader resource views (SRV) of the constant buffers for the
@@ -182,7 +182,7 @@ struct IndirectCommand
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -211,7 +211,7 @@ struct IndirectCommand
 
 ## <a name="create-the-indirect-command-buffers"></a>创建间接命令缓冲区
 
-我们然后创建间接命令缓冲区，并定义其内容，使用下面的代码。 我们得出相同的三角形顶点 1024年次，但指向不同的常量缓冲区位置与每个绘图调用。
+我们会创建间接命令缓冲区，并使用以下代码定义其内容。 我们绘制相同的三角形顶点 1024 次，但使用每个绘制调用指向不同的常量缓冲区位置。
 
 ``` syntax
        D3D12_GPU_VIRTUAL_ADDRESS gpuAddress = m_constantBuffer->GetGPUVirtualAddress();
@@ -235,15 +235,15 @@ struct IndirectCommand
 
 
 
-| 呼叫流                    | 参数                                                          |
+| 调用流程                    | 参数                                                          |
 |------------------------------|---------------------------------------------------------------------|
-| D3D12\_GPU\_虚拟\_地址 | [**GetGPUVirtualAddress**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress) |
+| D3D12\_GPU\_VIRTUAL\_ADDRESS | [**GetGPUVirtualAddress**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress) |
 
 
 
  
 
-后，将命令缓冲区上载到 GPU，我们还创建 SRV 为进行读取的计算着色器。 这是非常相似的常量缓冲区创建 SRV。
+将命令缓冲区上载到 GPU 后，我们还会创建 SRV 以便计算着色器进行读取。 这与常量缓冲区中创建的 SRV 非常相似。
 
 ``` syntax
 // Create SRVs for the command buffers.
@@ -269,7 +269,7 @@ struct IndirectCommand
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -297,9 +297,9 @@ struct IndirectCommand
 
  
 
-## <a name="create-the-compute-uavs"></a>创建计算 Uav
+## <a name="create-the-compute-uavs"></a>创建计算 UAV
 
-我们需要创建 Uav 将存储计算工作的结果。 当计算着色器，可以看到呈现器目标被视为一个三角形时，它将是追加到此 UAV，并且之后可供[ **ExecuteIndirect** ](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) API。
+我们需要创建将存储计算工作的结果的 UAV。 当某个三角形被计算着色器视为对呈现器目标可见时，该三角形将附加到此 UAV，然后可由 [ExecuteIndirect](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) API 使用  。
 
 ``` syntax
 CD3DX12_CPU_DESCRIPTOR_HANDLE processedCommandsHandle(m_cbvSrvUavHeap->GetCPUDescriptorHandleForHeapStart(), ProcessedCommandsOffset, m_cbvSrvUavDescriptorSize);
@@ -340,7 +340,7 @@ for (UINT frame = 0; frame < FrameCount; frame++)
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -379,9 +379,9 @@ for (UINT frame = 0; frame < FrameCount; frame++)
 
  
 
-## <a name="drawing-the-frame"></a>绘制在帧
+## <a name="drawing-the-frame"></a>绘制帧
 
-当时绘制帧，如果我们处于的模式下时进行调用的计算着色器和间接命令将由 GPU 进行处理时，我们将首先[**调度**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)来填充该工作我们命令缓冲区[ **ExecuteIndirect**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect)。 下面的代码段添加到**PopulateCommandLists**方法。
+每当绘制帧时，如果我们处于正在调用计算着色器且正在由 GPU 处理间接命令的模式下时，将首先[调度](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)该工作来填充 [ExecuteIndirect](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) 的命令缓冲区   。 以下代码段将添加到 PopulateCommandLists  方法。
 
 ``` syntax
 // Record the compute commands that will cull triangles and prevent them from being processed by the vertex shader.
@@ -418,7 +418,7 @@ ThrowIfFailed(m_computeCommandList->Close());
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -462,11 +462,11 @@ ThrowIfFailed(m_computeCommandList->Close());
 
 </tr>
 <tr class="even">
-<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch"><strong>调度</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch"><strong>Dispatch</strong></a></td>
 
 </tr>
 <tr class="odd">
-<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close"><strong>关闭</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close"><strong>Close</strong></a></td>
 
 </tr>
 </tbody>
@@ -476,7 +476,7 @@ ThrowIfFailed(m_computeCommandList->Close());
 
  
 
-然后我们将在 UAV （GPU 消除启用） 或完整的命令缓冲区 （GPU 消除禁用） 中执行命令。
+然后，我们将在 UAV（已启用 GPU 精选）或已满的命令缓冲区（已禁用 GPU 精选）中执行命令。
 
 ``` syntax
 // Record the rendering commands.
@@ -558,7 +558,7 @@ ThrowIfFailed(m_computeCommandList->Close());
 <table>
 <thead>
 <tr class="header">
-<th>呼叫流</th>
+<th>调用流程</th>
 <th>参数</th>
 </tr>
 </thead>
@@ -626,7 +626,7 @@ ThrowIfFailed(m_computeCommandList->Close());
 <td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states"><strong>D3D12_RESOURCE_STATES</strong></a></td>
 </tr>
 <tr class="even">
-<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close"><strong>关闭</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close"><strong>Close</strong></a></td>
 
 </tr>
 </tbody>
@@ -636,7 +636,7 @@ ThrowIfFailed(m_computeCommandList->Close());
 
  
 
-如果我们在 GPU 精选模式下，我们将让图形命令队列等待它开始执行间接命令之前完成的计算工作。 在中**OnRender**方法添加以下代码片段。
+如果处于 GPU 精选模式，我们将使图形命令队列在开始执行间接命令之前等待完成计算工作。 在 OnRender  方法中，将添加以下代码段。
 
 ``` syntax
 // Execute the compute work.
@@ -657,12 +657,12 @@ m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 
 
 
-| 呼叫流                                                             | 参数 |
+| 调用流程                                                             | 参数 |
 |-----------------------------------------------------------------------|------------|
 | [**ID3D12CommandList**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandlist)                        |            |
 | [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) |            |
-| [**信号**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-signal)                           |            |
-| [**等待**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-wait)                               |            |
+| [**Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-signal)                           |            |
+| [**Wait**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-wait)                               |            |
 | [**ID3D12CommandList**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandlist)                        |            |
 | [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) |            |
 
@@ -672,13 +672,13 @@ m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 
 ## <a name="run-the-sample"></a>运行示例
 
-使用 GPU 基元消除示例。
+带有 GPU 基元精选的示例。
 
-![使用 gpu 消除执行间接示例的屏幕截图](images/executeindirect-withculling.png)
+![带有 GPU 精选的执行间接示例的屏幕截图](images/executeindirect-withculling.png)
 
-而无需 GPU 基元消除示例。
+不带 GPU 基元精选的示例。
 
-![而无需 gpu 消除执行间接示例的屏幕截图](images/executeindirect-withoutculling.png)
+![不带 GPU 精选的执行间接示例的屏幕截图](images/executeindirect-withoutculling.png)
 
 ## <a name="related-topics"></a>相关主题
 
@@ -687,10 +687,10 @@ m_commandQueue->ExecuteCommandLists(_countof(ppCommandLists), ppCommandLists);
 [D3D12 代码演练](d3d12-code-walk-throughs.md)
 </dt> <dt>
 
-[DirectX 高级学习视频教程：执行间接和消除异步 GPU](https://www.youtube.com/watch?v=fKD-VKJeeds)
+[DirectX 高级学习视频教程：执行间接和异步 GPU 精选](https://www.youtube.com/watch?v=fKD-VKJeeds)
 </dt> <dt>
 
-[间接绘图](indirect-drawing.md)
+[间接绘制](indirect-drawing.md)
 </dt> </dl>
 
  

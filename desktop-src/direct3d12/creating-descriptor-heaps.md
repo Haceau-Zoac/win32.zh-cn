@@ -1,6 +1,6 @@
 ---
 title: 创建描述符堆
-description: 若要创建和配置描述符堆，必须选择描述符堆类型、 确定多少描述符包含，并设置指示是否可见的 CPU 和/或着色器可见的标志。
+description: 若要创建和配置描述符堆，必须选择描述符堆类型，确定所包含的描述符数，并设置指示 CPU 是否可见和/或着色器是否可见的标志。
 ms.assetid: 58677023-692C-4BA4-90B7-D568F3DD3F73
 ms.topic: article
 ms.date: 05/31/2018
@@ -13,18 +13,18 @@ ms.locfileid: "66223843"
 ---
 # <a name="creating-descriptor-heaps"></a>创建描述符堆
 
-若要创建和配置描述符堆，必须选择描述符堆类型、 确定多少描述符包含，并设置指示是否可见的 CPU 和/或着色器可见的标志。
+若要创建和配置描述符堆，必须选择描述符堆类型，确定所包含的描述符数，并设置指示 CPU 是否可见和/或着色器是否可见的标志。
 
 -   [描述符堆类型](#descriptor-heap-types)
 -   [描述符堆属性](#descriptor-heap-properties)
 -   [描述符句柄](#descriptor-handles)
 -   [描述符堆方法](#descriptor-heap-methods)
 -   [最小描述符堆包装器](#minimal-descriptor-heap-wrapper)
--   [相关的主题](#related-topics)
+-   [相关主题](#related-topics)
 
 ## <a name="descriptor-heap-types"></a>描述符堆类型
 
-堆的类型由一个成员[ **D3D12\_描述符\_堆\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_type)枚举：
+堆类型由 [**D3D12\_DESCRIPTOR\_HEAP\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_type) 枚举的一个成员确定：
 
 ``` syntax
 typedef enum D3D12_DESCRIPTOR_HEAP_TYPE
@@ -39,13 +39,13 @@ typedef enum D3D12_DESCRIPTOR_HEAP_TYPE
 
 ## <a name="descriptor-heap-properties"></a>描述符堆属性
 
-堆属性在设置[ **D3D12\_描述符\_堆\_DESC** ](/windows/desktop/api/D3D12/ns-d3d12-d3d12_descriptor_heap_desc)结构，它将同时引用[ **D3D12\_描述符\_堆\_类型**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_type)并[ **D3D12\_描述符\_堆\_标志**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_flags)枚举。
+堆属性在 [**D3D12\_DESCRIPTOR\_HEAP\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_descriptor_heap_desc) 结构上设置，该结构将同时引用 [**D3D12\_DESCRIPTOR\_HEAP\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_type) 和 [**D3D12\_DESCRIPTOR\_HEAP\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_flags) 枚举。
 
-标志 D3D12\_描述符\_堆\_标志\_着色器\_VISIBLE 可以选择性地设置上一个描述符堆，以指示它是由着色器绑定上命令列表，以便引用。 描述符堆创建*而无需*此标志允许应用程序阶段描述符选项在 CPU 内存中之前将其复制到着色器可见描述符堆，为方便起见。 但它也是相当不错的应用程序直接创建描述符到着色器可见描述符堆而不需要分阶段在 CPU 上的任何内容。
+可以在描述符堆上有选择地设置标志 D3D12\_DESCRIPTOR\_HEAP\_FLAG\_SHADER\_VISIBLE，以指示该标志绑定在命令列表中以供着色器引用。 为了方便起见，创建的描述符堆（不带此标志）允许应用程序在将描述符复制到着色器可见描述符堆之前将其暂存到 CPU 内存中  。 但是，应用程序也可以直接将描述符创建到着色器可见描述符堆中，而无需将任何描述符暂存到 CPU 上。
 
-此标志仅适用于 CBV、 SRV、 UAV 和取样器。 它不适用于其他描述符堆类型由于着色器不能直接引用其他类型。
+此标志仅适用于 CBV、SRV、UAV 和取样器。 它不适用于其他描述符堆类型，因为着色器不会直接引用其他类型。
 
-例如，描述并创建取样器描述符堆。
+例如，描述和创建取样器描述符堆。
 
 
 ```C++
@@ -59,7 +59,7 @@ ThrowIfFailed(m_device->CreateDescriptorHeap(&samplerHeapDesc, IID_PPV_ARGS(&m_s
 
 
 
-描述和创建常量缓冲区视图 (CBV)、 着色器资源视图 (SRV) 和无序的访问视图 (UAV) 描述符堆。
+描述和创建常量缓冲区视图 (CBV)、着色器资源视图 (SRV) 和无序访问视图 (UAV) 描述符堆。
 
 
 ```C++
@@ -79,17 +79,17 @@ m_srvUavDescriptorSize = m_device->GetDescriptorHandleIncrementSize(D3D12_DESCRI
 
 ## <a name="descriptor-handles"></a>描述符句柄
 
-[ **D3D12\_GPU\_描述符\_处理**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle)并[ **D3D12\_CPU\_描述符\_处理**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle)结构标识描述符堆中的特定描述符。 句柄是有点类似于指针，但应用程序必须未对其取消引用手动;否则，该行为不确定。 使用句柄必须经过 API。 可以自由地复制或传递到对 / 使用描述符的 Api 本身的句柄。 没有无引用计数，因此应用程序必须确保它不删除基础描述符堆后使用一个句柄。
+[**D3D12\_GPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle) 和 [**D3D12\_CPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle) 结构标识描述符堆中的特定描述符。 句柄有点类似于指针，但应用程序不得手动对其取消引用；否则，行为是未定义的。 必须通过执行 API 来使用句柄。 句柄本身可以自由复制或传递到在其上操作/使用描述符的 API 中。 未对引用进行计数，因此应用程序必须确保在已删除基础描述符堆后不使用句柄。
 
-应用程序可以找出给定的描述符堆类型描述符的增量大小，以便它们可以在手动启动从该句柄到基描述符堆中生成的句柄的任何位置。 应用程序必须永远不会进行硬编码描述符句柄增量大小，并应始终将这些查询为给定的设备实例;否则，该行为不确定。 应用程序还必须不使用增量大小和句柄来执行其自己的检查或操作描述符堆数据，因为执行此操作的结果是未定义。 不可能实际使用句柄，作为指针，而是而不是作为代理以避免意外取消引用指针。
+应用程序可以找出给定描述符堆类型的描述符的增量大小，以便它们可以手动将句柄生成到描述符堆中的任何位置（从句柄开始到库）。 应用程序决不能对描述符句柄增量大小进行硬编码，并且应该始终针对给定设备实例对其进行查询；否则，行为是未定义的。 应用程序还不得使用增量大小和句柄来执行自己的检查或描述符堆数据操作，因为执行此操作的结果是未定义的。 句柄实际上可能不会用作指针，而是作为指针的代理以便避免意外取消引用。
 
 > [!Note]
 >
-> 没有帮助器结构，CD3DX12\_GPU\_描述符\_句柄，在标头 d3dx12.h，继承中定义[ **D3D12\_GPU\_描述符\_处理**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle)结构并提供了初始化和其他有用的操作。 同样 CD3DX12\_CPU\_描述符\_为定义句柄帮助器结构[ **D3D12\_CPU\_描述符\_句柄**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle)结构。
+> 标头 d3dx12.h 中定义了一个帮助程序结构 CD3DX12\_GPU\_DESCRIPTOR\_HANDLE，该结构继承 [**D3D12\_GPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle) 结构并提供初始化和其他有用的操作。 同样，CD3DX12\_CPU\_DESCRIPTOR\_HANDLE 帮助程序结构是为 [**D3D12\_CPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle) 结构定义的。
 
  
 
-这两个这些帮助器结构时，使用填充命令列表。
+这两个帮助程序结构在填充命令列表时使用。
 
 
 ```C++
@@ -164,15 +164,15 @@ void D3D12nBodyGravity::PopulateCommandList()
 
 ## <a name="descriptor-heap-methods"></a>描述符堆方法
 
-描述符堆 ([**ID3D12DescriptorHeap**](/windows/desktop/api/D3D12/nn-d3d12-id3d12descriptorheap)) 继承[ **ID3D12Pageable**](https://msdn.microsoft.com/en-us/library/Dn788704(v=VS.85).aspx)。 此堆施加堆上的应用程序，就像资源描述符驻留管理的责任。 驻留管理方法仅适用于着色器可见堆由于非的着色器可见堆看不到 GPU 直接。
+描述符堆 ([**ID3D12DescriptorHeap**](/windows/desktop/api/D3D12/nn-d3d12-id3d12descriptorheap)) 继承自 [**ID3D12Pageable**](https://msdn.microsoft.com/en-us/library/Dn788704(v=VS.85).aspx)。 这会施加在应用程序上对描述符进行驻留管理的责任，就像资源堆一样。 驻留管理方法仅适用于着色器可见堆，因为非着色器可见堆不会直接向 GPU 显示。
 
-[ **ID3D12Device::GetDescriptorHandleIncrementSize** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)方法使应用程序来手动偏移到堆的句柄 （生成处理到任意位置描述符堆中）。 来自于堆开始位置的句柄[ **ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)/[**ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)。 偏移通过添加增量大小\*到描述符堆开始的偏移的说明符的数目。 请注意，增量大小不能被视为字节大小由于应用程序必须取消引用句柄如同它们是内存 – 内存指向具有非标准化的布局和即使对于给定的设备而异。
+[**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize) 方法允许应用程序手动将句柄偏移到堆中（将句柄生成到描述符堆中的任意位置）。 堆开始位置的句柄来自 [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)/[**ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)。 偏移通过添加增量大小\*描述符数以偏移到描述符堆开始位置来完成。 请注意，增量大小不能被视为字节大小，因为应用程序不得取消引用句柄（如同它们是内存一样），所指向的内存具有非标准化的布局，甚至对于给定设备也会有所不同。
 
-[**GetCPUDescriptorHandleForHeapStart** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)返回 CPU 可见描述符的 CPU 句柄堆。 它将返回 NULL 句柄 （和将报告错误的调试层） 如果描述符堆不可见的 CPU。
+[**GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart) 返回 CPU 可见描述符堆的 CPU 句柄。 如果描述符堆对 CPU 不可见，则将返回 NULL 句柄（并且调试层将报告错误）。
 
-[**GetGPUDescriptorHandleForHeapStart** ](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)返回着色器可见描述符的 GPU 句柄堆。 它将返回 NULL 句柄 （和将报告错误的调试层） 如果描述符堆不可见的着色器。
+[**GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart) 返回着色器可见描述符堆的 GPU 句柄。 如果描述符堆对着色器不可见，则将返回 NULL 句柄（并且调试层将报告错误）。
 
-例如，创建呈现目标视图以显示使用 11on12 设备 D2D 文本。
+例如，使用 11on12 设备创建呈现器目标视图以显示 D2D 文本。
 
 
 ```C++
@@ -234,7 +234,7 @@ void D3D12nBodyGravity::PopulateCommandList()
 
 ## <a name="minimal-descriptor-heap-wrapper"></a>最小描述符堆包装器
 
-应用程序开发人员可能会想要构建自己的管理描述符句柄和堆的帮助器代码。 基本示例如下所示。 例如，更复杂的包装器无法跟踪描述符类型是在堆中的和存储描述符创建参数。
+应用程序开发人员可能想要生成自己的帮助程序代码以便管理描述符句柄和堆。 基本示例如下所示。 例如，更复杂的包装器可以跟踪堆中的描述符的类型并存储描述符创建参数。
 
 ``` syntax
 class CDescriptorHeapWrapper
