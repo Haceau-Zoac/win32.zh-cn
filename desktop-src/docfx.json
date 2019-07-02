@@ -38,6 +38,7 @@
     "externalReference": [],
     "globalMetadata": {
       "breadcrumb_path": "/windows/desktop/breadcrumb/toc.json",
+      "disable_contribution_on_translation_quality": ["MT"],
       "uhfHeaderId": "MSDocsHeader-WinDesktop",
       "extendBreadcrumb": true,
       "searchScope": [
