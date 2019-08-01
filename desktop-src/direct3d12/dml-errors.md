@@ -1,15 +1,16 @@
 ---
 title: DirectML 中的绑定
 description: 本主题论述如何调试 DirectML 设备删除和其他错误条件。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/14/2019
-ms.openlocfilehash: ccafb78426154818ad062760b1f694fb47593f28
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 14045601ccdc237679ac312fd705033b4f226c51
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224008"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465002"
 ---
 # <a name="handling-errors-and-device-removal-in-directml"></a>在 DirectML 中处理错误和设备删除
 

@@ -2,14 +2,15 @@
 title: 在 Direct3D 12 中使用资源屏障同步资源状态
 description: 为了减少总体 CPU 使用率并启用驱动程序多线程和预处理，Direct3D 12 将按资源状态管理的责任从图形驱动程序转移到应用程序。
 ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 48313fa4065a9224ad69b29d09e05d94800a055f
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 2576ea555ba24ae49abc82fe854e50d3c89ab2bd
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224299"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725502"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
@@ -43,15 +44,15 @@ ms.locfileid: "66224299"
 
     请注意，可以使用 D3D12\_RESOURCE\_BARRIER\_ALL\_SUBRESOURCES 标志指定要转换资源中的所有子资源。
 
--   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。  
+-   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。  
 
-    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](https://msdn.microsoft.com/library/windows/desktop/dn786477)和[立体图块化资源](volume-tiled-resources.md)。
+    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](https://docs.microsoft.com/windows/desktop/direct3d11/tiled-resources)和[立体图块化资源](volume-tiled-resources.md)。
 
 -   **无序访问视图 (UAV) 屏障** - UAV 屏障指示对特定资源的所有 UAV 访问（读取或写入）必须在任何后续 UAV 访问（读取或写入）之间完成。 应用不需要在只读取 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 此外，如果应用程序知道它能够安全地按任意顺序执行 UAV 访问，则不需要在写入同一 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 使用 [**D3D12\_RESOURCE\_UAV\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier) 结构指定屏障应用到的 UAV 资源。 应用程序可为屏障的 UAV 指定 NULL，指示任何 UAV 访问都可能需要屏障。
 
 如果使用资源屏障描述数组调用 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)，API 的行为将如同按照元素的提供顺序对每个元素调用该 API 一次。
 
-在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。  
+在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。  
 
 > [!TIP]
 >
@@ -61,7 +62,7 @@ ms.locfileid: "66224299"
 
 ### <a name="resource-states"></a>资源状态
 
-有关资源可转换到的资源状态的完整列表，请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states) 枚举的参考主题。
+有关资源可转换到的资源状态的完整列表，请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 枚举的参考主题。
 
 对于拆分资源屏障，另请参阅 [**D3D12\_RESOURCE\_BARRIER\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_barrier_flags)。
 
@@ -83,13 +84,13 @@ ms.locfileid: "66224299"
 
 ### <a name="readwrite-resource-state-restrictions"></a>读/写资源状态限制
 
-用于描述资源状态的资源状态用法位划分为只读和读/写状态。 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states) 的参考主题指示了枚举中每个位的读/写访问级别。
+用于描述资源状态的资源状态用法位划分为只读和读/写状态。 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 的参考主题指示了枚举中每个位的读/写访问级别。
 
 对于任一资源，最多只能设置一个读/写位。 如果设置了写入位，则不能对该资源设置任何只读位。 如果未设置写入位，则可以设置任意数量的读取位。
 
 ### <a name="resource-states-for-presenting-back-buffers"></a>用于呈现反向缓冲区的资源状态
 
-在呈现反向缓冲区之前，该缓冲区必须处于 D3D12\_RESOURCE\_STATE\_COMMON 状态。 请注意，资源状态 D3D12\_RESOURCE\_STATE\_PRESENT 是 D3D12\_RESOURCE\_STATE\_COMMON 的同义词，两者的值均为 0。 如果针对当前不处于此状态的资源调用 [**IDXGISwapChain::Present**](https://msdn.microsoft.com/library/windows/desktop/bb174576)（或 [**IDXGISwapChain1::Present1**](https://msdn.microsoft.com/library/windows/desktop/hh446797)），则会发出调试层警告。
+在呈现反向缓冲区之前，该缓冲区必须处于 D3D12\_RESOURCE\_STATE\_COMMON 状态。 请注意，资源状态 D3D12\_RESOURCE\_STATE\_PRESENT 是 D3D12\_RESOURCE\_STATE\_COMMON 的同义词，两者的值均为 0。 如果针对当前不处于此状态的资源调用 [**IDXGISwapChain::Present**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-present)（或 [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)），则会发出调试层警告。
 
 ### <a name="discarding-resources"></a>丢弃资源
 

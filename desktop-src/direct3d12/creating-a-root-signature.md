@@ -2,14 +2,15 @@
 title: 创建根签名
 description: 根签名是包含嵌套结构的复杂数据结构。
 ms.assetid: 565B28C1-DBD1-42B6-87F9-70743E4A2E4A
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9003856d610c2e0877ea3ecfb3dbc91aa06c504d
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 9a119b8e2da86d431c193828d9255221baea05b4
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223846"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296028"
 ---
 # <a name="creating-a-root-signature"></a>创建根签名
 
@@ -26,7 +27,7 @@ ms.locfileid: "66223846"
 -   [根描述符](#root-descriptor)
 -   [着色器可见性](#shader-visibility)
 -   [根签名定义](#root-signature-definition)
--   [根签名数据结构序列化/反序列化](https://docs.microsoft.com/windows)
+-   [根签名数据结构序列化/反序列化](/windows)
 -   [根签名创建 API](#root-signature-creation-api)
 -   [管道状态对象中的根签名](#root-signature-in-pipeline-state-objects)
 -   [用于定义版本 1.1 根签名的代码](#code-for-defining-a-version-11-root-signature)
@@ -34,7 +35,7 @@ ms.locfileid: "66223846"
 
 ## <a name="descriptor-table-bind-types"></a>描述符表绑定类型
 
-枚举 [**D3D12\_DESCRIPTOR\_RANGE\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_range_type) 定义可作为描述符表布局定义的一部分引用的描述符类型。
+枚举 [**D3D12\_DESCRIPTOR\_RANGE\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) 定义可作为描述符表布局定义的一部分引用的描述符类型。
 
 它是一个范围。举例而言，如果描述符表的某个部分包含 100 个 SRV，则可以在一个而不是 100 个条目中声明该范围。 因此，描述符表定义是范围的集合。
 
@@ -50,15 +51,15 @@ typedef enum D3D12_DESCRIPTOR_RANGE_TYPE
 
 ## <a name="descriptor-range"></a>描述符范围
 
-[**D3D12\_DESCRIPTOR\_RANGE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_descriptor_range) 结构定义描述符表中给定类型（例如 SRV）的描述符的范围。
+[**D3D12\_DESCRIPTOR\_RANGE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_range) 结构定义描述符表中给定类型（例如 SRV）的描述符的范围。
 
-通常可对 [**D3D12\_DESCRIPTOR\_RANGE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_descriptor_range) 的 `OffsetInDescriptorsFromTableStart` 参数使用 `D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND` \# 定义。 这意味着会在描述符表中前一个范围的后面定义描述符范围。 如果应用程序需要别名描述符，或出于某种原因需要跳过槽，可将 `OffsetInDescriptorsFromTableStart` 设置为所需的任意偏移量。 定义不同类型的重叠范围是无效的操作。
+通常可对 [**D3D12\_DESCRIPTOR\_RANGE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_range) 的 `OffsetInDescriptorsFromTableStart` 参数使用 `D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND` \# 定义。 这意味着会在描述符表中前一个范围的后面定义描述符范围。 如果应用程序需要别名描述符，或出于某种原因需要跳过槽，可将 `OffsetInDescriptorsFromTableStart` 设置为所需的任意偏移量。 定义不同类型的重叠范围是无效的操作。
 
-由 `RangeType`、`NumDescriptors`、`BaseShaderRegister` 和 `RegisterSpace` 的组合指定的着色器寄存器集不能冲突或者在具有通用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility) 的根签名中的任何声明之间重叠（请参阅下面的“着色器可见性”部分）。
+由 `RangeType`、`NumDescriptors`、`BaseShaderRegister` 和 `RegisterSpace` 的组合指定的着色器寄存器集不能冲突或者在具有通用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility) 的根签名中的任何声明之间重叠（请参阅下面的“着色器可见性”部分）。
 
 ## <a name="descriptor-table-layout"></a>描述符表布局
 
-[**D3D12\_ROOT\_DESCRIPTOR\_TABLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_descriptor_table) 结构将描述符表的布局声明为在描述符堆中一个接一个地显示的描述符范围集合。 CBV/UAV/SRV 所在的同一个描述符表中不允许采样器。
+[**D3D12\_ROOT\_DESCRIPTOR\_TABLE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor_table) 结构将描述符表的布局声明为在描述符堆中一个接一个地显示的描述符范围集合。 CBV/UAV/SRV 所在的同一个描述符表中不允许采样器。
 
 将根签名槽类型设置为 `D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE` 时，将使用此结构。
 
@@ -68,19 +69,19 @@ typedef enum D3D12_DESCRIPTOR_RANGE_TYPE
 
 ## <a name="root-constants"></a>根常量
 
-[**D3D12\_ROOT\_CONSTANTS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_constants) 结构将着色器中显示的根签名中的内联常量声明为一个常量缓冲区。
+[**D3D12\_ROOT\_CONSTANTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_constants) 结构将着色器中显示的根签名中的内联常量声明为一个常量缓冲区。
 
 将根签名槽类型设置为 `D3D12_ROOT_PARAMETER_TYPE_32BIT_CONSTANTS` 时，将使用此结构。
 
 ## <a name="root-descriptor"></a>根描述符
 
-[**D3D12\_ROOT\_DESCRIPTOR**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_descriptor) 结构声明根签名中内联的描述符（显示在着色器中）。
+[**D3D12\_ROOT\_DESCRIPTOR**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor) 结构声明根签名中内联的描述符（显示在着色器中）。
 
 将根签名槽类型设置为 `D3D12_ROOT_PARAMETER_TYPE_CBV`、`D3D12_ROOT_PARAMETER_TYPE_SRV` 或 `D3D12_ROOT_PARAMETER_TYPE_UAV` 时，将使用此结构。
 
 ## <a name="shader-visibility"></a>着色器可见性
 
-在 [**D3D12\_ROOT\_PARAMETER**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_parameter) 的着色器可见性参数中设置的 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility) 枚举成员确定哪些着色器能够看到给定根签名槽的内容。 计算始终使用 \_ALL（因为只有一个活动的阶段）。 图形可以选择 \_ALL，但如果使用它，所有着色器阶段会看到在根签名槽中绑定的内容。
+在 [**D3D12\_ROOT\_PARAMETER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_parameter) 的着色器可见性参数中设置的 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility) 枚举成员确定哪些着色器能够看到给定根签名槽的内容。 计算始终使用 \_ALL（因为只有一个活动的阶段）。 图形可以选择 \_ALL，但如果使用它，所有着色器阶段会看到在根签名槽中绑定的内容。
 
 着色器可见性的一种用途是帮助创建的着色器使用重叠的命名空间要求对每个着色器阶段使用不同的绑定。 例如，顶点着色器可以声明：
 
@@ -104,13 +105,13 @@ Texture2D bar : register(t0);
 
 ## <a name="root-signature-definition"></a>根签名定义
 
-[**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_signature_desc) 结构可以包含描述符表和内联常量，每个插槽类型由 [**D3D12\_ROOT\_PARAMETER**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_parameter) 结构和 [**D3D12\_ROOT\_PARAMETER\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_parameter_type) 枚举定义。
+[**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc) 结构可以包含描述符表和内联常量，每个插槽类型由 [**D3D12\_ROOT\_PARAMETER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_parameter) 结构和 [**D3D12\_ROOT\_PARAMETER\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_parameter_type) 枚举定义。
 
 若要启动根签名槽，请参阅 [**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 的 **SetComputeRoot\*\*\*** 和 **SetGraphicsRoot\*\*\*** 方法。
 
 使用 [**D3D12\_STATIC\_SAMPLER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_static_sampler_desc) 结构在根签名中描述静态采样器。
 
-标志数目限制特定着色器对根签名的访问，具体请参阅 [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags)。
+标志数目限制特定着色器对根签名的访问，具体请参阅 [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_signature_flags)。
 
 ## <a name="root-signature-data-structure-serialization--deserialization"></a>根签名数据结构序列化/反序列化
 
@@ -118,17 +119,17 @@ Texture2D bar : register(t0);
 
 序列化格式是创建根签名时传入 API 的格式。 如果编写的着色器包含根签名（添加该功能时），则编译的着色器已包含序列化的根签名。
 
-如果应用程序遵循过程生成 [**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_signature_desc) 数据结构，它必须使用 [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature) 生成序列化格式。 它的输出可传递到 [**ID3D12Device::CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature)。
+如果应用程序遵循过程生成 [**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc) 数据结构，它必须使用 [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature) 生成序列化格式。 它的输出可传递到 [**ID3D12Device::CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature)。
 
-如果应用程序已包含序列化根签名或具有包含根签名的已编译着色器，并希望以编程方式发现布局定义（称为“反射”），则可以调用 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/D3D12/nf-d3d12-d3d12createrootsignaturedeserializer)。 这会生成 [**ID3D12RootSignatureDeserializer**](/windows/desktop/api/D3D12/nn-d3d12-id3d12rootsignaturedeserializer) 接口，其中包含用于返回反序列化 [**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_signature_desc) 数据结构的方法。 该接口拥有反序列化数据结构的生存期。
+如果应用程序已包含序列化根签名或具有包含根签名的已编译着色器，并希望以编程方式发现布局定义（称为“反射”），则可以调用 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer)。 这会生成 [**ID3D12RootSignatureDeserializer**](/windows/desktop/api/d3d12/nn-d3d12-id3d12rootsignaturedeserializer) 接口，其中包含用于返回反序列化 [**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc) 数据结构的方法。 该接口拥有反序列化数据结构的生存期。
 
 ## <a name="root-signature-creation-api"></a>根签名创建 API
 
-[**ID3D12Device::CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature) API 采用根签名的序列化版本。
+[**ID3D12Device::CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature) API 采用根签名的序列化版本。
 
 ## <a name="root-signature-in-pipeline-state-objects"></a>管道状态对象中的根签名
 
-用于创建管道状态（[**ID3D12Device::CreateGraphicsPipelineState**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-creategraphicspipelinestate) 和 [**ID3D12Device::CreateComputePipelineState**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcomputepipelinestate)）的方法采用可选的 [**ID3D12RootSignature**](https://msdn.microsoft.com/en-us/library/Dn788714(v=VS.85).aspx) 接口作为输入参数（存储在 [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_graphics_pipeline_state_desc) 结构中）。 这会重写着色器中已存在的任何根签名。
+用于创建管道状态（[**ID3D12Device::CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate) 和 [**ID3D12Device::CreateComputePipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate)）的方法采用可选的 [**ID3D12RootSignature**](https://msdn.microsoft.com/library/Dn788714(v=VS.85).aspx) 接口作为输入参数（存储在 [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) 结构中）。 这会重写着色器中已存在的任何根签名。
 
 如果将根签名传入某个创建管道状态方法，将会根据 PSO 中的所有着色器验证此根签名以确认是否兼容，并提供给驱动程序以用于所有着色器。 如果任何着色器包含不同的根签名，该签名将被 API 中传入的根签名替换。 如果未传入根签名，所有传入的着色器必须包含一个根签名，并且它们必须匹配 – 此签名将提供给驱动程序。 在命令列表或捆绑中设置 PSO 不会更改根签名。 可以通过 [**SetGraphicsRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature) 和 [**SetComputeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootsignature) 方法实现此目的。 调用 draw(graphics)/dispatch(compute) 时，应用程序必须确保当前 PSO 与当前根签名匹配，否则行为是不确定的。
 

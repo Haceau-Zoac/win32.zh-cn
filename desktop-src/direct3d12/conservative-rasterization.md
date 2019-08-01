@@ -2,14 +2,15 @@
 title: 保守光栅化
 description: 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。
 ms.assetid: 081199AD-1702-4EC8-95AD-B1148C676199
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fb4626fc6c48066d12da6ac93676ef7c9e5252d1
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 3b27d156e250911bacc0bc6bc89ae2985da0c22e
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224362"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296032"
 ---
 # <a name="conservative-rasterization"></a>保守光栅化
 
@@ -35,7 +36,7 @@ ms.locfileid: "66224362"
     -   [IsFrontFace 交互](#isfrontface-interaction)
     -   [填充模式交互](#fill-modes-interaction)
 -   [实现详细信息](#implementation-details)
--   [API 摘要](#api-summary)
+-   [API 总结](#api-summary)
 -   [相关主题](#related-topics)
 
 ## <a name="overview"></a>概述
@@ -152,7 +153,7 @@ ms.locfileid: "66224362"
 
 ### <a name="query-interaction"></a>查询交互
 
-对于保守光栅化像素，查询行为与覆盖所有样本的情况下未启用保守光栅化时相同。 例如，对于保守光栅化像素，D3D12\_QUERY\_TYPE\_OCCLUSION 和 D3D12\_QUERY\_TYPE\_PIPELINE\_STATISTICS（来自 [**D3D12\_QUERY\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type)）的行为必须与覆盖所有样本的情况下未启用保守光栅化时相同。
+对于保守光栅化像素，查询行为与覆盖所有样本的情况下未启用保守光栅化时相同。 例如，对于保守光栅化像素，D3D12\_QUERY\_TYPE\_OCCLUSION 和 D3D12\_QUERY\_TYPE\_PIPELINE\_STATISTICS（来自 [**D3D12\_QUERY\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type)）的行为必须与覆盖所有样本的情况下未启用保守光栅化时相同。
 
 每次在保守保守光栅化模式下以保守方式像素化像素，像素着色器调用都应该递增。
 
@@ -160,7 +161,7 @@ ms.locfileid: "66224362"
 
 所有剔除状态在保守光栅化模式下有效，遵循的规则与未启用保守光栅化时相同。
 
-将保守光栅化的各种分辨率与其自身或者未启用保守光栅化的情况相比较时，某些基元可能出现不匹配的多面性（即，一个朝向背面，另一个朝向正面）。 应用程序可以使用 D3D12\_CULL\_MODE\_NONE（来自 [**D3D12\_CULL\_MODE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_cull_mode)）（但不能使用 `IsFrontFace` 系统生成值）来避免这种不确定性。
+将保守光栅化的各种分辨率与其自身或者未启用保守光栅化的情况相比较时，某些基元可能出现不匹配的多面性（即，一个朝向背面，另一个朝向正面）。 应用程序可以使用 D3D12\_CULL\_MODE\_NONE（来自 [**D3D12\_CULL\_MODE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_cull_mode)）（但不能使用 `IsFrontFace` 系统生成值）来避免这种不确定性。
 
 ### <a name="isfrontface-interaction"></a>IsFrontFace 交互
 
@@ -168,7 +169,7 @@ ms.locfileid: "66224362"
 
 ### <a name="fill-modes-interaction"></a>填充模式交互
 
-保守光栅化的唯一有效 [**D3D12\_FILL\_MODE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_fill_mode) 是 D3D12\_FILL\_SOLID，任何其他填充模式是光栅器状态的无效参数。
+保守光栅化的唯一有效 [**D3D12\_FILL\_MODE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_fill_mode) 是 D3D12\_FILL\_SOLID，任何其他填充模式是光栅器状态的无效参数。
 
 这是因为，D3D12 功能规范指定线框填充模式应将三角形的边转换为线条，并遵循线条光栅化规则，而保守线条光栅化行为尚未定义。
 
@@ -194,11 +195,11 @@ Direct3D 12 支持的光栅化类型有时称为“高估保守光栅化”。 �
 
 以下方法、结构、枚举和帮助器类引用保守光栅化：
 
--   [**D3D12\_RASTERIZER\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_rasterizer_desc)：保存光栅器描述的结构。
--   [**D3D12\_CONSERVATIVE\_RASTERIZATION\_MODE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_conservative_rasterization_mode)：模式的枚举值（on 或 off）。
--   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_feature_data_d3d12_options)：保存支持层的结构。
--   [**D3D12\_CONSERVATIVE\_RASTERIZATION\_TIER**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_conservative_rasterization_tier)：硬件的每个支持层的枚举值。
--   [**CheckFeatureSupport**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport)：用于访问受支持功能的方法。
+-   [**D3D12\_RASTERIZER\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_rasterizer_desc)：保存光栅器描述的结构。
+-   [**D3D12\_CONSERVATIVE\_RASTERIZATION\_MODE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_conservative_rasterization_mode)：模式的枚举值（on 或 off）。
+-   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：保存支持层的结构。
+-   [**D3D12\_CONSERVATIVE\_RASTERIZATION\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_conservative_rasterization_tier)：硬件的每个支持层的枚举值。
+-   [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)：用于访问受支持功能的方法。
 -   [**CD3DX12\_RASTERIZER\_DESC**](cd3dx12-rasterizer-desc.md)：用于创建光栅器描述的帮助器类。
 
 ## <a name="related-topics"></a>相关主题

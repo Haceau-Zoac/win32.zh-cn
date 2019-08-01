@@ -2,14 +2,15 @@
 title: 着色器可见描述符堆
 description: 着色器可见描述符堆是着色器可通过描述符表引用的描述符堆。
 ms.assetid: 37691fd1-212d-4786-ac9c-861c1a6a4918
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9e4d7bf958f56c6d27061359864a86ced6b0a64d
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: e5258a9248063e1f80fc6b5738d7fd8f496be3e2
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224350"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66295965"
 ---
 # <a name="shader-visible-descriptor-heaps"></a>着色器可见描述符堆
 

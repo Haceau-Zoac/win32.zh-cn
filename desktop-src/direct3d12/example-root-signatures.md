@@ -2,14 +2,15 @@
 title: 示例根签名
 description: 以下部分显示了从空到完全填充的复杂程度不同的根签名。
 ms.assetid: 493D35C9-2A90-4688-BD7E-74B9EB2B4E72
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5fba92270c0593cb07437ab91b691f5ed1e308a0
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 66592424a7fb5356f60c6ac0d2cb8c3556fd6cc4
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223930"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296410"
 ---
 # <a name="example-root-signatures"></a>示例根签名
 

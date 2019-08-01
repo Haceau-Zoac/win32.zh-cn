@@ -2,14 +2,15 @@
 title: 间接绘制
 description: 通过间接绘制，某些场景遍历和精选可以从 CPU 移动到 GPU，从而可以提高性能。 可以通过 CPU 或 GPU 生成命令缓冲区。
 ms.assetid: F8D6C88A-101E-4F66-999F-43206F6527B6
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 0adb3da743d3bb155c08335ef6ac8689afc83ebf
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: ac2ecace17cf9474cfe4548e1b09d025867dca15
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223813"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296457"
 ---
 # <a name="indirect-drawing"></a>间接绘制
 
@@ -24,7 +25,7 @@ ms.locfileid: "66223813"
 
 ## <a name="command-signatures"></a>命令签名
 
-命令签名对象 ([**ID3D12CommandSignature**](https://msdn.microsoft.com/en-us/library/Dn891446(v=VS.85).aspx)) 允许应用指定间接绘制，特别是进行以下设置：
+命令签名对象 ([**ID3D12CommandSignature**](https://msdn.microsoft.com/library/Dn891446(v=VS.85).aspx)) 允许应用指定间接绘制，特别是进行以下设置：
 
 -   间接参数缓冲区格式。
 -   将使用的命令类型（来自 [**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 方法 [**DrawInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)、[**DrawIndexedInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced) 或 [**Dispatch**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)）。
@@ -51,24 +52,24 @@ ms.locfileid: "66223813"
 
 以下结构定义特定参数在间接参数缓冲区中的显示方式。 这些结构不会显示在任何 D3D12 API 中。 写入间接参数缓冲区（使用 CPU 或 GPU）时，应用程序使用这些定义：
 
--   [**D3D12\_DRAW\_ARGUMENTS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_draw_arguments)
--   [**D3D12\_DRAW\_INDEXED\_ARGUMENTS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_draw_indexed_arguments)
--   [**D3D12\_DISPATCH\_ARGUMENTS**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_dispatch_arguments)
+-   [**D3D12\_DRAW\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_arguments)
+-   [**D3D12\_DRAW\_INDEXED\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_indexed_arguments)
+-   [**D3D12\_DISPATCH\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_dispatch_arguments)
 -   [**D3D12\_VERTEX\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
--   [**D3D12\_INDEX\_BUFFER\_VIEW**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_index_buffer_view)
+-   [**D3D12\_INDEX\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view)
 -   D3D12\_GPU\_VIRTUAL\_ADDRESS（UINT64 的 typedef'd 同义词）。
--   [**D3D12\_CONSTANT\_BUFFER\_VIEW**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_constant_buffer_view_desc)
+-   [**D3D12\_CONSTANT\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_constant_buffer_view_desc)
 
 ## <a name="command-signature-creation"></a>命令签名创建
 
 若要创建命令签名，请使用以下 API 项：
 
--   [**ID3D12Device::CreateCommandSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandsignature)（输出 [**ID3D12CommandSignature**](https://msdn.microsoft.com/en-us/library/Dn891446(v=VS.85).aspx)）
--   [**D3D12\_INDIRECT\_ARGUMENT\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_indirect_argument_type)
--   [**D3D12\_INDIRECT\_ARGUMENT\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_indirect_argument_desc)
--   [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_command_signature_desc)
+-   [**ID3D12Device::CreateCommandSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandsignature)（输出 [**ID3D12CommandSignature**](https://msdn.microsoft.com/library/Dn891446(v=VS.85).aspx)）
+-   [**D3D12\_INDIRECT\_ARGUMENT\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type)
+-   [**D3D12\_INDIRECT\_ARGUMENT\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc)
+-   [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc)
 
-间接参数缓冲区中的参数顺序定义为与 [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_command_signature_desc) 的 pArguments  参数中指定的参数顺序完全匹配。 间接参数缓冲区中的一个绘制（图形）/调度（计算）调用的所有参数紧密打包。 但是，允许应用程序指定间接参数缓冲区中的绘制/调度命令之间的任意字节步幅。
+间接参数缓冲区中的参数顺序定义为与 [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc) 的 pArguments  参数中指定的参数顺序完全匹配。 间接参数缓冲区中的一个绘制（图形）/调度（计算）调用的所有参数紧密打包。 但是，允许应用程序指定间接参数缓冲区中的绘制/调度命令之间的任意字节步幅。
 
 当且仅当命令签名更改其中一个根参数时，必须指定根签名。
 

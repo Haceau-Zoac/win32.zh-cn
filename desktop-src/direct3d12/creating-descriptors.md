@@ -2,14 +2,15 @@
 title: 创建描述符
 description: 描述并显示创建以下内容的示例：索引、顶点和常量缓冲区视图；着色器资源、呈现器目标、无序访问、流输出和深度模具视图；以及采样器。 创建描述符的所有方法都是自由线程。
 ms.assetid: 0D360A7C-8A2F-49E1-A5CC-98C958B59D1C
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: bc691752780d3a6aa3296fa65d7cc8b6958d0379
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 48a7d29e444c6741dcdfc9389fb9476ae20956f3
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223954"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725584"
 ---
 # <a name="creating-descriptors"></a>创建描述符
 
@@ -28,7 +29,7 @@ ms.locfileid: "66223954"
 
 ## <a name="index-buffer-view"></a>索引缓冲区视图
 
-若要创建索引缓冲区视图，请填写 [D3D12\_INDEX\_BUFFER\_VIEW](/windows/desktop/api/D3D12/ns-d3d12-d3d12_index_buffer_view) 结构  ：
+若要创建索引缓冲区视图，请填写 [D3D12\_INDEX\_BUFFER\_VIEW](/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view) 结构  ：
 
 ``` syntax
 typedef struct D3D12_INDEX_BUFFER_VIEW
@@ -43,7 +44,7 @@ typedef struct D3D12_INDEX_BUFFER_VIEW
 
 `typedef UINT64 D3D12_GPU_VIRTUAL_ADDRESS;`
 
-请参阅 [DXGI\_FORMAT](https://msdn.microsoft.com/library/windows/desktop/bb173059) 枚举  。 通常，索引缓冲区可能会采用以下定义：
+请参阅 [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 枚举  。 通常，索引缓冲区可能会采用以下定义：
 
 `const DXGI_FORMAT StandardIndexFormat = DXGI_FORMAT_R32_UINT;`
 
@@ -93,7 +94,7 @@ m_vertexBufferView.StrideInBytes = SampleAssets::StandardVertexStride;
 
 ## <a name="shader-resource-view"></a>着色器资源视图
 
-若要创建着色器资源视图，请填写 [ D3D12\_SHADER\_RESOURCE\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_shader_resource_view_desc) 结构  ：
+若要创建着色器资源视图，请填写 [ D3D12\_SHADER\_RESOURCE\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc) 结构  ：
 
 ``` syntax
 typedef struct D3D12_SHADER_RESOURCE_VIEW_DESC  
@@ -117,25 +118,25 @@ typedef struct D3D12_SHADER_RESOURCE_VIEW_DESC
     }   D3D12_SHADER_RESOURCE_VIEW_DESC; 
 ```
 
-`ViewDimension` 字段设置为零，或者设置为 [D3D12\_BUFFER\_SRV\_FLAGS](/windows/desktop/api/D3D12/ne-d3d12-d3d12_buffer_srv_flags) 枚举的一个值  。
+`ViewDimension` 字段设置为零，或者设置为 [D3D12\_BUFFER\_SRV\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_buffer_srv_flags) 枚举的一个值  。
 
-[D3D12\_SHADER\_RESOURCE\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_shader_resource_view_desc) 引用的枚举和结构为  ：
+[D3D12\_SHADER\_RESOURCE\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_shader_resource_view_desc) 引用的枚举和结构为  ：
 
--   [DXGI\_FORMAT](https://msdn.microsoft.com/library/windows/desktop/bb173059) 
--   [**D3D12\_BUFFER\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_buffer_srv)
--   [**D3D12\_TEX1D\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_srv)
--   [**D3D12\_TEX1D\_ARRAY\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_array_srv)
--   [**D3D12\_TEX2D\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_srv)
--   [**D3D12\_TEX2D\_ARRAY\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_array_srv)
--   [**D3D12\_TEX2DMS\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_srv)
--   [**D3D12\_TEX2DMS\_ARRAY\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_array_srv)
--   [**D3D12\_TEX3D\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex3d_srv)
--   [**D3D12\_TEXCUBE\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_texcube_srv)
--   [**D3D12\_TEXCUBE\_ARRAY\_SRV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_texcube_array_srv)
+-   [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 
+-   [**D3D12\_BUFFER\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_srv)
+-   [**D3D12\_TEX1D\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_srv)
+-   [**D3D12\_TEX1D\_ARRAY\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_srv)
+-   [**D3D12\_TEX2D\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_srv)
+-   [**D3D12\_TEX2D\_ARRAY\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_srv)
+-   [**D3D12\_TEX2DMS\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_srv)
+-   [**D3D12\_TEX2DMS\_ARRAY\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_array_srv)
+-   [**D3D12\_TEX3D\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex3d_srv)
+-   [**D3D12\_TEXCUBE\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_texcube_srv)
+-   [**D3D12\_TEXCUBE\_ARRAY\_SRV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_texcube_array_srv)
 
 注意下方的 float `ResourceMinLODClamp` 已添加到 SRV，用于 Tex1D/2D/3D/Cube。 在 D3D11 中，它是一个资源属性，但这与它在硬件中的实现方式不匹配。 `StructureByteStride` 已添加到缓冲区 SRV，而在 D3D11 中，它是一个资源属性。 如果步幅为非零值，这表示结构化的缓冲区视图，则格式必须设置为 DXGI\_FORMAT\_UNKNOWN。
 
-最后，若要创建着色器资源视图，请调用 [ID3D12Device::CreateShaderResourceView](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview)  。
+最后，若要创建着色器资源视图，请调用 [ID3D12Device::CreateShaderResourceView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview)  。
 
 例如，
 
@@ -156,7 +157,7 @@ m_device->CreateShaderResourceView(m_textures[i].Get(), &srvDesc, cbvSrvHandle);
 
 ## <a name="constant-buffer-view"></a>常量缓冲区视图
 
-若要创建常量缓冲区视图，请填写 [ D3D12\_CONSTANT\_BUFFER\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_constant_buffer_view_desc) 结构  ：
+若要创建常量缓冲区视图，请填写 [ D3D12\_CONSTANT\_BUFFER\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_constant_buffer_view_desc) 结构  ：
 
 ``` syntax
 typedef struct D3D12_CONSTANT_BUFFER_VIEW_DESC {
@@ -165,7 +166,7 @@ typedef struct D3D12_CONSTANT_BUFFER_VIEW_DESC {
 } D3D12_CONSTANT_BUFFER_VIEW_DESC;
 ```
 
-然后调用 [ID3D12Device::CreateConstantBufferView](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createconstantbufferview)  。
+然后调用 [ID3D12Device::CreateConstantBufferView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createconstantbufferview)  。
 
 例如，
 
@@ -182,7 +183,7 @@ m_device->CreateConstantBufferView(&cbvDesc, m_cbvHeap->GetCPUDescriptorHandleFo
 
 ## <a name="sampler"></a>取样器
 
-若要创建示例，请填写 [D3D12\_SAMPLER\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_sampler_desc) 结构  ：
+若要创建示例，请填写 [D3D12\_SAMPLER\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_sampler_desc) 结构  ：
 
 ``` syntax
 typedef struct D3D12_SAMPLER_DESC
@@ -202,13 +203,13 @@ typedef struct D3D12_SAMPLER_DESC
 
 若要填写此结构，参阅以下枚举：
 
--   [**D3D12\_FILTER**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter)
--   [**D3D12\_FILTER\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter_type)
--   [D3D12\_FILTER\_REDUCTION\_TYPE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter_reduction_type) 
--   [D3D12\_TEXTURE\_ADDRESS\_MODE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_texture_address_mode) 
--   [D3D12\_COMPARISON\_FUNC](/windows/desktop/api/D3D12/ne-d3d12-d3d12_comparison_func) 
+-   [**D3D12\_FILTER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter)
+-   [**D3D12\_FILTER\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter_type)
+-   [D3D12\_FILTER\_REDUCTION\_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter_reduction_type) 
+-   [D3D12\_TEXTURE\_ADDRESS\_MODE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode) 
+-   [D3D12\_COMPARISON\_FUNC](/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func) 
 
-最后，调用 [ID3D12Device::CreateSampler](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createsampler)  。
+最后，调用 [ID3D12Device::CreateSampler](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createsampler)  。
 
 例如，
 
@@ -232,7 +233,7 @@ m_device->CreateSampler(&samplerDesc, m_samplerHeap->GetCPUDescriptorHandleForHe
 
 ## <a name="unordered-access-view"></a>无序访问视图
 
-若要创建无序访问视图，请填写 [ D3D12\_UNORDERED\_ACCESS\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_unordered_access_view_desc) 结构  ：
+若要创建无序访问视图，请填写 [ D3D12\_UNORDERED\_ACCESS\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_unordered_access_view_desc) 结构  ：
 
 ``` syntax
 typedef struct D3D12_UNORDERED_ACCESS_VIEW_DESC
@@ -252,21 +253,21 @@ typedef struct D3D12_UNORDERED_ACCESS_VIEW_DESC
 } D3D12_UNORDERED_ACCESS_VIEW_DESC;
 ```
 
-`ViewDimension` 字段设置为零，或者设置为 [D3D12\_BUFFER\_UAV\_FLAGS](/windows/desktop/api/D3D12/ne-d3d12-d3d12_buffer_uav_flags) 枚举的一个值  。
+`ViewDimension` 字段设置为零，或者设置为 [D3D12\_BUFFER\_UAV\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_buffer_uav_flags) 枚举的一个值  。
 
 请参阅以下枚举和结构：
 
--   [DXGI\_FORMAT](https://msdn.microsoft.com/library/windows/desktop/bb173059) 
--   [D3D12\_BUFFER\_UAV](/windows/desktop/api/D3D12/ns-d3d12-d3d12_buffer_uav) 
--   [**D3D12\_TEX1D\_UAV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_uav)
--   [**D3D12\_TEX1D\_ARRAY\_UAV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_array_uav)
--   [**D3D12\_TEX2D\_UAV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_uav)
--   [**D3D12\_TEX2D\_ARRAY\_UAV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_array_uav)
--   [**D3D12\_TEX3D\_UAV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex3d_uav)
+-   [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 
+-   [D3D12\_BUFFER\_UAV](/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_uav) 
+-   [**D3D12\_TEX1D\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_uav)
+-   [**D3D12\_TEX1D\_ARRAY\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_uav)
+-   [**D3D12\_TEX2D\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_uav)
+-   [**D3D12\_TEX2D\_ARRAY\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_uav)
+-   [**D3D12\_TEX3D\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex3d_uav)
 
 `StructureByteStride` 已添加到缓冲区 UAV，而在 D3D11 中，它是一个资源属性。 如果步幅为非零值，这表示结构化的缓冲区视图，则格式必须设置为 DXGI\_FORMAT\_UNKNOWN。
 
-最后调用 [ID3D12Device::CreateUnorderedAccessView](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createunorderedaccessview)  。
+最后调用 [ID3D12Device::CreateUnorderedAccessView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview)  。
 
 例如，
 
@@ -326,7 +327,7 @@ m_processedCommandBufferCounterReset->Unmap(0, nullptr);
 
 ## <a name="stream-output-view"></a>流输出视图
 
-若要创建流输出视图，请填写 [D3D12\_STREAM\_OUTPUT\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_stream_output_desc) 结构  。
+若要创建流输出视图，请填写 [D3D12\_STREAM\_OUTPUT\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_stream_output_desc) 结构  。
 
 ``` syntax
 typedef struct D3D12_STREAM_OUTPUT_DESC  
@@ -343,7 +344,7 @@ typedef struct D3D12_STREAM_OUTPUT_DESC
 
 ## <a name="render-target-view"></a>呈现器目标视图
 
-若要创建呈现器目标视图，请填写 [D3D12\_RENDER\_TARGET\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_render_target_view_desc) 结构  。
+若要创建呈现器目标视图，请填写 [D3D12\_RENDER\_TARGET\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_render_target_view_desc) 结构  。
 
 ``` syntax
 typedef struct D3D12_RENDER_TARGET_VIEW_DESC
@@ -365,21 +366,21 @@ typedef struct D3D12_RENDER_TARGET_VIEW_DESC
 } D3D12_RENDER_TARGET_VIEW_DESC;
 ```
 
-`ViewDimension` 字段设置为零，或者设置为 [D3D12\_RTV\_DIMENSION](/windows/desktop/api/D3D12/ne-d3d12-d3d12_rtv_dimension) 枚举的一个值  。
+`ViewDimension` 字段设置为零，或者设置为 [D3D12\_RTV\_DIMENSION](/windows/desktop/api/d3d12/ne-d3d12-d3d12_rtv_dimension) 枚举的一个值  。
 
 请参阅以下枚举和结构：
 
--   [DXGI\_FORMAT](https://msdn.microsoft.com/library/windows/desktop/bb173059) 
--   [D3D12\_BUFFER\_RTV](/windows/desktop/api/D3D12/ns-d3d12-d3d12_buffer_rtv) 
--   [**D3D12\_TEX1D\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_rtv)
--   [**D3D12\_TEX1D\_ARRAY\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_array_rtv)
--   [**D3D12\_TEX2D\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_rtv)
--   [**D3D12\_TEX2DMS\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_rtv)
--   [**D3D12\_TEX2D\_ARRAY\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_array_rtv)
--   [**D3D12\_TEX2DMS\_ARRAY\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_array_rtv)
--   [**D3D12\_TEX3D\_RTV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex3d_rtv)
+-   [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 
+-   [D3D12\_BUFFER\_RTV](/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_rtv) 
+-   [**D3D12\_TEX1D\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_rtv)
+-   [**D3D12\_TEX1D\_ARRAY\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_rtv)
+-   [**D3D12\_TEX2D\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_rtv)
+-   [**D3D12\_TEX2DMS\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_rtv)
+-   [**D3D12\_TEX2D\_ARRAY\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_rtv)
+-   [**D3D12\_TEX2DMS\_ARRAY\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_array_rtv)
+-   [**D3D12\_TEX3D\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex3d_rtv)
 
-最后，调用 [ID3D12Device::CreateRenderTargetView](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrendertargetview)  。
+最后，调用 [ID3D12Device::CreateRenderTargetView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrendertargetview)  。
 
 注意，创建呈现器目标视图的另一种方法是创建呈现器目标描述符堆。
 
@@ -416,7 +417,7 @@ typedef struct D3D12_RENDER_TARGET_VIEW_DESC
 
 ## <a name="depth-stencil-view"></a>深度模具视图
 
-若要创建深度模具视图，请填写 [ D3D12\_DEPTH\_STENCIL\_VIEW\_DESC](/windows/desktop/api/D3D12/ns-d3d12-d3d12_depth_stencil_view_desc) 结构  ：
+若要创建深度模具视图，请填写 [ D3D12\_DEPTH\_STENCIL\_VIEW\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_depth_stencil_view_desc) 结构  ：
 
 ``` syntax
 typedef struct D3D12_DEPTH_STENCIL_VIEW_DESC  
@@ -436,19 +437,19 @@ typedef struct D3D12_DEPTH_STENCIL_VIEW_DESC
     }   D3D12_DEPTH_STENCIL_VIEW_DESC;  
 ```
 
-`ViewDimension` 字段设置为零，或者设置为 [D3D12\_DSV\_DIMENSION](/windows/desktop/api/D3D12/ne-d3d12-d3d12_dsv_dimension) 枚举的一个值  。 请参阅标志设置的 [D3D12\_DSV\_FLAGS](/windows/desktop/api/D3D12/ne-d3d12-d3d12_dsv_flags) 枚举  。
+`ViewDimension` 字段设置为零，或者设置为 [D3D12\_DSV\_DIMENSION](/windows/desktop/api/d3d12/ne-d3d12-d3d12_dsv_dimension) 枚举的一个值  。 请参阅标志设置的 [D3D12\_DSV\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_dsv_flags) 枚举  。
 
 请参阅以下枚举和结构：
 
--   [DXGI\_FORMAT](https://msdn.microsoft.com/library/windows/desktop/bb173059) 
--   [**D3D12\_TEX1D\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_dsv)
--   [**D3D12\_TEX1D\_ARRAY\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex1d_array_dsv)
--   [**D3D12\_TEX2D\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_dsv)
--   [**D3D12\_TEX2D\_ARRAY\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2d_array_dsv)
--   [**D3D12\_TEX2DMS\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_dsv)
--   [**D3D12\_TEX2DMS\_ARRAY\_DSV**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_tex2dms_array_dsv)
+-   [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 
+-   [**D3D12\_TEX1D\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_dsv)
+-   [**D3D12\_TEX1D\_ARRAY\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_dsv)
+-   [**D3D12\_TEX2D\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_dsv)
+-   [**D3D12\_TEX2D\_ARRAY\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_dsv)
+-   [**D3D12\_TEX2DMS\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_dsv)
+-   [**D3D12\_TEX2DMS\_ARRAY\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2dms_array_dsv)
 
-最后，调用 [ID3D12Device::CreateDepthStencilView](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createdepthstencilview)  。
+最后，调用 [ID3D12Device::CreateDepthStencilView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdepthstencilview)  。
 
 例如，
 

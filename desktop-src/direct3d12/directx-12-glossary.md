@@ -3,14 +3,15 @@ title: Direct3D 12 术语表
 description: 这些术语是 Direct3D 12 特有的。
 Robots: noindex, nofollow
 ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 1823b2964393f9e30ac48a9aa7ef1e470e11f439
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 9c1121cdac024121c17d695b1036d523fef6fc8f
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224275"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725557"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -245,7 +246,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_swap_chain"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_SWAP_CHAIN"></span>**交换链**
 </dt> <dd>
 
-交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](https://msdn.microsoft.com/library/windows/desktop/bb205075)）。
+交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)）。
 
 </dd> <dt>
 
@@ -301,7 +302,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_volume_tiled_resources"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_VOLUME_TILED_RESOURCES"></span>**立体图块化资源**
 </dt> <dd>
 
-三维[图块化资源](https://docs.microsoft.com/windows)。
+三维[图块化资源](/windows)。
 
 </dd> </dl>
 

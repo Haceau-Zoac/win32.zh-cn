@@ -2,14 +2,15 @@
 title: 使用 DRED 诊断 GPU 错误
 description: 设备删除扩展数据 (DRED) 是一组不断发展的诊断功能，专门用于帮助确定意外设备删除错误的原因。
 ms.custom: 19H1
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 02/14/2019
-ms.openlocfilehash: 2427c2c8e1303e432212359e73d79e8c06fc1eda
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 3170b1962d707017e5145daa2b6c4a0a9e57770f
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223888"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465033"
 ---
 # <a name="use-dred-to-diagnose-gpu-faults"></a>使用 DRED 诊断 GPU 错误
 DRED 表示设备删除扩展数据。 DRED 是一组不断发展的诊断功能，专门用于帮助确定意外设备删除错误的原因。 在支持必要功能（如下面的定义所示）的硬件上，DRED 传送自动痕迹导航以及 GPU 页面错误报告。

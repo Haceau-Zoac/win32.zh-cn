@@ -2,24 +2,25 @@
 title: 功能查询
 description: 通过调用 ID3D12Device\:\:CheckFeatureSupport，应用程序可以发现对资源绑定和许多其他功能的支持级别。
 ms.assetid: ECBAF8EF-5D91-46D8-9D6E-A7FA4203B9F8
-ms.topic: article
 ms.date: 11/26/2018
-ms.openlocfilehash: 5d966fcae1894e1d4662b8172e0d56a4747264a1
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.localizationpriority: high
+ms.topic: article
+ms.openlocfilehash: 3764244bfe3b83e0df9670318585bd0091364e98
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223864"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725452"
 ---
 # <a name="capability-querying"></a>功能查询
 
-通过调用 [ID3D12Device::CheckFeatureSupport](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport)，应用程序可以发现对资源绑定的支持级别（以及对许多其他功能的支持级别）  。
+通过调用 [ID3D12Device::CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)，应用程序可以发现对资源绑定的支持级别（以及对许多其他功能的支持级别）  。
 
 ## <a name="how-to-query-for-the-resource-binding-tier"></a>如何查询资源绑定层
 
 第一个示例重点介绍资源绑定。 每个资源绑定层在功能上都是较低层的父集，因此给定层上正常运行的代码在任何较高层上也可正常运行。
 
-资源绑定层是 [D3D12_RESOURCE_BINDING_TIER](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_binding_tier) 枚举中的常量  。
+资源绑定层是 [D3D12_RESOURCE_BINDING_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_binding_tier) 枚举中的常量  。
 
 若要查询资源绑定层，请使用如下代码。 该代码示例演示了查询各种功能支持的一般模式。
 
@@ -54,7 +55,7 @@ D3D12_RESOURCE_BINDING_TIER get_resource_binding_tier(::ID3D12Device* pIDevice)
 
 ## <a name="how-to-query-for-any-feature-level"></a>如何查询任一功能级别
 
-除资源绑定层之外，还有许多可使用上述代码示例中的同一模式查询其支持级别的其他功能。 只需将 [D3D12_FEATURE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature) 枚举中的另一个常量传递到 [ID3D12Device::CheckFeatureSupport](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport)（告诉 API 请求哪个功能的支持信息），并传递指向匹配结构实例（在其中接收请求的信息）的指针   。
+除资源绑定层之外，还有许多可使用上述代码示例中的同一模式查询其支持级别的其他功能。 只需将 [D3D12_FEATURE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature) 枚举中的另一个常量传递到 [ID3D12Device::CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)（告诉 API 请求哪个功能的支持信息），并传递指向匹配结构实例（在其中接收请求的信息）的指针   。
 
 - 传递 D3D12_FEATURE_ARCHITECTURE 和 [D3D12_FEATURE_DATA_ARCHITECTURE](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)   。
 - 传递 D3D12_FEATURE_ARCHITECTURE1 和 [D3D12_FEATURE_DATA_ARCHITECTURE1](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture1)   。
@@ -82,13 +83,13 @@ D3D12_RESOURCE_BINDING_TIER get_resource_binding_tier(::ID3D12Device* pIDevice)
 
 若要查看 DXGI 格式和硬件功能的表，请参阅以下主题。
 
-- [DXGI Format Support for Direct3D Feature Level 12.1 Hardware](https://msdn.microsoft.com/library/windows/desktop/mt426648)（Direct3D 功能级别 12.1 硬件的 DXGI 格式支持）
-- [DXGI Format Support for Direct3D Feature Level 12.0 Hardware](https://msdn.microsoft.com/library/windows/desktop/mt426647)（Direct3D 功能级别 12.0 硬件的 DXGI 格式支持）
-- [DXGI Format Support for Direct3D Feature Level 11.1 Hardware](https://msdn.microsoft.com/library/windows/desktop/mt427456)（Direct3D 功能级别 11.1 硬件的 DXGI 格式支持）
-- [DXGI Format Support for Direct3D Feature Level 11.0 Hardware](https://msdn.microsoft.com/library/windows/desktop/mt427455)（Direct3D 功能级别 11.0 硬件的 DXGI 格式支持）
-- [Hardware Support for Direct3D 10Level9 Formats](https://msdn.microsoft.com/library/windows/desktop/ff471324)（Direct3D 10Level9 格式的硬件支持）
-- [Hardware Support for Direct3D 10.1 Formats](https://msdn.microsoft.com/library/windows/desktop/cc627091)（Direct3D 10.1 格式的硬件支持）
-- [Hardware Support for Direct3D 10 Formats](https://msdn.microsoft.com/library/windows/desktop/cc627090)（Direct3D 10 格式的硬件支持）
+- [DXGI Format Support for Direct3D Feature Level 12.1 Hardware](https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-1-formats)（Direct3D 功能级别 12.1 硬件的 DXGI 格式支持）
+- [DXGI Format Support for Direct3D Feature Level 12.0 Hardware](https://docs.microsoft.com/windows/desktop/direct3ddxgi/hardware-support-for-direct3d-12-0-formats)（Direct3D 功能级别 12.0 硬件的 DXGI 格式支持）
+- [DXGI Format Support for Direct3D Feature Level 11.1 Hardware](https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-1-feature-level-hardware)（Direct3D 功能级别 11.1 硬件的 DXGI 格式支持）
+- [DXGI Format Support for Direct3D Feature Level 11.0 Hardware](https://docs.microsoft.com/windows/desktop/direct3ddxgi/format-support-for-direct3d-11-0-feature-level-hardware)（Direct3D 功能级别 11.0 硬件的 DXGI 格式支持）
+- [Hardware Support for Direct3D 10Level9 Formats](https://docs.microsoft.com/previous-versions//ff471324(v=vs.85))（Direct3D 10Level9 格式的硬件支持）
+- [Hardware Support for Direct3D 10.1 Formats](https://docs.microsoft.com/previous-versions//cc627091(v=vs.85))（Direct3D 10.1 格式的硬件支持）
+- [Hardware Support for Direct3D 10 Formats](https://docs.microsoft.com/previous-versions//cc627090(v=vs.85))（Direct3D 10 格式的硬件支持）
 
 ## <a name="related-topics"></a>相关主题
 

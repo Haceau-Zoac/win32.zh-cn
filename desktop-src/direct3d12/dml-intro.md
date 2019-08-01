@@ -1,15 +1,16 @@
 ---
 title: DirectML 简介
 description: 直接机器学习 (DirectML) 是机器学习 (ML) 的低级 API。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 02/01/2019
-ms.openlocfilehash: a444edecd071d35b0a1525b3ae6dd18d6962edbf
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 6ce5dd0a1710e1625d93a12536fa9c7fac0a2e43
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224002"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465012"
 ---
 # <a name="introduction-to-directml"></a>DirectML 简介
 

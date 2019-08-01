@@ -2,14 +2,15 @@
 title: 渲染
 description: 本节介绍 Direct3D 12（和 Direct3D 11.3）中新增的渲染功能。
 ms.assetid: 5BF1440E-E4D8-43C8-BF0E-F02FEFE79C93
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5b1083a733c641f92fbf3b2fb3a5b348d30ee996
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 53f66407efac27752ab08cfe2d6bf9784639dc9f
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224206"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725561"
 ---
 # <a name="rendering"></a>渲染
 
@@ -39,7 +40,7 @@ ms.locfileid: "66224206"
 
 ## <a name="high-dynamic-range-and-wide-color-gamut"></a>高动态范围和宽色域
 
-请参考 [DXGI 1.5 Improvements](https://msdn.microsoft.com/library/windows/desktop/mt661818)（DXGI 1.5 改进）中对高动态范围（最亮的白色和最暗的黑色之间的增大的差异）和宽色域（每种颜色 10 位，而不是 8 位）的支持。
+请参考 [DXGI 1.5 Improvements](https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-5-improvements)（DXGI 1.5 改进）中对高动态范围（最亮的白色和最暗的黑色之间的增大的差异）和宽色域（每种颜色 10 位，而不是 8 位）的支持。
 
 ## <a name="related-topics"></a>相关主题
 

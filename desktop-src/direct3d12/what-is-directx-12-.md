@@ -2,14 +2,15 @@
 title: 什么是 Direct3D 12
 description: DirectX 12 引入了下一版本的 Direct3D；它是 DirectX 的核心 3D 图形 API。
 ms.assetid: 09C586BF-11CE-4392-9BFD-A40B05DD0624
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 11/19/2018
-ms.openlocfilehash: 62cd37a62908baac07cb33c2353198044197a2b8
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: b7d7b653397be96ea6c83b736c817408f17a4e65
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223960"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296499"
 ---
 # <a name="what-is-direct3d-12"></a>什么是 Direct3D 12？
 

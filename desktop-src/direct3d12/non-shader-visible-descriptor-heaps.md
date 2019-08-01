@@ -2,14 +2,15 @@
 title: 非着色器可见描述符堆
 description: 着色器无法通过描述符表引用部分描述符堆，但描述符堆的存在是为了帮助应用在记录命令列表之前暂存描述符，或者是因为不需着色器可见堆。
 ms.assetid: 85934873-8889-4564-A717-28A00614B38C
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 7ed1bce7653e31cb798d0300ed2dc6e51d90b51d
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 8a2874391748fe49c7cd178e8b38055f3a6c03c2
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223876"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296075"
 ---
 # <a name="non-shader-visible-descriptor-heaps"></a>非着色器可见描述符堆
 

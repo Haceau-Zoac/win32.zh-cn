@@ -2,14 +2,15 @@
 title: Direct3D 12 中的内存管理
 description: 迁移到 D3D12 需对内存驻留进行适当同步和管理。
 ms.assetid: 94D47EBB-8060-49F6-A1FF-8B7B98AD5363
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 6cc1cb438c689e19aab97db44137856d64a76e08
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 76d547037c4585667f34c4f65caad4e3a5365d28
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224038"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296094"
 ---
 # <a name="memory-management-in-direct3d-12"></a>Direct3D 12 中的内存管理
 

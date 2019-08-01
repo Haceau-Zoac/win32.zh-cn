@@ -2,14 +2,15 @@
 title: 缓冲区中的二次分配
 description: 缓冲区具有 D3D12 所需的所有功能，可供应用程序将大量瞬态数据从 CPU 传输到 GPU。 本节介绍使用和管理资源及缓冲区的四种常见场景。
 ms.assetid: 359E377A-8E16-4BB5-9055-09617335AB57
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 91ac968a3d8a4194802c7431eb7f49d5a06c4612
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 5d5b7d5dfac4c9a00a01a8eaab73b342dfe53b72
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224095"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296229"
 ---
 # <a name="suballocation-within-buffers"></a>缓冲区中的二次分配
 

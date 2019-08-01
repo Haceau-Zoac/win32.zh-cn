@@ -2,14 +2,15 @@
 title: 直接在根签名中使用描述符
 description: 应用程序可以将描述符直接放在根签名中，以避免通过描述符堆。
 ms.assetid: 033E3D8F-3003-42F7-BF77-68A7D62802E5
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 63ceafcff711d89e9b3e43c1050961225697bdb1
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 9ddbdaac859183b20245e7f4164a85c14f940f6a
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224302"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296454"
 ---
 # <a name="using-descriptors-directly-in-the-root-signature"></a>直接在根签名中使用描述符
 

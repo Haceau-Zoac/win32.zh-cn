@@ -2,14 +2,15 @@
 title: 根签名限制
 description: 根签名是优质资产，需考虑严格的限制和成本。
 ms.assetid: 01121D3A-1926-4246-9C20-5E11F2E0B092
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 434126a824ac11c29efbdbdaff1e1f82013285c8
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: f9e61f834580f3abde7fe6e8de097e651c6d4ae4
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224176"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296316"
 ---
 # <a name="root-signature-limits"></a>根签名限制
 

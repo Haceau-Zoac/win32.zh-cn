@@ -2,14 +2,15 @@
 title: 计数器、查询和性能度量
 description: 以下各节描述了用于性能测试和改进的功能，例如查询、计数器、定时和预测。
 ms.assetid: C7AEF1A0-36FB-4026-9CCF-ED0206961A58
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: c5908c1bc32134298b4f35598b7445911b20aefa
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 2949c33fb5fd5f6d23bf5a206707f62716bc7e51
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224347"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296371"
 ---
 # <a name="counters-queries-and-performance-measurement"></a>计数器、查询和性能度量
 

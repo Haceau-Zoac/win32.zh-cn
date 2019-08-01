@@ -2,14 +2,15 @@
 title: 资源绑定概述
 description: 对于 DirectX 12 中的资源绑定，关键是要了解描述符、描述符表、描述符堆和根签名的概念。
 ms.assetid: 92E100CA-822D-46B1-BD37-FF57C3FB703D
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: b42abacbceb0562bc6fdac31e0837a82e092db12
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: c60aa9a345a81f2736324f44ed5f1acc1e165a66
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224188"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296330"
 ---
 # <a name="resource-binding-overview"></a>资源绑定概述
 

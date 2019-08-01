@@ -2,14 +2,15 @@
 title: 描述符概述
 description: 描述符由 API 调用创建并标识资源。
 ms.assetid: 64721226-5533-4816-865E-9429032FCC86
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9fc60357398b8360536dfc6f1d18e3e7557ff3f7
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: f45b2aafd85ed43396508bfb6852a0f862da9e15
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224101"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296241"
 ---
 # <a name="descriptors-overview"></a>描述符概述
 
@@ -47,17 +48,17 @@ GPU 句柄不可供立即使用，它们从命令列表中确定位置，以便�
 
 若要在创建描述符堆本身之后为堆的开头创建描述符句柄，请调用以下方法之一：
 
--   [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)
--   [**ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)
+-   [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)
+-   [**ID3D12DescriptorHeap::GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)
 
 这些方法返回以下结构：
 
--   [**D3D12\_CPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_cpu_descriptor_handle)
--   [**D3D12\_GPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_gpu_descriptor_handle)
+-   [**D3D12\_CPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle)
+-   [**D3D12\_GPU\_DESCRIPTOR\_HANDLE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_gpu_descriptor_handle)
 
 由于描述符大小因硬件而异，因此若要获得堆中的每个描述符之间的增量，请使用：
 
--   [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)
+-   [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)
 
 可以安全地使用若干增量偏移起始位置，复制句柄并将句柄传递到 API 调用数中。 取消引用句柄（如同有效的 CPU 指针一样）不安全，分析句柄中的位数也不安全。
 
@@ -74,13 +75,13 @@ GPU 句柄不可供立即使用，它们从命令列表中确定位置，以便�
 
 在许多情况下，有访问未绑定资源的已定义行为，例如返回默认值的 SRV。 访问 NULL 描述符时支持这些情况，前提是着色器访问的类型与描述符类型兼容。 例如，如果着色器需要 Texture2D SRV 并访问定义为 Texture1D 的 NULL SRV，则该行为是未定义的，并且可能会导致设备重置。
 
-总之，若要创建 null 描述符，请在使用 [**CreateShaderResourceView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview) 等方法创建视图时针对 pResource  参数传递 `null`。 对于视图描述参数 pDesc  ，设置在资源不是 null 时可行的配置（否则，某些硬件可能会崩溃）。
+总之，若要创建 null 描述符，请在使用 [**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview) 等方法创建视图时针对 pResource  参数传递 `null`。 对于视图描述参数 pDesc  ，设置在资源不是 null 时可行的配置（否则，某些硬件可能会崩溃）。
 
 但是，根描述符不应设置为 null。
 
 ## <a name="default-descriptors"></a>默认描述符
 
-若要创建特定视图的默认描述符，请将有效的 pResource  参数传递到创建视图方法（例如，[**CreateShaderResourceView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createshaderresourceview)），但针对 pDesc  参数传递 null。 例如，如果资源包含 14 个 mip，则视图将包含 14 个 mip。 默认情况包含资源到视图的最明显映射。 这需要资源分配有完全限定的格式名称（例如，DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB，而不是 DXGI\_FORMAT\_R8G8B8A8\_TYPELESS）。
+若要创建特定视图的默认描述符，请将有效的 pResource  参数传递到创建视图方法（例如，[**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview)），但针对 pDesc  参数传递 null。 例如，如果资源包含 14 个 mip，则视图将包含 14 个 mip。 默认情况包含资源到视图的最明显映射。 这需要资源分配有完全限定的格式名称（例如，DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB，而不是 DXGI\_FORMAT\_R8G8B8A8\_TYPELESS）。
 
 ## <a name="related-topics"></a>相关主题
 

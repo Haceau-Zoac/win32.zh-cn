@@ -2,14 +2,15 @@
 title: 描述符表概述
 description: 每个描述符表可存储一种或多种类型的描述符 - SRV、UAV、CBV 和采样器。 描述符表不是内存分配；它只是描述符堆中的偏移量和长度。
 ms.assetid: 4A5749CE-DD84-40E1-B67F-31828165A631
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5e983bab45df3f8684d0ec1231f833053f232544
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 3a8f5599a834b0150e2ab53f89662ff171d42bd0
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224122"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296008"
 ---
 # <a name="descriptor-tables-overview"></a>描述符表概述
 

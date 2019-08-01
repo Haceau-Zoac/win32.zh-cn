@@ -2,14 +2,15 @@
 title: 样例
 description: 可下载样例，了解 Direct3D 12 的许多功能的用法。
 ms.assetid: 4C4475D4-534F-484F-8D60-9ACEA09AC109
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 91101ae6799e463dc76ecbadf4670989752f9813
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: dbfccb70b8f575d2f868f2678483f04a8c764945
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224440"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296500"
 ---
 # <a name="working-samples"></a>样例
 
@@ -52,7 +53,7 @@ HelloTexture<br />
 </dl></td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="creating-a-basic-direct3d-12-component">创建基本的 Direct3D 12 组件</a></td>
+<td><a href="creating-a-basic-direct3d-12-component.md">创建基本的 Direct3D 12 组件</a></td>
 </tr>
 <tr class="even">
 <td>D3D12Bundles</td>
@@ -73,35 +74,35 @@ HelloTexture<br />
 <td>演示如何使用多引擎在同一个 GPU 上与 3D 工作一起执行异步计算工作。</td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="multi-engine-n-body-gravity-simulation">多引擎 n 体重力模拟</a></td>
+<td><a href="multi-engine-n-body-gravity-simulation.md">多引擎 n 体重力模拟</a></td>
 </tr>
 <tr class="odd">
 <td>D3D12PredicationQueries</td>
 <td>使用查询堆和预测来演示封闭剔除。</td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="predication-queries">预测查询</a></td>
+<td><a href="predication-queries.md">预测查询</a></td>
 </tr>
 <tr class="even">
 <td>D3D12DynamicIndexing</td>
 <td>演示 DirectX 12 和 HLSL 的动态索引功能。</td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="dynamic-indexing-using-hlsl-5-1">使用 HLSL 5.1 的动态索引</a></td>
+<td><a href="dynamic-indexing-using-hlsl-5-1.md">使用 HLSL 5.1 的动态索引</a></td>
 </tr>
 <tr class="odd">
 <td>D3D1211on12</td>
 <td>演示 11on12 层的基本用法。 此示例在 Direct3D 12 11on12 设备上使用 Direct3D 11 API 通过 D2D 呈现文本。</td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="d2d-using-d3d11on12">使用 D3D11on12 的 D2D</a></td>
+<td><a href="d2d-using-d3d11on12.md">使用 D3D11on12 的 D2D</a></td>
 </tr>
 <tr class="even">
 <td>D3D12ExecuteIndirect</td>
 <td>演示计算引擎剔除与执行间接功能相结合，仅呈现通过剔除测试的对象。</td>
 <td>Y</td>
 <td>Y</td>
-<td><a href="indirect-drawing-and-gpu-culling-">间接绘制和 GPU 剔除</a></td>
+<td><a href="indirect-drawing-and-gpu-culling-.md">间接绘制和 GPU 剔除</a></td>
 </tr>
 <tr class="odd">
 <td>D3D12PipelineStateCache</td>

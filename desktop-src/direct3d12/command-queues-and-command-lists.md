@@ -2,14 +2,15 @@
 title: Direct3D 12 中的工作提交
 description: 为了提高 Direct3D 应用的 CPU 效率，Direct3D 12 不再支持与设备关联的即时上下文。
 ms.assetid: BE2F46EA-D4A9-47F7-A2D1-6A486DD4DC1A
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 11/15/2018
-ms.openlocfilehash: def9f327148489bca5f9f80a804a002b9afcd025
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 58bc9ecf198b25bc8d14f8ddf049033590079d40
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224377"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296443"
 ---
 # <a name="work-submission-in-direct3d-12"></a>Direct3D 12 中的工作提交
 

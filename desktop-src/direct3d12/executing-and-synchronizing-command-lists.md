@@ -6,14 +6,15 @@ keywords:
 - 命令列表
 - 同步
 - 执行
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: f714a8d7ad00be8b1aced88618df90993766769a
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 495e4d774c08fd269a679701b144bee6df6d1621
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224368"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725478"
 ---
 # <a name="executing-and-synchronizing-command-lists"></a>执行和同步命令列表
 
@@ -44,11 +45,11 @@ Direct3D 12 命令队列将以前不会向开发人员公开的即时模式工�
 
 ## <a name="initializing-a-command-queue"></a>初始化命令队列
 
-可以调用 [**ID3D12Device::CreateCommandQueue**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandqueue) 来创建命令队列。 此方法采用 [**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type)，指示要创建哪种类型的队列，因此也会指示可将哪种类型的命令提交到该队列。 请记住，只能从直接命令列表调用捆绑，而不能直接将捆绑提交到队列。 支持的队列类型为：
+可以调用 [**ID3D12Device::CreateCommandQueue**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue) 来创建命令队列。 此方法采用 [**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type)，指示要创建哪种类型的队列，因此也会指示可将哪种类型的命令提交到该队列。 请记住，只能从直接命令列表调用捆绑，而不能直接将捆绑提交到队列。 支持的队列类型为：
 
--   [**D3D12\_COMMAND\_LIST\_TYPE\_DIRECT**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type)
--   [**D3D12\_COMMAND\_LIST\_TYPE\_COMPUTE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type)
--   [**D3D12\_COMMAND\_LIST\_TYPE\_COPY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type)
+-   [**D3D12\_COMMAND\_LIST\_TYPE\_DIRECT**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type)
+-   [**D3D12\_COMMAND\_LIST\_TYPE\_COMPUTE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type)
+-   [**D3D12\_COMMAND\_LIST\_TYPE\_COPY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type)
 
 一般情况下，DIRECT 队列和命令列表接受任何命令，COMPUTE 队列和命令列表接受计算和复制相关的命令，COPY 队列和命令列表仅接受复制命令。
 
@@ -62,7 +63,7 @@ Direct3D 12 命令队列将以前不会向开发人员公开的即时模式工�
 
 -   提供的命令列表是捆绑，而不是直接命令列表。
 -   尚未对提供的命令列表调用 [**ID3D12GraphicsCommandList::Close**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)，因此无法完成记录。
--   尚未对与命令列表关联的命令分配器调用 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandallocator-reset)（因为已记录该命令列表）。 有关命令分配器的详细信息，请参阅[创建和记录命令列表与捆绑](recording-command-lists-and-bundles.md)。
+-   尚未对与命令列表关联的命令分配器调用 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset)（因为已记录该命令列表）。 有关命令分配器的详细信息，请参阅[创建和记录命令列表与捆绑](recording-command-lists-and-bundles.md)。
 -   命令队列围栏指示尚未完成命令列表的上一次执行。 下面将详细介绍命令队列围栏。
 -   通过调用 [**ID3D12GraphicsCommandList::BeginQuery**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [**ID3D12GraphicsCommandList::EndQuery**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 设置的查询之前和之后状态不适当匹配。
 -   资源转换屏障的之前和之后状态不适当匹配。 有关详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
@@ -71,16 +72,16 @@ Direct3D 12 命令队列将以前不会向开发人员公开的即时模式工�
 
 运行时会施加几条规则来限制从多个命令队列对资源进行访问。 这些规则如下：
 
-<dl> 1. 不能同时从多个命令队列写入一个资源。 当某个资源在队列中转换为可写状态后，该资源被视为由该队列独占拥有，在可由另一个队列访问之前，它必须转换到读取或 COMMON 状态（请参阅 <a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states">**D3D12\_RESOURCE\_STATES**</a>）。 2. 进入读取状态下，可以根据资源的读取状态，同时从多个命令队列（包括跨进程）读取该资源。  
+<dl> 1. 不能同时从多个命令队列写入一个资源。 当某个资源在队列中转换为可写状态后，该资源被视为由该队列独占拥有，在可由另一个队列访问之前，它必须转换到读取或 COMMON 状态（请参阅 <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">**D3D12\_RESOURCE\_STATES**</a>）。 2. 进入读取状态下，可以根据资源的读取状态，同时从多个命令队列（包括跨进程）读取该资源。  
 </dl>
 
 有关资源访问限制和使用资源屏障来同步资源访问的详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 
 ## <a name="synchronizing-command-list-execution-using-command-queue-fences"></a>使用命令队列围栏同步命令列表的执行
 
-Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，可让你控制 GPU 中异步工作的优先顺序。 这种设计也意味着应用需要显式管理工作同步，尤其是当一个队列中的命令列表依赖于另一个命令队列操作的资源时。 部分示例包括等待计算队列中的操作完成，使其结果可用于 3D 队列中的渲染操作；等待 3D 操作完成，使计算队列中的某个操作可以访问用于写入操作的资源。 为了实现队列之间的工作同步，Direct3D 12 使用了 [**ID3D12Fence**](/windows/desktop/api/D3D12/nn-d3d12-id3d12fence) 接口的 API 表示的围栏的概念。
+Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，可让你控制 GPU 中异步工作的优先顺序。 这种设计也意味着应用需要显式管理工作同步，尤其是当一个队列中的命令列表依赖于另一个命令队列操作的资源时。 部分示例包括等待计算队列中的操作完成，使其结果可用于 3D 队列中的渲染操作；等待 3D 操作完成，使计算队列中的某个操作可以访问用于写入操作的资源。 为了实现队列之间的工作同步，Direct3D 12 使用了 [**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 接口的 API 表示的围栏的概念。
 
-围栏是一个整数，表示当前正在处理的工作单位。 当应用通过调用 [**ID3D12CommandQueue::Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-signal) 推进围栏时，该整数将会更新。 应用可以检查围栏的值，并确定某个工作单位是否已完成，从而确定是否可以启动后续的操作。
+围栏是一个整数，表示当前正在处理的工作单位。 当应用通过调用 [**ID3D12CommandQueue::Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal) 推进围栏时，该整数将会更新。 应用可以检查围栏的值，并确定某个工作单位是否已完成，从而确定是否可以启动后续的操作。
 
 ## <a name="synchronizing-resources-accessed-by-command-queues"></a>同步命令队列访问的资源
 
@@ -90,7 +91,7 @@ Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，�
 
 ## <a name="command-queue-support-for-tiled-resources"></a>图块式资源的命令队列支持
 
-在 Direct3D 11 中通过 [**ID3D11DeviceContext2**](https://msdn.microsoft.com/library/windows/desktop/dn280498) 接口公开的用于管理图块式资源的方法在 Direct3D 12 中由 [**ID3D12CommandQueue**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 接口提供。 这些方法包括：
+在 Direct3D 11 中通过 [**ID3D11DeviceContext2**](https://docs.microsoft.com/windows/desktop/api/d3d11_2/nn-d3d11_2-id3d11devicecontext2) 接口公开的用于管理图块式资源的方法在 Direct3D 12 中由 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 接口提供。 这些方法包括：
 
 
 
@@ -103,7 +104,7 @@ Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，�
 
  
 
-有关在 Direct3D 12 应用中使用图块式资源的详细信息，请参阅 [Direct3D11 图块式资源](https://msdn.microsoft.com/library/windows/desktop/dn786477)。
+有关在 Direct3D 12 应用中使用图块式资源的详细信息，请参阅 [Direct3D11 图块式资源](https://docs.microsoft.com/windows/desktop/direct3d11/tiled-resources)。
 
 ## <a name="related-topics"></a>相关主题
 

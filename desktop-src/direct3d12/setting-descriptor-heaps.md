@@ -2,14 +2,15 @@
 title: 设置和填充描述符堆
 description: 可在命令列表上设置的描述符堆类型包括可使用描述符表（每次最多使用一个表）的描述符。
 ms.assetid: F0FF3D7C-1DAC-48C3-B47D-0378BE369F37
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: f4166824b85e7588cba3ee9c781e98373acd674d
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 5556b4a8f7018150f9e67d8170cc4682d5e89b98
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223894"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296305"
 ---
 # <a name="setting-and-populating-descriptor-heaps"></a>设置和填充描述符堆
 

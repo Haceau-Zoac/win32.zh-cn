@@ -2,14 +2,15 @@
 title: 描述符堆可配置性摘要
 description: 下表总结了有关着色器和非着色器可见堆支持的信息。
 ms.assetid: DF266915-6224-4FFB-BE3E-34A44F7318DD
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 830db42f98de0d6909b073d0ac0d55c43f68c0cc
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 2ec24dc7814ed30c5082643cec6e4c4d0fdfa9d4
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224149"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296463"
 ---
 # <a name="descriptor-heap-configurability-summary"></a>描述符堆可配置性摘要
 

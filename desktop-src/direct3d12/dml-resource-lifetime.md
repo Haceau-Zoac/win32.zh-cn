@@ -1,15 +1,16 @@
 ---
 title: 资源生存期和同步
 description: DirectML 应用程序必须准确地管理对象生存期和 CPU 与 GPU 之间的同步，以避免未定义的行为。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/14/2019
-ms.openlocfilehash: c16d3d6fb889afb15e33c2d2fdd8ef1b2f08b9e1
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: a02bc0305daf0a54fc70ecd8034b13a07c4a9d1c
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223975"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465013"
 ---
 # <a name="resource-lifetime-and-synchronization"></a>资源生存期和同步
 

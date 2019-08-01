@@ -2,14 +2,15 @@
 title: 上传不同类型的资源
 description: 演示如何使用缓冲区将常量缓冲区数据和顶点缓冲区数据上载到 GPU，以及如何在缓冲区中正确地二次分配和放置数据。
 ms.assetid: 255B0482-21D6-4276-8009-3F3891879CA1
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: b325fed790a2242d14655d0ed1778cbdec937d47
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 0a5096d7417057f5bd2147352966f4c7d1a0e33c
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224308"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296479"
 ---
 # <a name="uploading-different-types-of-resources"></a>上传不同类型的资源
 
@@ -270,7 +271,7 @@ UINT Align(UINT uLocation, UINT uAlign)
 
 若要设置上传或读回堆中的常量、顶点和索引，请使用以下 API：
 
--   [**ID3D12Device::CreateConstantBufferView**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createconstantbufferview)
+-   [**ID3D12Device::CreateConstantBufferView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createconstantbufferview)
 -   [**ID3D12GraphicsCommandList::IASetVertexBuffers**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)
 -   [**ID3D12GraphicsCommandList::IASetIndexBuffer**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer)
 
@@ -282,15 +283,15 @@ UINT Align(UINT uLocation, UINT uAlign)
 
 -   提交的资源
 
-    提交的资源是各代 D3D 资源的最常见想法。 创建此类资源会分配虚拟地址范围（足以容纳整个资源的隐式堆），并将虚拟地址范围提交由堆封装的物理内存。 必须传递隐式堆属性以将功能奇偶校验与以前的 D3D 版本匹配。 请参阅 [**ID3D12Device::CreateCommittedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource)。
+    提交的资源是各代 D3D 资源的最常见想法。 创建此类资源会分配虚拟地址范围（足以容纳整个资源的隐式堆），并将虚拟地址范围提交由堆封装的物理内存。 必须传递隐式堆属性以将功能奇偶校验与以前的 D3D 版本匹配。 请参阅 [**ID3D12Device::CreateCommittedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)。
 
 -   预留的资源
 
-    预留的资源等效于 D3D11 平铺资源。 创建时，仅分配虚拟地址范围，并且不会将其映射到任何堆。 应用程序稍后会将此类资源映射到堆。 此类资源的功能当前在 D3D11 中保持不变，因为可以使用 [**UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings) 将这些功能映射到磁贴粒度为 64 KB 的堆。 请参阅 [**ID3D12Device::CreateReservedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createreservedresource)
+    预留的资源等效于 D3D11 平铺资源。 创建时，仅分配虚拟地址范围，并且不会将其映射到任何堆。 应用程序稍后会将此类资源映射到堆。 此类资源的功能当前在 D3D11 中保持不变，因为可以使用 [**UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings) 将这些功能映射到磁贴粒度为 64 KB 的堆。 请参阅 [**ID3D12Device::CreateReservedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource)
 
 -   放置的资源
 
-    这是 D3D12 的新增资源，应用程序可能会创建独立于资源的堆。 然后，应用程序可能会查找单个堆中的多个资源。 无需创建平铺或预留的资源即可完成此操作，从而启用能够通过应用程序直接创建的所有资源类型的功能。 多个资源可能会重叠，应用程序必须使用 `TiledResourceBarrier` 来正确地重复使用物理内存。 请参阅 [**ID3D12Device::CreatePlacedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createplacedresource)
+    这是 D3D12 的新增资源，应用程序可能会创建独立于资源的堆。 然后，应用程序可能会查找单个堆中的多个资源。 无需创建平铺或预留的资源即可完成此操作，从而启用能够通过应用程序直接创建的所有资源类型的功能。 多个资源可能会重叠，应用程序必须使用 `TiledResourceBarrier` 来正确地重复使用物理内存。 请参阅 [**ID3D12Device::CreatePlacedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource)
 
 ## <a name="resource-size-reflection"></a>资源大小反射
 
@@ -304,8 +305,8 @@ UINT Align(UINT uLocation, UINT uAlign)
 
 引用以下 API：
 
--   [**D3D12\_RESOURCE\_ALLOCATION\_INFO**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_resource_allocation_info)
--   [**GetResourceAllocationInfo**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getresourceallocationinfo)
+-   [**D3D12\_RESOURCE\_ALLOCATION\_INFO**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_allocation_info)
+-   [**GetResourceAllocationInfo**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo)
 
 ## <a name="buffer-alignment"></a>缓冲区对齐
 

@@ -1,15 +1,16 @@
 ---
 title: DirectML 中的绑定
 description: 在 DirectML 中，绑定是指将资源附加到管道，以供 GPU 在机器学习运算符初始化和执行时使用。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 02/01/2019
-ms.openlocfilehash: 76a2b0632c90a3a5d0e7afea2d87971436a83bc4
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: ab1c997c1d771c39e92688baec42b9b048e17513
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224014"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465023"
 ---
 # <a name="binding-in-directml"></a>DirectML 中的绑定
 

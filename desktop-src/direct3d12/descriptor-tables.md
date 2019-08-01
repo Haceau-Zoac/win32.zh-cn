@@ -2,14 +2,15 @@
 title: 描述符表
 description: 描述符表在逻辑上是描述符数组。
 ms.assetid: 5faf294f-acd5-4b39-92f4-1d6b2abe3040
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: c9dbb8489b43b5e49ffe275b9f529e69da4aa7c0
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 82b4eebafdb1d391c34da0d2afade94d2ef013f4
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224113"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296001"
 ---
 # <a name="descriptor-tables"></a>描述符表
 

@@ -2,14 +2,15 @@
 title: 驻留
 description: 如果 GPU 可访问某个对象，则该对象将被视为常驻对象。
 ms.assetid: 956F80D7-EEC8-4D88-B251-EE325614F31E
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 96ca17ada8e9e464880b202e9752ce72a5d8005f
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 028efa37dca8d6059a3cfd1735dbc024fda45f31
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224194"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725405"
 ---
 # <a name="residency"></a>驻留
 
@@ -26,7 +27,7 @@ ms.locfileid: "66224194"
 
 GPU 尚不支持分页错误，因此，当 GPU 可以访问数据时，应用程序必须将数据提交到物理内存。 此过程称为“使内容常驻”，必须针对物理系统内存和物理离散的视频内存执行。 在 D3D12 中，大多数 API 对象封装一定数量的 GPU 可访问内存。 在创建 API 对象期间，该 GPU 可访问内存被设置为常驻，在销毁 API 对象时将被逐出。
 
-可供该进程使用的物理内存量称为视频内存预算。 该预算可能会随着后台进程的唤醒和睡眠而有明显的波动；当用户切换到另一应用程序时，这种波动会很大。 应用程序在预算更改时可以收到通知，并可以轮询当前预算以及当前已消耗的内存量。 如果应用程序不在预算范围内，该进程将会间歇性地冻结以使其他应用程序能够运行，并且/或者创建 API 将返回失败。 [**IDXGIAdapter3**](https://msdn.microsoft.com/library/windows/desktop/dn933221) 接口提供与此功能相关的方法，具体而言，是 [**QueryVideoMemoryInfo**](https://msdn.microsoft.com/library/windows/desktop/dn933223) 和 [**RegisterVideoMemoryBudgetChangeNotificationEvent**](https://msdn.microsoft.com/library/windows/desktop/dn933231)。
+可供该进程使用的物理内存量称为视频内存预算。 该预算可能会随着后台进程的唤醒和睡眠而有明显的波动；当用户切换到另一应用程序时，这种波动会很大。 应用程序在预算更改时可以收到通知，并可以轮询当前预算以及当前已消耗的内存量。 如果应用程序不在预算范围内，该进程将会间歇性地冻结以使其他应用程序能够运行，并且/或者创建 API 将返回失败。 [**IDXGIAdapter3**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3) 接口提供与此功能相关的方法，具体而言，是 [**QueryVideoMemoryInfo**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo) 和 [**RegisterVideoMemoryBudgetChangeNotificationEvent**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent)。
 
 建议应用程序使用保留来指示它们必须获得的内存量。 理想情况下，用户指定的“低”图形设置甚至更低的设置是此类保留的适当值。 设置保留不会使应用程序的预算高于它在正常情况下获得的预算。 相反，保留信息可帮助 OS 内核快速最小化较大内存压力造成的影响。 即使应用程序不是前台应用程序，也不保证保留可供该应用程序使用。
 
@@ -36,7 +37,7 @@ GPU 尚不支持分页错误，因此，当 GPU 可以访问数据时，应用�
 
 -   无法将堆指定为部分常驻，但对于保留的资源有解决方法可用。
 -   应该将堆的预算计划为特定池的一部分。 UMA 适配器有一个池，而离散的适配器有两个池。 尽管内核确实可将离散适配器中的某些堆从视频内存转移到系统内存，则它只会在迫不得已的情况下才这样做。 应用程序不应依赖于内核的超预算行为，而应该注重良好的预算管理。
--   可以从驻留位置逐出堆，使其内容可以分页到磁盘。 但是，堆销毁是一种更可靠的技术，它可以释放所有适配器体系结构中的驻留位置。 在[**D3D12\_FEATURE\_DATA\_GPU\_VIRTUAL\_ADDRESS\_SUPPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support) 的 *theMaxGPUVirtualAddressBitsPerProcess* 字段接近预算大小的适配器中，[**Evict**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-evict) 无法可靠地回收驻留位置。
+-   可以从驻留位置逐出堆，使其内容可以分页到磁盘。 但是，堆销毁是一种更可靠的技术，它可以释放所有适配器体系结构中的驻留位置。 在[**D3D12\_FEATURE\_DATA\_GPU\_VIRTUAL\_ADDRESS\_SUPPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support) 的 *theMaxGPUVirtualAddressBitsPerProcess* 字段接近预算大小的适配器中，[**Evict**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-evict) 无法可靠地回收驻留位置。
 -   堆创建操作可能很缓慢；但它已针对后台线程处理进行优化。 建议在后台线程中创建堆，以避免干扰渲染线程。 在 D3D12 中，多个线程可以安全地同时调用创建例程。
 
 D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用程序支持更多的选项。 D3D12 中的资源有三个高级类型：已提交、已定位和已保留。
@@ -72,7 +73,7 @@ D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用�
 
 如果尝试针对适配器体系结构进行优化或整合驻留优先级，驻留管理设计的复杂性将会增大。 以离散方式预算和管理两个离散内存池比仅管理一个要复杂一些，以较大的规模分配固定的优先级可能会在使用模式演变时造成维护负担。 将纹理溢出到系统内存会进一步增大复杂性，因为系统内存中的错误资源可能会严重影响帧速率。 此外，没有任何简单的功能可帮助识别能够受益于更高 GPU 带宽或容忍更低 GPU 带宽的资源。
 
-更复杂的设计需要查询当前适配器的功能。 [**D3D12\_FEATURE\_DATA\_GPU\_VIRTUAL\_ADDRESS\_SUPPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support)、[**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_feature_data_architecture)、[**D3D12\_TILED\_RESOURCES\_TIER**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_tiled_resources_tier) 和 [**D3D12\_RESOURCE\_HEAP\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_heap_tier) 中已提供相关信息。
+更复杂的设计需要查询当前适配器的功能。 [**D3D12\_FEATURE\_DATA\_GPU\_VIRTUAL\_ADDRESS\_SUPPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support)、[**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)、[**D3D12\_TILED\_RESOURCES\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier) 和 [**D3D12\_RESOURCE\_HEAP\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_heap_tier) 中已提供相关信息。
 
 应用程序的多个组成部分最终可能会使用不同的技术。 例如，某些大型纹理和极少执行的代码路径可能使用已提交资源，而许多纹理中可能指定了流属性，因此会使用常规的已定位资源技术。
 
@@ -80,7 +81,7 @@ D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用�
 
 <dl> <dt>
 
-[**ID3D12Heap**](/windows/desktop/api/D3D12/nn-d3d12-id3d12heap)
+[**ID3D12Heap**](/windows/desktop/api/d3d12/nn-d3d12-id3d12heap)
 </dt> <dt>
 
 [内存管理](memory-management.md)

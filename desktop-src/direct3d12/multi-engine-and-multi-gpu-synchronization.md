@@ -2,14 +2,15 @@
 title: 多引擎和多适配器同步
 description: 简要概述相关信息，并列出与多引擎（3D、计算和复制引擎）和多适配器相关的 API。
 ms.assetid: D81BE0E6-D7A4-4EB4-8267-2C97E4216A9D
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 51ccfaa246ea96d765f55cd84e76aecb46dc7892
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: c8851fed14817ff34fac6d8f8e25e66fdfb93a46
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223771"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296077"
 ---
 # <a name="multi-engine-and-multi-adapter-synchronization"></a>多引擎和多适配器同步
 

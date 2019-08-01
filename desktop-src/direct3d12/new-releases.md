@@ -2,14 +2,15 @@
 title: 最新发布
 description: 介绍最新 SDK 发布中最重要的新文档。
 ms.assetid: 38F41E05-FECB-41DE-8D30-09733FBEAC48
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2e4cdd1011c9fe91d4d39b593c0e9a2fc2547c0f
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 59912c7e8d36fa010ccd5ff19a176549408c2f79
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223717"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725464"
 ---
 # <a name="new-releases"></a>最新发布
 
@@ -33,13 +34,13 @@ ms.locfileid: "66223717"
 
 下列接口已添加到 Windows 10 版本 1709 的 Direct3D 文档中。
 
--   [ID3D12Fence1](/windows/desktop/api/D3D12/nn-d3d12-id3d12fence1) 通过支持检索传入的标志来创建围栏，扩展了创建围栏的功能  。
--   [ID3D12GraphicsCommandList2](/windows/desktop/api/D3D12/nn-d3d12-id3d12graphicscommandlist2) 通过支持将即时值直接写入缓冲区，扩展了可用图形命令列表  。
--   [ID3D12Device3](/windows/desktop/api/D3D12/nn-d3d12-id3d12device3) 通过在系统内存中创建特殊用途的诊断堆来扩展虚拟适配器功能，这些诊断堆即使在出现 GPU 故障或设备被删除的情况下也能保留  。
+-   [ID3D12Fence1](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence1) 通过支持检索传入的标志来创建围栏，扩展了创建围栏的功能  。
+-   [ID3D12GraphicsCommandList2](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist2) 通过支持将即时值直接写入缓冲区，扩展了可用图形命令列表  。
+-   [ID3D12Device3](/windows/desktop/api/d3d12/nn-d3d12-id3d12device3) 通过在系统内存中创建特殊用途的诊断堆来扩展虚拟适配器功能，这些诊断堆即使在出现 GPU 故障或设备被删除的情况下也能保留  。
 
 [D3D\_SHADER\_MODEL](/windows/desktop/api/d3d12/ne-d3d12-d3d_shader_model) 枚举添加了新的 D3D\_SHADER\_MODEL\_6\_1 值来描述着色器模型 6.1   。
 
-[D3D12\_FEATURE](/windows/desktop/api/D3D12/ne-d3d12-d3d12_feature) 枚举也具有新的 D3D12\_FEATURE\_D3D12\_OPTIONS3 和 D3D12\_FEATURE\_EXISTING\_HEAPS 值    。 顾名思义，通过这些值可查看其他 Direct3D12 选项以及现有堆的支持。
+[D3D12\_FEATURE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature) 枚举也具有新的 D3D12\_FEATURE\_D3D12\_OPTIONS3 和 D3D12\_FEATURE\_EXISTING\_HEAPS 值    。 顾名思义，通过这些值可查看其他 Direct3D12 选项以及现有堆的支持。
 
 ## <a name="windows-10-version-1703"></a>Windows 10 版本 1703
 
@@ -47,16 +48,16 @@ ms.locfileid: "66223717"
 
 -   [ID3D12Device2::CreatePipelineState](/windows/desktop/api/d3d12/nf-d3d12-id3d12device2-createpipelinestate) 方法和 [D3D12\_Pipeline\_State\_Stream\_Desc](/windows/desktop/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc) 结构表示创建 PSO 的更强大的新方法，还统一了图形和计算管道的创建界面   。
 -   [ID3D12Device1::CreatePipelineLibrary1](https://www.bing.com/search?q=**ID3D12Device1::CreatePipelineLibrary1**) 方法扩展了管道库接口以接受使用新的统一 [D3D12\_Pipeline\_State\_Stream\_Desc](/windows/desktop/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc) 结构创建的 PSO   。
--   [D3D12EnableExperimentalFeatures](/windows/desktop/api/D3D12/nf-d3d12-d3d12enableexperimentalfeatures) 函数让开发人员能够使用开发人员模式中的计算机来体验某些开发中的功能  。
+-   [D3D12EnableExperimentalFeatures](/windows/desktop/api/d3d12/nf-d3d12-d3d12enableexperimentalfeatures) 函数让开发人员能够使用开发人员模式中的计算机来体验某些开发中的功能  。
 -   有 5 个新接口（请参阅[接口层次结构](interface-hierarchy.md)）：
-    -   [**ID3D12GraphicsCommandList1**](/windows/desktop/api/D3D12/nn-d3d12-id3d12graphicscommandlist1)
-    -   [**ID3D12PipelineLibrary1**](https://msdn.microsoft.com/library/windows/desktop/mt492661)
-    -   [**ID3D12Device2**](/windows/desktop/api/D3D12/nn-d3d12-id3d12device2)
+    -   [**ID3D12GraphicsCommandList1**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist1)
+    -   [**ID3D12PipelineLibrary1**](https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinelibrary1)
+    -   [**ID3D12Device2**](/windows/desktop/api/d3d12/nn-d3d12-id3d12device2)
     -   [**ID3D12Debug2**](/windows/desktop/api/D3D12sdklayers/nn-d3d12sdklayers-id3d12debug2)
     -   [**ID3D12Tools**](/windows/desktop/api/d3d12/nn-d3d12-id3d12tools)
--   请参阅 [HLSL 着色器模型 6.0 概述](https://msdn.microsoft.com/library/windows/desktop/mt733232)，其中介绍了多线程像素和计算着色器的批次内部操作。
--   [ID3D12Device::SetStablePowerState](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改  。
--   在 [Direct3D 11.4 功能](https://msdn.microsoft.com/library/windows/desktop/mt661819)中描述了 Direct3D 11 的一些新功能。
+-   请参阅 [HLSL 着色器模型 6.0 概述](https://docs.microsoft.com/windows/desktop/direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12)，其中介绍了多线程像素和计算着色器的批次内部操作。
+-   [ID3D12Device::SetStablePowerState](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改  。
+-   在 [Direct3D 11.4 功能](https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-4-features)中描述了 Direct3D 11 的一些新功能。
 -   [AtomicCopyBufferUINT](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint) 和 [AtomicCopyBufferUINT64](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint64) 实现了延迟锁存来降低出现的延迟    。
 -   [ID3D12Device2::CreatePipelineState](/windows/desktop/api/d3d12/nf-d3d12-id3d12device2-createpipelinestate) 和 [OMSetDepthBounds](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-omsetdepthbounds) 在支持的硬件上实现了    。
 -   [ResolveSubresourceRegion](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion) 实现了子资源的部分解析，以帮助优化性能   。
@@ -89,13 +90,13 @@ ms.locfileid: "66223717"
     -   [**ID3D12PipelineLibrary**](/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinelibrary)
     -   [**ID3D12Device1**](/windows/desktop/api/d3d12/nn-d3d12-id3d12device1)
     -   [**ID3D12VersionedRootSignatureDeserializer**](/windows/desktop/api/d3d12/nn-d3d12-id3d12versionedrootsignaturedeserializer)
--   请参阅 [HLSL 着色器模型 6.0 概述](https://msdn.microsoft.com/library/windows/desktop/mt733232)，其中介绍了多线程像素和计算着色器的批次内部操作。
--   [ID3D12Device::SetStablePowerState](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改  。
--   在 [Direct3D 11.4 功能](https://msdn.microsoft.com/library/windows/desktop/mt661819)中描述了 Direct3D 11 的一些新功能。
+-   请参阅 [HLSL 着色器模型 6.0 概述](https://docs.microsoft.com/windows/desktop/direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12)，其中介绍了多线程像素和计算着色器的批次内部操作。
+-   [ID3D12Device::SetStablePowerState](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改  。
+-   在 [Direct3D 11.4 功能](https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-4-features)中描述了 Direct3D 11 的一些新功能。
 -   Direct3D 12 支持的库范围已更新，请参阅 [Direct3D 12 编程环境设置](directx-12-programming-environment-set-up.md)的“支持的工具和库”部分  。
--   [高动态范围和宽色域](https://msdn.microsoft.com/library/windows/desktop/mt742103)
--   [显示变量刷新频率](https://msdn.microsoft.com/library/windows/desktop/mt742104)
--   [DXGI 1.5 改进](https://msdn.microsoft.com/library/windows/desktop/mt661818)
+-   [高动态范围和宽色域](https://docs.microsoft.com/windows/desktop/direct3ddxgi/high-dynamic-range-and-wide-color-gamut)
+-   [显示变量刷新频率](https://docs.microsoft.com/windows/desktop/direct3ddxgi/variable-refresh-rate-displays)
+-   [DXGI 1.5 改进](https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-1-5-improvements)
 
 ## <a name="related-topics"></a>相关主题
 

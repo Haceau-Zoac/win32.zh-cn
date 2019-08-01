@@ -2,14 +2,15 @@
 title: Direct3D 12 的管道和着色器
 description: 相较于上一代图形编程接口，Direct3D 12 可编程管道显著提高了渲染性能。
 ms.assetid: 329882F5-D2A9-4D6D-AC3B-29F370D22C97
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 1f196e6dbcab56059d9ff4f4ccaf9a67c69b5dd5
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 14d950a0a0c447772a80667f7ec97ba5e5cdaa71
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223909"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725575"
 ---
 # <a name="pipelines-and-shaders-with-direct3d-12"></a>Direct3D 12 的管道和着色器
 
@@ -38,7 +39,7 @@ ms.locfileid: "66223909"
 
 Direct3D 12 引入了管道状态对象 (PSO)。 不是跨大量高级对象存储和表示管道状态，而是在 PSO 中存储管道组件（如输入汇编程序、光栅化程序、象素着色器和输出合并）的状态。 PSO 是统一的管道状态对象，且创建后不可改变。 当前选择的 PSO 可快速、动态地进行改变，硬件和驱动程序可直接将 PSO 转换为本机硬件指令和状态，以便 GPU 能够进行图形处理。 为应用 PSO，硬件将尽可能少的预计算状态直接复制到硬件寄存器。 这消除了由于图形驱动程序基于当前所有适用的渲染和管道设置不断重新计算硬件状态而产生的开销。 其结果是显著减少了绘制调用开销、提高了性能，并且每一帧可进行更多次绘制调用。
 
-当前应用的 PSO 定义并连接渲染管道中使用的所有着色器。 [Microsoft 高级着色器语言 (HLSL)](https://msdn.microsoft.com/library/windows/desktop/bb509561) 预先编译到着色器对象中，然后在运行时后者用作管道状态对象的输入。 如需深入了解 PSO 在图形管道中的工作原理，请参阅[在 Direct3D 12 中管理图形管道状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
+当前应用的 PSO 定义并连接渲染管道中使用的所有着色器。 [Microsoft 高级着色器语言 (HLSL)](https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl) 预先编译到着色器对象中，然后在运行时后者用作管道状态对象的输入。 如需深入了解 PSO 在图形管道中的工作原理，请参阅[在 Direct3D 12 中管理图形管道状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
 
 ## <a name="direct3d-12-compute-pipeline"></a>Direct3D 12 计算管道
 

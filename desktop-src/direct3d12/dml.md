@@ -1,19 +1,20 @@
 ---
 title: 直接机器学习 (DirectML)
-description: TBD
-ms.custom: 19H1
+description: 直接机器学习 (DirectML) 是机器学习的低级 API。 它具有常见的（本机 C++、nano-COM）编程接口和 DirectX 12 样式的工作流。
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 02/01/2019
-ms.openlocfilehash: 9ab5233bc9520b2575914c28b968da929c965c89
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 8283332b07f4de4595c95c94e46fa958173680ef
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223963"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67464994"
 ---
 # <a name="direct-machine-learning-directml"></a>直接机器学习 (DirectML)
 
-直接机器学习 (DirectML) 是机器学习的低级 API。 它具有常见的（本机 C++、nano-COM）编程接口和 DirectX 12 样式的工作流。 你可以将机器学习推断工作负载集成到游戏、引擎、中间件、后端或其他应用程序中。 所有与 DirectX 12 兼容的硬件都支持 DirectML。
+直接机器学习 (DirectML) 是机器学习的低级 API。 它具有常见的（本机 C++、nano-COM）编程接口和 DirectX 12 样式的工作流。 可将机器学习推断工作负荷集成到游戏、引擎、中间件、后端或其他应用程序中。 所有与 DirectX 12 兼容的硬件都支持 DirectML。
 
 DirectML 是在 Windows 10 版本 1903 和相应版本的 Windows SDK 中引入的。
 

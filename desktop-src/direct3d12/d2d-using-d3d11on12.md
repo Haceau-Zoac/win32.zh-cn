@@ -2,14 +2,15 @@
 title: 使用 D3D11on12 的 D2D
 description: D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设备之间共享资源，通过 D3D12 呈现 D2D 内容。
 ms.assetid: FAEF1412-053C-4B5F-80FA-85396C2586B4
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: d0a9c9797a4120c068f29b9ee3108e658da02656
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: a9c21cf439fe4e1ef7e6040c52b59e450d9c4311
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224470"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725579"
 ---
 # <a name="d2d-using-d3d11on12"></a>使用 D3D11on12 的 D2D
 
@@ -25,7 +26,7 @@ D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设
 
 ## <a name="create-an-id3d11on12device"></a>创建 ID3D11On12Device
 
-首先是在创建 [ID3D12Device](/windows/desktop/api/D3D12/nn-d3d12-id3d12device) 之后创建一个 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device)，这包括创建一个通过 [API D3D11On12CreateDevice](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice) 包装在 ID3D12Device 上的 [ID3D11Device](https://msdn.microsoft.com/library/windows/desktop/ff476379)      。 该 API 还采用 [ID3D12CommandQueue](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 等参数，以便 11On12 设备能够提交其命令  。 创建 ID3D11Device 之后，可从中查询 ID3D11On12Device 接口   。 这是用于设置 D2D 的主要设备对象。
+首先是在创建 [ID3D12Device](/windows/desktop/api/d3d12/nn-d3d12-id3d12device) 之后创建一个 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device)，这包括创建一个通过 [API D3D11On12CreateDevice](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice) 包装在 ID3D12Device 上的 [ID3D11Device](https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device)      。 该 API 还采用 [ID3D12CommandQueue](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 等参数，以便 11On12 设备能够提交其命令  。 创建 ID3D11Device 之后，可从中查询 ID3D11On12Device 接口   。 这是用于设置 D2D 的主要设备对象。
 
 在 LoadPipeline 方法中设置设备  。
 
@@ -54,7 +55,7 @@ D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设
 
 | 调用流程                                              | 参数 |
 |--------------------------------------------------------|------------|
-| [**ID3D11Device**](https://msdn.microsoft.com/library/windows/desktop/ff476379)            |            |
+| [**ID3D11Device**](https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device)            |            |
 | [**D3D11On12CreateDevice**](/windows/desktop/api/d3d11on12/nf-d3d11on12-d3d11on12createdevice) |            |
 
 
@@ -84,12 +85,12 @@ D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设
 
 | 调用流程                                                                        | 参数                                                   |
 |----------------------------------------------------------------------------------|--------------------------------------------------------------|
-| [**D2D1\_DEVICE\_CONTEXT\_OPTIONS**](https://msdn.microsoft.com/library/windows/desktop/hh446998)     |                                                              |
-| [**D2D1CreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368034)                              | [**D2D1\_FACTORY\_TYPE**](https://msdn.microsoft.com/library/windows/desktop/dd368104)        |
-| [**IDXGIDevice**](https://msdn.microsoft.com/library/windows/desktop/bb174527)                                      |                                                              |
-| [**ID2D1Factory3::CreateDevice**](https://msdn.microsoft.com/library/windows/desktop/dn900395)           |                                                              |
-| [**ID2D1Device::CreateDeviceContext**](https://msdn.microsoft.com/library/windows/desktop/hh404545) |                                                              |
-| [**DWriteCreateFactory**](https://msdn.microsoft.com/library/windows/desktop/dd368040)                       | [**DWRITE\_FACTORY\_TYPE**](https://msdn.microsoft.com/library/windows/desktop/dd368057) |
+| [**D2D1\_DEVICE\_CONTEXT\_OPTIONS**](https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_device_context_options)     |                                                              |
+| [**D2D1CreateFactory**](https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-d2d1createfactory)                              | [**D2D1\_FACTORY\_TYPE**](https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_factory_type)        |
+| [**IDXGIDevice**](https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice)                                      |                                                              |
+| [**ID2D1Factory3::CreateDevice**](https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1factory3-createdevice)           |                                                              |
+| [**ID2D1Device::CreateDeviceContext**](https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1device-createdevicecontext) |                                                              |
+| [**DWriteCreateFactory**](https://docs.microsoft.com/windows/desktop/api/dwrite/nf-dwrite-dwritecreatefactory)                       | [**DWRITE\_FACTORY\_TYPE**](https://docs.microsoft.com/windows/desktop/api/dwrite/ne-dwrite-dwrite_factory_type) |
 
 
 
@@ -97,7 +98,7 @@ D3D1211on12 示例演示了如何通过在基于 11 的设备和基于 12 的设
 
 ## <a name="create-a-render-target-for-d2d"></a>为 D2D 创建呈现器目标
 
-D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容）呈现到后台缓冲区，则需要基于 [ID3D12Resource](/windows/desktop/api/D3D12/nn-d3d12-id3d12resource) 类型的后台缓冲区创建 [ID3D11Resource](https://msdn.microsoft.com/library/windows/desktop/ff476584) 类型的包装资源   。 这会将 ID3D12Resource 与基于 D3D11 的接口相关联，使它能够与 11On12 设备配合使用  。 在拥有包装资源后，然后就可为 D2D 创建一个要呈现到的呈现器目标，这也是在 LoadAssets 方法中创建的  。
+D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容）呈现到后台缓冲区，则需要基于 [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) 类型的后台缓冲区创建 [ID3D11Resource](https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11resource) 类型的包装资源   。 这会将 ID3D12Resource 与基于 D3D11 的接口相关联，使它能够与 11On12 设备配合使用  。 在拥有包装资源后，然后就可为 D2D 创建一个要呈现到的呈现器目标，这也是在 LoadAssets 方法中创建的  。
 
 ``` syntax
  // Query the desktop's dpi settings, which will be used to create
@@ -164,49 +165,49 @@ D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容�
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/dd371316"><strong>ID2D1Factory::GetDesktopDpi</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1factory-getdesktopdpi"><strong>ID2D1Factory::GetDesktopDpi</strong></a></td>
 
 </tr>
 <tr class="even">
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/hh404275"><strong>D2D1_BITMAP_PROPERTIES1</strong></a></td>
-<td><dl><a href="https://msdn.microsoft.com/library/windows/desktop/hh847934"><strong>BitmapProperties1</strong></a><br />
-[<strong>D2D1_BITMAP_OPTIONS</strong>](https://msdn.microsoft.com/library/windows/desktop/hh446984)<br />
-[<strong>PixelFormat</strong>](https://msdn.microsoft.com/library/windows/desktop/dd372327)<br />
-[<strong>DXGI_FORMAT</strong>](https://msdn.microsoft.com/library/windows/desktop/bb173059)<br />
-[<strong>D2D1_ALPHA_MODE</strong>](https://msdn.microsoft.com/library/windows/desktop/dd368058)<br />
+<td><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_bitmap_properties1"><strong>D2D1_BITMAP_PROPERTIES1</strong></a></td>
+<td><dl><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1helper/nf-d2d1_1helper-bitmapproperties1"><strong>BitmapProperties1</strong></a><br />
+[<strong>D2D1_BITMAP_OPTIONS</strong>](https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_bitmap_options)<br />
+[<strong>PixelFormat</strong>](https://docs.microsoft.com/windows/desktop/api/d2d1helper/nf-d2d1helper-pixelformat)<br />
+[<strong>DXGI_FORMAT</strong>](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format)<br />
+[<strong>D2D1_ALPHA_MODE</strong>](https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-d2d1_alpha_mode)<br />
 </dl></td>
 </tr>
 <tr class="odd">
-<td><a href="cd3dx12-cpu-descriptor-handle"><strong>CD3DX12_CPU_DESCRIPTOR_HANDLE</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart"><strong>GetCPUDescriptorHandleForHeapStart</strong></a></td>
+<td><a href="cd3dx12-cpu-descriptor-handle.md"><strong>CD3DX12_CPU_DESCRIPTOR_HANDLE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart"><strong>GetCPUDescriptorHandleForHeapStart</strong></a></td>
 </tr>
 <tr class="even">
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/bb174570"><strong>IDXGISwapChain::GetBuffer</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer"><strong>IDXGISwapChain::GetBuffer</strong></a></td>
 
 </tr>
 <tr class="odd">
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrendertargetview"><strong>CreateRenderTargetView</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrendertargetview"><strong>CreateRenderTargetView</strong></a></td>
 
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d11on12/ns-d3d11on12-d3d11_resource_flags"><strong>D3D11_RESOURCE_FLAGS</strong></a></td>
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/ff476085"><strong>D3D11_BIND_FLAG</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_bind_flag"><strong>D3D11_BIND_FLAG</strong></a></td>
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-createwrappedresource"><strong>CreateWrappedResource</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states"><strong>D3D12_RESOURCE_STATES</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states"><strong>D3D12_RESOURCE_STATES</strong></a></td>
 </tr>
 <tr class="even">
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/bb174565"><strong>IDXGISurface</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgisurface"><strong>IDXGISurface</strong></a></td>
 
 </tr>
 <tr class="odd">
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/hh404482"><strong>ID2D1DeviceContext::CreateBitmapFromDxgiSurface</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromdxgisurface(idxgisurface_constd2d1_bitmap_properties1__id2d1bitmap1)"><strong>ID2D1DeviceContext::CreateBitmapFromDxgiSurface</strong></a></td>
 
 </tr>
 <tr class="even">
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandallocator"><strong>CreateCommandAllocator</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type"><strong>D3D12_COMMAND_LIST_TYPE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandallocator"><strong>CreateCommandAllocator</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type"><strong>D3D12_COMMAND_LIST_TYPE</strong></a></td>
 </tr>
 </tbody>
 </table>
@@ -217,7 +218,7 @@ D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容�
 
 ## <a name="create-basic-d2d-text-objects"></a>创建基本 D2D 文本对象
 
-现在我们有一个 [ID3D12Device](/windows/desktop/api/D3D12/nn-d3d12-id3d12device) 用于呈现 3D 内容，一个 [ID2D1Device](https://msdn.microsoft.com/library/windows/desktop/hh404478) 通过可用于呈现 2D 内容的 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device) 与 12 设备共享内容，而且这两个都配置为呈现到同一交换链    。 此示例仅使用 D2D 设备在 3D 场景上呈现文本，类似于游戏呈现其 UI 的方式。 为此，我们需要仍然使用 LoadAssets 方法创建一些基本的 D2D 对象  。
+现在我们有一个 [ID3D12Device](/windows/desktop/api/d3d12/nn-d3d12-id3d12device) 用于呈现 3D 内容，一个 [ID2D1Device](https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device) 通过可用于呈现 2D 内容的 [ID3D11On12Device](/windows/desktop/api/d3d11on12/nn-d3d11on12-id3d11on12device) 与 12 设备共享内容，而且这两个都配置为呈现到同一交换链    。 此示例仅使用 D2D 设备在 3D 场景上呈现文本，类似于游戏呈现其 UI 的方式。 为此，我们需要仍然使用 LoadAssets 方法创建一些基本的 D2D 对象  。
 
 ``` syntax
  // Create D2D/DWrite objects for rendering text.
@@ -242,10 +243,10 @@ D3D12 拥有交换链，因此如果我们想使用 11On12 设备（D2D 内容�
 
 | 调用流程                                                                                           | 参数                                                                 |
 |-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
-| [**ID2D1RenderTarget::CreateSolidColorBrush**](https://msdn.microsoft.com/library/windows/desktop/dd742843)    | [**ColorF**](https://msdn.microsoft.com/library/windows/desktop/dd370907)                                              |
-| [**IDWriteFactory::CreateTextFormat**](https://msdn.microsoft.com/library/windows/desktop/dd368203)                 | [**DWRITE\_FONT\_WEIGHT**](https://msdn.microsoft.com/library/windows/desktop/dd368082)                 |
-| [**IDWriteTextFormat::SetTextAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316709)           | [**DWRITE\_TEXT\_ALIGNMENT**](https://msdn.microsoft.com/library/windows/desktop/dd368131)           |
-| [**IDWriteTextFormat::SetParagraphAlignment**](https://msdn.microsoft.com/library/windows/desktop/dd316702) | [**DWRITE\_PARAGRAPH\_ALIGNMENT**](https://msdn.microsoft.com/library/windows/desktop/dd368112) |
+| [**ID2D1RenderTarget::CreateSolidColorBrush**](https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-createsolidcolorbrush)    | [**ColorF**](https://docs.microsoft.com/windows/desktop/api/d2d1helper/nl-d2d1helper-colorf)                                              |
+| [**IDWriteFactory::CreateTextFormat**](https://docs.microsoft.com/windows/desktop/api/dwrite/nf-dwrite-idwritefactory-createtextformat)                 | [**DWRITE\_FONT\_WEIGHT**](https://docs.microsoft.com/windows/desktop/api/dwrite/ne-dwrite-dwrite_font_weight)                 |
+| [**IDWriteTextFormat::SetTextAlignment**](https://docs.microsoft.com/windows/desktop/api/dwrite/nf-dwrite-idwritetextformat-settextalignment)           | [**DWRITE\_TEXT\_ALIGNMENT**](https://docs.microsoft.com/windows/desktop/api/dwrite/ne-dwrite-dwrite_text_alignment)           |
+| [**IDWriteTextFormat::SetParagraphAlignment**](https://docs.microsoft.com/windows/desktop/api/dwrite/nf-dwrite-idwritetextformat-setparagraphalignment) | [**DWRITE\_PARAGRAPH\_ALIGNMENT**](https://docs.microsoft.com/windows/desktop/api/dwrite/ne-dwrite-dwrite_paragraph_alignment) |
 
 
 
@@ -279,9 +280,9 @@ void D3D1211on12::OnRender()
 
 | 调用流程                                                              | 参数 |
 |------------------------------------------------------------------------|------------|
-| [**ID3D12CommandList**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandlist)                         |            |
+| [**ID3D12CommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandlist)                         |            |
 | [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)  |            |
-| [**IDXGISwapChain1::Present1**](https://msdn.microsoft.com/library/windows/desktop/hh446797) |            |
+| [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1) |            |
 
 
 
@@ -289,7 +290,7 @@ void D3D1211on12::OnRender()
 
 呈现循环中唯一新功能是 RenderUI 调用，它将使用 D2D 来呈现 UI  。 请注意，我们首先执行所有 D3D12 命令列表以呈现 3D 场景，然后在此基础上呈现 UI。 在深入研究 RenderUI 之前，必须查看对 PopulateCommandLists 的更改   。 在其他示例中，我们通常在关闭命令列表之前在列表上放置一个资源屏障，以便将后台缓冲区从呈现目标状态转换为当前状态。 但是，在此示例中，我们移除了该资源屏障，因为我们仍然需要使用 D2D 呈现到后台缓冲区。 注意，当我们创建后台缓冲区的包装资源时，我们将呈现目标状态指定为“IN”状态，将当前状态指定为“OUT”状态。
 
-RenderUI 在 D2D 使用方面非常简单  。 我们设置呈现器目标并呈现文本。 但是，在 11On12 设备上使用任何包装资源（例如后台缓冲区呈现目标）之前，必须在 11On12 设备上调用 [AcquireWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources) API  。 呈现后，我们在 11On12 设备上调用 [ReleaseWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources) API  。 通过调用 ReleaseWrappedResources，将在后台生成一个资源屏障，它将把指定的资源转换为创建时指定的“OUT”状态  。 在本例中，就是指当前状态。 最后，为了将在 11On12 设备上执行的所有命令提交到共享的 [ID3D12CommandQueue](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue)，必须在 [ID3D11DeviceContext](https://msdn.microsoft.com/library/windows/desktop/ff476385) 上调用[刷新](https://msdn.microsoft.com/library/windows/desktop/ff476425)    。
+RenderUI 在 D2D 使用方面非常简单  。 我们设置呈现器目标并呈现文本。 但是，在 11On12 设备上使用任何包装资源（例如后台缓冲区呈现目标）之前，必须在 11On12 设备上调用 [AcquireWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources) API  。 呈现后，我们在 11On12 设备上调用 [ReleaseWrappedResources](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources) API  。 通过调用 ReleaseWrappedResources，将在后台生成一个资源屏障，它将把指定的资源转换为创建时指定的“OUT”状态  。 在本例中，就是指当前状态。 最后，为了将在 11On12 设备上执行的所有命令提交到共享的 [ID3D12CommandQueue](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue)，必须在 [ID3D11DeviceContext](https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext) 上调用[刷新](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush)    。
 
 ``` syntax
 // Render text over D3D12 using D2D via the 11On12 device.
@@ -329,16 +330,16 @@ void D3D1211on12::RenderUI()
 
 | 调用流程                                                                                                                                                                                 | 参数                            |
 |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
-| [**D2D1\_SIZE\_F**](https://msdn.microsoft.com/library/windows/desktop/dd368160)                                                                                                                                                 |                                       |
-| [**D2D1\_RECT\_F**](https://msdn.microsoft.com/library/windows/desktop/dd368151)                                                                                                                                                 | [**RectF**](https://msdn.microsoft.com/library/windows/desktop/dd372343)           |
+| [**D2D1\_SIZE\_F**](https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-size-f)                                                                                                                                                 |                                       |
+| [**D2D1\_RECT\_F**](https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f)                                                                                                                                                 | [**RectF**](https://docs.microsoft.com/windows/desktop/api/d2d1helper/nf-d2d1helper-rectf)           |
 | [**AcquireWrappedResources**](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-acquirewrappedresources)                                                                                                               |                                       |
-| [**ID2D1DeviceContext::SetTarget**](https://msdn.microsoft.com/library/windows/desktop/hh404533)                                                                                                                |                                       |
-| [**ID2D1RenderTarget::BeginDraw**](https://msdn.microsoft.com/library/windows/desktop/dd371768)                                                                                                                  |                                       |
-| [**ID2D1RenderTarget::SetTransform**](https://msdn.microsoft.com/library/windows/desktop/dd742857)                                                                                                            | [**Matrix3x2F**](https://msdn.microsoft.com/library/windows/desktop/dd372275) |
-| [**ID2D1RenderTarget::DrawTextW**](https://msdn.microsoft.com/library/windows/desktop/dd371916) |                                       |
-| [**ID2D1RenderTarget::EndDraw**](https://msdn.microsoft.com/library/windows/desktop/dd371924)                                                                                                                      |                                       |
+| [**ID2D1DeviceContext::SetTarget**](https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-settarget)                                                                                                                |                                       |
+| [**ID2D1RenderTarget::BeginDraw**](https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-begindraw)                                                                                                                  |                                       |
+| [**ID2D1RenderTarget::SetTransform**](https://docs.microsoft.com/windows/desktop/Direct2D/id2d1rendertarget-settransform)                                                                                                            | [**Matrix3x2F**](https://docs.microsoft.com/windows/desktop/api/d2d1helper/nl-d2d1helper-matrix3x2f) |
+| [**ID2D1RenderTarget::DrawTextW**](https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f__id2d1brush_d2d1_draw_text_options_dwrite_measuring_mode)) |                                       |
+| [**ID2D1RenderTarget::EndDraw**](https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw)                                                                                                                      |                                       |
 | [**ReleaseWrappedResources**](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources)                                                                                                               |                                       |
-| [**ID3D11DeviceContext::Flush**](https://msdn.microsoft.com/library/windows/desktop/ff476425)                                                                                                                    |                                       |
+| [**ID3D11DeviceContext::Flush**](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush)                                                                                                                    |                                       |
 
 
 

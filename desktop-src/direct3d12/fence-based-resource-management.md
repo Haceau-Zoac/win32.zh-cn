@@ -2,14 +2,15 @@
 title: 基于围栏的资源管理
 description: 演示如何利用通过围栏跟踪 GPU 进度来管理资源数据的生存期。 可有效地重复使用内存，用围栏来仔细管理内存中可用空间的可用性，例如针对“上传”堆环形缓冲区实现。
 ms.assetid: A7AB6569-EC6B-4B1B-9266-D05B6DB3A27B
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: faec81958b2283bdd17a335fae98525acd9309f0
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: d870785d8e16225d17aced4c7442869cd855e696
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224458"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296388"
 ---
 # <a name="fence-based-resource-management"></a>基于围栏的资源管理
 
@@ -145,7 +146,7 @@ void FreeUpMemoryUntilFrame(UINT lastCompletedFrame)
 
 <dl> <dt>
 
-[**ID3D12Fence**](/windows/desktop/api/D3D12/nn-d3d12-id3d12fence)
+[**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence)
 </dt> <dt>
 
 [缓冲区中的二次分配](large-buffers.md)

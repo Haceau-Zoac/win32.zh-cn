@@ -2,14 +2,15 @@
 title: 从 Direct3D 11 到 Direct3D 12 的重要更改
 description: Direct3D 12 与 Direct3D 11 编程模型之间存在显著的差异。 在 Direct3D 12 中，应用比以往任何时候更接近硬件。
 ms.assetid: CE5066C9-7EA6-437D-9EB0-AACFB6CFAD9E
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: d50aa09bc5951a2fe5ad60f48b697eae4877da7a
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: d7a3c6ff81c9dd65e4e5d81ed262acb4a2bfeced
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223816"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725486"
 ---
 # <a name="important-changes-from-direct3d-11-to-direct3d-12"></a>从 Direct3D 11 到 Direct3D 12 的重要更改
 
@@ -30,7 +31,7 @@ Direct3D 12 中应用的速度和效率更高，但你要负责完成的任务�
 ## <a name="explicit-synchronization"></a>显式同步
 
 -   在 Direct3D 12 中，CPU-GPU 同步现在明确由应用负责，而不再像 Direct3D 11 中那样由运行时隐式执行。 这一事实也意味着，Direct3D 12 不会自动执行管道风险检查，因此，此工作同样由应用负责。
--   在 Direct3D 12 中，应用负责通过管道传输数据更新。 也就是说，Direct3D 11 中的“映射/锁定-丢弃”模式在 Direct3D 12 中必须手动执行。 在 Direct3D 11 中，如果当你结合 [**D3D11\_MAP\_WRITE\_DISCARD**](https://msdn.microsoft.com/library/windows/desktop/ff476181#d3d11-map-write-discard) 调用 [**ID3D11DeviceContext::Map**](https://msdn.microsoft.com/library/windows/desktop/ff476457) 时 GPU 仍在使用缓冲区，则运行时将返回指向内存新区域（而不是旧缓冲区数据）的指针。 因此，当应用在新缓冲区中放置数据时，GPU 可继续使用旧数据。 在应用中无需进行额外的内存管理；当 GPU 用完旧缓冲区时，系统会自动重复使用或销毁旧缓冲区。
+-   在 Direct3D 12 中，应用负责通过管道传输数据更新。 也就是说，Direct3D 11 中的“映射/锁定-丢弃”模式在 Direct3D 12 中必须手动执行。 在 Direct3D 11 中，如果当你结合 [**D3D11\_MAP\_WRITE\_DISCARD**](https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map) 调用 [**ID3D11DeviceContext::Map**](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map) 时 GPU 仍在使用缓冲区，则运行时将返回指向内存新区域（而不是旧缓冲区数据）的指针。 因此，当应用在新缓冲区中放置数据时，GPU 可继续使用旧数据。 在应用中无需进行额外的内存管理；当 GPU 用完旧缓冲区时，系统会自动重复使用或销毁旧缓冲区。
 -   在 Direct3D 12 中，所有动态更新（包括常量缓冲区、动态顶点缓冲区、动态纹理等）由应用显式控制。 这些动态更新包括任何所需的 GPU 围栏或缓冲。 应用负责使内存保持可用，直到不再需要内存。
 -   Direct3D 12 仅在接口的生存期内使用 COM 式的引用计数（通过使用与设备生存期关联的 Direct3D 弱引用模型）。 应用独自负责所有资源和描述内存生存期的适当持续时间，它们不会进行引用计数。 Direct3D 11 也使用引用计数来管理接口依赖项的生存期。
 
@@ -52,7 +53,7 @@ Direct3D 12 将大部分管道状态统一为在创建时即已确认的不可�
 
 ## <a name="command-lists-and-bundles"></a>命令列表和捆绑
 
-在 Direct3D 11 中，所有工作提交都是通过[中间上下文](https://msdn.microsoft.com/library/windows/desktop/ff476892#immediate)（表示进入 GPU 的单一命令流）完成的。 为了实现多线程缩放，游戏还可以使用[延迟上下文](https://msdn.microsoft.com/library/windows/desktop/ff476892#deferred)。 Direct3D 11 中的延迟上下文不能完美映射到硬件，因此可在其中完成的工作量相对较小。
+在 Direct3D 11 中，所有工作提交都是通过[中间上下文](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)（表示进入 GPU 的单一命令流）完成的。 为了实现多线程缩放，游戏还可以使用[延迟上下文](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)。 Direct3D 11 中的延迟上下文不能完美映射到硬件，因此可在其中完成的工作量相对较小。
 
 Direct3D 12 中为工作提交引入了一个基于命令列表的新模型，这些命令列表包含在 GPU 上执行特定工作负荷所需的整个信息。 每个新命令列表包含要使用的 PSO、所需的纹理和缓冲区资源、所有绘制调用的参数等信息。 由于每个命令列表是独立性的且不继承任何状态，因此，驱动程序可以提前以自由线程的方式预先计算全部所需的 GPU 命令。 所需的唯一串行进程是通过命令队列将命令列表最终提交到 GPU。
 

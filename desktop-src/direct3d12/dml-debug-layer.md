@@ -1,15 +1,16 @@
 ---
 title: DirectML 中的绑定
 description: DirectML 调试层是可选的开发时组件，可帮助调试 DirectML 代码。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/13/2019
-ms.openlocfilehash: bc57d1cad3c51b5e1f237c9e18076df7bfc3d973
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 34e3ec5d510c0c429f6ac3edb412c305ff03aff6
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224011"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465006"
 ---
 # <a name="using-the-directml-debug-layer"></a>使用 DirectML 调试层
 

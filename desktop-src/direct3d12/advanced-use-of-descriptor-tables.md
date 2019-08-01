@@ -2,14 +2,15 @@
 title: 描述符表的高级用途
 description: 以下各节介绍有关描述符表的高级用途的信息。
 ms.assetid: BB0CA29C-65CB-48B1-8351-EE13CC470B54
-ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 105be771c5d03d97ea7ddd5bd31c360814bb6674
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.localizationpriority: high
+ms.topic: article
+ms.openlocfilehash: 51364cdaeef90a8da24b14d5ff760542f7d086f8
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224431"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296154"
 ---
 # <a name="advanced-use-of-descriptor-tables"></a>描述符表的高级用途
 

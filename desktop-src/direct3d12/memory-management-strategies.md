@@ -2,14 +2,15 @@
 title: 内存管理策略
 description: Direct3D 12 的内存管理器可能会迅速变得非常复杂，原因在于所有对 UMA 或离散（非 UMA）适配器的各层级支持，以及 GPU 适配器之间相当多的体系结构差异。本部分所述的建议 Direct3D 12 内存管理策略是“分类、预算和流式处理”。
 ms.assetid: BC9894F7-D496-46F2-A5C3-C7CA31FD4BA8
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: a7055078aa6a20664fb20e589e1fec50a61e00e8
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: e306e7997b47429820874cd973daef52e9075d5e
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224041"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725473"
 ---
 # <a name="memory-management-strategies"></a>内存管理策略
 
@@ -32,7 +33,7 @@ Direct3D 12 的内存管理器可能会迅速变得非常复杂，原因在于�
 
 可将保留的资源设置为使用 [**UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings) 等 API 调用引用堆中的区域，应用可以通过即时更新页面表来将其设置为常驻。 将 VA 范围映射到 NULL 或非常驻堆后，资源的该部分被视为非常驻。 将 VA 范围映射到常驻堆后，资源的该部分被视为常驻。 堆在创建时是常驻的。
 
-定位的资源在设计上要简单得多，它们只是指向特定堆区域的指针（例如，5Mb 堆中为纹理提供的 1Mb 区域）。 别名屏障支持使用重叠放置的资源（请参阅 [**CreatePlacedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createplacedresource) 和 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)）。
+定位的资源在设计上要简单得多，它们只是指向特定堆区域的指针（例如，5Mb 堆中为纹理提供的 1Mb 区域）。 别名屏障支持使用重叠放置的资源（请参阅 [**CreatePlacedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource) 和 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)）。
 
 保留的资源并非可在所有 Direct3D 12 硬件上使用，定位的资源是合理的回退，不过，定位的资源必须是连续的，且不能是部分常驻的。
 
@@ -42,7 +43,7 @@ Direct3D 12 的内存管理器可能会迅速变得非常复杂，原因在于�
 
 GPU 不支持页面错误，因此，开发人员必须意识到不能过度提交，尤其是对于系统内存较小（例如只有 1Gb）的系统。 如果应用过度提交，则 OS 会根据其对物理内存的需求，使用粗粒度的进程计划。 计划程序会冻结前台进程并从本质上将其中的某些进程移出页面，以将要运行的后台进程移入页面。 根据用户在后台执行的操作（例如运行浏览器或观看视频），可用的物理内存存在很大的差别。
 
-内存预算 API 为 [**QueryVideoMemoryInfo**](https://msdn.microsoft.com/library/windows/desktop/dn933223)。 对于离散的适配器，“local”是视频内存，“non-local”是系统内存。 对于 UMA 适配器，non-local 始终为 0。 一个设计问题是，引擎是要管理这两项预算，还是只管理本地预算。 只管理本地预算会更简单，但需要注意一些问题；例如，假设有一项 1Gb 的最大本地预算，则所有堆将来自 UMA 系统中的该 1Gb 预算，且不会溢出到系统内存（显然，原因是没有系统内存）。
+内存预算 API 为 [**QueryVideoMemoryInfo**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo)。 对于离散的适配器，“local”是视频内存，“non-local”是系统内存。 对于 UMA 适配器，non-local 始终为 0。 一个设计问题是，引擎是要管理这两项预算，还是只管理本地预算。 只管理本地预算会更简单，但需要注意一些问题；例如，假设有一项 1Gb 的最大本地预算，则所有堆将来自 UMA 系统中的该 1Gb 预算，且不会溢出到系统内存（显然，原因是没有系统内存）。
 
 由于 Direct3D11 会为应用程序管理内存，因此会从本质上将未使用的资源移出页面。
 
@@ -75,10 +76,10 @@ GPU 不支持页面错误，因此，开发人员必须意识到不能过度提�
 
 <dl> <dt>
 
-[**CreateCommittedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource)
+[**CreateCommittedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)
 </dt> <dt>
 
-[**CreateReservedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createreservedresource)
+[**CreateReservedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource)
 </dt> <dt>
 
 [Direct3D 12 编程指南](directx-12-programming-guide.md)

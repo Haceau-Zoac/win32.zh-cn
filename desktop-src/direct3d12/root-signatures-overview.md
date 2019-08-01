@@ -2,14 +2,15 @@
 title: 根签名概述
 description: 根签名由应用配置，并将命令列表链接到着色器所需的资源。
 ms.assetid: 2E649DA2-6CAC-4C2A-A420-D4EC0DD6EA73
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 19261caac1266152c45d16346f7a1ebd203e2023
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: de75647c053b9230952c69997ecd1cdd43719406
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224167"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725399"
 ---
 # <a name="root-signatures-overview"></a>根签名概述
 
@@ -31,7 +32,7 @@ ms.locfileid: "66224167"
 
 内联根描述符应该包含访问频率最高的描述符，但仅限于 CBV、原始或结构化 UAV 或 SRV 缓冲区。 更复杂的类型（如 2D texture SRV）不能用作根描述符。 根描述符不包含大小限制，因此不能进行越界检查，这与描述符堆中包含大小的描述符不同。
 
-根签名中的描述符表条目包含描述符、HLSL 着色器绑定名称和可见性标志。 有关着色器名称的详细信息，请参阅 [Shader Model 5.1](https://msdn.microsoft.com/library/windows/desktop/dn933277)（着色器模型 5.1）。 在某些硬件上，只有使描述符对需要它们的着色器阶段可见才能获得性能提升（请参见 [D3D12\_SHADER\_VISIBILITY](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)）  。
+根签名中的描述符表条目包含描述符、HLSL 着色器绑定名称和可见性标志。 有关着色器名称的详细信息，请参阅 [Shader Model 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)（着色器模型 5.1）。 在某些硬件上，只有使描述符对需要它们的着色器阶段可见才能获得性能提升（请参见 [D3D12\_SHADER\_VISIBILITY](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility)）  。
 
 ![根描述符表条目](images/root-descriptor-table.png)
 

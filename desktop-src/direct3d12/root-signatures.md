@@ -2,14 +2,15 @@
 title: 根签名
 description: 根签名定义绑定到图形管道的资源类型。
 ms.assetid: ee32a222-8469-4af5-b688-afa70cf77c6a
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: a18f470e590f00a7b7d3a6e43d525596c90580af
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 21dc673869c5af7085858287ddef4cc0b0c47871
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224104"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296302"
 ---
 # <a name="root-signatures"></a>根签名
 
@@ -39,10 +40,10 @@ ms.locfileid: "66224104"
 
 <dl> <dt>
 
-[**ID3D12RootSignature**](https://msdn.microsoft.com/en-us/library/Dn788714(v=VS.85).aspx)
+[**ID3D12RootSignature**](https://msdn.microsoft.com/library/Dn788714(v=VS.85).aspx)
 </dt> <dt>
 
-[**ID3D12RootSignatureDeserializer**](/windows/desktop/api/D3D12/nn-d3d12-id3d12rootsignaturedeserializer)
+[**ID3D12RootSignatureDeserializer**](/windows/desktop/api/d3d12/nn-d3d12-id3d12rootsignaturedeserializer)
 </dt> <dt>
 
 [资源绑定](resource-binding.md)

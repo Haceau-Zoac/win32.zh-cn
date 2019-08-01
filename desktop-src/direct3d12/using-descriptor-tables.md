@@ -2,14 +2,15 @@
 title: 使用描述符表
 description: 描述符表（每个表标识描述符堆中的一个范围）绑定在由命令列表上的当前根签名所定义的槽中。
 ms.assetid: 4ECEC07A-7ABC-4C5F-B23C-36F0D92643FE
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 6da625011ae28f4973e485f25c88e46989e20057
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 7062e525981913ed18bb68bc19e65e529d313506
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223858"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296214"
 ---
 # <a name="using-descriptor-tables"></a>使用描述符表
 

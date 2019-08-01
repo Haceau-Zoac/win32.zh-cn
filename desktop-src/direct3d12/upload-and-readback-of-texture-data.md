@@ -2,14 +2,15 @@
 title: 通过缓冲区上传纹理数据
 description: 上传 2D 或 3D 纹理数据与上传 1D 数据类似，但应用程序需要更密切地关注与行间距相关的数据对齐情况。
 ms.assetid: 22A25A94-A45C-482D-853A-FA6860EE7E4E
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2c02ace68728dc56b8b4753550d5a093e0ecf970
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 4b268f02bd523e286e227cd134c1d9d41303ea15
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224311"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725590"
 ---
 # <a name="uploading-texture-data-through-buffers"></a>通过缓冲区上传纹理数据
 
@@ -92,11 +93,11 @@ commandList->CopyTextureRegion(
         nullptr );
 ```
 
-请注意帮助程序结构 [CD3DX12\_HEAP\_PROPERTIES](cd3dx12-heap-properties.md) 和 [CD3DX12\_TEXTURE\_COPY\_LOCATION](cd3dx12-texture-copy-location.md) 以及方法 [CreateCommittedResource](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource) 和 [CopyTextureRegion](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion)     的使用。
+请注意帮助程序结构 [CD3DX12\_HEAP\_PROPERTIES](cd3dx12-heap-properties.md) 和 [CD3DX12\_TEXTURE\_COPY\_LOCATION](cd3dx12-texture-copy-location.md) 以及方法 [CreateCommittedResource](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource) 和 [CopyTextureRegion](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion)     的使用。
 
 ## <a name="copying"></a>复制
 
-D3D12 方法使应用程序能够替换 D3D11 [UpdateSubresource](https://msdn.microsoft.com/library/windows/desktop/ff476486)、[CopySubresourceRegion](https://msdn.microsoft.com/library/windows/desktop/ff476394) 以及资源初始数据   。 行-主要纹理数据的单个 3D 子资源可能位于缓冲区资源中。 [ CopyTextureRegion](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion) 可以将纹理数据从缓冲区复制到纹理布局未知的纹理资源，反之亦然  。 应用程序应优先使用此类方式来填充频繁访问的 GPU 资源，方法是在 UPLOAD 堆中创建大型缓冲区，同时在不具有 CPU 访问权限的 DEFAULT 堆中创建频繁访问的 GPU 资源。 这种方式可有效地支持离散 GPU 及其大量的 CPU 不可访问的存储器，而不会损害 UMA 体系结构。
+D3D12 方法使应用程序能够替换 D3D11 [UpdateSubresource](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-updatesubresource)、[CopySubresourceRegion](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-copysubresourceregion) 以及资源初始数据   。 行-主要纹理数据的单个 3D 子资源可能位于缓冲区资源中。 [ CopyTextureRegion](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytextureregion) 可以将纹理数据从缓冲区复制到纹理布局未知的纹理资源，反之亦然  。 应用程序应优先使用此类方式来填充频繁访问的 GPU 资源，方法是在 UPLOAD 堆中创建大型缓冲区，同时在不具有 CPU 访问权限的 DEFAULT 堆中创建频繁访问的 GPU 资源。 这种方式可有效地支持离散 GPU 及其大量的 CPU 不可访问的存储器，而不会损害 UMA 体系结构。
 
 请注意以下两个常量：
 
@@ -107,7 +108,7 @@ const UINT D3D12_TEXTURE_DATA_PLACEMENT_ALIGNMENT = 512;
 
 -   [**D3D12\_SUBRESOURCE\_FOOTPRINT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_subresource_footprint)
 -   [**D3D12\_PLACED\_SUBRESOURCE\_FOOTPRINT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_placed_subresource_footprint)
--   [**D3D12\_TEXTURE\_COPY\_LOCATION**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_texture_copy_location)
+-   [**D3D12\_TEXTURE\_COPY\_LOCATION**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_texture_copy_location)
 -   [**D3D12\_TEXTURE\_COPY\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_copy_type)
 -   [**ID3D12Device::GetCopyableFootprints**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getcopyablefootprints)
 -   [**ID3D12GraphicsCommandList::CopyResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copyresource)
@@ -118,13 +119,13 @@ const UINT D3D12_TEXTURE_DATA_PLACEMENT_ALIGNMENT = 512;
 
 ## <a name="mapping-and-unmapping"></a>映射和取消映射
 
-[Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map) 和 [Unmap](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-unmap) 可由多个线程安全地调用   。 首次调用 Map 可为资源分配 CPU 虚拟地址范围  。 最后一次调用 Unmap 可取消分配 CPU 虚拟地址范围  。 系统通常会向应用程序返回该 CPU 虚拟地址。
+[Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map) 和 [Unmap](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap) 可由多个线程安全地调用   。 首次调用 Map 可为资源分配 CPU 虚拟地址范围  。 最后一次调用 Unmap 可取消分配 CPU 虚拟地址范围  。 系统通常会向应用程序返回该 CPU 虚拟地址。
 
-当数据通过 Readback 堆中的资源在 CPU 和 GPU 之间传递时，必须使用 [Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map) 和 [Unmap](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-unmap) 来支持可支持 D3D12 的所有系统   。 在需要范围的系统上，应尽可能保持较小的范围以最大限度地提高效率（请参阅 [D3D12\_RANGE](/windows/desktop/api/D3D12/ns-d3d12-d3d12_range)）  。
+当数据通过 Readback 堆中的资源在 CPU 和 GPU 之间传递时，必须使用 [Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map) 和 [Unmap](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap) 来支持可支持 D3D12 的所有系统   。 在需要范围的系统上，应尽可能保持较小的范围以最大限度地提高效率（请参阅 [D3D12\_RANGE](/windows/desktop/api/d3d12/ns-d3d12-d3d12_range)）  。
 
-调试工具的性能不仅得益于对所有 [Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map) / [Unmap](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-unmap) 调用的范围的准确使用，还得益于应用程序在不再进行 CPU 修改时取消映射资源   。
+调试工具的性能不仅得益于对所有 [Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map) / [Unmap](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap) 调用的范围的准确使用，还得益于应用程序在不再进行 CPU 修改时取消映射资源   。
 
-D3D11 方法可使用 [Map](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map)（使用 DISCARD 参数集）重命名资源，D3D12 不支持此做法  。 应用程序必须自己实现资源重命名。 所有 Map 调用都是隐式 NO\_OVERWRITE 和多线程的  。 应用程序复制确保在使用 CPU 访问数据之前完成命令列表中包含的任何相关 GPU 工作。 D3D12 调用 Map 不会隐式刷新任何命令缓冲区，也不会阻止等待 GPU 完成工作  。 因此，Map 和 [Unmap](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-unmap) 甚至可能在某些情况下进行优化   。
+D3D11 方法可使用 [Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)（使用 DISCARD 参数集）重命名资源，D3D12 不支持此做法  。 应用程序必须自己实现资源重命名。 所有 Map 调用都是隐式 NO\_OVERWRITE 和多线程的  。 应用程序复制确保在使用 CPU 访问数据之前完成命令列表中包含的任何相关 GPU 工作。 D3D12 调用 Map 不会隐式刷新任何命令缓冲区，也不会阻止等待 GPU 完成工作  。 因此，Map 和 [Unmap](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap) 甚至可能在某些情况下进行优化   。
 
 ## <a name="buffer-alignment"></a>缓冲区对齐
 

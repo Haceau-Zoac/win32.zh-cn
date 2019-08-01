@@ -2,14 +2,15 @@
 title: 描述符堆概述
 description: 描述符堆包含不属于管道状态对象 (PSO) 的许多对象类型，例如，着色器资源视图 (SRV)、无序访问视图 (UAV)、常量缓冲区视图 (CBV) 和取样器。
 ms.assetid: 14561E77-44E0-4A58-8456-F40D59ECA175
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: bb04405aaa98659ebe8e33807256de3fb727688a
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 382231b50aef7341f8e583a003c003504244e329
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224134"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296409"
 ---
 # <a name="descriptor-heaps-overview"></a>描述符堆概述
 

@@ -2,14 +2,15 @@
 title: 使用根签名
 description: 根签名是描述符表（包括其布局）、根常量和根描述符的任意排列集合的定义。
 ms.assetid: 0131CDE4-02DB-440A-92B8-B0933C6414B0
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 982052e360821726969630cf15d47f7993505931
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 043ba360756c8f1d81bcf20778f1d174389ff7fc
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224263"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296485"
 ---
 # <a name="using-a-root-signature"></a>使用根签名
 

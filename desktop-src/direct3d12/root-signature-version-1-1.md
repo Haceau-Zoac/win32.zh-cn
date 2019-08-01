@@ -2,14 +2,15 @@
 title: 根签名版本 1.1
 description: 根签名版本 1.1 的目的是使应用程序能够在描述符堆中的描述符不更改或数据描述符指向不变的情况下向驱动程序指示。
 ms.assetid: 8FE42C1C-7F1D-4E70-A7EE-D5EC67237327
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 238da415b4163671d7e79a17895c068b5b25bfaa
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 03754762547882afe4eddb6b6fbdb9fcbbe819c6
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224170"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296309"
 ---
 # <a name="root-signature-version-11"></a>根签名版本 1.1
 
@@ -17,10 +18,10 @@ ms.locfileid: "66224170"
 
 -   [概述](#overview)
 -   [静态和易失性标志](#static-and-volatile-flags)
-    -   [DESCRIPTORS\_VOLATILE](https://docs.microsoft.com/windows)
-    -   [DATA\_VOLATILE](https://docs.microsoft.com/windows)
-    -   [DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE](https://docs.microsoft.com/windows)
-    -   [DATA\_STATIC](https://docs.microsoft.com/windows)
+    -   [DESCRIPTORS\_VOLATILE](/windows)
+    -   [DATA\_VOLATILE](/windows)
+    -   [DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE](/windows)
+    -   [DATA\_STATIC](/windows)
     -   [合并标志](#combining-flags)
     -   [标志摘要](#flag-summary)
 -   [版本 1.1 API 摘要](#version-11-api-summary)
@@ -169,7 +170,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
 
 这些枚举包含用于指定描述符和数据易失性的关键标志。
 
--   [**D3D\_ROOT\_SIGNATURE\_VERSION**](/windows/desktop/api/D3D12/ne-d3d12-d3d_root_signature_version)：版本 ID。
+-   [**D3D\_ROOT\_SIGNATURE\_VERSION**](/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version)：版本 ID。
 -   [**D3D12\_DESCRIPTOR\_RANGE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags)：标志范围，确定描述符或数据是易失性的还是静态的。
 -   [**D3D12\_ROOT\_DESCRIPTOR\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_descriptor_flags)：类似于 [**D3D12\_DESCRIPTOR\_RANGE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_flags) 的标志范围，不过，只会将数据标志应用到根描述符。
 
@@ -177,7 +178,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
 
 更新的结构（版本 1.0 中）包含对易失性/静态标志的引用。
 
--   [**D3D12\_FEATURE\_DATA\_ROOT\_SIGNATURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_root_signature)：将此结构传递给 [**CheckFeatureSupport**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-checkfeaturesupport) 可以检查对根签名版本 1.1 的支持。
+-   [**D3D12\_FEATURE\_DATA\_ROOT\_SIGNATURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_root_signature)：将此结构传递给 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 可以检查对根签名版本 1.1 的支持。
 -   [**D3D12\_VERSIONED\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc)：可以保存根签名描述的任何版本，旨在与下面所列的序列化/反序列化函数配合使用。
 -   这些结构等效于版本 1.0 中所用的结构，并添加了描述符范围和根描述符的新标志字段：
 
@@ -189,7 +190,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
 
 ### <a name="functions"></a>函数
 
-此处所列的方法取代了原始的 [**D3D12SerializeRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-d3d12serializerootsignature) 和 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/D3D12/nf-d3d12-d3d12createrootsignaturedeserializer) 函数，因为它们可以在任何版本的根签名中使用。 序列化格式是传入 [**CreateRootSignature**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createrootsignature) API 的格式。 如果编写的着色器包含根签名，则编译的着色器已包含序列化的根签名。
+此处所列的方法取代了原始的 [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature) 和 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer) 函数，因为它们可以在任何版本的根签名中使用。 序列化格式是传入 [**CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature) API 的格式。 如果编写的着色器包含根签名，则编译的着色器已包含序列化的根签名。
 
 -   [**D3D12SerializeVersionedRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializeversionedrootsignature)：如果应用程序遵循过程生成 [**D3D12\_VERSIONED\_ROOT\_SIGNATURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_versioned_root_signature_desc) 数据结构，则它必须使用此函数生成序列化格式。
 -   [**D3D12CreateVersionedRootSignatureDeserializer**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer)：生成一个可以通过 [**GetUnconvertedRootSignatureDesc**](/windows/desktop/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getunconvertedrootsignaturedesc) 返回反序列化数据结构的接口。

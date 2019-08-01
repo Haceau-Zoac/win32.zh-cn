@@ -1,15 +1,16 @@
 ---
 title: DirectML 中的绑定
 description: DirectML 张量由张量的大小和步幅属性描述   。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/12/2019
-ms.openlocfilehash: fdd1655dca41f9b3c79d5975f2f1e5721b7634fb
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: dc3b140977e27a1667ac1357d9aa7f973b3792a1
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223972"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67464997"
 ---
 # <a name="using-strides-to-express-padding-and-memory-layout"></a>使用步幅来表示填充和内存布局
 

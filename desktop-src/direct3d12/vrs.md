@@ -1,14 +1,15 @@
 ---
 title: 可变速率着色 (VRS)
 description: 可变速率着色 &mdash; 或粗略像素着色 &mdash; 是一种机制，可让你以不同渲染图像的速率分配渲染性能/算力。
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/08/2019
-ms.openlocfilehash: 85cb736b83bea8785146a80ccb12d672ccb48d9c
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 87867fb173f44bd6d8b413b6dc995e28785d00ef
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224410"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296513"
 ---
 # <a name="variable-rate-shading-vrs"></a>可变速率着色 (VRS)
 

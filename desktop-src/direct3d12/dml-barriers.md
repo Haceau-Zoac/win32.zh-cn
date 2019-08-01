@@ -1,15 +1,16 @@
 ---
 title: DirectML 中的绑定
 description: 描述屏障的正确性好处，以及在 DirectML 中的使用方式。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/12/2019
-ms.openlocfilehash: 52397120378f19868bb832f8b976ec7d504e7b9f
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 3be03ba11907f217369d86e5e9e4acdac4016689
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224017"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465019"
 ---
 # <a name="uav-barriers-and-resource-state-barriers-in-directml"></a>DirectML 中的 UAV 屏障和资源状态屏障
 

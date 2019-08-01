@@ -2,14 +2,15 @@
 title: Direct3D 11 on 12
 description: 开发人员可以通过 D3D11On12 机制使用 D3D11 接口和对象来驱动 D3D12 API。
 ms.assetid: 8412D8BB-B6DD-471E-AAB2-A81121FB0FFA
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5c547bfb87e00bfe9ff4cc87aabb0652f0e687c1
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: bd2720f51b2e8ef5627627614eab46c942322faf
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223777"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725560"
 ---
 # <a name="direct3d-11-on-12"></a>Direct3D 11 on 12
 
@@ -33,7 +34,7 @@ ms.locfileid: "66223777"
 
 D3D11On12 的典型用法是使用 D2D 在 D3D12 反向缓冲区的顶层渲染文本或图像。 有关代码示例，请参阅 D3D11On12 示例。 下面简要概述了相关的步骤：
 
--   创建一个 D3D12 设备 ([**D3D12CreateDevice**](/windows/desktop/api/D3D12/nf-d3d12-d3d12createdevice)) 和一个 D3D12 交换链（使用 [**ID3D12CommandQueue**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 作为输入的 [**CreateSwapChain**](https://msdn.microsoft.com/library/windows/desktop/bb174537)）。
+-   创建一个 D3D12 设备 ([**D3D12CreateDevice**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice)) 和一个 D3D12 交换链（使用 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 作为输入的 [**CreateSwapChain**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain)）。
 -   使用 D3D12 设备和相同的命令队列作为输入创建一个 D3D11On12 设备。
 -   检索交换链反向缓冲区，并为每个缓冲区创建包装的 D3D11 资源。 使用的输入状态应是 D3D12 上次使用该输入的方式（例如 RENDER\_TARGET），输出状态应是 D3D12 在 D3D11 完成后使用该输出的方式（例如 PRESENT）。
 -   初始化 D2D，并将 D3D11 已包装资源提供给 D2D 以准备渲染。
@@ -45,7 +46,7 @@ D3D11On12 的典型用法是使用 D2D 在 D3D12 反向缓冲区的顶层渲染�
 -   发出 D2D 渲染命令。
 -   释放已包装资源 ([**ReleaseWrappedResources**](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources))。
 -   刷新 D3D11 即时上下文。
--   呈现 ([**IDXGISwapChain1::Present1**](https://msdn.microsoft.com/library/windows/desktop/hh446797))。
+-   呈现 ([**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1))。
 
 ## <a name="background"></a>后台
 

@@ -2,14 +2,15 @@
 title: 内存别名和数据继承
 description: 放置和保留的资源可能在堆中对物理内存设置别名。 当堆具有共享标志集或当具有别名的资源已完全定义内存布局时，放置的资源启用的数据继承方案比保留的资源更多。
 ms.assetid: 53C5804B-0F81-41AF-83D2-A96DCDFDC94A
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e1f9abc85e925973e82ec1a1a39bd2a3aed05a03
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 51b7bfdfd2f01b999f1a5adeaecfef77213c7a06
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224044"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296016"
 ---
 # <a name="memory-aliasing-and-data-inheritance"></a>内存别名和数据继承
 
@@ -21,7 +22,7 @@ ms.locfileid: "66224044"
 
 ## <a name="aliasing"></a>别名
 
-必须在共享相同物理内存的两个资源的使用情况之间发出别名屏障，即使不需要数据继承也是如此。 简单的使用情况模型必须至少指明此类操作中涉及的目标资源。 有关更多详细信息和高级使用情况模型，请参阅 [**CreatePlacedResource**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createplacedresource)。
+必须在共享相同物理内存的两个资源的使用情况之间发出别名屏障，即使不需要数据继承也是如此。 简单的使用情况模型必须至少指明此类操作中涉及的目标资源。 有关更多详细信息和高级使用情况模型，请参阅 [**CreatePlacedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource)。
 
 访问资源后，与该资源共享物理内存的任何资源将变为无效，除非允许发生数据继承。 读取无效资源导致未定义的资源内容。 写入无效资源也会导致未定义的资源内容，除非发生以下两种情况：
 
@@ -34,7 +35,7 @@ ms.locfileid: "66224044"
 
 64KB\_TILE\_UNDEFINED\_SWIZZLE、64KB\_TILE\_STANDARD\_SWIZZLE 和 ROW\_MAJOR 纹理布局通知应用程序哪些重叠对齐粒度已变为无效。 例如：应用程序可以使用 2 个数组切片、单个 mip 级别和 64KB\_TILE\_UNDEFINED\_SWIZZLE 布局创建 2D 呈现器目标纹理数组。 假设应用程序了解每个数组切片会占用 100 个 64 KB 磁贴。 应用程序可以放弃使用数组切片 0，并将该内存重复用于约 6 MB 的缓冲区、具有未定义布局的约 6 MB 纹理等。进一步假设应用程序不再需要数组切片 1 的第一个磁贴。 应用程序则还可以查找 64 KB 缓冲区，直到呈现操作再次需要数组切片 1 的第一个磁贴。 应用程序必须完全清除或复制磁贴，才能再次将第一个磁贴重复用于纹理数组。
 
-但是，即使具有已定义布局的纹理也仍有问题。 纹理资源大小可能明显不同于应用程序本身可以计算的大小，因为某些适配器体系结构会为纹理分配额外内存以减少常见呈现方案过程中的有效带宽。 该额外内存区域中的任何失效导致整个资源变为失效。 有关更多详细信息，请参阅 [**GetResourceAllocationInfo**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getresourceallocationinfo)。
+但是，即使具有已定义布局的纹理也仍有问题。 纹理资源大小可能明显不同于应用程序本身可以计算的大小，因为某些适配器体系结构会为纹理分配额外内存以减少常见呈现方案过程中的有效带宽。 该额外内存区域中的任何失效导致整个资源变为失效。 有关更多详细信息，请参阅 [**GetResourceAllocationInfo**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourceallocationinfo)。
 
 ## <a name="data-inheritance"></a>数据继承
 

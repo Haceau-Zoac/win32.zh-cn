@@ -2,14 +2,15 @@
 title: 与 Direct3D 11 中的绑定模型的区别
 description: Directx12 绑定背后的主要设计决策之一是将其与其他管理任务分离。 这对应用提出了一些要求，以管理某些潜在的危险。
 ms.assetid: 3EE7E9AE-203D-40D4-9F12-4313ED179035
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: da9874d5b3e664051d8367b8692a1d643a4333f9
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 6934302d8edaa1ac635664734667b777bd562355
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224428"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296147"
 ---
 # <a name="differences-in-the-binding-model-from-direct3d-11"></a>与 Direct3D 11 中的绑定模型的区别
 

@@ -2,14 +2,15 @@
 title: Direct3D 12 编程环境设置
 description: 描述构成多产 Direct3D 12 开发环境的安装、工具和支持库。
 ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9fbdcb955c01997af4dd8224fabe0e555617c30c
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 7f9b57c3d4f8ed4fd7e4c6ac1299d56be27afa68
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224326"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725549"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -85,7 +86,7 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 | [用于 DirectX 12 的 DirectX 工具包](https://go.microsoft.com/fwlink/?LinkID=615561) | 用于为通用 Windows 平台 (UWP) 应用、适用于 Windows 10 的 Win32 桌面应用程序和 Xbox One 独占应用编写 Direct3D 12 C++ 代码的帮助程序类的大量集合。                                                                         | [DirectX12TK wiki](https://github.com/Microsoft/DirectXTK12/wiki)                                          |
 | [DirectXTex](https://go.microsoft.com/fwlink/?LinkId=248926)                      | 适用于读取和写入 DDS 文件，以及执行各种纹理内容处理操作，包括调整大小、格式转换、mip 贴图生成、Direct3D 运行时纹理资源的块压缩和高度贴图到法线贴图的转换。 | [DirectXTex wiki](https://github.com/Microsoft/DirectXTex/wiki)                                            |
 | [DirectXMesh](https://go.microsoft.com/fwlink/p/?linkid=324981)                   | 适用于执行各种几何图形内容处理操作，包括生成法线和切线帧、三角形相邻计算和顶点缓存优化。                                                                                | [DirectXMesh wiki](https://github.com/Microsoft/DirectXMesh/wiki)                                          |
-| [DirectXMath](https://go.microsoft.com/fwlink/?LinkID=615560)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](https://msdn.microsoft.com/library/windows/desktop/ee415571.aspx) |
+| [DirectXMath](https://go.microsoft.com/fwlink/?LinkID=615560)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](https://docs.microsoft.com/windows/desktop/dxmath/ovw-xnamath-progguide) |
 | [UVAtlas](https://go.microsoft.com/fwlink/?LinkID=512686)                         | 适用于创建和打包 isochart 纹理图集。                                                                                                                                                                                                           | [UVAtlas wiki](https://github.com/Microsoft/UVAtlas/wiki)                                                  |
 
 
@@ -104,7 +105,7 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 
 默认情况下，d3d12.h 中包含支持调试层 D3D12SDKLayers.h 所需的标头。
 
-当调试层列出内存泄漏时，会输出对象接口指针的列表及其友好名称。 默认友好名称是“<unnamed>”。 可以使用 [**ID3D12Object::SetName**](/windows/desktop/api/D3D12/nf-d3d12-id3d12object-setname) 方法设置友好名称。 通常，应在生产版本之外编译这些调用。
+当调试层列出内存泄漏时，会输出对象接口指针的列表及其友好名称。 默认友好名称是“<unnamed>”。 可以使用 [**ID3D12Object::SetName**](/windows/desktop/api/d3d12/nf-d3d12-id3d12object-setname) 方法设置友好名称。 通常，应在生产版本之外编译这些调用。
 
 我们建议你使用调试层来调试应用以确保它们没有错误和警告。 调试层可帮助你编写 Direct3D 12 代码。 此外，使用调试层时可以提高工作效率，因为可以立即查看混淆呈现错误甚至在其源出现黑屏的原因。 调试层提供多个问题的警告。 例如：
 

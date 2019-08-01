@@ -1,15 +1,16 @@
 ---
 title: DirectML 示例应用程序
 description: 链接到 DirectML 示例应用程序，其中包括最小的 DirectML 应用程序示例。
-ms.custom: 19H1
+ms.custom: Windows 10 May 2019 Update
+ms.localizationpriority: high
 ms.topic: article
-ms.date: 03/14/2019
-ms.openlocfilehash: 8ebf0f624c2c4c42e137610be26a9e309afc3c7e
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.date: 04/19/2019
+ms.openlocfilehash: 0cb93145588e92882a81206d82fc4fdbf2346d36
+ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223981"
+ms.lasthandoff: 06/28/2019
+ms.locfileid: "67465009"
 ---
 ## <a name="directml-sample-applications"></a>DirectML 示例应用程序
 

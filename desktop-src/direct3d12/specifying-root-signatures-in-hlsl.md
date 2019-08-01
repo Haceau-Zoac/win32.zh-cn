@@ -2,14 +2,15 @@
 title: 在 HLSL 中指定根签名
 description: 如果在 HLSL 着色器模型 5.1 中指定根签名，则无需在 C++ 代码中指定这些根签名。
 ms.assetid: 399F5E91-B017-4F5E-9037-DC055407D96F
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 31703f87b28f3f5eaddc8889aaac96a7c5da0fae
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 9b96d8d96ebc2ae449774b66b2b64bde99f74833
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223765"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725480"
 ---
 # <a name="specifying-root-signatures-in-hlsl"></a>在 HLSL 中指定根签名
 
@@ -94,7 +95,7 @@ HLSL 根签名语言密切对应于 C++ 根签名 API，具有同等的表达力
 
 ## <a name="rootflags"></a>RootFlags
 
-可选的 *RootFlags* 子句采用 0（默认值，表示无标志），或一个或多个预定义的根标志值（通过 OR“\|”运算符连接）。 允许的根标志值由 [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_root_signature_flags) 定义。
+可选的 *RootFlags* 子句采用 0（默认值，表示无标志），或一个或多个预定义的根标志值（通过 OR“\|”运算符连接）。 允许的根标志值由 [**D3D12\_ROOT\_SIGNATURE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_signature_flags) 定义。
 
 例如：
 
@@ -121,7 +122,7 @@ RootConstants(num32BitConstants=3, b3)
 
 ## <a name="visibility"></a>可见性
 
-Visibility 是一个可选参数，可以使用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility) 中的值之一。
+Visibility 是一个可选参数，可以使用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility) 中的值之一。
 
 SHADER\_VISIBILITY\_ALL 将根参数广播到所有着色器。 在某些硬件上，此操作不会造成开销，但在其他硬件上，将数据分叉到所有着色器阶段会造成开销。 设置其中一个选项（例如 SHADER\_VISIBILITY\_VERTEX）会将根参数限制到单个着色器阶段。
 
@@ -246,15 +247,15 @@ StaticSampler(s4, filter=FILTER_MIN_MAG_MIP_LINEAR)
 
 参数选项非常类似于C++ API 调用，但 *borderColor* 除外，它限制为 HLSL 中的某个枚举。
 
-过滤器字段可以是某个 [**D3D12\_FILTER**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_filter)。
+过滤器字段可以是某个 [**D3D12\_FILTER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_filter)。
 
-每个地址字段可以是某个 [**D3D12\_TEXTURE\_ADDRESS\_MODE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_texture_address_mode)。
+每个地址字段可以是某个 [**D3D12\_TEXTURE\_ADDRESS\_MODE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_address_mode)。
 
-比较函数可以是某个 [**D3D12\_COMPARISON\_FUNC**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_comparison_func)。
+比较函数可以是某个 [**D3D12\_COMPARISON\_FUNC**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_comparison_func)。
 
-边框颜色字段可以是某个 [**D3D12\_STATIC\_BORDER\_COLOR**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_static_border_color)。
+边框颜色字段可以是某个 [**D3D12\_STATIC\_BORDER\_COLOR**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_static_border_color)。
 
-可见性可以是某个 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_shader_visibility)。
+可见性可以是某个 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility)。
 
 ## <a name="compiling-an-hlsl-root-signature"></a>编译 HLSL 根签名
 
@@ -270,7 +271,7 @@ float4 main(float4 coord : COORD) : SV_Target
 
 编译器将创建并验证着色器的根签名 Blob，并将它连同着色器字节码一起嵌入到着色器 Blob。 编译器支持着色器模型 5.0 及更高版本的根签名语法。 如果根签名嵌入在着色器模型 5.0 着色器中，而该着色器已发送到 D3D11 运行时，则不同于 D3D12，D3D11 会以无提示方式忽略根签名部分。
 
-另一种机制是创建独立的根签名 Blob。也许可对大量的着色器重用该 Blob，以节省空间。 [效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919) (FXC) 支持 **rootsig\_1\_0** 和 **rootsig\_1\_1** 着色器模型。 通过常用的 /E 参数指定定义字符串的名称。 例如：
+另一种机制是创建独立的根签名 Blob。也许可对大量的着色器重用该 Blob，以节省空间。 [效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc) (FXC) 支持 **rootsig\_1\_0** 和 **rootsig\_1\_1** 着色器模型。 通过常用的 /E 参数指定定义字符串的名称。 例如：
 
 ``` syntax
 fxc.exe /T rootsig_1_1 MyRS1.hlsl /E MyRS1 /Fo MyRS1.fxo
@@ -280,7 +281,7 @@ fxc.exe /T rootsig_1_1 MyRS1.hlsl /E MyRS1 /Fo MyRS1.fxo
 
 ## <a name="manipulating-root-signatures-with-the-fxc-compiler"></a>使用 FXC 编译器处理根签名
 
-FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多的可选参数，具体请参阅[效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919)。
+FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多的可选参数，具体请参阅[效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc)。
 
 下表提供了一些使用 FXC 的示例，供你在管理 HLSL 创作的根签名时参考。
 
@@ -298,12 +299,12 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 
  
 
-可通过 FXC 使用的功能也可以通过 [**D3DCompile**](https://msdn.microsoft.com/library/windows/desktop/dd607324) 函数以编程方式使用。 此调用将编译带有根签名的着色器，或独立的根签名（设置 rootsig\_1\_0 目标）。 [**D3DGetBlobPart**](https://msdn.microsoft.com/library/windows/desktop/ff728674) 和 [**D3DSetBlobPart**](https://msdn.microsoft.com/library/windows/desktop/hh446880) 可将根签名提取和附加到现有 Blob。  D3D\_BLOB\_ROOT\_SIGNATURE 用于指定根签名 Blob 部分类型。 [**D3DStripShader**](https://msdn.microsoft.com/library/windows/desktop/dd607335) 从 Blob 中删除根签名（使用 D3DCOMPILER\_STRIP\_ROOT\_SIGNATURE 标志）。
+可通过 FXC 使用的功能也可以通过 [**D3DCompile**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile) 函数以编程方式使用。 此调用将编译带有根签名的着色器，或独立的根签名（设置 rootsig\_1\_0 目标）。 [**D3DGetBlobPart**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dgetblobpart) 和 [**D3DSetBlobPart**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dsetblobpart) 可将根签名提取和附加到现有 Blob。  D3D\_BLOB\_ROOT\_SIGNATURE 用于指定根签名 Blob 部分类型。 [**D3DStripShader**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dstripshader) 从 Blob 中删除根签名（使用 D3DCOMPILER\_STRIP\_ROOT\_SIGNATURE 标志）。
 
 ## <a name="notes"></a>注释
 
 > [!Note]  
-> 尽管我们强烈建议对着色器进行脱机编译，但如果必须在运行时编译着色器，请参阅 [**D3DCompile2**](https://msdn.microsoft.com/library/windows/desktop/hh446869) 的备注。
+> 尽管我们强烈建议对着色器进行脱机编译，但如果必须在运行时编译着色器，请参阅 [**D3DCompile2**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile2) 的备注。
 
  
 
@@ -319,7 +320,7 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 [使用 HLSL 5.1 的动态索引](dynamic-indexing-using-hlsl-5-1.md)
 </dt> <dt>
 
-[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://msdn.microsoft.com/library/windows/desktop/dn933267)
+[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://docs.microsoft.com/windows/desktop/direct3dhlsl/hlsl-shader-model-5-1-features-for-direct3d-12)
 </dt> <dt>
 
 [资源绑定](resource-binding.md)
@@ -331,7 +332,7 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 [根签名](root-signatures.md)
 </dt> <dt>
 
-[着色器模型 5.1](https://msdn.microsoft.com/library/windows/desktop/dn933277)
+[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)
 </dt> <dt>
 
 [着色器指定的模具参考值](shader-specified-stencil-reference-value.md)

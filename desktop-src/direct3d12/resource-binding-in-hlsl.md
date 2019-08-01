@@ -2,18 +2,19 @@
 title: HLSL 中的资源绑定
 description: 本部分介绍 Direct3D 12 中使用高级着色语言 (HLSL) 着色器模型 5.1 的某些特定功能。
 ms.assetid: 3CD4BDAD-8AE3-4DE0-B3F8-9C9F9E83BBE9
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 197f44aa8965168bd7aad63df2831ce2046adee7
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: dde879254fd98140b754554f6aed4f98656063cc
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224179"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725408"
 ---
 # <a name="resource-binding-in-hlsl"></a>HLSL 中的资源绑定
 
-本部分介绍 Direct3D 12 中使用高级着色语言 (HLSL) [着色器模型 5.1](https://msdn.microsoft.com/library/windows/desktop/dn933277) 的某些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
+本部分介绍 Direct3D 12 中使用高级着色语言 (HLSL) [着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1) 的某些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
 
 -   [资源类型和数组](#resource-types-and-arrays)
 -   [描述符数组和纹理数组](#descriptor-arrays-and-texture-arrays)
@@ -147,7 +148,7 @@ ConstantBuffer<myConstants>   c[10000] : register(b0);
 
 ## <a name="resource-aliasing"></a>资源别名
 
-在 HLSL 着色器中指定的资源范围是逻辑范围。 在运行时，会通过根签名机制将其绑定到具体的堆范围。 通常，逻辑范围将映射到不会与其他堆范围重叠的某个堆范围。 但是，使用根签名机制可能会产生兼容类型的堆范围的别名（重叠）。 例如，上述示例中的 `tex2` 和 `tex3` 范围可以映射到相同（或重叠）的堆范围，这会对 HLSL 程序中的别名纹理造成影响。 如果需要此类别名，必须使用 D3D10\_SHADER\_RESOURCES\_MAY\_ALIAS 选项编译着色器。该选项是使用[效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919) (FXC) 的 */res\_may\_alias* 选项设置的。 假设资源可以采用别名，该选项会防止特定的加载/存储优化，因此可让编译器生成正确的代码。
+在 HLSL 着色器中指定的资源范围是逻辑范围。 在运行时，会通过根签名机制将其绑定到具体的堆范围。 通常，逻辑范围将映射到不会与其他堆范围重叠的某个堆范围。 但是，使用根签名机制可能会产生兼容类型的堆范围的别名（重叠）。 例如，上述示例中的 `tex2` 和 `tex3` 范围可以映射到相同（或重叠）的堆范围，这会对 HLSL 程序中的别名纹理造成影响。 如果需要此类别名，必须使用 D3D10\_SHADER\_RESOURCES\_MAY\_ALIAS 选项编译着色器。该选项是使用[效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc) (FXC) 的 */res\_may\_alias* 选项设置的。 假设资源可以采用别名，该选项会防止特定的加载/存储优化，因此可让编译器生成正确的代码。
 
 ## <a name="divergence-and-derivatives"></a>差异和派生对象
 
@@ -328,10 +329,10 @@ ConstantBuffer<Stuff> myStuff[][3][8]  : register(b2, space3)
 [使用 HLSL 5.1 的动态索引](dynamic-indexing-using-hlsl-5-1.md)
 </dt> <dt>
 
-[效应编译器工具](https://msdn.microsoft.com/library/windows/desktop/bb232919)
+[效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc)
 </dt> <dt>
 
-[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://msdn.microsoft.com/library/windows/desktop/dn933267)
+[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://docs.microsoft.com/windows/desktop/direct3dhlsl/hlsl-shader-model-5-1-features-for-direct3d-12)
 </dt> <dt>
 
 [光栅器有序视图](rasterizer-order-views.md)
@@ -343,7 +344,7 @@ ConstantBuffer<Stuff> myStuff[][3][8]  : register(b2, space3)
 [根签名](root-signatures.md)
 </dt> <dt>
 
-[着色器模型 5.1](https://msdn.microsoft.com/library/windows/desktop/dn933277)
+[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)
 </dt> <dt>
 
 [着色器指定的模具参考值](shader-specified-stencil-reference-value.md)

@@ -5,14 +5,15 @@ ms.assetid: C85C8C41-2306-4568-8FAE-F57EDA624298
 keywords:
 - 命令列表
 - bundle
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 83f29e203568adc84ecd8b2957382dcddf3566ac
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: fafb873e10dd097803c24a77c89949d91e0ae39a
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224110"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296496"
 ---
 # <a name="design-philosophy-of-command-queues-and-command-lists"></a>命令队列和命令列表的设计理念
 

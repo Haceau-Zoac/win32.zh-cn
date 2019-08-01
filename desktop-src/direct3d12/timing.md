@@ -2,14 +2,15 @@
 title: 定时
 description: 本节介绍如何查询时间戳，以及如何校准 GPU 和 CPU 时间戳计数器。
 ms.assetid: CC1E5BAB-4363-43FF-BF5B-6C9AEBECD6CA
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 4039bd08faf15b15f1d4214463de3f4d77ec837e
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: b8ae432e4ce0ecf5ba2e20dd01db57f8a6582829
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224341"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725594"
 ---
 # <a name="timing"></a>定时
 
@@ -40,13 +41,13 @@ D3D12 使应用程序能够将从时间戳查询获得的结果与从调用 `Que
 [计数器和查询](counters-and-queries.md)
 </dt> <dt>
 
-[**ID3D12Device::SetStablePowerState**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-setstablepowerstate)
+[**ID3D12Device::SetStablePowerState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate)
 </dt> <dt>
 
-[**ID3D12Object::SetName**](/windows/desktop/api/D3D12/nf-d3d12-id3d12object-setname)
+[**ID3D12Object::SetName**](/windows/desktop/api/d3d12/nf-d3d12-id3d12object-setname)
 </dt> <dt>
 
-[**ID3DUserDefinedAnnotation**](https://msdn.microsoft.com/library/windows/desktop/hh446881)
+[**ID3DUserDefinedAnnotation**](https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3duserdefinedannotation)
 </dt> <dt>
 
 [性能度量](performance-measurement.md)

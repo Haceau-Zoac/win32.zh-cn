@@ -2,14 +2,15 @@
 title: 直接在根签名中使用常量
 description: 应用程序可在根签名中定义根常量，每个常量都是一组 32 位值。 它们按高级着色语言 (HLSL) 显示为常量缓冲区。 请注意，由于历史原因，常量缓冲区被视为 4x32 位值的集合。
 ms.assetid: F9A2640F-D1FA-481C-BDF1-B15372E3C512
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 81091c7224e0f177c7803c34aedc399aca318273
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 687e3096405f09d4cb4a92ec4324b8f7c4d1b443
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224446"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296295"
 ---
 # <a name="using-constants-directly-in-the-root-signature"></a>直接在根签名中使用常量
 
@@ -40,7 +41,7 @@ ConstantBuffer<DrawConstants> myDrawConstants : register(b1, space0);
 -   [**SetComputeRoot32BitConstant**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstant)
 -   [**SetComputeRoot32BitConstants**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputeroot32bitconstants)
 
-另请参阅 [D3D12\_ROOT\_CONSTANTS](/windows/desktop/api/D3D12/ns-d3d12-d3d12_root_constants) 结构  。
+另请参阅 [D3D12\_ROOT\_CONSTANTS](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_constants) 结构  。
 
 ## <a name="related-topics"></a>相关主题
 

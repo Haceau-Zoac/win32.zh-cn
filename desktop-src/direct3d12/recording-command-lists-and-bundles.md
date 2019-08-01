@@ -2,21 +2,22 @@
 title: 创建和记录命令列表与捆绑
 description: 本主题介绍如何在 Direct3D 12 应用中记录命令列表和捆绑。 命令列表和捆绑都允许应用记录绘图或状态更改调用，以便稍后在图形处理单元 (GPU) 上执行。
 ms.assetid: 0074B796-33A4-4AA1-A4E7-48A2A63F25B7
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 0528165307d3ce7b9fdb1c1605e9f88c719d1e45
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: e31f0bada644639a7ad3d9fda328d9c8ca75f162
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224203"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725569"
 ---
 # <a name="creating-and-recording-command-lists-and-bundles"></a>创建和记录命令列表与捆绑
 
 本主题介绍如何在 Direct3D 12 应用中记录命令列表和捆绑。 命令列表和捆绑都允许应用记录绘图或状态更改调用，以便稍后在图形处理单元 (GPU) 上执行。
 
 -   [创建命令列表](#creating-command-lists)
-    -   [D3D12\_COMMAND\_LIST\_TYPE](https://docs.microsoft.com/windows)
+    -   [D3D12\_COMMAND\_LIST\_TYPE](/windows)
     -   [ID3D12CommandAllocator](#id3d12commandallocator)
     -   [ID3D12PipelineState](#id3d12pipelinestate)
     -   [ID3D12DescriptorHeap](#id3d12descriptorheap)
@@ -37,21 +38,21 @@ ms.locfileid: "66224203"
 
 ## <a name="creating-command-lists"></a>创建命令列表
 
-通过调用 [**ID3D12Device::CreateCommandList**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandlist) 创建直接命令列表和捆绑。 此方法将以下参数用作输入：
+通过调用 [**ID3D12Device::CreateCommandList**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist) 创建直接命令列表和捆绑。 此方法将以下参数用作输入：
 
 ### <a name="d3d12commandlisttype"></a>D3D12\_COMMAND\_LIST\_TYPE
 
-[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type) 枚举指示所要创建的命令列表的类型。 它可以是直接命令列表、捆绑、计算命令列表或复制命令列表。
+[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 枚举指示所要创建的命令列表的类型。 它可以是直接命令列表、捆绑、计算命令列表或复制命令列表。
 
 ### <a name="id3d12commandallocator"></a>ID3D12CommandAllocator
 
-命令分配器可让应用管理分配给命令列表的内存。 通过调用[**CreateCommandAllocator**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandallocator) 创建命令分配器。 创建命令列表时，[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type) 指定的分配器命令列表类型必须与所要创建的命令列表的类型匹配。 一个给定的分配器可同时与多个“当前正在记录”命令列表相关联，不过，可以使用一个命令分配器来创建任意数量的 [**GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 对象。 
+命令分配器可让应用管理分配给命令列表的内存。 通过调用[**CreateCommandAllocator**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandallocator) 创建命令分配器。 创建命令列表时，[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 指定的分配器命令列表类型必须与所要创建的命令列表的类型匹配。 一个给定的分配器可同时与多个“当前正在记录”命令列表相关联，不过，可以使用一个命令分配器来创建任意数量的 [**GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 对象。 
 
-若要回收命令分配器分配的内存，应用需调用 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandallocator-reset)。 但是，在这样做之前，应用必须确保 GPU 不再执行与分配器关联的任何命令列表；否则调用将会失败。 另请注意，此 API 不是自由线程的，因此，不能同时从多个线程针对同一分配器调用此 API。
+若要回收命令分配器分配的内存，应用需调用 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset)。 但是，在这样做之前，应用必须确保 GPU 不再执行与分配器关联的任何命令列表；否则调用将会失败。 另请注意，此 API 不是自由线程的，因此，不能同时从多个线程针对同一分配器调用此 API。
 
 ### <a name="id3d12pipelinestate"></a>ID3D12PipelineState
 
-命令列表的初始管道状态。 在 Microsoft Direct3D 12 中，大多数图形管道状态是使用 [**ID3D12PipelineState**](/windows/desktop/api/D3D12/nn-d3d12-id3d12pipelinestate) 对象在命令列表中设置的。 应用通常在应用初始化期间创建大量此类状态，然后通过使用 [**ID3D12GraphicsCommandList::SetPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate) 更改当前绑定的状态对象来更新状态。 有关管道状态对象的详细信息，请参阅[在 Direct3D 12 中管理图形管道状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
+命令列表的初始管道状态。 在 Microsoft Direct3D 12 中，大多数图形管道状态是使用 [**ID3D12PipelineState**](/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate) 对象在命令列表中设置的。 应用通常在应用初始化期间创建大量此类状态，然后通过使用 [**ID3D12GraphicsCommandList::SetPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate) 更改当前绑定的状态对象来更新状态。 有关管道状态对象的详细信息，请参阅[在 Direct3D 12 中管理图形管道状态](managing-graphics-pipeline-state-in-direct3d-12.md)。
 
 请注意，捆绑不会继承以前的调用在直接命令列表（捆绑的父级）中设置的管道状态。
 
@@ -59,7 +60,7 @@ ms.locfileid: "66224203"
 
 ### <a name="id3d12descriptorheap"></a>ID3D12DescriptorHeap
 
-[**ID3D12DescriptorHeap**](/windows/desktop/api/D3D12/nn-d3d12-id3d12descriptorheap) 可让命令列表将资源绑定到图形管道。 直接命令列表必须指定初始描述符堆，但可以通过调用 [**ID3D12GraphicsCommandList::SetDescriptorHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps) 来更改命令列表中当前绑定的描述符堆。
+[**ID3D12DescriptorHeap**](/windows/desktop/api/d3d12/nn-d3d12-id3d12descriptorheap) 可让命令列表将资源绑定到图形管道。 直接命令列表必须指定初始描述符堆，但可以通过调用 [**ID3D12GraphicsCommandList::SetDescriptorHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps) 来更改命令列表中当前绑定的描述符堆。
 
 在创建时指定描述符堆对于捆绑而言是可选操作。 但是，如果未指定描述符堆，则不允许应用程序在该捆绑中设置任何描述符表。 无论在哪种情况下，都不不允许捆绑更改捆绑中的描述符堆。 如果为捆绑指定了堆，该堆必须与正在调用父级的直接命令列表中当前绑定的堆相匹配。
 
@@ -67,7 +68,7 @@ ms.locfileid: "66224203"
 
 ## <a name="recording-command-lists"></a>记录命令列表
 
-创建后，命令列表会立即处于记录状态。 也可以通过调用 I[**D3D12GraphicsCommandList::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset) 来重复使用现有的命令列表，这也会使命令列表保持记录状态。 与 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandallocator-reset) 不同，可以在仍在调用命令列表时调用 **Reset**。 典型的模式是提交一个命令列表，然后立即将其重置为对另一个命令列表重复使用分配的内存。 请注意，每次只能有一个与每个命令分配器关联的命令列表处于记录状态。
+创建后，命令列表会立即处于记录状态。 也可以通过调用 I[**D3D12GraphicsCommandList::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset) 来重复使用现有的命令列表，这也会使命令列表保持记录状态。 与 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset) 不同，可以在仍在调用命令列表时调用 **Reset**。 典型的模式是提交一个命令列表，然后立即将其重置为对另一个命令列表重复使用分配的内存。 请注意，每次只能有一个与每个命令分配器关联的命令列表处于记录状态。
 
 命令列表进入记录状态后，只需调用 [**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 接口的方法即可将命令添加到列表。 其中的许多方法可以实现 Microsoft Direct3D 11 开发人员熟悉的常用 Direct3D 功能；其他 API 是 Direct3D 12 的新功能。
 
@@ -217,9 +218,9 @@ void D3D12HelloTriangle::LoadAssets()
 应用程序预期会在以下 API 调用中看到 DXGI\_DEVICE\_REMOVED 错误：
 
 -   任何资源创建方法
--   [**ID3D12Resource::Map**](/windows/desktop/api/D3D12/nf-d3d12-id3d12resource-map)
--   [**IDXGISwapChain1::Present1**](https://msdn.microsoft.com/library/windows/desktop/hh446797)
--   [**GetDeviceRemovedReason**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-getdeviceremovedreason)
+-   [**ID3D12Resource::Map**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)
+-   [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)
+-   [**GetDeviceRemovedReason**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdeviceremovedreason)
 
 ## <a name="bundle-restrictions"></a>捆绑限制
 

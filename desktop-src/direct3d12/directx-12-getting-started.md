@@ -2,14 +2,15 @@
 title: 了解 Direct3D 12
 description: 若要为 Windows 10 和 Windows 10 移动版编写 3D 游戏和应用，则必须了解 Direct3D 12 技术的基础知识，还需了解如何准备以便在游戏和应用中使用。
 ms.assetid: DED7A434-FCD4-4F41-8B2C-E5AE6E48430F
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: c72f244b3b1b75f631813491c2bd7ec41ae8fe5b
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: d4c980d076cbc9fcffbe1a95c76017e6e467afdd
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224329"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725553"
 ---
 # <a name="understanding-direct3d-12"></a>了解 Direct3D 12
 
@@ -20,7 +21,7 @@ ms.locfileid: "66224329"
 若要使用 Direct3D 12 编程，需具有以下组件：
 
 -   具有与 Direct3D 12 兼容的 GPU 的硬件平台
--   支持 Windows 显示驱动程序模型 (WDDM) 2.0 的[显示驱动程序](https://msdn.microsoft.com/library/windows/hardware/ff569172)
+-   支持 Windows 显示驱动程序模型 (WDDM) 2.0 的[显示驱动程序](https://docs.microsoft.com/previous-versions//ff569172(v=vs.85))
 
 ## <a name="in-this-section"></a>本部分内容
 

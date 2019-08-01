@@ -2,14 +2,15 @@
 title: 流输出计数器、UAV 计数器、查询和预测
 description: 流输出和 UAV 计数器在 Direct3D 12 中以类似于 Direct3D 11 的方法操作，尽管现在计数器的内存必须由应用分配，但驱动程序不会执行该操作。
 ms.assetid: 8BDDAFEF-57D4-4EF5-BB0C-6C96AF557A45
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e20671fcadec92748a487f16099295eae53e743e
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: bd7964a95aaf1ae7b14d09221afd7c0b6ed97952
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66224287"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296046"
 ---
 # <a name="stream-output-counters-uav-counters-queries-and-predication"></a>流输出计数器、UAV 计数器、查询和预测
 

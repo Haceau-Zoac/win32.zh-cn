@@ -2,18 +2,19 @@
 title: 同步和多引擎
 description: 大多数新式 GPU 包含多个用于提供专用功能的独立引擎。
 ms.assetid: 93903F50-A6CA-41C2-863D-68D645586B4C
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 6e1ca85f1bb590a8579ee7da88a7aea94a80e731
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: cb8e34ba0a533a7d5c68908d42d23bad688db236
+ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223744"
+ms.lasthandoff: 05/29/2019
+ms.locfileid: "66296490"
 ---
 # <a name="synchronization-and-multi-engine"></a>同步和多引擎
 
-大多数新式 GPU 包含多个用于提供专用功能的独立引擎。 许多 GPU 提供一个或多个专用复制引擎和一个计算引擎（通常与 3D 引擎不同）。 这些引擎可以彼此并行执行命令。 Direct3D 12 使用队列和命令列表提供对 3D、计算和复制引擎的精细访问。
+大多数新式 GPU 包含多个用于提供专用功能的独立引擎。 许多 GPU 拥有一个或多个专用复制引擎和一个计算引擎，通常与 3D 引擎不同。 这些引擎可以彼此并行执行命令。 Direct3D 12 使用队列和命令列表提供对 3D、计算和复制引擎的精细访问。
 
 -   [GPU 引擎](#gpu-engines)
 -   [多引擎方案](#multi-engine-scenarios)
@@ -118,19 +119,19 @@ D3D12 可让开发人员避免意外的同步延迟导致效率意外下降的�
 
 D3D 12 设备提供相应的方法用于创建和检索不同的类型与优先级的命令队列。 大多数应用程序应使用默认的命令队列，因为这些队列允许其他组件共享使用。 并发性要求更高的应用程序可以创建额外的队列。 队列按它们使用的命令列表类型指定。
 
-请参阅以下 [**ID3D12Device**](/windows/desktop/api/D3D12/nn-d3d12-id3d12device) 创建方法：
+请参阅以下 [**ID3D12Device**](/windows/desktop/api/d3d12/nn-d3d12-id3d12device) 创建方法：
 
--   [**CreateCommandQueue**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandqueue)：基于 [**D3D12\_COMMAND\_QUEUE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc) 结构中的信息创建命令队列。
--   [**CreateCommandList**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommandlist)：创建 [**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_command_list_type) 类型的命令列表。
--   [**CreateFence**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createfence)：创建围栏。请注意 [**D3D12\_FENCE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_fence_flags) 中的标志。 围栏用于同步队列。
+-   [**CreateCommandQueue**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue)：基于 [**D3D12\_COMMAND\_QUEUE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc) 结构中的信息创建命令队列。
+-   [**CreateCommandList**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist)：创建 [**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 类型的命令列表。
+-   [**CreateFence**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createfence)：创建围栏。请注意 [**D3D12\_FENCE\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_fence_flags) 中的标志。 围栏用于同步队列。
 
 所有类型（3D、计算和复制）的队列共享同一个接口，全部基于命令列表。
 
-请参阅以下 [**ID3D12CommandQueue**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 方法：
+请参阅以下 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 方法：
 
--   [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)：提交命令列表的数组供执行。 [**ID3D12CommandList**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandlist) 定义的每个命令列表。
--   [**Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-signal)：当（正在 GPU 上运行的）队列达到特定的点时设置围栏值。
--   [**Wait**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-wait)：队列等到指定的围栏达到指定的值。
+-   [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)：提交命令列表的数组供执行。 [**ID3D12CommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandlist) 定义的每个命令列表。
+-   [**Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal)：当（正在 GPU 上运行的）队列达到特定的点时设置围栏值。
+-   [**Wait**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-wait)：队列等到指定的围栏达到指定的值。
 
 请注意，捆绑不会由任何队列使用，因此无法使用此类型创建队列。
 
@@ -138,15 +139,15 @@ D3D 12 设备提供相应的方法用于创建和检索不同的类型与优先�
 
 多引擎 API 提供显式 API 用于通过围栏创建和同步队列。 围栏是通过单调递增某个 UINT64 值确定的同步构造。 围栏值由应用程序设置。 信号操作会增大围栏值，等待操作会阻塞到围栏达到请求的值为止。 当围栏达到特定的值时，可以激发事件。
 
-请参阅 [**ID3D12Fence**](/windows/desktop/api/D3D12/nn-d3d12-id3d12fence) 接口的方法：
+请参阅 [**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 接口的方法：
 
--   [**GetCompletedValue**](/windows/desktop/api/D3D12/nf-d3d12-id3d12fence-getcompletedvalue)：返回围栏的当前值。
--   [**SetEventOnCompletion**](/windows/desktop/api/D3D12/nf-d3d12-id3d12fence-seteventoncompletion)：导致在围栏达到给定的值时激发事件。
--   [**Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12fence-signal)：将围栏设置为给定的值。
+-   [**GetCompletedValue**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)：返回围栏的当前值。
+-   [**SetEventOnCompletion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion)：导致在围栏达到给定的值时激发事件。
+-   [**Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-signal)：将围栏设置为给定的值。
 
 围栏允许 CPU 访问当前围栏值，CPU 将会等待并发出信号。 独立的组件可以共享默认队列，但会创建自身的围栏并控制自身的围栏值和同步。
 
-[**ID3D12Fence**](/windows/desktop/api/D3D12/nn-d3d12-id3d12fence) 接口中的 [**Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12fence-signal) 方法从 CPU 端更新围栏。 [**ID3D12CommandQueue**](/windows/desktop/api/D3D12/nn-d3d12-id3d12commandqueue) 中的 [**Signal**](/windows/desktop/api/D3D12/nf-d3d12-id3d12commandqueue-signal) 方法从 GPU 端更新围栏。
+[**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 接口中的 [**Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-signal) 方法从 CPU 端更新围栏。 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 中的 [**Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal) 方法从 GPU 端更新围栏。
 
 多引擎设置中的所有节点可以读取正确的值，并在任何围栏达到该值时做出反应。
 
@@ -170,7 +171,7 @@ D3D 12 设备提供相应的方法用于创建和检索不同的类型与优先�
 
 计算命令列表还可使用以下方法：
 
--   [**ClearState**](/windows/desktop/api/D3D12/nf-d3d12-id3d12graphicscommandlist-clearstate)
+-   [**ClearState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate)
 -   [**ClearUnorderedAccessViewFloat**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat)
 -   [**ClearUnorderedAccessViewUint**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewuint)
 -   [**DiscardResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource)
@@ -332,7 +333,7 @@ void AsyncPipelinedComputeGraphics()
 
 若要访问多个队列中的资源，应用程序必须遵守以下规则。
 
--   资源访问权限（请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states)）按队列类型类而不是队列对象确定。 队列有两个类型类：计算/3D 队列是一个类型类，复制是另一个类型类。 因此，对一个 3D 队列中的 NON\_PIXEL\_SHADER\_RESOURCE 状态设置了屏障的资源可以在任何 3D 或计算队列中以该状态使用，但需要遵守序列化大多数写入操作的同步要求。 在两个类型类之间（COPY\_SOURCE 和 COPY\_DEST）共享的资源状态被视为每个类型类的不同状态。 因此，如果资源转换为复制队列中的 COPY\_DEST，则无法从 3D 或计算队列将其作为复制目标进行访问，反之亦然。
+-   资源访问权限（请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)）按队列类型类而不是队列对象确定。 队列有两个类型类：计算/3D 队列是一个类型类，复制是另一个类型类。 因此，对一个 3D 队列中的 NON\_PIXEL\_SHADER\_RESOURCE 状态设置了屏障的资源可以在任何 3D 或计算队列中以该状态使用，但需要遵守序列化大多数写入操作的同步要求。 在两个类型类之间（COPY\_SOURCE 和 COPY\_DEST）共享的资源状态被视为每个类型类的不同状态。 因此，如果资源转换为复制队列中的 COPY\_DEST，则无法从 3D 或计算队列将其作为复制目标进行访问，反之亦然。
 
     总结：
 
