@@ -2,14 +2,15 @@
 title: 预测查询
 description: D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进行遮挡剔除。 该演练介绍了扩展 HelloConstBuffer 示例来处理预测查询所需的额外代码。
 ms.assetid: F61817BB-45BC-4977-BE4A-EE0FDAFBCB57
+ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: acbcc718093e0303d9c47a42bfa1bd37028059db
-ms.sourcegitcommit: 1fbe7572f20938331e9c9bd6cccd098fa1c6054d
+ms.openlocfilehash: 846b2a5a229ce96b68e12f0a6061922fbe347fe6
+ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/27/2019
-ms.locfileid: "66223732"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66725577"
 ---
 # <a name="predication-queries"></a>预测查询
 
@@ -47,13 +48,13 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="/windows/desktop/api/D3D12/ns-d3d12-d3d12_descriptor_heap_desc"><strong>D3D12_DESCRIPTOR_HEAP_DESC</strong></a></td>
-<td><dl><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_type"><strong>D3D12_DESCRIPTOR_HEAP_TYPE</strong></a><br />
-[<strong>D3D12_DESCRIPTOR_HEAP_FLAG</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_descriptor_heap_flags)<br />
+<td><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc"><strong>D3D12_DESCRIPTOR_HEAP_DESC</strong></a></td>
+<td><dl><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type"><strong>D3D12_DESCRIPTOR_HEAP_TYPE</strong></a><br />
+[<strong>D3D12_DESCRIPTOR_HEAP_FLAG</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags)<br />
 </dl></td>
 </tr>
 <tr class="even">
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createdescriptorheap"><strong>CreateDescriptorHeap</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap"><strong>CreateDescriptorHeap</strong></a></td>
 
 </tr>
 </tbody>
@@ -77,8 +78,8 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 | 调用流程                                                 | 参数                                                |
 |-----------------------------------------------------------|-----------------------------------------------------------|
-| [**D3D12\_QUERY\_HEAP\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_query_heap_desc) | [**D3D12\_QUERY\_HEAP\_TYPE**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_heap_type) |
-| [**CreateQueryHeap**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createqueryheap)   |                                                           |
+| [**D3D12\_QUERY\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_query_heap_desc) | [**D3D12\_QUERY\_HEAP\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_heap_type) |
+| [**CreateQueryHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createqueryheap)   |                                                           |
 
 
 
@@ -112,12 +113,12 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="cd3dx12-blend-desc"><strong>CD3DX12_BLEND_DESC</strong></a></td>
-<td><dl><a href="cd3dx12-default"><strong>CD3DX12_DEFAULT</strong></a><br />
-[<strong>D3D12_BLEND</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_blend)<br />
-[<strong>D3D12_BLEND_OP</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_blend_op)<br />
-[<strong>D3D12_LOGIC_OP</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_logic_op)<br />
-[<strong>D3D12_COLOR_WRITE_ENABLE</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_color_write_enable)<br />
+<td><a href="cd3dx12-blend-desc.md"><strong>CD3DX12_BLEND_DESC</strong></a></td>
+<td><dl><a href="cd3dx12-default.md"><strong>CD3DX12_DEFAULT</strong></a><br />
+[<strong>D3D12_BLEND</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend)<br />
+[<strong>D3D12_BLEND_OP</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_blend_op)<br />
+[<strong>D3D12_LOGIC_OP</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_logic_op)<br />
+[<strong>D3D12_COLOR_WRITE_ENABLE</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_color_write_enable)<br />
 </dl></td>
 </tr>
 </tbody>
@@ -145,8 +146,8 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 | 调用流程                                                                            | 参数                                                  |
 |--------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/D3D12/ns-d3d12-d3d12_graphics_pipeline_state_desc) | [**D3D12\_DEPTH\_WRITE\_MASK**](/windows/desktop/api/D3D12/ne-d3d12-d3d12_depth_write_mask) |
-| [**CreateGraphicsPipelineState**](/windows/desktop/api/D3D12/nf-d3d12-id3d12device-creategraphicspipelinestate)      |                                                             |
+| [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) | [**D3D12\_DEPTH\_WRITE\_MASK**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_depth_write_mask) |
+| [**CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate)      |                                                             |
 
 
 
@@ -179,12 +180,12 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12device-createcommittedresource"><strong>CreateCommittedResource</strong></a></td>
-<td><dl><a href="cd3dx12-heap-properties"><strong>CD3DX12_HEAP_PROPERTIES</strong></a><br />
-[<strong>D3D12_HEAP_TYPE</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_type)<br />
-[<strong>D3D12_HEAP_FLAG</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_heap_flags)<br />
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource"><strong>CreateCommittedResource</strong></a></td>
+<td><dl><a href="cd3dx12-heap-properties.md"><strong>CD3DX12_HEAP_PROPERTIES</strong></a><br />
+[<strong>D3D12_HEAP_TYPE</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_type)<br />
+[<strong>D3D12_HEAP_FLAG</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_flags)<br />
 [<strong>CD3DX12_RESOURCE_DESC</strong>](cd3dx12-resource-desc.md)<br />
-[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states)<br />
+[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)<br />
 </dl></td>
 </tr>
 </tbody>
@@ -247,12 +248,12 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </thead>
 <tbody>
 <tr class="odd">
-<td><a href="cd3dx12-gpu-descriptor-handle"><strong>CD3DX12_GPU_DESCRIPTOR_HANDLE</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart"><strong>GetGPUDescriptorHandleForHeapStart</strong></a></td>
+<td><a href="cd3dx12-gpu-descriptor-handle.md"><strong>CD3DX12_GPU_DESCRIPTOR_HANDLE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart"><strong>GetGPUDescriptorHandleForHeapStart</strong></a></td>
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology"><strong>IASetPrimitiveTopology</strong></a></td>
-<td><a href="https://msdn.microsoft.com/library/windows/desktop/ff728726"><strong>D3D_PRIMITIVE_TOPOLOGY</strong></a></td>
+<td><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_primitive_topology"><strong>D3D_PRIMITIVE_TOPOLOGY</strong></a></td>
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers"><strong>IASetVertexBuffers</strong></a></td>
@@ -264,7 +265,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication"><strong>SetPredication</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_predication_op"><strong>D3D12_PREDICATION_OP</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op"><strong>D3D12_PREDICATION_OP</strong></a></td>
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced"><strong>DrawInstanced</strong></a></td>
@@ -272,7 +273,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication"><strong>SetPredication</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_predication_op"><strong>D3D12_PREDICATION_OP</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op"><strong>D3D12_PREDICATION_OP</strong></a></td>
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable"><strong>SetGraphicsRootDescriptorTable</strong></a></td>
@@ -292,7 +293,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery"><strong>BeginQuery</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced"><strong>DrawInstanced</strong></a></td>
@@ -300,22 +301,22 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery"><strong>EndQuery</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier"><strong>ResourceBarrier</strong></a></td>
-<td><dl><a href="cd3dx12-resource-barrier"><strong>CD3DX12_RESOURCE_BARRIER</strong></a><br />
-[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states)<br />
+<td><dl><a href="cd3dx12-resource-barrier.md"><strong>CD3DX12_RESOURCE_BARRIER</strong></a><br />
+[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)<br />
 </dl></td>
 </tr>
 <tr class="even">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata"><strong>ResolveQueryData</strong></a></td>
-<td><a href="/windows/desktop/api/D3D12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
+<td><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type"><strong>D3D12_QUERY_TYPE</strong></a></td>
 </tr>
 <tr class="odd">
 <td><a href="/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier"><strong>ResourceBarrier</strong></a></td>
-<td><dl><a href="cd3dx12-resource-barrier"><strong>CD3DX12_RESOURCE_BARRIER</strong></a><br />
-[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/D3D12/ne-d3d12-d3d12_resource_states)<br />
+<td><dl><a href="cd3dx12-resource-barrier.md"><strong>CD3DX12_RESOURCE_BARRIER</strong></a><br />
+[<strong>D3D12_RESOURCE_STATES</strong>](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states)<br />
 </dl></td>
 </tr>
 </tbody>
