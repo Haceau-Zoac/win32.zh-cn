@@ -4,12 +4,12 @@ description: 渲染器通道功能通过减少与芯片外内存之间的内存�
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 11/15/2018
-ms.openlocfilehash: 03cc8f1a2f0eb3be48a49ae1109ab56a47d8acc4
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
+ms.openlocfilehash: 4b7a58412afc369b37842dc0fd9ae28c10ee085a
+ms.sourcegitcommit: 2d48dee2998661c3c57217e7d3775233d263fe7f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "68679718"
+ms.lasthandoff: 08/09/2019
+ms.locfileid: "68874136"
 ---
 # <a name="direct3d-12-render-passes"></a>Direct3D 12 render pass
 
@@ -115,7 +115,6 @@ void render_passes(::ID3D12GraphicsCommandList4 * pIGCL4,
 - [**ID3D12GraphicsCommandList::ResolveQueryData**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)
 - [**ID3D12GraphicsCommandList::ResolveSubresource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvesubresource)
 - [**ID3D12GraphicsCommandList1::ResolveSubresourceRegion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion)
-- [**ID3D12GraphicsCommandList::SetDescriptorHeaps**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps)
 - [**ID3D12GraphicsCommandList3::SetProtectedResourceSession**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession)
 
 ### <a name="render-passes-and-resource-barriers"></a>呈现阶段和资源障碍
