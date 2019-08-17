@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: ab1c997c1d771c39e92688baec42b9b048e17513
-ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
+ms.openlocfilehash: 1adcc29e471c2d320ce9e8007351cc403418c5b9
+ms.sourcegitcommit: af1bedc00f1f5da3673a5095be566c076f2a51aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67465023"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69561164"
 ---
 # <a name="binding-in-directml"></a>DirectML 中的绑定
 
@@ -192,7 +192,7 @@ DML_BINDING_DESC outputBindingDesc{ DML_BINDING_TYPE_BUFFER, &outputBufferBindin
 dmlBindingTable->BindOutputs(1, &outputBindingDesc);
 ```
 
-创建 DirectML 运算符（请参阅 [**IDMLDevice::CreateOperator**](/windows/desktop/api/directml/nf-directml-idmldevice-createoperator)）的步骤之一是声明一个或多个 [**DML_BUFFER_TENSOR_DESC**](/windows/desktop/api/directml/ns-directml-dml_buffer_tensor_desc) 结构来描述该运算符采用和返回的张量数据缓冲区。 对于张量缓冲区的类型和大小，可以选择性地指定 [**DML_TENSOR_FLAG_OWNED_BY_DML**](/windows/desktop/api/directml/ns-directml-dml_tensor_flags) 标志。
+创建 DirectML 运算符（请参阅 [**IDMLDevice::CreateOperator**](/windows/desktop/api/directml/nf-directml-idmldevice-createoperator)）的步骤之一是声明一个或多个 [**DML_BUFFER_TENSOR_DESC**](/windows/desktop/api/directml/ns-directml-dml_buffer_tensor_desc) 结构来描述该运算符采用和返回的张量数据缓冲区。 对于张量缓冲区的类型和大小，可以选择性地指定 [**DML_TENSOR_FLAG_OWNED_BY_DML**](/windows/desktop/api/directml/ne-directml-dml_tensor_flags) 标志。
 
 **DML_TENSOR_FLAG_OWNED_BY_DML** 指示张量数据是否应由 DirectML 拥有和管理。 DirectML 在初始化运算符期间会创建张量数据的副本，并将其存储在永久性资源中。 这样，DirectML 便可以将张量数据的格式重新设置为其他更有效的格式。 设置此标志可以提高性能，但此设置通常只对其数据在运算符的整个生存期内不会更改的张量有用。 此外，只能针对输入张量使用该标志。 针对特定的张量描述设置该标志时，相应的张量必须在初始化运算符期间绑定到绑定表，而不能在执行期间绑定（否则会导致出错）。 这与默认行为（不使用 DML_TENSOR_FLAG_OWNED_BY_DML 标志时的行为）相反。在默认行为中，张量预期会在执行期间而不是初始化期间绑定。 将张量数据提供给运算符初始值设定项时，绑定 UPLOAD 堆（而不是 DEFAULT 堆）是合法的操作，因为 DirectML 会创建数据的副本。 在所有其他情况下，绑定到 DirectML 的所有资源必须是 DEFAULT 堆资源。
 
