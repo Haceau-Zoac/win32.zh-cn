@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 6ce5dd0a1710e1625d93a12536fa9c7fac0a2e43
-ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
+ms.openlocfilehash: 03effa554504089f09182f8632a12cdbaea03659
+ms.sourcegitcommit: b953df2c418f9037668f0b95e2bb51b1f6720774
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67465012"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565914"
 ---
 # <a name="introduction-to-directml"></a>DirectML 简介
 
@@ -72,6 +72,6 @@ DirectML 中的运算符库提供预期可在机器学习工作负荷中使用�
 
 DirectML 在一定程度上借助了 Direct3D 12 元命令功能实现了这项优势。 元命令可直接向 DirectML 公开功能的黑盒，可让硬件供应商为 DirectML 提供对供应商硬件特定的和体系结构特定的优化的访问权限。 多个运算符 &mdash; 例如卷积后接激活&mdash; 可以融合在一起构成一个元命令。  由于这些因素，DirectML 的性能甚至可以超过妥善编写的且经过手工优化的、可在各种硬件上运行的计算着色器。
 
-元命令属于 Direct3D 12 API，不过，两者是松散耦合的。 元命令按固定 GUID 标识，有关它的其他任何信息（从其行为和语义，到其签名和名称）在严格意义上几乎都不是 Direct3D 12 API 的一部分。 元命令是在其作者与实现它的驱动程序之间指定的。 在这种情况下，作者是 DirectML。 元命令是 Direct3D 12 基元（与绘制和调度一样），因此，可将它们记录到命令列表，并将其计划为一起执行。
+元命令属于 Direct3D 12 API，不过，两者是松散耦合的。 元命令通过固定的 [**GUID**](/windows/win32/api/guiddef/ns-guiddef-guid) 进行标识，有关它的其他任何信息（从其行为和语义，到其签名和名称）在严格意义上几乎都不是 Direct3D 12 API 的一部分。 元命令是在其作者与实现它的驱动程序之间指定的。 在这种情况下，作者是 DirectML。 元命令是 Direct3D 12 基元（与绘制和调度一样），因此，可将它们记录到命令列表，并将其计划为一起执行。
 
 DirectML 使用整套机器学习元命令加速机器学习工作负荷。 因此，你无需编写供应商特定的代码路径即可在推理过程中实现硬件加速。 如果你正好在 AI 加速的芯片上运行，则 DirectML 会使用该硬件来大幅加速操作，例如卷积运算。 可以采用自己编写的相同代码且不对其进行修改，并在未经 AI 加速的芯片（也许是笔记本电脑中集成的 GPU）上运行它，这样仍可获得强大的 GPU 硬件加速。 如果没有可用的 GPU，则 DirectML 会回退到 CPU。

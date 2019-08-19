@@ -5,12 +5,12 @@ ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 7f9b57c3d4f8ed4fd7e4c6ac1299d56be27afa68
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
+ms.openlocfilehash: dd9ffc356ef7d9adda6862a69e1f80481ea90102
+ms.sourcegitcommit: af1bedc00f1f5da3673a5095be566c076f2a51aa
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725549"
+ms.lasthandoff: 08/16/2019
+ms.locfileid: "69561161"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -105,7 +105,7 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 
 默认情况下，d3d12.h 中包含支持调试层 D3D12SDKLayers.h 所需的标头。
 
-当调试层列出内存泄漏时，会输出对象接口指针的列表及其友好名称。 默认友好名称是“<unnamed>”。 可以使用 [**ID3D12Object::SetName**](/windows/desktop/api/d3d12/nf-d3d12-id3d12object-setname) 方法设置友好名称。 通常，应在生产版本之外编译这些调用。
+当调试层列出内存泄漏时，会输出对象接口指针的列表及其友好名称。 默认友好名称是“&lt;unnamed&gt;”。 可以使用 [**ID3D12Object::SetName**](/windows/desktop/api/d3d12/nf-d3d12-id3d12object-setname) 方法设置友好名称。 通常，应在生产版本之外编译这些调用。
 
 我们建议你使用调试层来调试应用以确保它们没有错误和警告。 调试层可帮助你编写 Direct3D 12 代码。 此外，使用调试层时可以提高工作效率，因为可以立即查看混淆呈现错误甚至在其源出现黑屏的原因。 调试层提供多个问题的警告。 例如：
 
