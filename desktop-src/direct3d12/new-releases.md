@@ -5,17 +5,18 @@ ms.assetid: 38F41E05-FECB-41DE-8D30-09733FBEAC48
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 59912c7e8d36fa010ccd5ff19a176549408c2f79
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
+ms.openlocfilehash: 1cad116330ed87715febb6b96784d41293f2cabf
+ms.sourcegitcommit: d482e4276cc06515e9fade2f253a257ffc418ce5
 ms.translationtype: HT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725464"
+ms.lasthandoff: 08/24/2019
+ms.locfileid: "70014923"
 ---
 # <a name="new-releases"></a>最新发布
 
 介绍最新 SDK 发布中最重要的新文档。
 
+-   [Windows 7](#windows-7)
 -   [Windows 10 版本 1809](#windows-10-version-1809)
 -   [Windows 10 版本 1709](#windows-10-version-1709)
 -   [Windows 10 版本 1703](#windows-10-version-1703)
@@ -24,6 +25,10 @@ ms.locfileid: "66725464"
 -   [2016 年 8 月文档更新 1](#august-2016-documentation-update-1)
 -   [Windows 10 版本 1607](#windows-10-version-1607)
 -   [相关主题](#related-topics)
+
+## <a name="windows-7"></a>Windows 7
+
+- [基于 Windows 7 的 Direct3D 12](http://aka.ms/d3d12on7) 现在可供开发人员使用。
 
 ## <a name="windows-10-version-1809"></a>Windows 10 版本 1809
 
