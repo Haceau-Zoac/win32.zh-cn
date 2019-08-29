@@ -1,20 +1,20 @@
 ---
 title: HLSL 中的资源绑定
-description: 本部分介绍 Direct3D 12 中使用高级着色语言 (HLSL) 着色器模型 5.1 的某些特定功能。
+description: 本主题介绍使用高级着色器语言 (HLSL) 着色器模型5.1 与 Direct3D 12 一起使用的一些特定功能。
 ms.assetid: 3CD4BDAD-8AE3-4DE0-B3F8-9C9F9E83BBE9
 ms.localizationpriority: high
 ms.topic: article
-ms.date: 05/31/2018
-ms.openlocfilehash: dde879254fd98140b754554f6aed4f98656063cc
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.date: 08/27/2019
+ms.openlocfilehash: 152368110c91760d9b271c62e69075c638231b74
+ms.sourcegitcommit: d4e1e234e6241c9424fbc48bb135c0ed78b12b98
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725408"
+ms.lasthandoff: 08/28/2019
+ms.locfileid: "70076466"
 ---
 # <a name="resource-binding-in-hlsl"></a>HLSL 中的资源绑定
 
-本部分介绍 Direct3D 12 中使用高级着色语言 (HLSL) [着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1) 的某些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
+本主题介绍使用高级着色器语言 (HLSL)[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)与 Direct3D 12 一起使用的一些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
 
 -   [资源类型和数组](#resource-types-and-arrays)
 -   [描述符数组和纹理数组](#descriptor-arrays-and-texture-arrays)
@@ -28,13 +28,13 @@ ms.locfileid: "66725408"
 
 ## <a name="resource-types-and-arrays"></a>资源类型和数组
 
-着色器模型 5 (SM5.0) 资源语法使用“寄存器”关键字将有关资源的重要信息中继到 HLSL 编译器。 例如，以下语句声明在槽 t3、t4、t5 和 t6 中绑定的四个纹理的数组。 t3 是唯一显示在该语句中的寄存器槽，而它仅仅是四个寄存器的数组中的第一个。
+着色器模型 5 (sm 5.0) 资源语法使用`register`关键字将有关资源的重要信息中继到 HLSL 编译器。 例如，以下语句声明在槽 t3、t4、t5 和 t6 中绑定的四个纹理的数组。 t3 是唯一显示在该语句中的寄存器槽，而它仅仅是四个寄存器的数组中的第一个。
 
 ``` syntax
 Texture2D<float4> tex1[4] : register(t3)
 ```
 
-HLSL 中的着色器模型 5.1 (SM5.1) 资源语法基于现有的寄存器资源语法，旨在更方便地完成移植。 HLSL 中的 D3D12 资源绑定到逻辑寄存器空间中的虚拟寄存器：
+HLSL 中的着色器模型 5.1 (SM5.1) 资源语法基于现有的寄存器资源语法，旨在更方便地完成移植。 HLSL 中的 Direct3D 12 资源绑定到逻辑寄存器空间内的虚拟寄存器:
 
 -   t – 表示着色器资源视图 (SRV)
 -   s – 表示采样器
@@ -50,17 +50,17 @@ DescriptorTable( CBV(b1), SRV(t0,numDescriptors=99), CBV(b2) )
 资源声明可以是标量值、1D 数组或多维数组：
 
 ``` syntax
-Texture2D<float4> tex1     : register(t3,  space0)
-Texture2D<float4> tex2[4]     : register(t10)
-Texture2D<float4> tex3[7][5][3]   : register(t20, space1)
+Texture2D<float4> tex1 : register(t3,  space0)
+Texture2D<float4> tex2[4] : register(t10)
+Texture2D<float4> tex3[7][5][3] : register(t20, space1)
 ```
 
-SM5.1 使用的资源类型和元素类型与 SM5.0 相同。 声明限制现在更加灵活，仅受运行时/硬件限制的约束。 “空间”关键字指定声明的变量所绑定到的逻辑寄存器空间。 如果省略“空间”关键字，则会将默认空间索引 0 隐式分配到范围（因此，上述 `tex2` 范围驻留在 `space0` 中）。 `register(t3,  space0)` 永远不会与 `register(t3,  space1)` 相冲突，也不会与可能包含 t3 的另一个空间中的任何数组相冲突。
+SM 5.1 使用与 SM 5.0 相同的资源类型和元素类型。 SM 5.1 声明限制更灵活, 并且仅受运行时/硬件限制的约束。 `space`关键字指定已声明的变量绑定到的逻辑寄存器空间。 如果省略`tex2` `space0`关键字, 则默认的空白索引0将被隐式分配给范围 (因此上面的范围位于中)。 `space` `register(t3,  space0)`永远不会与`register(t3,  space1)`另一个空间中可能包含 t3 的任何数组冲突。
 
-数组资源可以采用无限制的大小，该大小是通过将第一个维度指定为空或 0 声明的：
+数组资源可能具有未绑定的大小, 该大小是通过将第一个维度指定为空来声明的, 或者为 0:
 
 ``` syntax
-Texture2D<float4> tex1[]       : register(t0)
+Texture2D<float4> tex1[] : register(t0)
 ```
 
 匹配的描述符表可能是：
@@ -74,13 +74,13 @@ HLSL 中的无限制数组匹配描述符表中使用 `numDescriptors` 设置的
 允许多维数组，包括无限制的大小。 这些多维数组将在寄存器空间中平展。
 
 ``` syntax
-Texture2D<float4> tex3[3000][10] : register(t0,space1); // t0-t29999 in space1
-Texture2D<float4> tex3[0][5][3]   : register(t5, space1)
+Texture2D<float4> tex2[3000][10] : register(t0, space0); // t0-t29999 in space0
+Texture2D<float4> tex3[0][5][3] : register(t5, space1)
 ```
 
-不允许资源范围别名。 换而言之，对于每个资源类型（t、s、u、b），声明的寄存器范围不得重叠。 这也包括无限制的范围。 在不同寄存器空间中声明的范围不得重叠。 请注意，无限制 tex2 驻留在 space0 中，无限制 tex3 驻留在 space1 中，因此它们不会重叠。
+不允许资源范围别名。 换言之, 对于每个资源类型 (t, s, u, b), 声明的寄存器范围不得重叠。 这也包括未绑定范围。 在不同寄存器空间中声明的范围不得重叠。 请注意, 未绑定`space0` `tex3` `space1`(以上) 驻留在中, 而无限驻留在中, 因此它们不会重叠。 `tex2`
 
-对于已声明为数组的资源，只需通过编制其索引就能对其进行访问，例如：
+访问已声明为数组的资源非常简单, 只需对它们进行索引。
 
 ``` syntax
 Texture2D<float4> tex1[400] : register(t3);
@@ -140,7 +140,7 @@ myStruct foo[10000] : register(....);
 
 ``` syntax
 Texture2D                     a[10000] : register(t0);
-Texture2D                        b[10000] : register(t10000);
+Texture2D                     b[10000] : register(t10000);
 ConstantBuffer<myConstants>   c[10000] : register(b0);
 ```
 
