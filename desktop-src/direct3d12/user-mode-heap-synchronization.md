@@ -5,12 +5,12 @@ ms.assetid: 93903F50-A6CA-41C2-863D-68D645586B4C
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: cb8e34ba0a533a7d5c68908d42d23bad688db236
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 03fb5aff1298ae89974d7c9a7989ab7b1df53be1
+ms.sourcegitcommit: 931b09f3352a2818adeaff9056a4a7b0417edf64
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296490"
+ms.lasthandoff: 09/14/2019
+ms.locfileid: "70988231"
 ---
 # <a name="synchronization-and-multi-engine"></a>同步和多引擎
 
@@ -237,9 +237,9 @@ void PipelinedComputeGraphics()
 }
 ```
 
-若要支持这种管道，必须提供一个缓冲区，其中包含从计算队列传递到图形队列的不同 `ComputeGraphicsLatency+1` 数据副本。 命令列表必须使用 UAV 和间接性从该缓冲区中的相应数据“版本”读取和写入。 计算队列必须等到图形队列完成从数据中读取帧 N，然后才能写入帧 `N+ComputeGraphicsLatency`。
+若要支持此管道，必须有从计算`ComputeGraphicsLatency+1`队列向图形队列传递数据的不同副本的缓冲区。 命令列表必须使用 UAV 和间接性从该缓冲区中的相应数据“版本”读取和写入。 计算队列必须等到图形队列完成从数据中读取帧 N，然后才能写入帧 `N+ComputeGraphicsLatency`。
 
-请注意，相对于 CPU 的排队计算工作量并不直接取决于所需的缓冲量，但超过可用缓冲空间量的排队 GPU 工作价值更低。
+请注意，相对于 CPU 的计算队列量不会直接依赖于所需的缓冲量，然而，队列 GPU 工作超出了可用的缓冲区空间量也不太重要。
 
 避免间接性的替代机制是创建对应于数据的每个“重命名”版本的多个命令列表。 以下示例使用此技术，同时扩展了前一个示例，允许以更高的异步性运行计算和图形队列。
 
