@@ -5,12 +5,12 @@ ms.assetid: BB0CA29C-65CB-48B1-8351-EE13CC470B54
 ms.date: 05/31/2018
 ms.localizationpriority: high
 ms.topic: article
-ms.openlocfilehash: 51364cdaeef90a8da24b14d5ff760542f7d086f8
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 79dad6914cff07726c2d40ed2ee27cccb6a0cf1e
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296154"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005688"
 ---
 # <a name="advanced-use-of-descriptor-tables"></a>描述符表的高级用途
 

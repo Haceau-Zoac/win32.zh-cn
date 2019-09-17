@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 52303618c146bddc0318a01e28abeb92aea92745
-ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
-ms.translationtype: HT
+ms.openlocfilehash: eebdf09f171cbefb8c91a07f99280ae41678ddda
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67465016"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006049"
 ---
 # <a name="directml-helper-functions"></a>DirectML 帮助程序函数
 
@@ -23,7 +23,7 @@ IndexOfLastElement = dot(Sizes - 1, Strides);
 MinimumImpliedSizeInBytes = roundup((IndexOfLastElement + 1) * ElementSizeInBytes, 4)
 ```
 
-换言之，张量的最小大小是乘以元素大小（例如，FLOAT16 张量的 2 字节）的超尾后的任何一个元素的索引  。 此外，DirectML 要求所有绑定的缓冲区的总大小必须是 DWORD 对齐，因此以字节为单位的最小隐含大小必须上调取整为最接近的 4 字节边界  。
+换言之，张量的最小大小是乘以元素大小（例如，FLOAT16 张量的 2 字节）的超尾后的任何一个元素的索引。 此外，DirectML 要求所有绑定的缓冲区的总大小必须是 DWORD 对齐，因此以字节为单位的最小隐含大小必须上调取整为最接近的 4 字节边界。
 
 ```cppwinrt
 inline UINT64 DMLCalcBufferTensorSize(

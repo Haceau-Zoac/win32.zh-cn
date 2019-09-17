@@ -5,12 +5,12 @@ ms.assetid: 4C4475D4-534F-484F-8D60-9ACEA09AC109
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: dbfccb70b8f575d2f868f2678483f04a8c764945
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: cb1b61ec374e21c9173797121ee90ec72e789de8
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296500"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006001"
 ---
 # <a name="working-samples"></a>样例
 

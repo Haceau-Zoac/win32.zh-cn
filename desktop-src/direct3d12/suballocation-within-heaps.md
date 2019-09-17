@@ -5,18 +5,18 @@ ms.assetid: 7E319BCF-FF3F-43CB-9C48-A9DD2A043592
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 8c5f7e50416e3635226a84d9f7fff068728f7682
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 701e68e31e698bbf2c955a252bd46876f45d6b7c
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296068"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006216"
 ---
 # <a name="suballocation-within-heaps"></a>堆中的二次分配
 
 资源堆将数据从 CPU 传输到 GPU（上传），并从 GPU 传输到 CPU（回读）。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

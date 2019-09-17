@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: a02bc0305daf0a54fc70ecd8034b13a07c4a9d1c
-ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
-ms.translationtype: HT
+ms.openlocfilehash: 6e8ab30c5c87c135ef3bdac0c1bc2a3d64040787
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67465013"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006040"
 ---
 # <a name="resource-lifetime-and-synchronization"></a>资源生存期和同步
 
@@ -21,13 +21,13 @@ ms.locfileid: "67465013"
 
 ## <a name="directml-devices"></a>DirectML 设备
 
-DirectML 设备是线程安全的无状态工厂对象。 每个子设备（请参阅 [IDMLDeviceChild  ](/windows/desktop/api/directml/nn-directml-idmldevicechild)）都包含对其父 DirectML 设备（请参阅 [IDMLDevice  ](/windows/desktop/api/directml/nn-directml-idmldevice)）的强引用。 这意味着，你始终可以从任何子设备接口检索父设备接口。
+DirectML 设备是线程安全的无状态工厂对象。 每个子设备（请参阅 [IDMLDeviceChild](/windows/desktop/api/directml/nn-directml-idmldevicechild)）都包含对其父 DirectML 设备（请参阅 [IDMLDevice](/windows/desktop/api/directml/nn-directml-idmldevice)）的强引用。 这意味着，你始终可以从任何子设备接口检索父设备接口。
 
-相应地，DirectML 设备包含对用于创建它的 Direct3D 12 设备的强引用（请参阅 [ID3D12Device  ](/windows/desktop/api/d3d12/nn-d3d12-id3d12device) 和派生接口）。
+相应地，DirectML 设备包含对用于创建它的 Direct3D 12 设备的强引用（请参阅 [ID3D12Device](/windows/desktop/api/d3d12/nn-d3d12-id3d12device) 和派生接口）。
 
 由于 DirectML 设备是无状态设备，因此它属于隐式线程安全设备。 你可以同时从多个线程调用 DirectML 设备上的方法，而无需执行外部同步。
 
-但是，不同于 Direct3D 12 设备的是，DirectML 设备不是单一实例对象。 你可根据需要创建多个 DirectML 设备。 不过，你不能混合和匹配属于不同设备的子设备。 例如，[IDMLBindingTable  ](/windows/desktop/api/directml/nn-directml-idmlbindingtable) 和 [IDMLCompiledOperator  ](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator) 属于两种子设备类型（两个接口均直接或间接派生自 IDMLDeviceChild  ）。 此外，当运算符和绑定表属于不同的 DirectML 设备实例时，不可以使用绑定表 (  IDMLBindingTable) 来绑定运算符 (  IDMLCompiledOperator)。
+但是，不同于 Direct3D 12 设备的是，DirectML 设备不是单一实例对象。 你可根据需要创建多个 DirectML 设备。 不过，你不能混合和匹配属于不同设备的子设备。 例如，[IDMLBindingTable](/windows/desktop/api/directml/nn-directml-idmlbindingtable) 和 [IDMLCompiledOperator](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator) 属于两种子设备类型（两个接口均直接或间接派生自 IDMLDeviceChild）。 此外，当运算符和绑定表属于不同的 DirectML 设备实例时，不可以使用绑定表 (IDMLBindingTable) 来绑定运算符 (IDMLCompiledOperator)。
 
 由于 DirectML 设备不是单一实例对象，因此要基于每台设备执行设备删除，而非如同使用 Direct3D 12 设备时那样作为进程范围事件执行删除。 有关详细信息，请参阅[在 DirectML 中处理错误和设备删除](dml-errors.md)。
 
@@ -37,29 +37,29 @@ DirectML 设备是线程安全的无状态工厂对象。 每个子设备（请�
 
 执行包含 DirectML 调度的命令列表时，应用程序必须确保，在 GPU 上使用这些资源的所有作业完成执行前 GPU 资源保持活动状态。
 
-对于 DirectML 运算符的 [IDMLCommandRecorder::RecordDispatch  ](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch)，其中包含以下对象。
+对于 DirectML 运算符的 [IDMLCommandRecorder::RecordDispatch](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch)，其中包含以下对象。
 
-- 正在执行的 [IDMLCompiledOperator  ](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator)（若正在执行运算符初始化，则为 [IDMLOperatorInitializer  ](/windows/desktop/api/directml/nn-directml-idmloperatorinitializer)）。
-- 支持用于绑定运算符的绑定表的 IDMLCompiledOperator  。
-- 绑定为运算符输入/输出的 [ID3D12Resource  ](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) 对象。
-- 绑定为永久资源和临时资源的 ID3D12Resource 对象（如果适用）。 
-- 支持命令列表本身的 [ID3D12CommandAllocator  ](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandallocator)。
+- 正在执行的 [IDMLCompiledOperator](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator)（若正在执行运算符初始化，则为 [IDMLOperatorInitializer](/windows/desktop/api/directml/nn-directml-idmloperatorinitializer)）。
+- 支持用于绑定运算符的绑定表的 IDMLCompiledOperator。
+- 绑定为运算符输入/输出的 [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) 对象。
+- 绑定为永久资源和临时资源的 ID3D12Resource 对象（如果适用）。
+- 支持命令列表本身的 [ID3D12CommandAllocator](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandallocator)。
 
-只有部分 DirectML 接口表示 GPU 资源。 例如，当 GPU 上使用绑定表的所有调度都完成执行时，它才需要保持活动状态。  因为绑定表本身不拥有任何 GPU 资源。 而描述符堆拥有这些。 因此，在执行完成前，是基础描述符堆对象而非绑定表本身必须保持活动状态。 
+只有部分 DirectML 接口表示 GPU 资源。 例如，当 GPU 上使用绑定表的所有调度都完成执行时，它才需要保持活动状态。 因为绑定表本身不拥有任何 GPU 资源。 而描述符堆拥有这些。 因此，在执行完成前，是基础描述符堆对象而非绑定表本身必须保持活动状态。
 
-Direct3D 12 包含类似的概念。 在 GPU 上使用命令分配器的所有执行完成前，它必须保持活动状态；因为它拥有 GPU 内存。  但是，命令列表本身不拥有 GPU 内存，因此在提交以执行它时即可重置或释放它。 
+Direct3D 12 包含类似的概念。 在 GPU 上使用命令分配器的所有执行完成前，它必须保持活动状态；因为它拥有 GPU 内存。 但是，命令列表本身不拥有 GPU 内存，因此在提交以执行它时即可重置或释放它。
 
-在 DirectML 中，编译的运算符 ([IDMLCompiledOperator  ](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator)) 和运算符初始值 ([IDMLOperatorInitializer  ](/windows/desktop/api/directml/nn-directml-idmloperatorinitializer)) 均直接拥有 GPU 资源，因此在 GPU 上使用这些资源的所有调度完成执行前，它们必须保持活动状态。 此外，应用程序必须同样要使所使用的任何 Direct3D 12 资源（如命令分配器、描述符堆、缓冲）保持活动状态。
+在 DirectML 中，编译的运算符 ([IDMLCompiledOperator](/windows/desktop/api/directml/nn-directml-idmlcompiledoperator)) 和运算符初始值 ([IDMLOperatorInitializer](/windows/desktop/api/directml/nn-directml-idmloperatorinitializer)) 均直接拥有 GPU 资源，因此在 GPU 上使用这些资源的所有调度完成执行前，它们必须保持活动状态。 此外，应用程序必须同样要使所使用的任何 Direct3D 12 资源（如命令分配器、描述符堆、缓冲）保持活动状态。
 
 若在 GPU 使用对象期间提前释放了该对象，结果将是未定义的行为，并且可能会删除设备或引发其他错误。
 
 ## <a name="cpu-and-gpu-synchronization"></a>CPU 和 GPU 同步
 
-DirectML 本身不会提交任何作业来让 GPU 执行。 相反，[IDMLCommandRecorder::RecordDispatch  方法](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch)会将该作业调度记录到命令列表，以便稍后执行它。  然后，如同对待任何 Direct3D 12 命令列表一般，应用程序必须调用 [ID3D12CommandQueue::ExecuteCommandLists  ](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 来关闭并提交其命令列表，以便执行它。
+DirectML 本身不会提交任何作业来让 GPU 执行。 相反，[IDMLCommandRecorder::RecordDispatch 方法](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch)会将该作业调度记录到命令列表，以便稍后执行它。 然后，如同对待任何 Direct3D 12 命令列表一般，应用程序必须调用 [ID3D12CommandQueue::ExecuteCommandLists](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 来关闭并提交其命令列表，以便执行它。
 
-由于 DirectML 本身不会提交任何作业来让 GPU 执行，因此它也不会创建任何围墙，并且也不会以你的身份执行任何形式的 CPU/GPU 同步。 必要时，由应用程序负责使用适当的 Direct3D 12 基元，来等待 GPU 上已提交的作业完成执行。 有关详细信息，请参阅 [ID3D12Fence  ](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 和 [ID3D12CommandQueue::Signal  ](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal)。
+由于 DirectML 本身不会提交任何作业来让 GPU 执行，因此它也不会创建任何围墙，并且也不会以你的身份执行任何形式的 CPU/GPU 同步。 必要时，由应用程序负责使用适当的 Direct3D 12 基元，来等待 GPU 上已提交的作业完成执行。 有关详细信息，请参阅 [ID3D12Fence](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 和 [ID3D12CommandQueue::Signal](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal)。
 
-## <a name="see-also"></a>另请参阅
+## <a name="see-also"></a>请参阅
 
 * [执行和同步命令列表](/windows/desktop/direct3d12/executing-and-synchronizing-command-lists)
 * [在 DirectML 中处理错误和设备删除](dml-errors.md)

@@ -5,12 +5,12 @@ ms.assetid: 5A640BA9-3914-4481-9A0C-E18B52BD8AFE
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: df383feda2065509a85e90cbdbf280ec79506a51
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: f48c64a569fd47bb58a2ad2d26d1818e2cda41f2
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296271"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006014"
 ---
 # <a name="hardware-tiers"></a>硬件层
 
@@ -37,9 +37,9 @@ ms.locfileid: "66296271"
 
  
 
-粗体条目突出了超越上一层的重大改进  。
+粗体条目突出了超越上一层的重大改进。
 
-适用于所有堆的第 1 层硬件以及适用于 CBV 和 UAV 堆的第 2 层硬件还有一个额外限制，即根签名中的描述符表所涵盖的所有描述符堆条目都必须在着色器执行前使用描述符进行填充，即使着色器（可能由于分支）不需要描述符  。 第 3 层硬件没有此类限制。 缓解这种限制的一种方法是大量使用 [Null 描述符](descriptors.md)。
+适用于所有堆的第 1 层硬件以及适用于 CBV 和 UAV 堆的第 2 层硬件还有一个额外限制，即根签名中的描述符表所涵盖的所有描述符堆条目都必须在着色器执行前使用描述符进行填充，即使着色器（可能由于分支）不需要描述符。 第 3 层硬件没有此类限制。 缓解这种限制的一种方法是大量使用 [Null 描述符](descriptors.md)。
 
 ## <a name="invariable-limits"></a>固定限制
 

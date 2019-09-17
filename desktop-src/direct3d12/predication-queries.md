@@ -5,16 +5,16 @@ ms.assetid: F61817BB-45BC-4977-BE4A-EE0FDAFBCB57
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 846b2a5a229ce96b68e12f0a6061922fbe347fe6
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 3231194222438a6d7fc6afd7b174339836c59d72
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725577"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005677"
 ---
 # <a name="predication-queries"></a>预测查询
 
-D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进行遮挡剔除  。 该演练介绍了扩展 HelloConstBuffer 示例来处理预测查询所需的额外代码  。
+D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进行遮挡剔除。 该演练介绍了扩展 HelloConstBuffer 示例来处理预测查询所需的额外代码。
 
 -   [创建深度模具描述符堆和遮挡查询堆](#create-a-depth-stencil-descriptor-heap-and-an-occlusion-query-heap)
 -   [启用 alpha 值混合处理](#enable-alpha-blending)
@@ -26,7 +26,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 ## <a name="create-a-depth-stencil-descriptor-heap-and-an-occlusion-query-heap"></a>创建深度模具描述符堆和遮挡查询堆
 
-在 LoadPipeline 方法中创建一个深度模具描述符堆  。
+在 LoadPipeline 方法中创建一个深度模具描述符堆。
 
 ``` syntax
               // Describe and create a depth stencil view (DSV) descriptor heap.
@@ -43,7 +43,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -64,7 +64,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
  
 
-在 LoadAssets 方法中，为遮挡查询创建一个堆  。
+在 LoadAssets 方法中，为遮挡查询创建一个堆。
 
 ``` syntax
      // Describe and create a heap for occlusion queries.
@@ -76,7 +76,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 
 
-| 调用流程                                                 | 参数                                                |
+| 调用流程                                                 | Parameters                                                |
 |-----------------------------------------------------------|-----------------------------------------------------------|
 | [**D3D12\_QUERY\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_query_heap_desc) | [**D3D12\_QUERY\_HEAP\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_heap_type) |
 | [**CreateQueryHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createqueryheap)   |                                                           |
@@ -87,7 +87,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 ## <a name="enable-alpha-blending"></a>启用 alpha 值混合处理
 
-该示例绘制了两个四边形，并演示了一个二进制遮挡查询。 前面的四边形动态显示在屏幕上，后面的四边形偶尔会被遮挡。 在 LoadAssets 方法中，为此示例启用了 alpha 值混合处理，以便我们能看到 D3D 在哪些情况下将后面的四边形视为被遮挡  。
+该示例绘制了两个四边形，并演示了一个二进制遮挡查询。 前面的四边形动态显示在屏幕上，后面的四边形偶尔会被遮挡。 在 LoadAssets 方法中，为此示例启用了 alpha 值混合处理，以便我们能看到 D3D 在哪些情况下将后面的四边形视为被遮挡。
 
 ``` syntax
      // Enable alpha blending so we can visualize the occlusion query results.
@@ -108,7 +108,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -132,7 +132,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 遮挡查询是通过呈现四边形来执行的，该四边形覆盖的区域与我们想要测试其可见性的四边形相同。 在更复杂的场景中，查询可能是一个包围盒，而不是简单的四边形。 无论是哪种情况，都会创建一个新的管道状态，禁止写入呈现目标和 Z 缓冲区，以便遮挡查询本身不会影响呈现通道的可见输出。
 
-在 LoadAssets 方法中，禁用遮挡查询状态的颜色写入和深度写入  。
+在 LoadAssets 方法中，禁用遮挡查询状态的颜色写入和深度写入。
 
 ``` syntax
  // Disable color writes and depth writes for the occlusion query's state.
@@ -144,7 +144,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 
 
-| 调用流程                                                                            | 参数                                                  |
+| 调用流程                                                                            | Parameters                                                  |
 |--------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) | [**D3D12\_DEPTH\_WRITE\_MASK**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_depth_write_mask) |
 | [**CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate)      |                                                             |
@@ -155,7 +155,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 ## <a name="create-a-buffer-to-store-the-results-of-the-query"></a>创建用于存储查询结果的缓冲区
 
-需要在 LoadAssets 方法中创建一个缓冲区来存储查询结果  。 每个查询在 GPU 内存中需要 8 个字节的空间。 此示例仅执行一个查询，为简单起见，它创建了一个恰好具有此大小的缓冲区（即使此函数调用将分配 64K 页的 GPU 内存也是如此；大多数实际应用可能会创建一个更大的缓冲区）。
+需要在 LoadAssets 方法中创建一个缓冲区来存储查询结果。 每个查询在 GPU 内存中需要 8 个字节的空间。 此示例仅执行一个查询，为简单起见，它创建了一个恰好具有此大小的缓冲区（即使此函数调用将分配 64K 页的 GPU 内存也是如此；大多数实际应用可能会创建一个更大的缓冲区）。
 
 ``` syntax
  // Create the query result buffer.
@@ -175,7 +175,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -197,9 +197,12 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 
 ## <a name="draw-the-quads-and-perform-and-resolve-the-occlusion-query"></a>绘制四边形并执行和解析遮挡查询
 
-完成设置后，主循环会在 PopulateCommandLists 方法中更新  。
+完成设置后，主循环会在 PopulateCommandLists 方法中更新。
 
-<dl> 1. 从后向前绘制四边形以产生正常呈现的透明效果。 从后向前绘制四边形取决于前一帧查询的结果，这是一种相当常见的技术。 2. 更改 PSO 以禁用呈现目标和深度模具写入。 3. 执行遮挡查询。 4. 解析遮挡查询。  
+<dl> 1. 从后向前绘制四边形以产生正常呈现的透明效果。 从后向前绘制四边形取决于前一帧查询的结果，这是一种相当常见的技术。  
+2. 更改 PSO 以禁用呈现目标和深度模具写入。  
+3. 执行遮挡查询。  
+4. 解析遮挡查询。  
 </dl>
 
 ``` syntax
@@ -243,7 +246,7 @@ D3D12PredicationQueries 示例演示了使用 DirectX 12 查询堆和预测进�
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>

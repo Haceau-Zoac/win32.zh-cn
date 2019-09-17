@@ -5,12 +5,12 @@ ms.assetid: 14561E77-44E0-4A58-8456-F40D59ECA175
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 382231b50aef7341f8e583a003c003504244e329
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: a8bf720ebb71d016457fa4383a8d33aa62e2eee4
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296409"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006264"
 ---
 # <a name="descriptor-heaps-overview"></a>描述符堆概述
 
@@ -56,7 +56,7 @@ Direct3D 12 使用描述符堆反映了 GPU 硬件所执行的大多数操作，
 
 有关不能与捆绑一起使用的 API 调用的列表，请参阅[创建和记录命令列表与捆绑](recording-command-lists-and-bundles.md)。
 
-## <a name="management"></a>Management
+## <a name="management"></a>管理
 
 若要在场景中呈现所有对象，将需要多个描述符，并且可以遵循一些不同的管理策略。
 

@@ -5,18 +5,18 @@ ms.assetid: 5BF1440E-E4D8-43C8-BF0E-F02FEFE79C93
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 53f66407efac27752ab08cfe2d6bf9784639dc9f
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 51ddf17f67433e08e5f630739a31743215647577
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725561"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006093"
 ---
 # <a name="rendering"></a>渲染
 
 本节介绍 Direct3D 12（和 Direct3D 11.3）中新增的渲染功能。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

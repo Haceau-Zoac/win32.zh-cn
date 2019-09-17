@@ -4,12 +4,12 @@ description: 可变速率着色 &mdash; 或粗略像素着色 &mdash; 是一种�
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/08/2019
-ms.openlocfilehash: 87867fb173f44bd6d8b413b6dc995e28785d00ef
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: cd871fcd72234af6c18df416886822b37777aabb
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296513"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006013"
 ---
 # <a name="variable-rate-shading-vrs"></a>可变速率着色 (VRS)
 
@@ -30,7 +30,7 @@ MSAA 机制可以减少几何失真，与不使用 MSAA 相比，它可以改善
 ## <a name="with-variable-rate-shading-vrs"></a>使用可变速率着色 (VRS)
 可变速率着色 (VRS) 模型增加了“粗略着色”的概念，可将结合 MSAA 的超采样扩展为相反的“粗略像素”方向。 在此模型中，可以使用比像素更粗略的频率执行着色。 换而言之，可将一组像素作为一个单位进行着色，然后，结果将广播到该组中的所有样本。
 
-应用程序可以使用粗略着色 API 来指定属于某个着色组的像素（粗略像素）数目。  分配渲染器目标后，可以改变粗略像素大小。 因此，不同的屏幕部分或不同的绘制通道可以采用不同的着色速率。
+应用程序可以使用粗略着色 API 来指定属于某个着色组的像素（粗略像素）数目。 分配渲染器目标后，可以改变粗略像素大小。 因此，不同的屏幕部分或不同的绘制通道可以采用不同的着色速率。
 
 下表描述了哪个 MSAA 级别支持哪种粗略像素大小。 有些大小并非在任何平台上均受支持；有些大小只能根据“上限”指示的功能条件 (*AdditionalShadingRatesSupported*) 受到支持。
 
@@ -93,7 +93,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 如果硬件不支持第 2 层可变速率着色，则针对图块大小的功能查询将返回 0。
 
-如果硬件支持第 2 层可变速率着色，则图块大小是以下值之一。 
+如果硬件支持第 2 层可变速率着色，则图块大小是以下值之一。
 
 - 8
 - 16
@@ -147,7 +147,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 资源不能是 SIMULTANEOUS_ACCESS。 不允许资源跨适配器。
 
-#### <a name="data"></a>数据
+#### <a name="data"></a>Data
 屏幕空间图像的每个字节对应于 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 枚举的值。
 
 #### <a name="resource-state"></a>资源状态
@@ -202,9 +202,9 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 如果未曾设置过合并器，则合并器将保留默认值，即 PASSTHROUGH。
 
-如果合并器的源为支持表中不允许的 [**D3D12_AXIS_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)，则输入将净化为受支持的着色速率。 
+如果合并器的源为支持表中不允许的 [**D3D12_AXIS_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_axis_shading_rate)，则输入将净化为受支持的着色速率。
 
-如果合并器的输出不对应于平台支持的着色速率，则结果将净化为受支持的着色速率。 
+如果合并器的输出不对应于平台支持的着色速率，则结果将净化为受支持的着色速率。
 
 ### <a name="default-state-and-state-clearing"></a>默认状态和状态清除
 所有着色速率源，即
@@ -221,10 +221,10 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 [ID3D12CommandList::ClearState](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearstate) 将管道状态指定的速率重置为默认值，并将所选的屏幕空间图像重置为默认值“无屏幕空间图像”。
 
-## <a name="querying-shading-rate-by-using-svshadingrate"></a>使用 SV_ShadingRate 查询着色速率
+## <a name="querying-shading-rate-by-using-sv_shadingrate"></a>使用 SV_ShadingRate 查询着色速率
 调用任意给定的像素着色器时，知道硬件选择了哪种着色速率会很有用。 这样可以在 PS 代码中实现各种优化。 仅限 PS 的系统变量 `SV_ShadingRate` 提供有关着色速率的信息。
 
-### <a name="type"></a>在任务栏的搜索框中键入
+### <a name="type"></a>类型
 此语义的类型为 uint。
 
 ### <a name="data-interpretation"></a>数据解释
@@ -268,7 +268,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 > 在第 1 层上使用粗略像素着色时，SampleMask 始终是完整掩码。 如果 SampleMask 未配置为完整掩码，则会在第 1 层上禁用粗略像素着色。
 
 ### <a name="sample-based-execution"></a>基于样本的执行
-通过样本内插功能进行的基于样本的执行（或“超采样”）可与粗略像素着色配合使用，它会导致按样本调用像素着色器。  对于样本计数 N 的目标，将按精细像素调用像素着色器 N 次。
+通过样本内插功能进行的基于样本的执行（或“超采样”）可与粗略像素着色配合使用，它会导致按样本调用像素着色器。 对于样本计数 N 的目标，将按精细像素调用像素着色器 N 次。
 
 ### <a name="evaluateattributesnapped"></a>EvaluateAttributeSnapped
 提取模型内部函数与第 1 层上的粗略像素着色不兼容。 如果尝试在第 1 层上将提取模型内部函数与粗略像素着色配合使用，将会自动禁用粗略像素着色。
@@ -435,7 +435,7 @@ numeric EvaluateAttributeSnapped(
 ## <a name="setsamplepositions"></a>SetSamplePositions
 如果将 API [**ID3D12GraphicsCommandList1::SetSamplePositions**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-setsamplepositions) 用于粗略着色，该 API 会设置精细像素的样本位置。
 
-## <a name="svcoverage"></a>SV_Coverage
+## <a name="sv_coverage"></a>SV_Coverage
 如果在第 1 层上将 `SV_Coverage` 声明为着色器的输入或输出，则会禁用粗略像素着色。
 
 在第 2 层上可对粗略像素着色使用 `SV_Coverage` 语义，该语义反映正在写入 MSAA 目标的哪些样本。

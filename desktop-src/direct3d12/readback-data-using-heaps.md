@@ -5,20 +5,20 @@ ms.assetid: 2F515B2C-3317-4AA8-81E1-7762ED895F77
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 12/17/2018
-ms.openlocfilehash: 55ed01364ad3e0fac6b4cab9cf0ad646cd4a1a5a
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: d9c04f0c46a1191cb50998af8288ba4ce4e35d56
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296340"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006103"
 ---
 # <a name="read-back-data-via-a-buffer"></a>通过缓冲区读回数据
 
 若要从 GPU 回读数据（例如，捕获屏幕截图），需使用回读堆。 这种技术与[通过缓冲区上传纹理数据](upload-and-readback-of-texture-data.md)有关，但有一些不同。
 
-- 若要回读数据，请创建一个堆，将 D3D12_HEAP_TYPE 设置为 [D3D12_HEAP_TYPE_READBACK](/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_type)，而不是设置为 D3D12_HEAP_TYPE_UPLOAD  。
-- 使用栅栏来检测 GPU 完成帧处理的时间（当它完成将数据写入输出缓冲区时）。 这很重要，因为 [ID3D12Resource::Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map) 方法不与 GPU 同步（相反，Direct3D 11 的对应方法会与之同步）   。 Direct3D 12 映射调用的运行状况类似于使用 NO_OVERWRITE 标志调用 Direct3D 11 对应映射  。
-- 数据准备就绪后（包括任何必要的资源屏障），调用 [ID3D12Resource::Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)，使回读数据对 CPU 可见  。
+- 若要回读数据，请创建一个堆，将 D3D12_HEAP_TYPE 设置为 [D3D12_HEAP_TYPE_READBACK](/windows/desktop/api/d3d12/ne-d3d12-d3d12_heap_type)，而不是设置为 D3D12_HEAP_TYPE_UPLOAD。
+- 使用栅栏来检测 GPU 完成帧处理的时间（当它完成将数据写入输出缓冲区时）。 这很重要，因为 [ID3D12Resource::Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map) 方法不与 GPU 同步（相反，Direct3D 11 的对应方法会与之同步）。 Direct3D 12 映射调用的运行状况类似于使用 NO_OVERWRITE 标志调用 Direct3D 11 对应映射。
+- 数据准备就绪后（包括任何必要的资源屏障），调用 [ID3D12Resource::Map](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)，使回读数据对 CPU 可见。
 
 ## <a name="code-example"></a>代码示例
 

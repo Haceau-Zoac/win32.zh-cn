@@ -5,12 +5,12 @@ ms.assetid: 67C6B1D4-BF76-45A9-BADC-7C9520C900EB
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 83823af6dcc71b4ee616a7a476ed4bfc9dad41a8
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 103dc2ff0f093461fc29e2f338cebecc70364f57
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66295987"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005671"
 ---
 # <a name="shared-heaps"></a>共享堆
 

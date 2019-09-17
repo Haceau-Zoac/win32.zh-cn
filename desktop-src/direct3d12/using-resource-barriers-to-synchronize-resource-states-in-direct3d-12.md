@@ -5,12 +5,12 @@ ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2576ea555ba24ae49abc82fe854e50d3c89ab2bd
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: d60117c80382463527821f58f1f7bdef1b30f720
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725502"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005874"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
@@ -38,13 +38,13 @@ ms.locfileid: "66725502"
 
 有三种类型的资源屏障：
 
--   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。  
+-   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。
 
     系统将验证命令列表中的子资源转换是否与同一命令列表中以前的转换相一致。 调试层会进一步跟踪子资源状态，以查找其他错误，但这种验证是保守性的，而不是穷尽性的。
 
     请注意，可以使用 D3D12\_RESOURCE\_BARRIER\_ALL\_SUBRESOURCES 标志指定要转换资源中的所有子资源。
 
--   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。  
+-   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。
 
     请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](https://docs.microsoft.com/windows/desktop/direct3d11/tiled-resources)和[立体图块化资源](volume-tiled-resources.md)。
 
@@ -52,7 +52,7 @@ ms.locfileid: "66725502"
 
 如果使用资源屏障描述数组调用 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)，API 的行为将如同按照元素的提供顺序对每个元素调用该 API 一次。
 
-在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。  
+在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。
 
 > [!TIP]
 >
@@ -147,9 +147,9 @@ ms.locfileid: "66725502"
 
 在 GPU 上完成 [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，以下资源将会衰减：
 
--   在复制队列中访问的资源，或 
--   任何队列类型中的缓冲区资源，或 
--   设置了 D3D12\_RESOURCE\_FLAG\_ALLOW\_SIMULTANEOUS\_ACCESS 标志的任何队列类型中的资源，或 
+-   在复制队列中访问的资源，或
+-   任何队列类型中的缓冲区资源，或
+-   设置了 D3D12\_RESOURCE\_FLAG\_ALLOW\_SIMULTANEOUS\_ACCESS 标志的任何队列类型中的资源，或
 -   隐式提升为只读状态的任何资源。
 
 与通用状态提升一样，衰减也是无开销的，因为不需要附加的同步。 将通用状态提升和衰减相结合有助于消除许多不必要的 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换。 在某些情况下，这可以大幅提高性能。
@@ -166,7 +166,7 @@ ms.locfileid: "66725502"
 
 ## <a name="split-barriers"></a>拆分屏障
 
-使用 D3D12\_RESOURCE\_BARRIER\_FLAG\_BEGIN\_ONLY 标志的资源转换屏障最初是拆分屏障，而转换屏障被视为挂起状态。 当屏障挂起时，GPU 无法读取或写入资源（子资源）。 可应用到使用挂起屏障的资源（子资源）的唯一合法转换屏障是具有相同的之前和之后状态以及 D3D12\_RESOURCE\_BARRIER\_FLAG\_END\_ONLY 标志的屏障，由该屏障完成挂起的转换。  
+使用 D3D12\_RESOURCE\_BARRIER\_FLAG\_BEGIN\_ONLY 标志的资源转换屏障最初是拆分屏障，而转换屏障被视为挂起状态。 当屏障挂起时，GPU 无法读取或写入资源（子资源）。 可应用到使用挂起屏障的资源（子资源）的唯一合法转换屏障是具有相同的之前和之后状态以及 D3D12\_RESOURCE\_BARRIER\_FLAG\_END\_ONLY 标志的屏障，由该屏障完成挂起的转换。
 
 拆分屏障将提示 GPU，指出在以后的某个时间，处于状态 *A* 的资源将以状态 *B* 使用。 这样，GPU 便可以选择优化转换工作负荷（也许是通过减少或消除执行停滞）。 发出仅限终止的屏障可保证在转到下一个命令之前所有 GPU 转换工作已完成。
 

@@ -5,12 +5,12 @@ ms.assetid: 26C41948-9625-4786-BBDF-552D1F8A2437
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 34f73ef19a97e1230cb2abf43279217204d33841
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: fd0f0c636e21f28dc3c77212470579463766a15e
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296406"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006270"
 ---
 # <a name="uma-optimizations-cpu-accessible-textures-and-standard-swizzle"></a>UMA 优化：CPU 可访问纹理和标准重排
 
@@ -33,7 +33,7 @@ ms.locfileid: "66296406"
 
 但是，在某些情况下，CPU 和 GPU 可能会在相同的数据上非常频繁地交互，以便于映射纹理节约电量，或加速有关特定适配器或体系结构的特定设计。 应用程序应检测这些情况，并优化掉不必要的副本。 在这种情况下，为了获得最佳性能，请考虑以下事项：
 
--   当 [**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)::UMA 为 TRUE 时，仅开始实现映射纹理的更好性能。 然后注意 CacheCoherentUMA  （如果决定在堆上选择哪些 CPU 缓存属性）。
+-   当 [**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)::UMA 为 TRUE 时，仅开始实现映射纹理的更好性能。 然后注意 CacheCoherentUMA（如果决定在堆上选择哪些 CPU 缓存属性）。
 
 -   利用纹理的 CPU 访问权限比利用缓冲区的 CPU 访问权限更复杂。 GPU 的最高效纹理布局很少是行主序布局\_。 事实上，当复制周围的纹理数据时，某些 GPU 只能支持行主序纹理\_。
 
@@ -57,7 +57,7 @@ D3D12（和 D3D11.3）引入了标准多维数据布局。 这样做是为了对
 
 ## <a name="apis"></a>API
 
-与 D3D11.3 不同，D3D12 默认支持纹理映射，因此无需查询 [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)。 但是，D3D12 并不总是支持标准重排，将需要通过调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 并选中 **D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS** 的 StandardSwizzle64KBSupported  字段来查询此功能。
+与 D3D11.3 不同，D3D12 默认支持纹理映射，因此无需查询 [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)。 但是，D3D12 并不总是支持标准重排，将需要通过调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 并选中 **D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS** 的 StandardSwizzle64KBSupported 字段来查询此功能。
 
 以下 API 引用纹理映射：
 

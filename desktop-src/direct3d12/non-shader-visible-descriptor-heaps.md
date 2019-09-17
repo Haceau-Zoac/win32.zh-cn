@@ -5,12 +5,12 @@ ms.assetid: 85934873-8889-4564-A717-28A00614B38C
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 8a2874391748fe49c7cd178e8b38055f3a6c03c2
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 84cd7536ec923e33fac046ed5c5bfe020fae1a11
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296075"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005852"
 ---
 # <a name="non-shader-visible-descriptor-heaps"></a>非着色器可见描述符堆
 
@@ -34,11 +34,11 @@ ms.locfileid: "66296075"
 
 索引缓冲区视图 (IBV) 和顶点缓冲区视图 (VBV) 直接传递到 API 方法，且不具有特定堆类型。
 
-记录到命令列表（例如，通过 [OMSetRenderTargets](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets) 等调用）之后，用于保存此调用的描述符的内存在该调用结束后可立即重新使用  。
+记录到命令列表（例如，通过 [OMSetRenderTargets](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets) 等调用）之后，用于保存此调用的描述符的内存在该调用结束后可立即重新使用。
 
 甚至描述符表也有选项，即应用可以允许实现在命令列表记录时记录表内容（而不是在执行时取消对表指针的引用）。
 
-## <a name="summary"></a>摘要
+## <a name="summary"></a>总结
 
 
 

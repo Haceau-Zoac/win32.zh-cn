@@ -5,12 +5,12 @@ ms.assetid: 5c5138c7-f6e8-4646-961a-0e2312b5356b
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 491aaeacab2d7576f04a024db0bcdd76cc022281
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: a06757d14ac381da0a5c66b620c86cda1ab0a590
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296358"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006007"
 ---
 # <a name="predication"></a>预测
 
@@ -28,9 +28,9 @@ ms.locfileid: "66296358"
 
 ## <a name="setpredication"></a>SetPredication
 
-可以基于缓冲区内的 64 位值来设置预测（请参考 [D3D12\_PREDICATION\_OP](/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op)）  。
+可以基于缓冲区内的 64 位值来设置预测（请参考 [D3D12\_PREDICATION\_OP](/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op)）。
 
-当 GPU 执行 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication) 命令时，它会提取缓冲区中的值快照  。 缓冲区中数据的未来更改不会追溯性地影响预测状态。
+当 GPU 执行 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication) 命令时，它会提取缓冲区中的值快照。 缓冲区中数据的未来更改不会追溯性地影响预测状态。
 
 如果输入参数缓冲区为 NULL，则禁用预测。
 
@@ -38,10 +38,10 @@ D3D12 API 中不存在预测提示，但在 Direct 和 Compute 命令列表中�
 
 核心运行时将验证以下内容：
 
--   AlignedBufferOffset 是 8 个字节的倍数 
+-   AlignedBufferOffset 是 8 个字节的倍数
 -   资源是一个缓冲区
 -   操作是枚举的有效成员
--   无法从捆绑包中调用 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication) 
+-   无法从捆绑包中调用 [SetPredication](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpredication)
 -   命令列表类型支持预测
 -   偏移量不超过缓冲区大小
 
@@ -63,9 +63,9 @@ D3D12 API 中不存在预测提示，但在 Direct 和 Compute 命令列表中�
 -   [**ClearUnorderedAccessViewFloat**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearunorderedaccessviewfloat)
 -   [**ExecuteIndirect**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect)
 
-[ExecuteBundle](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle) 本身不可预测  。 相反，上面列表中包含在捆绑包一侧的各个操作都可预测。
+[ExecuteBundle](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle) 本身不可预测。 相反，上面列表中包含在捆绑包一侧的各个操作都可预测。
 
-ID3D12GraphicsCommandList 方法 [ResolveQueryData](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)[BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 不可预测    。
+ID3D12GraphicsCommandList 方法 [ResolveQueryData](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resolvequerydata)[BeginQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-beginquery) 和 [EndQuery](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-endquery) 不可预测。
 
 ## <a name="related-topics"></a>相关主题
 

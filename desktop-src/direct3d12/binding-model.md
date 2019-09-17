@@ -5,12 +5,12 @@ ms.assetid: 3EE7E9AE-203D-40D4-9F12-4313ED179035
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 6934302d8edaa1ac635664734667b777bd562355
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 43b2785da6497fd4e775d9f88847928e7c4c08e8
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296147"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005699"
 ---
 # <a name="differences-in-the-binding-model-from-direct3d-11"></a>与 Direct3D 11 中的绑定模型的区别
 

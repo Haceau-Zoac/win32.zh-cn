@@ -6,25 +6,25 @@ ms.custom: 19H1
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 64ecf44f47ba22851d84bb55a3e9e2c572914e91
-ms.sourcegitcommit: 8141395d1bd1cd755d1375715538c3fe714ba179
-ms.translationtype: HT
+ms.openlocfilehash: d31d0e0b2eb5122fcc9c612ff7ffde91cd57eb60
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/28/2019
-ms.locfileid: "67465025"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005963"
 ---
 # <a name="direct3d-12-programming-guide"></a>Direct3D 12 编程指南
 
 如果电脑配备有一个或多个与 Direct3D 12 兼容的 GPU，则应用可通过 Direct3D 12 提供的 API 和平台使用该电脑的图形和计算功能。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 | 主题 | 描述 |
 |-|-|
 | [什么是 Direct3D 12？](what-is-directx-12-.md) | DirectX 12 引入了下一版本的 Direct3D，它是 DirectX 的核心 3D 图形 API。 此版本的 Direct3D 比以前的任何版本都更快更高效。 Direct3D 12 提供更丰富的场景、更多的对象、更复杂的效果，并且能全面利用现代 GPU 硬件。  |
 | [最新发布](new-releases.md) | 介绍最新 SDK 发布中最重要的新文档。 |
 | [了解 Direct3D 12](directx-12-getting-started.md) | 若要为 Windows 10 和 Windows 10 移动版编写 3D 游戏和应用，则必须了解 Direct3D 12 技术的基础知识，还需了解如何准备以便在游戏和应用中使用。 |
-| [Direct3D 12 中的工作提交](command-queues-and-command-lists.md) | 为了提高 Direct3D 应用的 CPU 效率，Direct3D 12 不再支持与设备关联的即时上下文。 相反，应用会记录并提交“命令列表”，其中包含绘图和资源管理调用  。 这些命令列表可以从多个线程提交到一个或多个命令队列，命令队列用于管理命令的执行。 这种根本性的改变通过允许应用预先计算渲染工作以供以后重用，从而提高了单线程的效率，并且它通过将渲染工作分散到多个线程来利用多核系统。  |
+| [Direct3D 12 中的工作提交](command-queues-and-command-lists.md) | 为了提高 Direct3D 应用的 CPU 效率，Direct3D 12 不再支持与设备关联的即时上下文。 相反，应用会记录并提交“命令列表”，其中包含绘图和资源管理调用。 这些命令列表可以从多个线程提交到一个或多个命令队列，命令队列用于管理命令的执行。 这种根本性的改变通过允许应用预先计算渲染工作以供以后重用，从而提高了单线程的效率，并且它通过将渲染工作分散到多个线程来利用多核系统。  |
 | [Direct3D 12 中的资源绑定](resource-binding.md) | 绑定是将资源对象链接到图形管道着色器的过程。  |
 | [Direct3D 12 中的内存管理](memory-management.md) | 迁移到 D3D12 需对内存驻留进行适当同步和管理。 管理内存驻留意味着必须执行更多同步。 本节介绍内存管理策略，以及堆和缓冲区中的二次分配。  |
 | [多引擎和多适配器同步](multi-engine-and-multi-gpu-synchronization.md) | 简要概述相关信息，并列出与多引擎（3D、计算和复制引擎）和多适配器相关的 API。 |

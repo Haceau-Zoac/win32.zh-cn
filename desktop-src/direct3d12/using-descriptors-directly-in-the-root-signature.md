@@ -5,12 +5,12 @@ ms.assetid: 033E3D8F-3003-42F7-BF77-68A7D62802E5
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9ddbdaac859183b20245e7f4164a85c14f940f6a
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: f580756911ceb1e047431510b5f971510a64d9d5
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296454"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005878"
 ---
 # <a name="using-descriptors-directly-in-the-root-signature"></a>直接在根签名中使用描述符
 
@@ -34,7 +34,7 @@ ConstantBuffer<SceneData> mySceneData : register(b6);
 
 在上面的示例中，如 `cbuffer mySceneData[2]` 中所述，如果 `mySceneData` 要映射到根签名中的描述符，则不能声明为数组，因为根签名不支持跨描述符索引。 应用程序可以定义单独的单个常量缓冲区，并根据需要将它们定义为根签名中的单独条目。 请注意，在以上的 `mySceneData` 中，有一个数组 `bar[2]`。 常量缓冲区中的动态索引是有效的 - 根签名中的描述符的行为与通过描述符堆访问时相同的描述符的行为相同。 这与直接在根签名中使用内联常量形成了对比，根签名也像一个常量缓冲区，但有一个限制，即不允许在内联常量中进行动态索引，因此不允许使用 `bar[2]`。
 
-以下 API（来自 [ID3D12GraphicsCommandList](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist)接口）用于直接在根签名上设置描述符  ：
+以下 API（来自 [ID3D12GraphicsCommandList](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist)接口）用于直接在根签名上设置描述符：
 
 -   [**SetComputeRootConstantBufferView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootconstantbufferview)
 -   [**SetGraphicsRootConstantBufferView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootconstantbufferview)

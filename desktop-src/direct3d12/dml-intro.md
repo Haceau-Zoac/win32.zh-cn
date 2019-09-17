@@ -5,16 +5,16 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 03effa554504089f09182f8632a12cdbaea03659
-ms.sourcegitcommit: b953df2c418f9037668f0b95e2bb51b1f6720774
-ms.translationtype: HT
+ms.openlocfilehash: 2dd37bc4c27364e26e4bbd4ae2cf5d43031c3314
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565914"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006046"
 ---
 # <a name="introduction-to-directml"></a>DirectML 简介
 
-## <a name="summary"></a>摘要
+## <a name="summary"></a>总结
 
 直接机器学习 (DirectML) 是机器学习 (ML) 的低级 API。 硬件加速的机器学习基元（称为“运算符”）是 DirectML 的构建基块。 在这些构建基块中，可以开发纵向扩展、抗锯齿和样式转移等机器学习技术。 例如，使用噪声抑制和超解析度，可以实现令人印象深刻的光线跟踪效果且可以减少每个像素的光线。
 
@@ -30,7 +30,7 @@ DirectML 是 [Windows 机器学习](/windows/ai)涵盖的一个组件。 更高�
 
 WinML 本身是使用 DirectML 作为后端之一实现的。
 
-## <a name="what-work-does-directml-do-and-what-work-must-i-do-as-the-developer"></a>DirectML 可完成哪些工作？作为开发人员，我必须完成哪些工作？ 
+## <a name="what-work-does-directml-do-and-what-work-must-i-do-as-the-developer"></a>DirectML 可完成哪些工作？作为开发人员，我必须完成哪些工作？
 
 DirectML 在 GPU 上（或者在 AI 加速核心上，如果存在）有效执行推理模型的各个层。 每个层是一个运算符，DirectML 提供低级别、硬件加速机器学习基元运算符的库。 这些运算符采用硬件特定的体系结构特定优化设计（[DirectML 的表现为何如此出众？](#why-does-directml-perform-so-well)部分提供了更多相关信息）。 同时，开发人员会看到单一与供应商无关的界面，可在其中执行这些运算符。
 
@@ -70,7 +70,7 @@ DirectML 中的运算符库提供预期可在机器学习工作负荷中使用�
 
 有一个很好的理由可以解释为何不只是在[计算着色器](/windows/desktop/direct3d12/pipelines-and-shaders-with-directx-12#direct3d-12-compute-pipeline)中编写自己的（例如）卷积运算符作为 HLSL。 使用 DirectML 的优势在于 &mdash; 除了节省自行编写解决方案所要耗费的精力以外 &mdash; 与对**卷积**或 **lstm** 等运算符使用手工编写的通用计算着色器相比，它可以提供高得多的性能。
 
-DirectML 在一定程度上借助了 Direct3D 12 元命令功能实现了这项优势。 元命令可直接向 DirectML 公开功能的黑盒，可让硬件供应商为 DirectML 提供对供应商硬件特定的和体系结构特定的优化的访问权限。 多个运算符 &mdash; 例如卷积后接激活&mdash; 可以融合在一起构成一个元命令。  由于这些因素，DirectML 的性能甚至可以超过妥善编写的且经过手工优化的、可在各种硬件上运行的计算着色器。
+DirectML 在一定程度上借助了 Direct3D 12 元命令功能实现了这项优势。 元命令可直接向 DirectML 公开功能的黑盒，可让硬件供应商为 DirectML 提供对供应商硬件特定的和体系结构特定的优化的访问权限。 多个运算符 &mdash; 例如卷积后接激活&mdash; 可以融合在一起构成一个元命令。 由于这些因素，DirectML 的性能甚至可以超过妥善编写的且经过手工优化的、可在各种硬件上运行的计算着色器。
 
 元命令属于 Direct3D 12 API，不过，两者是松散耦合的。 元命令通过固定的 [**GUID**](/windows/win32/api/guiddef/ns-guiddef-guid) 进行标识，有关它的其他任何信息（从其行为和语义，到其签名和名称）在严格意义上几乎都不是 Direct3D 12 API 的一部分。 元命令是在其作者与实现它的驱动程序之间指定的。 在这种情况下，作者是 DirectML。 元命令是 Direct3D 12 基元（与绘制和调度一样），因此，可将它们记录到命令列表，并将其计划为一起执行。
 

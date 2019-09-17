@@ -5,12 +5,12 @@ ms.assetid: DED7A434-FCD4-4F41-8B2C-E5AE6E48430F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: d4c980d076cbc9fcffbe1a95c76017e6e467afdd
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 41c51e27959ae6cf605afdeec5a5944251bc948f
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725553"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006067"
 ---
 # <a name="understanding-direct3d-12"></a>了解 Direct3D 12
 
@@ -23,7 +23,7 @@ ms.locfileid: "66725553"
 -   具有与 Direct3D 12 兼容的 GPU 的硬件平台
 -   支持 Windows 显示驱动程序模型 (WDDM) 2.0 的[显示驱动程序](https://docs.microsoft.com/previous-versions//ff569172(v=vs.85))
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

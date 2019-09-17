@@ -5,12 +5,12 @@ ms.assetid: C2323482-D06D-43B7-9BDE-BFB9A6A6B70D
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: f291be3ace2b8d26ac3de7c20dc16d7d80ae5be8
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
+ms.openlocfilehash: 8833c609b290410d987c2447a78ef2c09d9fd3fb
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "68679694"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005808"
 ---
 # <a name="example-code-in-the-d3d12-reference"></a>D3D12 引用中的示例代码
 
@@ -21,7 +21,7 @@ ms.locfileid: "68679694"
 
 ## <a name="example-snippet-code"></a>示例代码段代码
 
-Direct3D 12 引用中所示的示例代码是不可以编译或运行时代码的, 它只是一个代码片段, 提供有关如何调用 API 的示例。 一些示例列出了调用使用的全局变量和类成员, 例如:
+Direct3D 12 引用中所示的示例代码是不可以编译或运行时代码的，它只是一个代码片段，提供有关如何调用 API 的示例。 一些示例列出了调用使用的全局变量和类成员，例如：
 
 全局管道对象。
 

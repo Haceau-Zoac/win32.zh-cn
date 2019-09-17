@@ -10,12 +10,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: dcd084fc6eb037019cfb7938ee1a40f2ed7cf213
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 3ce6e6c181ac4293270c11c86504656a21b9a70a
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725072"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006019"
 ---
 # <a name="hardware-feature-levels"></a>硬件功能级别
 
@@ -37,13 +37,13 @@ ms.locfileid: "66725072"
 -   功能级别始终包括上一个或更低功能级别的功能。
 -   功能级别并不意味着性能，而只是功能。 性能依赖于硬件实现。
 -   调用 [**D3D12CreateDevice**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice) 时将选择功能级别。
--   有关支持的功能（尤其是下表中标记为“可选”  的功能，这意味着硬件可能支持功能，但不是必需的）的更多详细信息，请调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。
+-   有关支持的功能（尤其是下表中标记为“可选”的功能，这意味着硬件可能支持功能，但不是必需的）的更多详细信息，请调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。
 
 有关在特定功能级别创建非硬件类型的设备的限制的信息，请参阅[有关创建 WARP 和引用设备的限制](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-limitations)。 有关引入功能级别的详细信息，请参阅 [Direct3D 功能级别](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro)上的 Direct3D 11 文档。
 
 ## <a name="numbering-systems"></a>编号系统
 
-硬件功能级别与 API 版本不同  。 例如，有一个 D3D11.3 API，但没有 11\_3 硬件功能级别。 功能级别在 [**D3D\_FEATURE\_LEVEL**](https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level) 枚举中定义。
+硬件功能级别与 API 版本不同。 例如，有一个 D3D11.3 API，但没有 11\_3 硬件功能级别。 功能级别在 [**D3D\_FEATURE\_LEVEL**](https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level) 枚举中定义。
 
 有三个不同的编号系统：
 
@@ -104,7 +104,7 @@ ms.locfileid: "66725072"
 
 -   ⁰ 需要 Direct3D 11.3 或 Direct3D 12 运行时。
 -   ¹ 需要 Direct3D 11.1 运行时。
--   ² 着色器模型 5.0 可以选择性地支持双精度着色器、扩展的双精度着色器、SAD4  着色器说明和部分精度着色器。 若要确定可用的着色器模型 5.0 选项，请调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。 某些兼容性取决于在哪些硬件上运行：着色器模型 5.1 仅在支持 DirectX 12 API 的硬件上受支持，而不考虑正在使用的功能级别。 DirectX 11 硬件最多仅支持着色器模型 5.0。 DirectX 12 API 仅延续至功能级别 11\_0。
+-   ² 着色器模型 5.0 可以选择性地支持双精度着色器、扩展的双精度着色器、SAD4 着色器说明和部分精度着色器。 若要确定可用的着色器模型 5.0 选项，请调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。 某些兼容性取决于在哪些硬件上运行：着色器模型 5.1 仅在支持 DirectX 12 API 的硬件上受支持，而不考虑正在使用的功能级别。 DirectX 11 硬件最多仅支持着色器模型 5.0。 DirectX 12 API 仅延续至功能级别 11\_0。
 -   ³ 更高的层是可选的。
 -   功能级别 12.0 和 12.1 需要 Direct3D 11.3 或 Direct3D 12 运行时。
 -   功能级别 11.1 需要 Direct3D 11.1 运行时。

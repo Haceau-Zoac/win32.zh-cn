@@ -5,12 +5,12 @@ ms.assetid: 53C5804B-0F81-41AF-83D2-A96DCDFDC94A
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 51b7bfdfd2f01b999f1a5adeaecfef77213c7a06
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: cace5b5997e2a460406ae72abb247224886f3926
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296016"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005976"
 ---
 # <a name="memory-aliasing-and-data-inheritance"></a>内存别名和数据继承
 

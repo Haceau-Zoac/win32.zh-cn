@@ -5,12 +5,12 @@ ms.assetid: 01121D3A-1926-4246-9C20-5E11F2E0B092
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: f9e61f834580f3abde7fe6e8de097e651c6d4ae4
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 25986da72cfcad7b714031e063341e1832d6ae68
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296316"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006096"
 ---
 # <a name="root-signature-limits"></a>根签名限制
 

@@ -5,16 +5,16 @@ ms.assetid: 9821AEDF-E83D-4034-863A-2B820D9B7455
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 0033955fb9c0b9a533d9ad96b5ca2e79a3a3cddb
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: a8ee25a174422f31186b301ceb39509266e4874c
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725075"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006033"
 ---
 # <a name="dynamic-indexing-using-hlsl-51"></a>使用 HLSL 5.1 的动态索引
 
-D3D12DynamicIndexing  示例演示着色器模型 5.1 中可用的某些新 HLSL 功能（尤其是动态索引和未绑定的数组）来多次呈现同一个网格，每次使用动态选择的材料进行呈现。 借助动态索引，着色器现在可以对数组进行索引，而无需了解编译时的索引的值。 与未绑定的数组结合使用时，会为着色器作者和艺术管道添加另一个间接级别和灵活性。
+D3D12DynamicIndexing 示例演示着色器模型 5.1 中可用的某些新 HLSL 功能（尤其是动态索引和未绑定的数组）来多次呈现同一个网格，每次使用动态选择的材料进行呈现。 借助动态索引，着色器现在可以对数组进行索引，而无需了解编译时的索引的值。 与未绑定的数组结合使用时，会为着色器作者和艺术管道添加另一个间接级别和灵活性。
 
 -   [设置像素着色器](#set-up-the-pixel-shader)
 -   [设置根签名](#set-up-the-root-signature)
@@ -57,7 +57,7 @@ float4 PSSceneMain(PSSceneIn input) : SV_Target
 
 未绑定的数组功能由 `g_txMats[]` 数组表示，因为它未指定数组大小。 动态索引用于使用 `matIndex` 对 `g_txMats[]` 进行索引，将定义为根常量。 着色器不了解大小、数组或编译时的索引的值。 两个属性都在与着色器一起使用的管道状态对象的根签名中定义。
 
-若要在 HLSL 中充分利用动态索引功能，需要使用 SM 5.1 编译着色器。 此外，若要使用未绑定的数组，必须还使用 /enable\_unbounded\_descriptor\_tables  标志。 以下命令行选项用于使用[效果编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc) (FXC) 编译此着色器：
+若要在 HLSL 中充分利用动态索引功能，需要使用 SM 5.1 编译着色器。 此外，若要使用未绑定的数组，必须还使用 /enable\_unbounded\_descriptor\_tables 标志。 以下命令行选项用于使用[效果编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc) (FXC) 编译此着色器：
 
 ``` syntax
 fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /enable_unbounded_descriptor_tables
@@ -65,7 +65,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 
 ## <a name="set-up-the-root-signature"></a>设置根签名
 
-现在，让我们看一下根签名定义，特别是如何定义未绑定数组的大小并将根常量链接到 `matIndex`。 对于像素着色器，我们定义以下三项：SRV 的描述符表（我们的 Texture2D）、取样器的描述符表和单个根常量。 SRV 的描述符表包含 `CityMaterialCount + 1` 个条目。 `CityMaterialCount` 是定义 `g_txMats[]` 的长度的常量，+ 1 代表 `g_txDiffuse`。 取样器的描述符表只包含一个条目，我们通过 LoadAssets  方法中的 InitAsConstants  (…) 仅定义一个 32 位根常量值。
+现在，让我们看一下根签名定义，特别是如何定义未绑定数组的大小并将根常量链接到 `matIndex`。 对于像素着色器，我们定义以下三项：SRV 的描述符表（我们的 Texture2D）、取样器的描述符表和单个根常量。 SRV 的描述符表包含 `CityMaterialCount + 1` 个条目。 `CityMaterialCount` 是定义 `g_txMats[]` 的长度的常量，+ 1 代表 `g_txDiffuse`。 取样器的描述符表只包含一个条目，我们通过 LoadAssets 方法中的 InitAsConstants(…) 仅定义一个 32 位根常量值。
 
 ``` syntax
  // Create the root signature.
@@ -93,13 +93,13 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 
 
 
-| 调用流程                                                             | 参数                                                            |
+| 调用流程                                                             | Parameters                                                            |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [CD3DX12\_DESCRIPTOR\_RANGE](cd3dx12-descriptor-range.md)         | [D3D12\_DESCRIPTOR\_RANGE\_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_type)  |
-| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [D3D12\_SHADER\_VISIBILITY](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility)           |
-| [CD3DX12\_ROOT\_SIGNATURE\_DESC](cd3dx12-root-signature-desc.md)  | [D3D12\_ROOT\_SIGNATURE\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_signature_flags)    |
+| [CD3DX12\_DESCRIPTOR\_RANGE](cd3dx12-descriptor-range.md)        | [D3D12\_DESCRIPTOR\_RANGE\_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) |
+| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [D3D12\_SHADER\_VISIBILITY](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility)          |
+| [CD3DX12\_ROOT\_SIGNATURE\_DESC](cd3dx12-root-signature-desc.md) | [D3D12\_ROOT\_SIGNATURE\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_signature_flags)   |
 | [**ID3DBlob**](https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85))                                   |                                                                       |
-| [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [D3D\_ROOT\_SIGNATURE\_VERSION](/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version)    |
+| [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [D3D\_ROOT\_SIGNATURE\_VERSION](/windows/desktop/api/d3d12/ne-d3d12-d3d_root_signature_version)   |
 | [**CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature)       |                                                                       |
 
 
@@ -108,7 +108,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 
 ## <a name="create-the-textures"></a>创建纹理
 
-`g_txMats[]` 的内容是 LoadAssets  中创建的按顺序生成的纹理。 场景中呈现的每个城市共享相同的漫射纹理，但每个城市也有自己的按顺序生成的纹理。 纹理数组跨越彩虹色谱来轻松呈现索引技术。
+`g_txMats[]` 的内容是 LoadAssets 中创建的按顺序生成的纹理。 场景中呈现的每个城市共享相同的漫射纹理，但每个城市也有自己的按顺序生成的纹理。 纹理数组跨越彩虹色谱来轻松呈现索引技术。
 
 ``` syntax
  // Create the textures and sampler.
@@ -177,7 +177,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -249,7 +249,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -343,7 +343,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -394,7 +394,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 
 ## <a name="create-a-sampler"></a>创建取样器
 
-最后，对于 LoadAssets  ，将创建单个取样器以从漫射纹理或纹理数组中取样。
+最后，对于 LoadAssets，将创建单个取样器以从漫射纹理或纹理数组中取样。
 
 ``` syntax
  // Describe and create a sampler.
@@ -440,7 +440,7 @@ fxc /Zi /E"PSSceneMain" /Od /Fo"dynamic_indexing_pixel.cso" /ps"_5_1" /nologo /e
 <thead>
 <tr class="header">
 <th>调用流程</th>
-<th>参数</th>
+<th>Parameters</th>
 </tr>
 </thead>
 <tbody>
@@ -494,7 +494,7 @@ D3D12_FLOAT32_MAX (<a href="constants.md"><strong>Constants</strong></a>)<br />
 
 ![所有城市都显示相同的颜色](images/dynamicindexing-image1.png)
 
-根常量的值是在 FrameResource::PopulateCommandLists  中设置的。 在为每个城市记录绘制命令的双  循环中，我们记录对 [**SetGraphicsRoot32BitConstants**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants) 的调用，指定有关根签名的根参数索引（在这种情况下为 3）以及动态索引和偏移量的值（在这种情况下为 0）。 由于 `g_txMats` 的长度等于我们呈现的城市数量，因此以增量方式为每个城市设置索引的值。
+根常量的值是在 FrameResource::PopulateCommandLists 中设置的。 在为每个城市记录绘制命令的双循环中，我们记录对 [**SetGraphicsRoot32BitConstants**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstants) 的调用，指定有关根签名的根参数索引（在这种情况下为 3）以及动态索引和偏移量的值（在这种情况下为 0）。 由于 `g_txMats` 的长度等于我们呈现的城市数量，因此以增量方式为每个城市设置索引的值。
 
 ``` syntax
  for (UINT i = 0; i < m_cityRowCount; i++)
@@ -517,7 +517,7 @@ D3D12_FLOAT32_MAX (<a href="constants.md"><strong>Constants</strong></a>)<br />
 
 
 
-| 调用流程                                                                                          | 参数 |
+| 调用流程                                                                                          | Parameters |
 |----------------------------------------------------------------------------------------------------|------------|
 | [**SetPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate)                             |            |
 | [**SetGraphicsRoot32BitConstant**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsroot32bitconstant)     |            |

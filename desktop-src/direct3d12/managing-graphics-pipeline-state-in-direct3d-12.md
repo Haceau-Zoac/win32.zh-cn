@@ -8,12 +8,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 7c45c56250ed4af855917d0de44de36ce31269f6
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 43e40b4fcbef75575814348ba56bca14fcbfd4ac
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725468"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005758"
 ---
 # <a name="managing-graphics-pipeline-state-in-direct3d-12"></a>在 Direct3D 12 中管理图形管道状态
 

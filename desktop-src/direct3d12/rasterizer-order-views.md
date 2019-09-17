@@ -5,12 +5,12 @@ ms.assetid: D308BF3E-8CBE-4DF0-B020-4D202E858D99
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2080bac2e995a260d1b37130a73979d715fb5a25
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 9aa7299152e22a82bac1a4edbec4e264d55e2fe2
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725565"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006197"
 ---
 # <a name="rasterizer-ordered-views"></a>光栅器有序视图
 
@@ -50,11 +50,11 @@ ROV 确保任何一对重叠像素着色器调用的 UAV 访问顺序。 在此�
 
 ROV 是仅适用于 HLSL 的结构，该结构将不同的行为语义应用到 UAV。 与 UAV 相关的所有 API 也与 ROV 相关。 注意，以下方法、结构和帮助程序类引用了光栅化器：
 
--   [D3D12\_RASTERIZER\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_rasterizer_desc)：保存光栅器描述的结构  。
--   [D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：保存表示支持的布尔值的结构  。
--   [CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)：访问支持功能的方法  。
--   [CD3DX12\_RASTERIZER\_DESC](cd3dx12-rasterizer-desc.md)：用于创建光栅器描述的帮助程序类  。
--   [D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)：保存管道状态的结构  。
+-   [D3D12\_RASTERIZER\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_rasterizer_desc)：保存光栅器描述的结构。
+-   [D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：保存表示支持的布尔值的结构。
+-   [CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)：访问支持功能的方法。
+-   [CD3DX12\_RASTERIZER\_DESC](cd3dx12-rasterizer-desc.md)：用于创建光栅器描述的帮助程序类。
+-   [D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)：保存管道状态的结构。
 
 ## <a name="related-topics"></a>相关主题
 

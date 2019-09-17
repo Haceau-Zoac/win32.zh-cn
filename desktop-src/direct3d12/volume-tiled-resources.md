@@ -5,12 +5,12 @@ ms.assetid: F670D15D-BC0F-4F90-99C1-A35192FE8980
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 02a608107856554482eee5ec771c4f554ae084ca
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 57e0817910d593348b1a0e3595e81a852ad726d9
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296511"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005880"
 ---
 # <a name="volume-tiled-resources"></a>立体平铺资源
 
@@ -24,7 +24,7 @@ ms.locfileid: "66296511"
 
 平铺资源将 D3D 资源对象与其后备内存分离（过去的资源与其后备内存存在一对一的关系）。 这可实现各种有趣的场景，例如纹理数据中的流式传输以及重用或减少内存使用。
 
-D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 3D 平铺纹理（请参阅 [D3D12\_TILED\_RESOURCES\_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier)）  。
+D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 3D 平铺纹理（请参阅 [D3D12\_TILED\_RESOURCES\_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier)）。
 
 平铺中使用的典型资源尺寸是 4 x 4 个图块（针对 2D 纹理）和 4 x 4 x 4 个图块（针对 3D 纹理）。
 
@@ -153,7 +153,7 @@ trSize.Depth = 3;
 -   [**D3D12\_TILED\_RESOURCE\_COORDINATE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate)：保存x、y 和 z 坐标以及子资源引用。 请注意有一个帮助程序结构：[**CD3DX12\_TILED\_RESOURCE\_COORDINATE**](cd3dx12-tiled-resource-coordinate.md)。
 -   [**D3D12\_TILE\_REGION\_SIZE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size)：指定平铺区域的平铺大小和数量。
 -   [**D3D12\_TILE\_SHAPE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_shape)：平铺的宽度、高度和深度（以纹素为单位）。
--   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：包含支持的平铺资源级别和布尔值 VolumeTiledResourcesSupported，该值指示是否支持立体平铺资源  。
+-   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：包含支持的平铺资源级别和布尔值 VolumeTiledResourcesSupported，该值指示是否支持立体平铺资源。
 
 方法
 

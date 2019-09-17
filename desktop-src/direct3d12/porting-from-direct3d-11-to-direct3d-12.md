@@ -5,12 +5,12 @@ ms.assetid: 9EB4AC6B-AFDD-4673-8EB3-54272C151784
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 078bf15a23b9533a4a628d2e1200478ba4493aa7
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: d7dc3f1cc7d5c77c673efae784cfbe8ad4f07701
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725571"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006010"
 ---
 # <a name="porting-from-direct3d-11-to-direct3d-12"></a>从 Direct3D 11 移植到 Direct3D 12
 

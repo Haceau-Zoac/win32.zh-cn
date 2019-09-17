@@ -5,12 +5,12 @@ ms.assetid: 37691fd1-212d-4786-ac9c-861c1a6a4918
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e5258a9248063e1f80fc6b5738d7fd8f496be3e2
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: e650d324f0826e00d8ffff08348597112f6d5cc4
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66295965"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005791"
 ---
 # <a name="shader-visible-descriptor-heaps"></a>着色器可见描述符堆
 

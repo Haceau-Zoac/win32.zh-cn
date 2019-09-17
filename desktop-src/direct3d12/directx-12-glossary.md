@@ -6,12 +6,12 @@ ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9c1121cdac024121c17d695b1036d523fef6fc8f
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 8f54c0c1a9780ba35f3ea5d8fa0139e81ebf79ea
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725557"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005968"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -36,14 +36,14 @@ ms.locfileid: "66725557"
 <span id="direct3d12.directx_12_glossary_bundle"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BUNDLE"></span>**bundle**
 </dt> <dd>
 
-一个命令缓冲区，图形处理单元 (GPU) 只能直接通过直接命令列表执行该缓冲区。  捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。 
+一个命令缓冲区，图形处理单元 (GPU) 只能直接通过直接命令列表执行该缓冲区。 捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_command_allocator"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_COMMAND_ALLOCATOR"></span>**命令分配器**
 </dt> <dd>
 
-用于存储 GPU 命令的基础内存分配。 命令分配器对象将应用到直接命令列表和捆绑。  
+用于存储 GPU 命令的基础内存分配。 命令分配器对象将应用到直接命令列表和捆绑。
 
 </dd> <dt>
 
@@ -54,18 +54,18 @@ ms.locfileid: "66725557"
 
 D3D12 命令列表不会映射或取消映射资源、更改图块映射、调整图块池的大小、获取查询数据，也不会将命令隐式提交到 GPU 供执行。
 
-与 D3D11 延迟上下文不同，D3D12 命令列表仅支持两个间接性级别。 直接命令列表对应于 GPU 可以执行的命令缓冲区。  只能通过直接命令列表直接执行捆绑。 
+与 D3D11 延迟上下文不同，D3D12 命令列表仅支持两个间接性级别。 直接命令列表对应于 GPU 可以执行的命令缓冲区。 只能通过直接命令列表直接执行捆绑。
 
 直接命令列表不会继承任何 GPU 状态。 捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。
 
-命令列表的内存由命令分配器设置。  命令列表可以作为单个渲染请求提交到 GPU。
+命令列表的内存由命令分配器设置。 命令列表可以作为单个渲染请求提交到 GPU。
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_command_queue"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_COMMAND_QUEUE"></span>**命令队列**
 </dt> <dd>
 
-GPU 连续执行的命令列表队列。  应用程序必须显式将命令列表提交到命令队列以供执行。  通常有三个命令队列：3D 图形、计算和复制，分别对应于 GPU 上的 3D 图形管道、计算引擎及一个或多个复制引擎。
+GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表提交到命令队列以供执行。 通常有三个命令队列：3D 图形、计算和复制，分别对应于 GPU 上的 3D 图形管道、计算引擎及一个或多个复制引擎。
 
 </dd> <dt>
 

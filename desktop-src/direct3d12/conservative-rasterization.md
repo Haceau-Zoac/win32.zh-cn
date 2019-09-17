@@ -5,12 +5,12 @@ ms.assetid: 081199AD-1702-4EC8-95AD-B1148C676199
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 3b27d156e250911bacc0bc6bc89ae2985da0c22e
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 53aa5a3d0133fdd320d9e3088cc9c0d9c1e6b2f8
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296032"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005752"
 ---
 # <a name="conservative-rasterization"></a>保守光栅化
 

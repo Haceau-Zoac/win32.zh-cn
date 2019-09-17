@@ -5,12 +5,12 @@ ms.assetid: 4A5749CE-DD84-40E1-B67F-31828165A631
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 3a8f5599a834b0150e2ab53f89662ff171d42bd0
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: d446a0570cf813eacaa4d036781e8cd4b8def3c1
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296008"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006258"
 ---
 # <a name="descriptor-tables-overview"></a>描述符表概述
 

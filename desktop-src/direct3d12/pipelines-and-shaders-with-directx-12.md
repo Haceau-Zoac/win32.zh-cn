@@ -5,12 +5,12 @@ ms.assetid: 329882F5-D2A9-4D6D-AC3B-29F370D22C97
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 14d950a0a0c447772a80667f7ec97ba5e5cdaa71
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 748891c43294db93675570a9260677650dd67851
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725575"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006148"
 ---
 # <a name="pipelines-and-shaders-with-direct3d-12"></a>Direct3D 12 的管道和着色器
 

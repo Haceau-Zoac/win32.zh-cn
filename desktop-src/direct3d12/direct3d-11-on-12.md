@@ -5,12 +5,12 @@ ms.assetid: 8412D8BB-B6DD-471E-AAB2-A81121FB0FFA
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: bd2720f51b2e8ef5627627614eab46c942322faf
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 3cbb263dcd4033ba785e36a7405839cfbf49e264
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725560"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006244"
 ---
 # <a name="direct3d-11-on-12"></a>Direct3D 11 on 12
 

@@ -5,12 +5,12 @@ ms.assetid: 09C586BF-11CE-4392-9BFD-A40B05DD0624
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 11/19/2018
-ms.openlocfilehash: b7d7b653397be96ea6c83b736c817408f17a4e65
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: b3ff1896372719b011b283e3ff1f5426db9e13d1
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296499"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005996"
 ---
 # <a name="what-is-direct3d-12"></a>什么是 Direct3D 12？
 
@@ -59,9 +59,9 @@ Direct3D 12 的另一个优点是其 API 资源占用空间较小。 大约有 2
 
 ## <a name="microsoft-directx-12-and-graphics-education-videos"></a>Microsoft DirectX 12（和图形教育）视频
 
-[面向图形开发人员的增强教育](https://www.youtube.com/channel/UCiaX2B8XiXR70jaN7NK-FpA)。 这些视频涵盖以下主题：呈现模式、移植到 DirectX 12、传统型光栅化、图形工具、Angle、Win2D 以及 GDC、生成等事件。 DirectX 12 技术内容以 DirectX 12  开头。 单击此处直接从 Direct3D 12 功能团队获得提示和技巧。 我们希望帮助你使用最新版本和工具来尽量改进你的游戏！
+[面向图形开发人员的增强教育](https://www.youtube.com/channel/UCiaX2B8XiXR70jaN7NK-FpA)。 这些视频涵盖以下主题：呈现模式、移植到 DirectX 12、传统型光栅化、图形工具、Angle、Win2D 以及 GDC、生成等事件。 DirectX 12 技术内容以 DirectX 12 开头。 单击此处直接从 Direct3D 12 功能团队获得提示和技巧。 我们希望帮助你使用最新版本和工具来尽量改进你的游戏！
 
-## <a name="conclusion"></a>结论
+## <a name="conclusion"></a>结束语
 
 Direct3D 12 的关键在于显著的图形引擎性能。 已缩减易于开发、高级别构造和编译器支持功能来实现这一目的。 驱动程序支持和易于调试功能保持为 Direct3D 11 的一部分。
 

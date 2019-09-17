@@ -5,12 +5,12 @@ ms.assetid: 64721226-5533-4816-865E-9429032FCC86
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: f45b2aafd85ed43396508bfb6852a0f862da9e15
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: a93a0774af7927fb59e027dbf216d4a20a7d846d
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296241"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006254"
 ---
 # <a name="descriptors-overview"></a>描述符概述
 
@@ -75,13 +75,13 @@ GPU 句柄不可供立即使用，它们从命令列表中确定位置，以便�
 
 在许多情况下，有访问未绑定资源的已定义行为，例如返回默认值的 SRV。 访问 NULL 描述符时支持这些情况，前提是着色器访问的类型与描述符类型兼容。 例如，如果着色器需要 Texture2D SRV 并访问定义为 Texture1D 的 NULL SRV，则该行为是未定义的，并且可能会导致设备重置。
 
-总之，若要创建 null 描述符，请在使用 [**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview) 等方法创建视图时针对 pResource  参数传递 `null`。 对于视图描述参数 pDesc  ，设置在资源不是 null 时可行的配置（否则，某些硬件可能会崩溃）。
+总之，若要创建 null 描述符，请在使用 [**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview) 等方法创建视图时针对 pResource 参数传递 `null`。 对于视图描述参数 pDesc，设置在资源不是 null 时可行的配置（否则，某些硬件可能会崩溃）。
 
 但是，根描述符不应设置为 null。
 
 ## <a name="default-descriptors"></a>默认描述符
 
-若要创建特定视图的默认描述符，请将有效的 pResource  参数传递到创建视图方法（例如，[**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview)），但针对 pDesc  参数传递 null。 例如，如果资源包含 14 个 mip，则视图将包含 14 个 mip。 默认情况包含资源到视图的最明显映射。 这需要资源分配有完全限定的格式名称（例如，DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB，而不是 DXGI\_FORMAT\_R8G8B8A8\_TYPELESS）。
+若要创建特定视图的默认描述符，请将有效的 pResource 参数传递到创建视图方法（例如，[**CreateShaderResourceView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createshaderresourceview)），但针对 pDesc 参数传递 null。 例如，如果资源包含 14 个 mip，则视图将包含 14 个 mip。 默认情况包含资源到视图的最明显映射。 这需要资源分配有完全限定的格式名称（例如，DXGI\_FORMAT\_R8G8B8A8\_UNORM\_SRGB，而不是 DXGI\_FORMAT\_R8G8B8A8\_TYPELESS）。
 
 ## <a name="related-topics"></a>相关主题
 

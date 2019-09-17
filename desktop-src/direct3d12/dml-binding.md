@@ -5,16 +5,16 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 1adcc29e471c2d320ce9e8007351cc403418c5b9
-ms.sourcegitcommit: af1bedc00f1f5da3673a5095be566c076f2a51aa
-ms.translationtype: HT
+ms.openlocfilehash: d0e0736a03685cbf26e6b57129c4d6f7d7acc53f
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69561164"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006057"
 ---
 # <a name="binding-in-directml"></a>DirectML 中的绑定
 
-在 DirectML 中，绑定是指将资源附加到管道，以供 GPU 在机器学习运算符初始化和执行时使用。  例如，这些资源可以是输入和输出张量，也可以是运算符需要的任何临时性或永久性资源。
+在 DirectML 中，绑定是指将资源附加到管道，以供 GPU 在机器学习运算符初始化和执行时使用。 例如，这些资源可以是输入和输出张量，也可以是运算符需要的任何临时性或永久性资源。
 
 本主题介绍绑定的概念和过程详细信息。 此外，我们建议通篇阅读所要调用的 API 的文档，包括参数和备注。
 
@@ -230,7 +230,7 @@ DirectML 中绑定的适当心理模型是，DirectML 绑定表本身在幕后�
 
 使用描述符（例如，由以前的框架使用）时，绑定表无法覆盖该描述符。 因此，若要重复使用已绑定的描述符堆（例如，通过针对指向它的绑定表再次调用 Bind*，或手动覆盖描述符堆），则应该等待当前正在使用该描述符堆的可调度对象在 GPU 上完成执行。 绑定表不会在它写入到的描述符堆中保留强引用，因此，在使用该绑定表的所有工作在 GPU 上完成执行之前，不得释放后备着色器可见的描述符堆。
 
-另一方面，尽管绑定表不会指定和管理描述符堆，但表本身不包含任何此类内存。  因此，在对绑定表调用 [**IDMLCommandRecorder::RecordDispatch**](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之后，随时可以释放或重置该绑定表（无需等待该调用在 GPU 上完成，前提是基础描述符仍然有效）。
+另一方面，尽管绑定表不会指定和管理描述符堆，但表本身不包含任何此类内存。 因此，在对绑定表调用 [**IDMLCommandRecorder::RecordDispatch**](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之后，随时可以释放或重置该绑定表（无需等待该调用在 GPU 上完成，前提是基础描述符仍然有效）。
 
 绑定表不会在使用它绑定的任何资源上保留强引用 &mdash; 应用程序必须确保在 GPU 仍使用这些资源时不会将其删除。 此外，绑定表不是线程安全的 &mdash; 在未同步的情况下，应用程序不得从不同的线程同时针对绑定表调用方法。
 

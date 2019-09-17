@@ -5,19 +5,19 @@ ms.assetid: 0074B796-33A4-4AA1-A4E7-48A2A63F25B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e31f0bada644639a7ad3d9fda328d9c8ca75f162
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 11e78bf1c6661a67632d2ed32c03de3b0d33d76b
+ms.sourcegitcommit: edb653433bc4298554a9a45b56c7c8056e628593
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725569"
+ms.lasthandoff: 09/17/2019
+ms.locfileid: "71038978"
 ---
 # <a name="creating-and-recording-command-lists-and-bundles"></a>创建和记录命令列表与捆绑
 
 本主题介绍如何在 Direct3D 12 应用中记录命令列表和捆绑。 命令列表和捆绑都允许应用记录绘图或状态更改调用，以便稍后在图形处理单元 (GPU) 上执行。
 
 -   [创建命令列表](#creating-command-lists)
-    -   [D3D12\_COMMAND\_LIST\_TYPE](/windows)
+    -   [D3D12\_COMMAND\_LIST\_TYPE](#d3d12_command_list_type)
     -   [ID3D12CommandAllocator](#id3d12commandallocator)
     -   [ID3D12PipelineState](#id3d12pipelinestate)
     -   [ID3D12DescriptorHeap](#id3d12descriptorheap)
@@ -28,7 +28,7 @@ ms.locfileid: "66725569"
 -   [捆绑限制](#bundle-restrictions)
 -   [相关主题](#related-topics)
 
-在命令列表的外部，API 通过添加另一个级别的命令列表（称为“捆绑”）来利用 GPU 硬件中提供的功能。  捆绑旨在让应用将少量 API 命令组合在一起，供以后执行。 创建捆绑时，驱动程序会执行尽量多的预处理，以降低以后的执行开销。 捆绑可以使用和重用任意次， 而命令列表通常仅执行一次。 但是，只要应用程序在提交新执行之前确保先前的执行完成，则可以多次执行命令列表。 
+在命令列表的外部，API 通过添加另一个级别的命令列表（称为“捆绑”）来利用 GPU 硬件中提供的功能。 捆绑旨在让应用将少量 API 命令组合在一起，供以后执行。 创建捆绑时，驱动程序会执行尽量多的预处理，以降低以后的执行开销。 捆绑可以使用和重用任意次， 而命令列表通常仅执行一次。 但是，只要应用程序在提交新执行之前确保先前的执行完成，则可以多次执行命令列表。
 
 通常，API 调用构成捆绑，API 调用和捆绑构成命令列表，而命令列表构成单个帧。下图演示了此结构，请注意**命令列表 1** 和**命令列表 2** 中重复使用了**捆绑 1**，图中的 API 方法名称仅用作示例，可以使用许多不同的 API 调用。
 
@@ -40,13 +40,13 @@ ms.locfileid: "66725569"
 
 通过调用 [**ID3D12Device::CreateCommandList**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist) 创建直接命令列表和捆绑。 此方法将以下参数用作输入：
 
-### <a name="d3d12commandlisttype"></a>D3D12\_COMMAND\_LIST\_TYPE
+### <a name="d3d12_command_list_type"></a>D3D12\_COMMAND\_LIST\_TYPE
 
 [**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 枚举指示所要创建的命令列表的类型。 它可以是直接命令列表、捆绑、计算命令列表或复制命令列表。
 
 ### <a name="id3d12commandallocator"></a>ID3D12CommandAllocator
 
-命令分配器可让应用管理分配给命令列表的内存。 通过调用[**CreateCommandAllocator**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandallocator) 创建命令分配器。 创建命令列表时，[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 指定的分配器命令列表类型必须与所要创建的命令列表的类型匹配。 一个给定的分配器可同时与多个“当前正在记录”命令列表相关联，不过，可以使用一个命令分配器来创建任意数量的 [**GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 对象。 
+命令分配器可让应用管理分配给命令列表的内存。 通过调用[**CreateCommandAllocator**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandallocator) 创建命令分配器。 创建命令列表时，[**D3D12\_COMMAND\_LIST\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type) 指定的分配器命令列表类型必须与所要创建的命令列表的类型匹配。 一个给定的分配器可同时与多个“当前正在记录”命令列表相关联，不过，可以使用一个命令分配器来创建任意数量的 [**GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 对象。
 
 若要回收命令分配器分配的内存，应用需调用 [**ID3D12CommandAllocator::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset)。 但是，在这样做之前，应用必须确保 GPU 不再执行与分配器关联的任何命令列表；否则调用将会失败。 另请注意，此 API 不是自由线程的，因此，不能同时从多个线程针对同一分配器调用此 API。
 
@@ -82,7 +82,7 @@ ms.locfileid: "66725569"
 -   描述符堆 - 应用使用描述符堆来管理内存资源的管道绑定。
 -   资源屏障 - 用于管理资源的不同状态转换，例如，从渲染器目标视图转换为着色器资源视图。 有关详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 
-例如，
+例如，应用于对象的
 
 
 ```C++

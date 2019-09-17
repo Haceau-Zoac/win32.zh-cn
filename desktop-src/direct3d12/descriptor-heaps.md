@@ -5,18 +5,18 @@ ms.assetid: 04d3facf-21ec-45ca-ad9b-78fdcddc7136
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e0dd18a87b9536911c7e2cc117075d170e1e75ca
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 5f19821cff5e8730c376e5c80fef07e67974d31d
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296013"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006263"
 ---
 # <a name="descriptor-heaps"></a>描述符堆
 
 描述符堆是描述符的连续分配的集合，每个描述符都有一个分配。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

@@ -5,12 +5,12 @@ ms.assetid: A7AB6569-EC6B-4B1B-9266-D05B6DB3A27B
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: d870785d8e16225d17aced4c7442869cd855e696
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: aba8afd66f8a50a54b699c6a314ba148ebcef023
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296388"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006025"
 ---
 # <a name="fence-based-resource-management"></a>基于围栏的资源管理
 
@@ -48,7 +48,7 @@ ms.locfileid: "66296388"
 
 ## <a name="ring-buffer-sample"></a>环形缓冲区示例
 
-以下示例代码显示了如何管理环形缓冲区，请注意处理围栏轮询和等待的二次分配例程。 为简单起见，该示例使用 NOT\_SUFFICIENT\_MEMORY 隐藏“堆中没有足够的可用内存”的详细信息，因为该逻辑（基于 m\_pDataCur 以及 FrameOffsetQueue 中的偏移量）与堆或围栏联系不紧密   。 简化了示例，牺牲的是帧速率而不是内存利用率。
+以下示例代码显示了如何管理环形缓冲区，请注意处理围栏轮询和等待的二次分配例程。 为简单起见，该示例使用 NOT\_SUFFICIENT\_MEMORY 隐藏“堆中没有足够的可用内存”的详细信息，因为该逻辑（基于 m\_pDataCur 以及 FrameOffsetQueue 中的偏移量）与堆或围栏联系不紧密。 简化了示例，牺牲的是帧速率而不是内存利用率。
 
 请注意，环缓冲区支持有望成为常用方案；但是，堆设计并不排除其他用途，比如命令列表参数化和重用。
 

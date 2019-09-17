@@ -5,18 +5,18 @@ ms.assetid: BE2F46EA-D4A9-47F7-A2D1-6A486DD4DC1A
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 11/15/2018
-ms.openlocfilehash: 58bc9ecf198b25bc8d14f8ddf049033590079d40
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: aa852fc82280b14b0270a7c4a4c40cfe441803b7
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296443"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005749"
 ---
 # <a name="work-submission-in-direct3d-12"></a>Direct3D 12 中的工作提交
 
-为了提高 Direct3D 应用的 CPU 效率，从版本 12 开始，Direct3D 不再支持与设备关联的即时上下文。 相反，应用程序会记录并提交“命令列表”，其中包含绘图和资源管理调用  。 可以将这些命令列表从多个线程提交到一个或多个命令队列，命令队列用于管理命令的执行。 这种根本性的改变通过允许应用程序预先计算渲染工作以供以后重用，从而提高了单线程的效率，并且它通过将渲染工作分散到多个线程来利用多核系统。
+为了提高 Direct3D 应用的 CPU 效率，从版本 12 开始，Direct3D 不再支持与设备关联的即时上下文。 相反，应用程序会记录并提交“命令列表”，其中包含绘图和资源管理调用。 可以将这些命令列表从多个线程提交到一个或多个命令队列，命令队列用于管理命令的执行。 这种根本性的改变通过允许应用程序预先计算渲染工作以供以后重用，从而提高了单线程的效率，并且它通过将渲染工作分散到多个线程来利用多核系统。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 | 主题 | 描述 |
 |-|-|

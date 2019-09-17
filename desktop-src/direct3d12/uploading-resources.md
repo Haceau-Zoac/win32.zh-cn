@@ -5,12 +5,12 @@ ms.assetid: 255B0482-21D6-4276-8009-3F3891879CA1
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 0a5096d7417057f5bd2147352966f4c7d1a0e33c
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: bd2edca2cd9f4d3becf5036056a89f91c50f2c24
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296479"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005725"
 ---
 # <a name="uploading-different-types-of-resources"></a>上传不同类型的资源
 

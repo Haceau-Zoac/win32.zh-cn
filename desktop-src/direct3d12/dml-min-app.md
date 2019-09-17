@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 3783a6c57f37ece26bf8a9adfd97da58929aaa1d
-ms.sourcegitcommit: 2d48dee2998661c3c57217e7d3775233d263fe7f
-ms.translationtype: HT
+ms.openlocfilehash: bca7b5d1907ae1b2cecf3d0140df009077d95dba
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/09/2019
-ms.locfileid: "68874133"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006043"
 ---
 # <a name="directml-sample-applications"></a>DirectML 示例应用程序
 

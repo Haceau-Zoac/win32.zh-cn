@@ -5,18 +5,18 @@ ms.assetid: ee32a222-8469-4af5-b688-afa70cf77c6a
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 21dc673869c5af7085858287ddef4cc0b0c47871
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 7ba55ae711d4a0225f7ad5cc25e8927079ceef78
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296302"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005779"
 ---
 # <a name="root-signatures"></a>根签名
 
 根签名定义绑定到图形管道的资源类型。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

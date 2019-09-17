@@ -5,18 +5,18 @@ ms.assetid: 5faf294f-acd5-4b39-92f4-1d6b2abe3040
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 82b4eebafdb1d391c34da0d2afade94d2ef013f4
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 10414f8458006029f3279203e949b43410911fd5
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296001"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006256"
 ---
 # <a name="descriptor-tables"></a>描述符表
 
 描述符表在逻辑上是描述符数组。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

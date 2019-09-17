@@ -5,12 +5,12 @@ ms.assetid: 493D35C9-2A90-4688-BD7E-74B9EB2B4E72
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 66592424a7fb5356f60c6ac0d2cb8c3556fd6cc4
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 19d09d355cc1c96d77670c5536400f0b3f93c097
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296410"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006035"
 ---
 # <a name="example-root-signatures"></a>示例根签名
 

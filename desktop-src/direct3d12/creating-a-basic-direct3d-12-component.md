@@ -5,12 +5,12 @@ ms.assetid: A0FB108B-15C1-42AD-9277-D5CB63FA8329
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 473222f81ae39852a22dca439ef76613ccf9264c
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 84bf3fcb548a89a1a95981f61c6400e4b325d0ec
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725587"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006157"
 ---
 # <a name="creating-a-basic-direct3d-12-component"></a>创建基本的 Direct3D 12 组件
 
@@ -80,7 +80,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
     -   创建顶点输入布局。
     -   创建[管道状态对象](managing-graphics-pipeline-state-in-direct3d-12.md)说明，然后创建对象。
         > [!Note]  
-        > 管道状态对象保留所有当前设置的着色器以及某些固定函数状态对象（例如输入汇编器、细分器、光栅器和输出合并器）的状态。    
+        > 管道状态对象保留所有当前设置的着色器以及某些固定函数状态对象（例如输入汇编器、细分器、光栅器和输出合并器）的状态。
 
          
 
@@ -103,7 +103,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
 请参阅[类 D3D12HelloTriangle](#class-d3d12hellotriangle)、[OnInit](#oninit)、[LoadPipeline](#loadpipeline) 和 [LoadAssets](#loadassets)。
 
-### <a name="update"></a>更新
+### <a name="update"></a>Update
 
 更新自完成上一帧以来应该更改的所有内容。
 

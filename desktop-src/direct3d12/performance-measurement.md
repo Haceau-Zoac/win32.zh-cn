@@ -5,18 +5,18 @@ ms.assetid: C7AEF1A0-36FB-4026-9CCF-ED0206961A58
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2949c33fb5fd5f6d23bf5a206707f62716bc7e51
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: bf316978f3dd0928692f378dd8d72b8453ad0aae
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296371"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006144"
 ---
 # <a name="counters-queries-and-performance-measurement"></a>计数器、查询和性能度量
 
 以下各节描述了用于性能测试和改进的功能，例如查询、计数器、定时和预测。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

@@ -5,12 +5,12 @@ ms.assetid: 565B28C1-DBD1-42B6-87F9-70743E4A2E4A
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9a119b8e2da86d431c193828d9255221baea05b4
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 2b99cc3564d5d013684bdf0833719c7cd36a5330
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296028"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006154"
 ---
 # <a name="creating-a-root-signature"></a>创建根签名
 

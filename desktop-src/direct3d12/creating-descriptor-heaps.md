@@ -5,12 +5,12 @@ ms.assetid: 58677023-692C-4BA4-90B7-D568F3DD3F73
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 91dfdd9a711b2e6b391a0414738ca5289e83bbe3
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 7ce33cdb7b9a0ecc096ec606ab77345e553ff3b7
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296427"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006149"
 ---
 # <a name="creating-descriptor-heaps"></a>创建描述符堆
 
@@ -42,7 +42,7 @@ typedef enum D3D12_DESCRIPTOR_HEAP_TYPE
 
 堆属性在 [**D3D12\_DESCRIPTOR\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc) 结构上设置，该结构将同时引用 [**D3D12\_DESCRIPTOR\_HEAP\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_type) 和 [**D3D12\_DESCRIPTOR\_HEAP\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_descriptor_heap_flags) 枚举。
 
-可以在描述符堆上有选择地设置标志 D3D12\_DESCRIPTOR\_HEAP\_FLAG\_SHADER\_VISIBLE，以指示该标志绑定在命令列表中以供着色器引用。 为了方便起见，创建的描述符堆（不带此标志）允许应用程序在将描述符复制到着色器可见描述符堆之前将其暂存到 CPU 内存中  。 但是，应用程序也可以直接将描述符创建到着色器可见描述符堆中，而无需将任何描述符暂存到 CPU 上。
+可以在描述符堆上有选择地设置标志 D3D12\_DESCRIPTOR\_HEAP\_FLAG\_SHADER\_VISIBLE，以指示该标志绑定在命令列表中以供着色器引用。 为了方便起见，创建的描述符堆（不带此标志）允许应用程序在将描述符复制到着色器可见描述符堆之前将其暂存到 CPU 内存中。 但是，应用程序也可以直接将描述符创建到着色器可见描述符堆中，而无需将任何描述符暂存到 CPU 上。
 
 此标志仅适用于 CBV、SRV、UAV 和取样器。 它不适用于其他描述符堆类型，因为着色器不会直接引用其他类型。
 

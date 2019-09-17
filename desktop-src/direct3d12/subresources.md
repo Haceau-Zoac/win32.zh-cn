@@ -5,12 +5,12 @@ ms.assetid: C4F92F8A-DBF0-412B-8707-CC4C1BF2D88F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 90c56712b7aff0e11e902fa74b08e43190be0067
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: fd01d9b317d86caae7dac938034961e8d3db9a2b
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296478"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006227"
 ---
 # <a name="subresources"></a>子资源
 
@@ -101,7 +101,7 @@ inline UINT D3D12CalcSubresource( UINT MipSlice, UINT ArraySlice, UINT PlaneSlic
 
 -   [**D3D12\_TEXTURE\_COPY\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_copy_type)
 
-以下结构包含 PlaneSlice  索引，大多数包含 MipSlice  索引。
+以下结构包含 PlaneSlice 索引，大多数包含 MipSlice 索引。
 
 -   [**D3D12\_TEX2D\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_rtv)
 -   [**D3D12\_TEX2D\_ARRAY\_RTV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_rtv)
@@ -110,7 +110,7 @@ inline UINT D3D12CalcSubresource( UINT MipSlice, UINT ArraySlice, UINT PlaneSlic
 -   [**D3D12\_TEX2D\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_uav)
 -   [**D3D12\_TEX2D\_ARRAY\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_uav)
 
-以下结构包含 ArraySlice  索引，大多数包含 MipSlice  索引。
+以下结构包含 ArraySlice 索引，大多数包含 MipSlice 索引。
 
 -   [**D3D12\_TEX1D\_ARRAY\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_dsv)
 -   [**D3D12\_TEX2D\_ARRAY\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_dsv)
@@ -124,7 +124,7 @@ inline UINT D3D12CalcSubresource( UINT MipSlice, UINT ArraySlice, UINT PlaneSlic
 -   [**D3D12\_TEX1D\_ARRAY\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_array_uav)
 -   [**D3D12\_TEX2D\_ARRAY\_UAV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_array_uav)
 
-以下结构包含 MipSlice  索引，但既不包含 ArraySlice  ，也不包含 PlaneSlice  索引。
+以下结构包含 MipSlice 索引，但既不包含 ArraySlice，也不包含 PlaneSlice 索引。
 
 -   [**D3D12\_TEX1D\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex1d_dsv)
 -   [**D3D12\_TEX2D\_DSV**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tex2d_dsv)

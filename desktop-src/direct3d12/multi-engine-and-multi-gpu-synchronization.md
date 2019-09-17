@@ -5,18 +5,18 @@ ms.assetid: D81BE0E6-D7A4-4EB4-8267-2C97E4216A9D
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: c8851fed14817ff34fac6d8f8e25e66fdfb93a46
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 5f7d8190d02263a021ec04e866bb97ec060773d7
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296077"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005819"
 ---
 # <a name="multi-engine-and-multi-adapter-synchronization"></a>多引擎和多适配器同步
 
 简要概述相关信息，并列出与多引擎（3D、计算和复制引擎）和多适配器相关的 API。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

@@ -5,16 +5,16 @@ ms.assetid: 956F80D7-EEC8-4D88-B251-EE325614F31E
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 028efa37dca8d6059a3cfd1735dbc024fda45f31
-ms.sourcegitcommit: 27a9dfa3ef68240fbf09f1c64dff7b2232874ef4
-ms.translationtype: HT
+ms.openlocfilehash: 4028c6b30915aa962969c5e8fae8ac66dee268b0
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66725405"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006106"
 ---
 # <a name="residency"></a>驻留
 
-如果 GPU 可访问某个对象，则该对象将被视为常驻对象。 
+如果 GPU 可访问某个对象，则该对象将被视为常驻对象。
 
 -   [驻留预算](#residency-budget)
 -   [堆资源](#heap-resources)
@@ -29,7 +29,7 @@ GPU 尚不支持分页错误，因此，当 GPU 可以访问数据时，应用�
 
 可供该进程使用的物理内存量称为视频内存预算。 该预算可能会随着后台进程的唤醒和睡眠而有明显的波动；当用户切换到另一应用程序时，这种波动会很大。 应用程序在预算更改时可以收到通知，并可以轮询当前预算以及当前已消耗的内存量。 如果应用程序不在预算范围内，该进程将会间歇性地冻结以使其他应用程序能够运行，并且/或者创建 API 将返回失败。 [**IDXGIAdapter3**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3) 接口提供与此功能相关的方法，具体而言，是 [**QueryVideoMemoryInfo**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo) 和 [**RegisterVideoMemoryBudgetChangeNotificationEvent**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent)。
 
-建议应用程序使用保留来指示它们必须获得的内存量。 理想情况下，用户指定的“低”图形设置甚至更低的设置是此类保留的适当值。 设置保留不会使应用程序的预算高于它在正常情况下获得的预算。 相反，保留信息可帮助 OS 内核快速最小化较大内存压力造成的影响。 即使应用程序不是前台应用程序，也不保证保留可供该应用程序使用。
+建议应用程序使用预留来指示它们必须获得的内存量。 理想情况下，用户指定的“低”图形设置甚至更低的设置是此类预留的适当值。 设置预留不会使应用程序的预算高于它在正常情况下获得的预算。 相反，预留信息可帮助 OS 内核快速最小化较大内存压力造成的影响。 即使应用程序不是前台应用程序，也不保证预留可供该应用程序使用。
 
 ## <a name="heap-resources"></a>堆资源
 

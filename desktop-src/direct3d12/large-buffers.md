@@ -5,12 +5,12 @@ ms.assetid: 359E377A-8E16-4BB5-9055-09617335AB57
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5d5b7d5dfac4c9a00a01a8eaab73b342dfe53b72
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: d64944cb11507b8dc437d075938fad419f333433
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296229"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005760"
 ---
 # <a name="suballocation-within-buffers"></a>缓冲区中的二次分配
 
@@ -18,7 +18,7 @@ ms.locfileid: "66296229"
 
 与 D3D11 类似，相较于 D3D11 中的动态/暂存资源，D3D12 中的应用程序在分配 D3D12 中的缓冲区时仍然需要声明内存的使用情况，但在 D3D12 中，开发人员对内存使用有更大的灵活性和更严格的控制。 通过二次分配，缓冲区可具有低级内存管理所需的所有功能。
 
-## <a name="in-this-section"></a>本部分内容
+## <a name="in-this-section"></a>本节内容
 
 
 

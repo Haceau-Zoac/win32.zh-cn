@@ -5,12 +5,12 @@ ms.assetid: 8FE42C1C-7F1D-4E70-A7EE-D5EC67237327
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 03754762547882afe4eddb6b6fbdb9fcbbe819c6
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 4cc2746c3cceccfea306401b83618cad22f8f981
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296309"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005782"
 ---
 # <a name="root-signature-version-11"></a>根签名版本 1.1
 
@@ -79,11 +79,11 @@ typedef enum D3D12_ROOT_DESCRIPTOR_FLAGS
 } D3D12_ROOT_DESCRIPTOR_FLAGS;
 ```
 
-### <a name="descriptorsvolatile"></a>DESCRIPTORS\_VOLATILE
+### <a name="descriptors_volatile"></a>DESCRIPTORS\_VOLATILE
 
-设置此标志后，应用程序随时可以更改根描述符表指向的描述符堆中的描述符，但当绑定描述符表的命令列表/捆绑已提交和未完成执行时则不可以。 例如，在提交命令列表供执行之前，记录该命令列表并随后更改它引用的描述符堆中的描述符是有效的操作。  这是根签名版本 1.0 唯一支持的行为。
+设置此标志后，应用程序随时可以更改根描述符表指向的描述符堆中的描述符，但当绑定描述符表的命令列表/捆绑已提交和未完成执行时则不可以。 例如，在提交命令列表供执行之前，记录该命令列表并随后更改它引用的描述符堆中的描述符是有效的操作。 这是根签名版本 1.0 唯一支持的行为。
 
-如果未设置 DESCRIPTORS\_VOLATILE 标志，则描述符是静态的。  此模式没有标志。 静态描述符表示在命令列表/捆绑中设置描述符表时（录制期间）已初始化根描述符表指向的描述符堆中的描述符，并且在命令列表/捆绑最后一次完成执行之前，描述符无法更改。 对于根签名版本 1.1，静态描述符是默认的假设，应用程序必须根据需要指定 DESCRIPTORS\_VOLATILE 标志。 
+如果未设置 DESCRIPTORS\_VOLATILE 标志，则描述符是静态的。 此模式没有标志。 静态描述符表示在命令列表/捆绑中设置描述符表时（录制期间）已初始化根描述符表指向的描述符堆中的描述符，并且在命令列表/捆绑最后一次完成执行之前，描述符无法更改。 对于根签名版本 1.1，静态描述符是默认的假设，应用程序必须根据需要指定 DESCRIPTORS\_VOLATILE 标志。
 
 对于使用包含静态描述符的描述符表的捆绑，记录捆绑时（而不是调用该捆绑时），描述符必须已准备好启动，并且在该捆绑最后一次完成执行之前不会更改。 必须在记录捆绑期间设置指向静态描述符的描述符表，它们不能继承到捆绑中。 命令列表可以使用包含静态描述符的、已在捆绑中设置的并返回到命令列表的描述符表。
 
@@ -91,17 +91,17 @@ typedef enum D3D12_ROOT_DESCRIPTOR_FLAGS
 
 如果应用程序在访问描述符时依赖于安全界外内存访问行为，则它们需要将访问这些描述符的描述符范围标记为 DESCRIPTORS\_VOLATILE。
 
-### <a name="datavolatile"></a>DATA\_VOLATILE
+### <a name="data_volatile"></a>DATA\_VOLATILE
 
 设置此标志后，则 CPU 随时可以更改描述符指向的数据，但当绑定描述符表的命令列表/捆绑已提交且尚未完成执行时则不可以。 这是根签名版本 1.0 唯一支持的行为。
 
 可在描述符范围标志和根描述符标志中使用该标志。
 
-### <a name="datastaticwhilesetatexecute"></a>DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE
+### <a name="data_static_while_set_at_execute"></a>DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE
 
 设置此标志后，从在 GPU 时间线上执行期间在命令列表/捆绑中设置基础根描述符或描述符表开始，到后续绘制/调度不再引用数据为止，描述符指向的数据无法更改。
 
-在 GPU 上设置根描述符或描述符表之前，此数据甚至可由相同的命令列表/捆绑更改。  当引用数据的根描述符或描述符表仍已在命令列表/捆绑中设置时，只要引用该数据的绘制/调度已完成，则也可以更改数据。 但是，这样做需要在下次取消引用根描述符或描述符表之前，将描述符表重新绑定到命令列表。 这样，驱动程序便知道根描述符或描述符表指向的数据已更改。
+在 GPU 上设置根描述符或描述符表之前，此数据甚至可由相同的命令列表/捆绑更改。 当引用数据的根描述符或描述符表仍已在命令列表/捆绑中设置时，只要引用该数据的绘制/调度已完成，则也可以更改数据。 但是，这样做需要在下次取消引用根描述符或描述符表之前，将描述符表重新绑定到命令列表。 这样，驱动程序便知道根描述符或描述符表指向的数据已更改。
 
 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 与 DATA\_VOLATILE 之间的本质差别在于，使用 DATA\_VOLATILE 时，在不执行额外的状态跟踪的情况下，驱动程序无法判断命令列表中的数据副本是否已更改描述符指向的数据。 因此，举例而言，如果驱动程序将任何类型的数据预提取命令插入到其命令列表（例如，使着色器能够更有效地访问已知数据），则 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 可让驱动程序知道，它只需在通过 [**SetGraphicsRootDescriptorTable**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootdescriptortable)、[**SetComputeRootDescriptorTable**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootdescriptortable)，或用于设置常量缓冲区视图、着色器资源视图或无序访问视图的某种方法设置时，才执行数据预提取。
 
@@ -109,7 +109,7 @@ DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 与 DATA\_VOLATILE 之间的本质差别�
 
 可在描述符范围标志和根描述符标志中使用该标志。
 
-### <a name="datastatic"></a>DATA\_STATIC
+### <a name="data_static"></a>DATA\_STATIC
 
 如果设置此标志，记录期间在命令列表/捆绑中设置引用内存的根描述符或描述符表时，将初始化描述符指向的数据，并且在命令列表/捆绑最后一次完成执行之前，该数据无法更改。
 
@@ -125,7 +125,7 @@ DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 与 DATA\_VOLATILE 之间的本质差别�
 
 在通常写入到 UAV 的情况下，缺少 UAV 描述符范围的 DATA 标志意味着采用默认的 DATA\_VOLATILE 行为。
 
-DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标志合并。   DESCRIPTORS\_VOLATILE 之所以能够与 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 合并，是因为在执行命令列表/捆绑期间，易失性描述符仍需描述符准备就绪，而 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 只会对命令列表/捆绑执行的子集内部的静态性做出承诺。
+DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标志合并。 DESCRIPTORS\_VOLATILE 之所以能够与 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 合并，是因为在执行命令列表/捆绑期间，易失性描述符仍需描述符准备就绪，而 DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE 只会对命令列表/捆绑执行的子集内部的静态性做出承诺。
 
 ### <a name="flag-summary"></a>标志摘要
 
@@ -135,7 +135,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
 
 |                                                                |                                                                                                                                                                                                                                                                                                                                                      |
 |----------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **有效的 D3D12\_DESCRIPTOR\_RANGE\_FLAGS 设置**             | **描述**                                                                                                                                                                                                                                                                                                                                      |
+| **有效的 D3D12\_DESCRIPTOR\_RANGE\_FLAGS 设置**             | **说明**                                                                                                                                                                                                                                                                                                                                      |
 | 未设置标志                                                   | 描述符是静态的（默认设置）。 数据的默认假设：对于 SRV/CBV：DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE；对于 UAV：DATA\_VOLATILE。 SRV/CBV 的这些默认设置能够安全适应大多数根签名的使用模式。                                                                                              |
 | DATA\_STATIC                                                   | 描述符和数据都是静态的。 这可以最大化驱动程序优化的潜力。                                                                                                                                                                                                                                                          |
 | DATA\_VOLATILE                                                 | 描述符是静态的，数据是易失性的。                                                                                                                                                                                                                                                                                                     |
@@ -152,7 +152,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
 
 |                                                   |                                                                                                                                                                                                                   |
 |---------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **有效的 D3D12\_ROOT\_DESCRIPTOR\_FLAGS 设置** | **描述**                                                                                                                                                                                                   |
+| **有效的 D3D12\_ROOT\_DESCRIPTOR\_FLAGS 设置** | **说明**                                                                                                                                                                                                   |
 | 未设置标志                                      | 数据的默认假设：对于 SRV/CBV：DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE；对于 UAV：DATA\_VOLATILE。 SRV/CBV 的这些默认设置能够安全适应大多数根签名的使用模式。 |
 | DATA\_STATIC                                      | 数据是静态的，驱动程序优化的潜力最大。                                                                                                                                                       |
 | DATA\_STATIC\_WHILE\_SET\_AT\_EXECUTE             | 数据在执行期间设置时是静态的。                                                                                                                                                                              |
@@ -188,7 +188,7 @@ DESCRIPTORS\_VOLATILE 不能与 DATA\_STATIC 合并，但可与其他 DATA 标�
     -   [**D3D12\_ROOT\_DESCRIPTOR1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_descriptor1)
     -   [**D3D12\_ROOT\_PARAMETER1**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_parameter1)
 
-### <a name="functions"></a>函数
+### <a name="functions"></a>Functions
 
 此处所列的方法取代了原始的 [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature) 和 [**D3D12CreateRootSignatureDeserializer**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createrootsignaturedeserializer) 函数，因为它们可以在任何版本的根签名中使用。 序列化格式是传入 [**CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature) API 的格式。 如果编写的着色器包含根签名，则编译的着色器已包含序列化的根签名。
 

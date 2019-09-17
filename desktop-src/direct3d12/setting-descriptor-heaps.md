@@ -5,12 +5,12 @@ ms.assetid: F0FF3D7C-1DAC-48C3-B47D-0378BE369F37
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5556b4a8f7018150f9e67d8170cc4682d5e89b98
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 78d2ada80275bf5bfa0c9b0dc0287240b8fdc946
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296305"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005755"
 ---
 # <a name="setting-and-populating-descriptor-heaps"></a>设置和填充描述符堆
 

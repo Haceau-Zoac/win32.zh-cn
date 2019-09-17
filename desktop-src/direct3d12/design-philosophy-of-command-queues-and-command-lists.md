@@ -8,18 +8,20 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fafb873e10dd097803c24a77c89949d91e0ae39a
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 812275a630464dbe9137d587a672803f4d0c72f9
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296496"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006251"
 ---
 # <a name="design-philosophy-of-command-queues-and-command-lists"></a>命令队列和命令列表的设计理念
 
 为了实现渲染工作的重用和多线程缩放，需要对 Direct3D 应用向 GPU 提交渲染工作的方式进行根本性的改变。 在 Direct3D 12 中，提交渲染工作的过程在三个重要方面不同于早期版本：
 
-<dl> 1. 消除了即时上下文。 这样可以实现多线程。 2. 应用现在拥有将渲染调用分组到图形处理单元 (GPU) 工作项中的方法。 这样可以重复使用。 3. 应用现在可以显式控制何时将工作提交给 GPU。 这可实现第 1 项和第 2 项。  
+<dl> 1. 消除了即时上下文。 这样可以实现多线程。  
+2. 应用现在拥有将渲染调用分组到图形处理单元 (GPU) 工作项中的方法。 这样可以重复使用。  
+3. 应用现在可以显式控制何时将工作提交给 GPU。 这可实现第 1 项和第 2 项。  
 </dl>
 
 -   [删除即时上下文](#removal-of-the-immediate-context)
@@ -35,7 +37,7 @@ ms.locfileid: "66296496"
 
 ## <a name="grouping-of-gpu-work-items"></a>GPU 工作项的分组
 
-除命令列表之外，Direct3D 12 还通过添加第二级命令列表（称为“捆绑包”）来利用当前所有硬件中的功能  。 为了帮助区分这两种类型，可以将第一级命令列表称为“直接命令列表”  。 捆绑包的目的是允许应用将少量 API 命令组合在一起，以便以后从直接命令列表中重复执行。 在创建捆绑包时，驱动程序将执行尽可能多的预处理，以使以后的执行更高效。 然后可以在多个命令列表中执行捆绑包，并在同一命令列表中多次执行捆绑包。
+除命令列表之外，Direct3D 12 还通过添加第二级命令列表（称为“捆绑包”）来利用当前所有硬件中的功能。 为了帮助区分这两种类型，可以将第一级命令列表称为“直接命令列表”。 捆绑包的目的是允许应用将少量 API 命令组合在一起，以便以后从直接命令列表中重复执行。 在创建捆绑包时，驱动程序将执行尽可能多的预处理，以使以后的执行更高效。 然后可以在多个命令列表中执行捆绑包，并在同一命令列表中多次执行捆绑包。
 
 捆绑包的重用是单 CPU 线程提高效率的重要驱动程序。 由于捆绑包是预处理的，可以多次提交，因此对捆绑包中可以执行的操作有一定的限制。 有关详细信息，请参阅[创建和记录命令列表与捆绑包](recording-command-lists-and-bundles.md)。
 

@@ -5,12 +5,12 @@ ms.assetid: DF266915-6224-4FFB-BE3E-34A44F7318DD
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2ec24dc7814ed30c5082643cec6e4c4d0fdfa9d4
-ms.sourcegitcommit: 05483887ef8fccd79543cc1b89495f156702465a
-ms.translationtype: HT
+ms.openlocfilehash: 83ce6718e95b774f83d25a84476616643c77c119
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/29/2019
-ms.locfileid: "66296463"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006268"
 ---
 # <a name="descriptor-heap-configurability-summary"></a>描述符堆可配置性摘要
 
