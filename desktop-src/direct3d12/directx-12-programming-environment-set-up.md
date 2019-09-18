@@ -5,12 +5,12 @@ ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: dd9ffc356ef7d9adda6862a69e1f80481ea90102
-ms.sourcegitcommit: af1bedc00f1f5da3673a5095be566c076f2a51aa
-ms.translationtype: HT
+ms.openlocfilehash: 5c6a5bc891fc7e98469c75290acc38c704e19104
+ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/16/2019
-ms.locfileid: "69561161"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71006062"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -68,7 +68,7 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 
 ## <a name="memory-management-library"></a>内存管理库
 
-内存管理帮助程序库可供下载，你可以将其集成到你的应用中以便更接近 D3D11 内存管理行为。 作为 D3D11 样式管理库，它最适用于仍在使用“提交的资源”  样式分配策略的应用。 具体而言，当在内存受约束的情况下（例如，低端内存卡、4k、超级设置等），库应被视为很可能返回到 D3D11 性能内存管理的垫脚石。 D3D12 API 启用的技巧可使你获得比 D3D11 更好的内存效率，尽管这些技术可能颇具挑战性且需要较长时间才能实现也是如此。
+内存管理帮助程序库可供下载，你可以将其集成到你的应用中以便更接近 D3D11 内存管理行为。 作为 D3D11 样式管理库，它最适用于仍在使用“提交的资源”样式分配策略的应用。 具体而言，当在内存受约束的情况下（例如，低端内存卡、4k、超级设置等），库应被视为很可能返回到 D3D11 性能内存管理的垫脚石。 D3D12 API 启用的技巧可使你获得比 D3D11 更好的内存效率，尽管这些技术可能颇具挑战性且需要较长时间才能实现也是如此。
 
 请注意，此库是正在进行的工作，可能会随着时间的推移发生更改。 使用以下链接访问库和示例。
 
