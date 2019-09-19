@@ -6,12 +6,12 @@ ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 8f54c0c1a9780ba35f3ea5d8fa0139e81ebf79ea
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: ba81418278563b0272f2be20f80f46c41dd436ae
+ms.sourcegitcommit: 610af1b84106322d74559e452fc5ca642fae3cc7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005968"
+ms.lasthandoff: 09/19/2019
+ms.locfileid: "71119373"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -153,7 +153,7 @@ GPU 可以执行的命令缓冲区。 直接命令列表不会继承任何 GPU �
 <span id="direct3d12.directx_12_glossary_multigpu"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_MULTIGPU"></span>**MultiGPU**
 </dt> <dd>
 
-包含多个图形适配器的硬件配置。 独立的适配器有时称为节点。 与使用单个 GPU 相比，使用多个 GPU 会明显增大 GPU 与 CPU 同步以及 GPU 之间同步的任务的复杂性。
+具有多个图形适配器的硬件配置。 独立的适配器有时称为节点。 与使用单个 GPU 相比，使用多个 GPU 会明显增大 GPU 与 CPU 同步以及 GPU 之间同步的任务的复杂性。
 
 </dd> <dt>
 
