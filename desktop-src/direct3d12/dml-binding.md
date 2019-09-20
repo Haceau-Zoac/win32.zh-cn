@@ -5,12 +5,12 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: d0e0736a03685cbf26e6b57129c4d6f7d7acc53f
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: d140d783be1daef4c6e90b68af86fb5a96f7d31d
+ms.sourcegitcommit: f776aaac91933a43f8aa2f88feb78bf8dccbc791
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006057"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71150285"
 ---
 # <a name="binding-in-directml"></a>DirectML 中的绑定
 
@@ -222,7 +222,7 @@ dmlCommandRecorder->RecordDispatch(
 
 在 GPU 上执行 **RecordDispatch** 之前，必须将所有绑定资源转换为 **D3D12_RESOURCE_STATE_UNORDERED_ACCESS** 状态，或转换为可隐式提升到 **D3D12_RESOURCE_STATE_UNORDERED_ACCESS** 的状态，例如 **D3D12_RESOURCE_STATE_COMMON**。 此调用完成后，资源将保持 **D3D12_RESOURCE_STATE_UNORDERED_ACCESS** 状态。 只有在执行运算符初始值设定项时以及为一个或多个张量设置了 **DML_TENSOR_FLAG_OWNED_BY_DML** 标志时绑定的上传堆例外。 在这种情况下，为输入绑定的任何上传堆必须处于 **D3D12_RESOURCE_STATE_GENERIC_READ** 状态，并会根据所有上传堆的要求保持该状态。 如果编译运算符时未设置 **DML_EXECUTION_FLAG_DESCRIPTORS_VOLATILE**，则在调用 **RecordDispatch** 之前，必须在绑定表中设置所有绑定，否则行为是不确定的。 如果运算符支持[后期绑定](#optionally-specify-late-bound-operator-bindings)，则绑定资源可能会推迟至将 Direct3D 12 命令列表提交到命令队列供执行为止。
 
-**RecordDispatch** 在逻辑上类似于调用 [**ID3D12GraphicsCommandList::Dispatch**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch。 在这种情况下，需要施加无序访问视图 (UAV) 屏障，以确保调度之间存在数据依赖关系时顺序正确。 此方法不会在输入和输出资源中插入 UAV 屏障。 应用程序必须确保当任何输入的内容依赖于上游调度时在这些输入中执行正确的 UAV 屏障，并在下游调度依赖于这任何输出时在这些输出中执行正确的 UAV 屏障。
+**RecordDispatch**在逻辑上类似于调用[**ID3D12GraphicsCommandList：:D ispatch**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)。 在这种情况下，需要施加无序访问视图 (UAV) 屏障，以确保调度之间存在数据依赖关系时顺序正确。 此方法不会在输入和输出资源中插入 UAV 屏障。 应用程序必须确保当任何输入的内容依赖于上游调度时在这些输入中执行正确的 UAV 屏障，并在下游调度依赖于这任何输出时在这些输出中执行正确的 UAV 屏障。
 
 ## <a name="lifetime-and-synchronization-of-descriptors-and-binding-table"></a>描述符和绑定表的生存期与同步
 
