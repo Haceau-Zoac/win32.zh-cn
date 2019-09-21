@@ -5,12 +5,12 @@ ms.assetid: 081199AD-1702-4EC8-95AD-B1148C676199
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 53aa5a3d0133fdd320d9e3088cc9c0d9c1e6b2f8
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 3f80d96bc1118617ef87d1321e6b4868758814db
+ms.sourcegitcommit: ba225179cba1e27f4dbf5b9e1aefabf7c250b71e
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005752"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71157551"
 ---
 # <a name="conservative-rasterization"></a>保守光栅化
 
@@ -93,7 +93,7 @@ ms.locfileid: "71005752"
 
 ### <a name="inputcoverage-interaction"></a>InputCoverage 交互
 
-在保守光栅化模式下，填充此输入寄存器的方式如同未针对给定保守光栅化像素启用保守光栅化时覆盖了所有样本时一样。 也就是说，将应用所有现有交互（例如应用 *SampleMask*），如果 n 样本每像素 **RenderTarget** 和/或 **DepthStencil** 缓冲区已在**输出合并器**中绑定，或存在 n 样本 *ForcedSampleCount*，则对于保守光栅化像素，会将 LSB 的 `InputCoverage` 中的前 n 位设置为 1。 余下的位均为 0。
+在保守光栅化模式下，填充此输入寄存器的方式如同未针对给定保守光栅化像素启用保守光栅化时覆盖了所有样本时一样。 也就是说，将应用所有现有的交互（例如，应用*SampleMask* ），并将 LSB 中`InputCoverage`的第一个 n 位设置为1，以便在每个像素**RenderTarget**和/或**DepthStencil 为每个像素指定 n 个样本。** 在**输出合并**时绑定的缓冲区，或 n 示例*ForcedSampleCount*。 余下的位均为 0。
 
 无论是否使用保守光栅化，此输入在着色器中均可用，不过，保守光栅化会改变其行为，只显示所有覆盖的样本（或者不显示帮助器像素的任何样本）。
 

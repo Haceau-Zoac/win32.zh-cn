@@ -1,20 +1,20 @@
 ---
 title: HLSL 中的资源绑定
-description: 本主题介绍使用高级着色器语言 (HLSL) 着色器模型5.1 与 Direct3D 12 一起使用的一些特定功能。
+description: 本主题介绍使用高级着色器语言（HLSL）着色器模型5.1 与 Direct3D 12 一起使用的一些特定功能。
 ms.assetid: 3CD4BDAD-8AE3-4DE0-B3F8-9C9F9E83BBE9
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 08/27/2019
-ms.openlocfilehash: 152368110c91760d9b271c62e69075c638231b74
-ms.sourcegitcommit: d4e1e234e6241c9424fbc48bb135c0ed78b12b98
+ms.openlocfilehash: 0504576b55da6a432e58b96f9c71114a561fcd65
+ms.sourcegitcommit: 31f494fef71b63ad411b86b22b4cc01af6e37c8d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/28/2019
-ms.locfileid: "70076466"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71174320"
 ---
 # <a name="resource-binding-in-hlsl"></a>HLSL 中的资源绑定
 
-本主题介绍使用高级着色器语言 (HLSL)[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)与 Direct3D 12 一起使用的一些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
+本主题介绍使用高级着色器语言（HLSL）[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)与 Direct3D 12 一起使用的一些特定功能。 所有 Direct3D 12 硬件都支持着色器模型 5.1，因此对此模型的支持不依赖于硬件功能级别。
 
 -   [资源类型和数组](#resource-types-and-arrays)
 -   [描述符数组和纹理数组](#descriptor-arrays-and-texture-arrays)
@@ -28,13 +28,13 @@ ms.locfileid: "70076466"
 
 ## <a name="resource-types-and-arrays"></a>资源类型和数组
 
-着色器模型 5 (sm 5.0) 资源语法使用`register`关键字将有关资源的重要信息中继到 HLSL 编译器。 例如，以下语句声明在槽 t3、t4、t5 和 t6 中绑定的四个纹理的数组。 t3 是唯一显示在该语句中的寄存器槽，而它仅仅是四个寄存器的数组中的第一个。
+着色器模型5（sm 5.0）资源语法使用`register`关键字将有关资源的重要信息中继到 HLSL 编译器。 例如，以下语句声明在槽 t3、t4、t5 和 t6 中绑定的四个纹理的数组。 t3 是唯一显示在该语句中的寄存器槽，而它仅仅是四个寄存器的数组中的第一个。
 
 ``` syntax
 Texture2D<float4> tex1[4] : register(t3)
 ```
 
-HLSL 中的着色器模型 5.1 (SM5.1) 资源语法基于现有的寄存器资源语法，旨在更方便地完成移植。 HLSL 中的 Direct3D 12 资源绑定到逻辑寄存器空间内的虚拟寄存器:
+HLSL 中的着色器模型 5.1 (SM5.1) 资源语法基于现有的寄存器资源语法，旨在更方便地完成移植。 HLSL 中的 Direct3D 12 资源绑定到逻辑寄存器空间内的虚拟寄存器：
 
 -   t – 表示着色器资源视图 (SRV)
 -   s – 表示采样器
@@ -55,9 +55,9 @@ Texture2D<float4> tex2[4] : register(t10)
 Texture2D<float4> tex3[7][5][3] : register(t20, space1)
 ```
 
-SM 5.1 使用与 SM 5.0 相同的资源类型和元素类型。 SM 5.1 声明限制更灵活, 并且仅受运行时/硬件限制的约束。 `space`关键字指定已声明的变量绑定到的逻辑寄存器空间。 如果省略`tex2` `space0`关键字, 则默认的空白索引0将被隐式分配给范围 (因此上面的范围位于中)。 `space` `register(t3,  space0)`永远不会与`register(t3,  space1)`另一个空间中可能包含 t3 的任何数组冲突。
+SM 5.1 使用与 SM 5.0 相同的资源类型和元素类型。 SM 5.1 声明限制更灵活，并且仅受运行时/硬件限制的约束。 `space`关键字指定已声明的变量绑定到的逻辑寄存器空间。 如果省略`tex2` `space0`关键字，则默认的空白索引0将被隐式分配给范围（因此上面的范围位于中）。 `space` `register(t3,  space0)`永远不会与`register(t3,  space1)`另一个空间中可能包含 t3 的任何数组冲突。
 
-数组资源可能具有未绑定的大小, 该大小是通过将第一个维度指定为空来声明的, 或者为 0:
+数组资源可能具有未绑定的大小，该大小是通过将第一个维度指定为空来声明的，或者为0：
 
 ``` syntax
 Texture2D<float4> tex1[] : register(t0)
@@ -78,9 +78,9 @@ Texture2D<float4> tex2[3000][10] : register(t0, space0); // t0-t29999 in space0
 Texture2D<float4> tex3[0][5][3] : register(t5, space1)
 ```
 
-不允许资源范围别名。 换言之, 对于每个资源类型 (t, s, u, b), 声明的寄存器范围不得重叠。 这也包括未绑定范围。 在不同寄存器空间中声明的范围不得重叠。 请注意, 未绑定`space0` `tex3` `space1`(以上) 驻留在中, 而无限驻留在中, 因此它们不会重叠。 `tex2`
+不允许资源范围别名。 换言之，对于每个资源类型（t，s，u，b），声明的寄存器范围不得重叠。 这也包括未绑定范围。 在不同寄存器空间中声明的范围不得重叠。 请注意，未绑定`space0` `tex3` `space1`（以上）驻留在中，而无限驻留在中，因此它们不会重叠。 `tex2`
 
-访问已声明为数组的资源非常简单, 只需对它们进行索引。
+访问已声明为数组的资源非常简单，只需对它们进行索引。
 
 ``` syntax
 Texture2D<float4> tex1[400] : register(t3);
@@ -88,7 +88,7 @@ sampler samp[7] : register(s0);
 tex1[myMaterialID].Sample(samp[samplerID], texCoords);
 ```
 
-使用索引（以上代码中的 `myMaterialID` 和 `samplerID`）时，一个重要的默认限制是不允许这些索引在绘制/调度调用中有变化。 即使是基于实例更改索引，也被视为有变化。
+在使用索引（`myMaterialID`以及`samplerID`上面的代码中）时有一个重要的默认限制，它们不允许在[wave](/windows/win32/direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12#terminology)内发生变化。 即使是基于实例更改索引，也被视为有变化。
 
 如果需要更改索引，请在索引中指定 `NonUniformResourceIndex` 限定符，例如：
 
