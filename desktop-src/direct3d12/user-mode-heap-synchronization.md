@@ -5,12 +5,12 @@ ms.assetid: 93903F50-A6CA-41C2-863D-68D645586B4C
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 03fb5aff1298ae89974d7c9a7989ab7b1df53be1
-ms.sourcegitcommit: 931b09f3352a2818adeaff9056a4a7b0417edf64
+ms.openlocfilehash: 0e02af4565914a7c03b0d71a8958e6606987dd79
+ms.sourcegitcommit: 4c947260f53655bc7a8a4670ec1b66766413baf1
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/14/2019
-ms.locfileid: "70988231"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71262328"
 ---
 # <a name="synchronization-and-multi-engine"></a>同步和多引擎
 
@@ -194,7 +194,7 @@ D3D 12 设备提供相应的方法用于创建和检索不同的类型与优先�
 
 ## <a name="pipelined-compute-and-graphics-example"></a>管道化计算和图形示例
 
-此示例演示如何使用围栏同步在队列 `pGraphicsQueue` 上的图形工作使用的队列（由 `pComputeQueue` 引用）中创建计算工作管道。 计算和图形工作与使用多个帧返回的计算工作结果的图形队列建立管道连接，某个 CPU 事件用于总体性地限制排队的整个工作。
+此示例演示如何使用围栏同步在队列上创建由图形工作`pComputeQueue` `pGraphicsQueue`使用的计算工作管道（由引用）。 计算和图形工作是使用图形队列的流水线操作，该队列从几个帧返回计算工作的结果，并使用 CPU 事件来限制整个排队的工作总量。
 
 ``` syntax
 void PipelinedComputeGraphics()
@@ -237,7 +237,7 @@ void PipelinedComputeGraphics()
 }
 ```
 
-若要支持此管道，必须有从计算`ComputeGraphicsLatency+1`队列向图形队列传递数据的不同副本的缓冲区。 命令列表必须使用 UAV 和间接性从该缓冲区中的相应数据“版本”读取和写入。 计算队列必须等到图形队列完成从数据中读取帧 N，然后才能写入帧 `N+ComputeGraphicsLatency`。
+若要支持此管道，必须有从计算队列`ComputeGraphicsLatency+1`向图形队列传递数据的不同副本的缓冲区。 命令列表必须使用 UAV 和间接性从该缓冲区中的相应数据“版本”读取和写入。 计算队列必须等到图形队列完成从数据中读取帧 N，然后才能写入帧 `N+ComputeGraphicsLatency`。
 
 请注意，相对于 CPU 的计算队列量不会直接依赖于所需的缓冲量，然而，队列 GPU 工作超出了可用的缓冲区空间量也不太重要。
 
@@ -249,45 +249,47 @@ void PipelinedComputeGraphics()
 
 计算队列仍必须等待图形队列使用管道缓冲区完成，但引入了第三个围栏 (`pGraphicsComputeFence`)，以便可以跟踪读取计算工作的图形的进度，以及一般的图形进度。 这反映了这样一个事实：连续的图形帧现在可以读取相同的计算结果，或者可以跳过计算结果。 更有效但略微复杂一些的设计是仅使用单个图形围栏，并存储对每个图形帧使用的计算帧的映射。
 
-``` syntax
+```cpp
 void AsyncPipelinedComputeGraphics()
 {
-    const UINT CpuLatency = 3;
-    const UINT ComputeGraphicsLatency = 2;
+    const UINT CpuLatency{ 3 };
+    const UINT ComputeGraphicsLatency{ 2 };
 
-    // Compute is 0, graphics is 1
-    ID3D12Fence *rgpFences[] = { pComputeFence, pGraphicsFence };
+    // The compute fence is at index 0; the graphics fence is at index 1.
+    ID3D12Fence* rgpFences[]{ pComputeFence, pGraphicsFence };
     HANDLE handles[2];
     handles[0] = CreateEvent(nullptr, FALSE, TRUE, nullptr);
     handles[1] = CreateEvent(nullptr, FALSE, TRUE, nullptr);
-    UINT FrameNumbers[] = { 0, 0 };
+    UINT FrameNumbers[]{ 0, 0 };
 
-    ID3D12GraphicsCommandList *rgpGraphicsCommandLists[CpuLatency];
+    ID3D12GraphicsCommandList* rgpGraphicsCommandLists[CpuLatency];
     CreateGraphicsCommandLists(ARRAYSIZE(rgpGraphicsCommandLists),
         rgpGraphicsCommandLists);
 
-    // Graphics needs to wait for the first compute frame to complete, this is the
+    // Graphics needs to wait for the first compute frame to complete; this is the
     // only wait that the graphics queue will perform.
     pGraphicsQueue->Wait(pComputeFence, 1);
 
-    while (1)
+    while (true)
     {
         for (auto i = 0; i < 2; ++i)
         {
             if (FrameNumbers[i] > CpuLatency)
             {
-                rgpFences[i]->SetEventOnFenceCompletion(
+                rgpFences[i]->SetEventOnCompletion(
                     FrameNumbers[i] - CpuLatency,
                     handles[i]);
             }
             else
             {
-                SetEvent(handles[i]);
+                ::SetEvent(handles[i]);
             }
         }
 
-        auto WaitResult = WaitForMultipleObjects(2, handles, FALSE, INFINITE);
-        auto Stage = WaitResult = WAIT_OBJECT_0;
+
+        auto WaitResult = ::WaitForMultipleObjects(2, handles, FALSE, INFINITE);
+        if (WaitResult > WAIT_OBJECT_0 + 1) continue;
+        auto Stage = WaitResult - WAIT_OBJECT_0;
         ++FrameNumbers[Stage];
 
         switch (Stage)
@@ -306,20 +308,20 @@ void AsyncPipelinedComputeGraphics()
         case 1:
         {
             // Recall that the GPU queue started with a wait for pComputeFence, 1
-            UINT64 CompletedComputeFrames = min(1, 
-                pComputeFence->GetCurrentFenceValue());
-            UINT64 PipeBufferIndex = 
+            UINT64 CompletedComputeFrames = min(1,
+                pComputeFence->GetCompletedValue());
+            UINT64 PipeBufferIndex =
                 (CompletedComputeFrames - 1) % ComputeGraphicsLatency;
             UINT64 CommandListIndex = (FrameNumbers[Stage] - 1) % CpuLatency;
             // Update graphics command list based on CPU input and using the appropriate
             // buffer index for data produced by compute.
-            UpdateGraphicsCommandList(PipeBufferIndex, 
+            UpdateGraphicsCommandList(PipeBufferIndex,
                 rgpGraphicsCommandLists[CommandListIndex]);
 
             // Signal *before* new rendering to indicate what compute work
             // the graphics queue is DONE with
             pGraphicsQueue->Signal(pGraphicsComputeFence, CompletedComputeFrames - 1);
-            pGraphicsQueue->ExecuteCommandLists(1, 
+            pGraphicsQueue->ExecuteCommandLists(1,
                 rgpGraphicsCommandLists + PipeBufferIndex);
             pGraphicsQueue->Signal(pGraphicsFence, FrameNumbers[Stage]);
             break;
