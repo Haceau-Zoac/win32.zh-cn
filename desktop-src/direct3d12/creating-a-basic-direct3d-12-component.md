@@ -5,12 +5,12 @@ ms.assetid: A0FB108B-15C1-42AD-9277-D5CB63FA8329
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 84bf3fcb548a89a1a95981f61c6400e4b325d0ec
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: fd5fd4adee155f7d195233b969ff08417a0a68ce
+ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006157"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71306449"
 ---
 # <a name="creating-a-basic-direct3d-12-component"></a>创建基本的 Direct3D 12 组件
 
@@ -90,7 +90,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
     -   创建顶点缓冲区视图。
     -   创建围栏。
         > [!Note]  
-        > 围栏用于[同步 CPU 和 GPU](user-mode-heap-synchronization.md)。
+        > 使用 GPU 将 CPU 与 GPU 同步（请参阅[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)）。
 
          
 
@@ -176,9 +176,9 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
 首先使用以下结构在标头文件中定义该类，包括视区、剪切矩形和顶点缓冲区：
 
--   [**D3D12\_VIEWPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_viewport)
+-   [**D3D12\_VIEWPORT**](/windows/win32/api/d3d12/ns-d3d12-d3d12_viewport)
 -   [**D3D12\_RECT**](d3d12-rect.md)
--   [**D3D12\_VERTEX\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
+-   [**D3D12\_VERTEX\_BUFFER\_VIEW**](/windows/win32/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
 
 
 ```C++
@@ -260,39 +260,39 @@ void D3D12HelloTriangle::OnInit()
 
 -   调用以下方法启用调试层：<dl>
 
-[**D3D12GetDebugInterface**](/windows/desktop/api/d3d12/nf-d3d12-d3d12getdebuginterface)  
-    [**ID3D12Debug::EnableDebugLayer**](/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug-enabledebuglayer)  
+[**D3D12GetDebugInterface**](/windows/win32/api/d3d12/nf-d3d12-d3d12getdebuginterface)  
+    [**ID3D12Debug::EnableDebugLayer**](/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debug-enabledebuglayer)  
     </dl>
 -   创建设备：<dl>
 
-[**CreateDXGIFactory1**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory1)  
-    [**D3D12CreateDevice**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice)  
+[**CreateDXGIFactory1**](/windows/win32/api/dxgi/nf-dxgi-createdxgifactory1)  
+    [**D3D12CreateDevice**](/windows/win32/api/d3d12/nf-d3d12-d3d12createdevice)  
     </dl>
 -   填写命令队列说明，然后创建命令队列：<dl>
 
-[**D3D12\_COMMAND\_QUEUE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_queue_desc)  
-    [**ID3D12Device::CreateCommandQueue**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandqueue)  
+[**D3D12\_COMMAND\_QUEUE\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc)  
+    [**ID3D12Device::CreateCommandQueue**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue)  
     </dl>
 -   填写交换链说明，然后创建交换链： <dl>
 
-[**DXGI\_SWAP\_CHAIN\_DESC**](https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_swap_chain_desc)  
-    [**IDXGIFactory::CreateSwapChain**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain)  
-    [**IDXGISwapChain3::GetCurrentBackBufferIndex**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)  
+[**DXGI\_SWAP\_CHAIN\_DESC**](/windows/win32/api/dxgi/ns-dxgi-dxgi_swap_chain_desc)  
+    [**IDXGIFactory::CreateSwapChain**](/windows/win32/api/dxgi/nf-dxgi-idxgifactory-createswapchain)  
+    [**IDXGISwapChain3::GetCurrentBackBufferIndex**](/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)  
     </dl>
 -   填写堆说明。 然后创建描述符堆： <dl>
 
-[**D3D12\_DESCRIPTOR\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc)  
-    [**ID3D12Device::CreateDescriptorHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap)  
-    [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)  
+[**D3D12\_DESCRIPTOR\_HEAP\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc)  
+    [**ID3D12Device::CreateDescriptorHeap**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap)  
+    [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)  
     </dl>
 -   创建渲染器目标视图： <dl>
 
 [**CD3DX12\_CPU\_DESCRIPTOR\_HANDLE**](cd3dx12-cpu-descriptor-handle.md)  
-    [**GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
-    [**IDXGISwapChain::GetBuffer**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer)  
-    [**ID3D12Device::CreateRenderTargetView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrendertargetview)  
+    [**GetCPUDescriptorHandleForHeapStart**](/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
+    [**IDXGISwapChain::GetBuffer**](/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer)  
+    [**ID3D12Device::CreateRenderTargetView**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrendertargetview)  
     </dl>
--   创建命令分配器：[**ID3D12Device::CreateCommandAllocator**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandallocator)。
+-   创建命令分配器：[**ID3D12Device::CreateCommandAllocator**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator)。
 
 在后续步骤中，将从命令分配器获取命令列表并将其提交到命令队列。
 
@@ -419,31 +419,31 @@ void D3D12HelloTriangle::LoadPipeline()
 -   使用可用的帮助器结构创建空的根签名： <dl>
 
 [**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md)  
-    [**D3D12SerializeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-d3d12serializerootsignature)  
-    [**ID3D12Device::CreateRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrootsignature)  
+    [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)  
+    [**ID3D12Device::CreateRootSignature**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature)  
     </dl>
--   加载并编译着色器：[**D3DCompileFromFile**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompilefromfile)。
--   创建顶点输入布局：[**D3D12\_INPUT\_ELEMENT\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_input_element_desc)。
+-   加载并编译着色器：[**D3DCompileFromFile**](/windows/win32/direct3dhlsl/d3dcompilefromfile)。
+-   创建顶点输入布局：[**D3D12\_INPUT\_ELEMENT\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_input_element_desc)。
 -   填写管道状态说明，然后使用可用的帮助器结构创建图形管道状态： <dl>
 
-[**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)  
+[**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)  
     [**CD3DX12\_RASTERIZER\_DESC**](cd3dx12-rasterizer-desc.md)  
     [**CD3DX12\_BLEND\_DESC**](cd3dx12-blend-desc.md)  
-    [**ID3D12Device::CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate)  
+    [**ID3D12Device::CreateGraphicsPipelineState**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate)  
     </dl>
 -   创建然后关闭命令列表： <dl>
 
-[**ID3D12Device::CreateCommandList**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandlist)  
-    [**ID3D12GraphicsCommandList::Close**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)  
+[**ID3D12Device::CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist)  
+    [**ID3D12GraphicsCommandList::Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)  
     </dl>
--   创建顶点缓冲区：[**ID3D12Device::CreateCommittedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)。
+-   创建顶点缓冲区：[**ID3D12Device::CreateCommittedResource**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)。
 -   将顶点数据复制到顶点缓冲区：<dl>
 
-[**ID3D12Resource::Map**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)  
-    [**ID3D12Resource::Unmap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-unmap)  
+[**ID3D12Resource::Map**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map)  
+    [**ID3D12Resource::Unmap**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-unmap)  
     </dl>
--   初始化顶点缓冲区视图：[**GetGPUVirtualAddress**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress)。
--   创建并初始化围栏：[**ID3D12Device::CreateFence**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createfence)。
+-   初始化顶点缓冲区视图：[**GetGPUVirtualAddress**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress)。
+-   创建并初始化围栏：[**ID3D12Device::CreateFence**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence)。
 -   创建事件句柄用于帧同步。
 -   等待 GPU 完成。
 
@@ -589,8 +589,8 @@ void D3D12HelloTriangle::OnUpdate()
 渲染涉及到发出一个调用来填充命令列表，然后可以执行该命令列表，并呈现交换链中的下一个缓冲区：
 
 -   填充命令列表。
--   执行命令列表：[**ID3D12CommandQueue::ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)。
--   对帧执行 [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)。
+-   执行命令列表：[**ID3D12CommandQueue::ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)。
+-   对帧执行 [**IDXGISwapChain1::Present1**](/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)。
 -   等待 GPU 完成。
 
 
@@ -623,30 +623,30 @@ void D3D12HelloTriangle::OnRender()
 
 -   重置命令分配器和命令列表： <dl>
 
-[**ID3D12CommandAllocator::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandallocator-reset)  
-    [**ID3D12GraphicsCommandList::Reset**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset)  
+[**ID3D12CommandAllocator::Reset**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandallocator-reset)  
+    [**ID3D12GraphicsCommandList::Reset**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset)  
     </dl>
 -   设置根签名、视区和裁切矩形： <dl>
 
-[**ID3D12GraphicsCommandList::SetGraphicsRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature)  
-    [**ID3D12GraphicsCommandList::RSSetViewports**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports)  
-    [**ID3D12GraphicsCommandList::RSSetScissorRects**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects)  
+[**ID3D12GraphicsCommandList::SetGraphicsRootSignature**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature)  
+    [**ID3D12GraphicsCommandList::RSSetViewports**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports)  
+    [**ID3D12GraphicsCommandList::RSSetScissorRects**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetscissorrects)  
     </dl>
 -   指示要将反向缓冲区用作渲染器目标： <dl>
 
-[**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)  
-    [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
-    [**ID3D12GraphicsCommandList::OMSetRenderTargets**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets)  
+[**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)  
+    [**ID3D12DescriptorHeap::GetCPUDescriptorHandleForHeapStart**](/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
+    [**ID3D12GraphicsCommandList::OMSetRenderTargets**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets)  
     </dl>
 -   记录命令：<dl>
 
-[**ID3D12GraphicsCommandList::ClearRenderTargetView**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview)  
-    [**ID3D12GraphicsCommandList::IASetPrimitiveTopology**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology)  
-    [**ID3D12GraphicsCommandList::IASetVertexBuffers**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)  
-    [**ID3D12GraphicsCommandList::DrawInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)  
+[**ID3D12GraphicsCommandList::ClearRenderTargetView**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-clearrendertargetview)  
+    [**ID3D12GraphicsCommandList::IASetPrimitiveTopology**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetprimitivetopology)  
+    [**ID3D12GraphicsCommandList::IASetVertexBuffers**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)  
+    [**ID3D12GraphicsCommandList::DrawInstanced**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)  
     </dl>
--   指示现在要使用反向缓冲区来呈现信息：[**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)。
--   关闭命令列表：[**ID3D12GraphicsCommandList::Close**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)。
+-   指示现在要使用反向缓冲区来呈现信息：[**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)。
+-   关闭命令列表：[**ID3D12GraphicsCommandList::Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)。
 
 
 ```C++
@@ -700,11 +700,11 @@ void D3D12HelloTriangle::PopulateCommandList()
 
 依次调用以下 API 和进程：
 
--   [**ID3D12CommandQueue::Signal**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-signal)
--   [**ID3D12Fence::GetCompletedValue**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)
--   [**ID3D12Fence::SetEventOnCompletion**](/windows/desktop/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion)
+-   [**ID3D12CommandQueue::Signal**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal)
+-   [**ID3D12Fence::GetCompletedValue**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)
+-   [**ID3D12Fence::SetEventOnCompletion**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion)
 -   等待事件。
--   更新帧索引：[**IDXGISwapChain3::GetCurrentBackBufferIndex**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)。
+-   更新帧索引：[**IDXGISwapChain3::GetCurrentBackBufferIndex**](/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)。
 
 
 ```C++

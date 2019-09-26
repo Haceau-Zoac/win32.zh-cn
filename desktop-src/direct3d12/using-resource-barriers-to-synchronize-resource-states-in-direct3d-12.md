@@ -5,16 +5,16 @@ ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: d60117c80382463527821f58f1f7bdef1b30f720
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: c59643376c571f67894c574b0c5573ca8ab8802a
+ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005874"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71306450"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
-为了减少总体 CPU 使用率并启用驱动程序多线程和预处理，Direct3D 12 将按资源状态管理的责任从图形驱动程序转移到应用程序。 按资源状态的一个例子是，某个纹理资源当前是作为着色器资源视图进行访问，还是作为渲染器目标视图进行访问。 在 Direct3D 11 中，驱动程序需要在后台跟踪此状态。 从 CPU 的角度讲，此操作的开销很大，会明显增大任何种类的多线程设计的复杂性。 在 Microsoft Direct3D 12 中，按资源状态基本上由应用程序使用单个 API [**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 进行管理。
+为了减少总体 CPU 使用率并启用驱动程序多线程和预处理，Direct3D 12 将按资源状态管理的责任从图形驱动程序转移到应用程序。 按资源状态的一个例子是，某个纹理资源当前是作为着色器资源视图进行访问，还是作为渲染器目标视图进行访问。 在 Direct3D 11 中，驱动程序需要在后台跟踪此状态。 从 CPU 的角度讲，此操作的开销很大，会明显增大任何种类的多线程设计的复杂性。 在 Microsoft Direct3D 12 中，按资源状态基本上由应用程序使用单个 API [**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 进行管理。
 
 -   [使用 ResourceBarrier API 管理按资源状态](#using-the-resourcebarrier-api-to-manage-per-resource-state)
     -   [资源状态](#using-resource-barriers-to-synchronize-resource-states-in-direct3d-12)
@@ -34,25 +34,25 @@ ms.locfileid: "71005874"
 
 ## <a name="using-the-resourcebarrier-api-to-manage-per-resource-state"></a>使用 ResourceBarrier API 管理按资源状态
 
-当驱动程序可能需要同步对存储资源的内存的多个访问时，[**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 会通知图形驱动程序。 将使用一个或多个资源屏障描述结构（指示所要声明的资源屏障的类型）调用该方法。
+当驱动程序可能需要同步对存储资源的内存的多个访问时，[**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 会通知图形驱动程序。 将使用一个或多个资源屏障描述结构（指示所要声明的资源屏障的类型）调用该方法。
 
 有三种类型的资源屏障：
 
--   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。
+-   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。
 
     系统将验证命令列表中的子资源转换是否与同一命令列表中以前的转换相一致。 调试层会进一步跟踪子资源状态，以查找其他错误，但这种验证是保守性的，而不是穷尽性的。
 
     请注意，可以使用 D3D12\_RESOURCE\_BARRIER\_ALL\_SUBRESOURCES 标志指定要转换资源中的所有子资源。
 
--   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。
+-   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。
 
-    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](https://docs.microsoft.com/windows/desktop/direct3d11/tiled-resources)和[立体图块化资源](volume-tiled-resources.md)。
+    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](/windows/win32/direct3d11/tiled-resources)和[立体图块化资源](volume-tiled-resources.md)。
 
--   **无序访问视图 (UAV) 屏障** - UAV 屏障指示对特定资源的所有 UAV 访问（读取或写入）必须在任何后续 UAV 访问（读取或写入）之间完成。 应用不需要在只读取 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 此外，如果应用程序知道它能够安全地按任意顺序执行 UAV 访问，则不需要在写入同一 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 使用 [**D3D12\_RESOURCE\_UAV\_BARRIER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier) 结构指定屏障应用到的 UAV 资源。 应用程序可为屏障的 UAV 指定 NULL，指示任何 UAV 访问都可能需要屏障。
+-   **无序访问视图 (UAV) 屏障** - UAV 屏障指示对特定资源的所有 UAV 访问（读取或写入）必须在任何后续 UAV 访问（读取或写入）之间完成。 应用不需要在只读取 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 此外，如果应用程序知道它能够安全地按任意顺序执行 UAV 访问，则不需要在写入同一 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 使用 [**D3D12\_RESOURCE\_UAV\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier) 结构指定屏障应用到的 UAV 资源。 应用程序可为屏障的 UAV 指定 NULL，指示任何 UAV 访问都可能需要屏障。
 
-如果使用资源屏障描述数组调用 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)，API 的行为将如同按照元素的提供顺序对每个元素调用该 API 一次。
+如果使用资源屏障描述数组调用 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)，API 的行为将如同按照元素的提供顺序对每个元素调用该 API 一次。
 
-在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。
+在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。
 
 > [!TIP]
 >
@@ -62,9 +62,9 @@ ms.locfileid: "71005874"
 
 ### <a name="resource-states"></a>资源状态
 
-有关资源可转换到的资源状态的完整列表，请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 枚举的参考主题。
+有关资源可转换到的资源状态的完整列表，请参阅 [**D3D12\_RESOURCE\_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 枚举的参考主题。
 
-对于拆分资源屏障，另请参阅 [**D3D12\_RESOURCE\_BARRIER\_FLAGS**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_barrier_flags)。
+对于拆分资源屏障，另请参阅 [**D3D12\_RESOURCE\_BARRIER\_FLAGS**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_barrier_flags)。
 
 ### <a name="initial-states-for-resources"></a>资源的初始状态
 
@@ -84,17 +84,17 @@ ms.locfileid: "71005874"
 
 ### <a name="readwrite-resource-state-restrictions"></a>读/写资源状态限制
 
-用于描述资源状态的资源状态用法位划分为只读和读/写状态。 [**D3D12\_RESOURCE\_STATES**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states) 的参考主题指示了枚举中每个位的读/写访问级别。
+用于描述资源状态的资源状态用法位划分为只读和读/写状态。 [**D3D12\_RESOURCE\_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 的参考主题指示了枚举中每个位的读/写访问级别。
 
 对于任一资源，最多只能设置一个读/写位。 如果设置了写入位，则不能对该资源设置任何只读位。 如果未设置写入位，则可以设置任意数量的读取位。
 
 ### <a name="resource-states-for-presenting-back-buffers"></a>用于呈现反向缓冲区的资源状态
 
-在呈现反向缓冲区之前，该缓冲区必须处于 D3D12\_RESOURCE\_STATE\_COMMON 状态。 请注意，资源状态 D3D12\_RESOURCE\_STATE\_PRESENT 是 D3D12\_RESOURCE\_STATE\_COMMON 的同义词，两者的值均为 0。 如果针对当前不处于此状态的资源调用 [**IDXGISwapChain::Present**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiswapchain-present)（或 [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)），则会发出调试层警告。
+在呈现反向缓冲区之前，该缓冲区必须处于 D3D12\_RESOURCE\_STATE\_COMMON 状态。 请注意，资源状态 D3D12\_RESOURCE\_STATE\_PRESENT 是 D3D12\_RESOURCE\_STATE\_COMMON 的同义词，两者的值均为 0。 如果针对当前不处于此状态的资源调用 [**IDXGISwapChain::Present**](/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-present)（或 [**IDXGISwapChain1::Present1**](/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)），则会发出调试层警告。
 
 ### <a name="discarding-resources"></a>丢弃资源
 
-调用 [**ID3D12GraphicsCommandList::DiscardResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource) 时，对于渲染器目标/深度模具资源，资源中的所有子资源必须分别处于 RENDER\_TARGET 状态或 DEPTH\_WRITE 状态。
+调用 [**ID3D12GraphicsCommandList::DiscardResource**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-discardresource) 时，对于渲染器目标/深度模具资源，资源中的所有子资源必须分别处于 RENDER\_TARGET 状态或 DEPTH\_WRITE 状态。
 
 ## <a name="implicit-state-transitions"></a>隐式状态转换
 
@@ -143,26 +143,26 @@ ms.locfileid: "71005874"
 
 ### <a name="state-decay-to-common"></a>通用状态衰减
 
-通用状态提升的对立面是衰减回到 D3D12\_RESOURCE\_STATE\_COMMON。 满足特定要求的资源被视为无状态，在 GPU 完成执行 [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，这些资源会恢复到通用状态。 在同一个 **ExecuteCommandLists** 调用中一起执行的命令列表之间不会发生衰减。
+通用状态提升的对立面是衰减回到 D3D12\_RESOURCE\_STATE\_COMMON。 满足特定要求的资源被视为无状态，在 GPU 完成执行 [**ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，这些资源会恢复到通用状态。 在同一个 **ExecuteCommandLists** 调用中一起执行的命令列表之间不会发生衰减。
 
-在 GPU 上完成 [**ExecuteCommandLists**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，以下资源将会衰减：
+在 GPU 上完成 [**ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，以下资源将会衰减：
 
 -   在复制队列中访问的资源，或
 -   任何队列类型中的缓冲区资源，或
 -   设置了 D3D12\_RESOURCE\_FLAG\_ALLOW\_SIMULTANEOUS\_ACCESS 标志的任何队列类型中的资源，或
 -   隐式提升为只读状态的任何资源。
 
-与通用状态提升一样，衰减也是无开销的，因为不需要附加的同步。 将通用状态提升和衰减相结合有助于消除许多不必要的 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换。 在某些情况下，这可以大幅提高性能。
+与通用状态提升一样，衰减也是无开销的，因为不需要附加的同步。 将通用状态提升和衰减相结合有助于消除许多不必要的 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换。 在某些情况下，这可以大幅提高性能。
 
 不管资源是使用资源屏障显式转换的还是隐式提升的，它们都会衰减到通用状态。
 
 ### <a name="performance-implications"></a>性能影响
 
-记录处于通用状态的资源中的显式 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换时，正确的做法是使用 D3D12\_RESOURCE\_STATE\_COMMON 或任何可提升状态作为 D3D12\_RESOURCE\_TRANSITION\_BARRIER 结构中的 *BeforeState* 值。 这样可以实现传统状态管理，忽略缓冲区和同时访问纹理的自动衰减。 不过，这可能不是所需的结果，因为使用已知处于通用状态的资源避免转换 **ResourceBarrier** 调用可能会明显提高性能。 资源屏障的开销可能很高。 它们旨在强制执行缓存刷新、内存布局更改和其他同步，而已经处于通用状态的资源可能不需要这些操作。 使用一个非通用状态中的资源屏障转换为当前处于通用状态的资源中的另一个非通用状态的命令列表可能会造成许多不必要的开销。
+记录处于通用状态的资源中的显式 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换时，正确的做法是使用 D3D12\_RESOURCE\_STATE\_COMMON 或任何可提升状态作为 D3D12\_RESOURCE\_TRANSITION\_BARRIER 结构中的 *BeforeState* 值。 这样可以实现传统状态管理，忽略缓冲区和同时访问纹理的自动衰减。 不过，这可能不是所需的结果，因为使用已知处于通用状态的资源避免转换 **ResourceBarrier** 调用可能会明显提高性能。 资源屏障的开销可能很高。 它们旨在强制执行缓存刷新、内存布局更改和其他同步，而已经处于通用状态的资源可能不需要这些操作。 使用一个非通用状态中的资源屏障转换为当前处于通用状态的资源中的另一个非通用状态的命令列表可能会造成许多不必要的开销。
 
-此外，除非绝对必要（例如，下一次访问位于要求资源最初处于通用的 COPY 命令队列中），否则请避免显式 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换为 D3D12\_RESOURCE\_STATE\_COMMON。 过多地转换为通用状态可能会大幅降低 GPU 的性能。
+此外，除非绝对必要（例如，下一次访问位于要求资源最初处于通用的 COPY 命令队列中），否则请避免显式 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换为 D3D12\_RESOURCE\_STATE\_COMMON。 过多地转换为通用状态可能会大幅降低 GPU 的性能。
 
-总而言之，每当其语义允许在不发出 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 调用的情况下转换状态时，都请尝试依赖于通用状态提升和衰减。
+总而言之，每当其语义允许在不发出 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 调用的情况下转换状态时，都请尝试依赖于通用状态提升和衰减。
 
 ## <a name="split-barriers"></a>拆分屏障
 
@@ -174,7 +174,7 @@ ms.locfileid: "71005874"
 
 ## <a name="resource-barrier-example-scenario"></a>资源屏障示例方案
 
-以下代码片段演示了 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 方法在多线程示例中的用法。
+以下代码片段演示了 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 方法在多线程示例中的用法。
 
 创建深度模具视图，并将其转换为可写状态。
 
@@ -374,7 +374,7 @@ ms.locfileid: "71005874"
 
 
 
-启动某个帧；这不仅会使用 [**ResourceBarrier**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 来指示要将反向缓冲区用作渲染器目标，而且还会初始化帧资源（针对深度模具缓冲区调用 **ResourceBarrier**）。
+启动某个帧；这不仅会使用 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 来指示要将反向缓冲区用作渲染器目标，而且还会初始化帧资源（针对深度模具缓冲区调用 **ResourceBarrier**）。
 
 
 ```C++
@@ -588,21 +588,8 @@ D3D12_RESOURCE_BARRIER BarrierDesc = {};
 
 ## <a name="related-topics"></a>相关主题
 
-<dl> <dt>
-
 [DirectX 高级学习视频教程：资源屏障和状态跟踪](https://www.youtube.com/watch?v=nmB2XMasz2o)
-</dt> <dt>
 
-[同步和多引擎](user-mode-heap-synchronization.md)
-</dt> <dt>
+[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)
 
 [Direct3D 12 中的工作提交](command-queues-and-command-lists.md)
-</dt> </dl>
-
- 
-
- 
-
-
-
-

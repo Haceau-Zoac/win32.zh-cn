@@ -6,12 +6,12 @@ ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: ba81418278563b0272f2be20f80f46c41dd436ae
-ms.sourcegitcommit: 610af1b84106322d74559e452fc5ca642fae3cc7
+ms.openlocfilehash: 9d2c4d35fb23e5bc57a6366d6ac54a29700e15ef
+ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/19/2019
-ms.locfileid: "71119373"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71306437"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -123,7 +123,7 @@ GPU 可以执行的命令缓冲区。 直接命令列表不会继承任何 GPU �
 <span id="direct3d12.directx_12_glossary_fence"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_FENCE"></span>**fence**
 </dt> <dd>
 
-用于同步 GPU 和 CPU 的机制。 可以指示 GPU 和 CPU 等待围栏完成，这实际上是等待另一个处理器跟上进度。 请参阅[同步和多引擎](user-mode-heap-synchronization.md)。
+用于同步 GPU 和 CPU 的机制。 可以指示 GPU 和 CPU 等待围栏完成，这实际上是等待另一个处理器跟上进度。 请参阅[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)。
 
 </dd> <dt>
 
@@ -246,7 +246,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_swap_chain"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_SWAP_CHAIN"></span>**交换链**
 </dt> <dd>
 
-交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](https://docs.microsoft.com/windows/desktop/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)）。
+交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](/windows/win32/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)）。
 
 </dd> <dt>
 
