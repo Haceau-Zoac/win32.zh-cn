@@ -5,12 +5,12 @@ ms.assetid: 0D360A7C-8A2F-49E1-A5CC-98C958B59D1C
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 55cd680306a07d6c399785b25f2a23c67f89dd3b
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 0b6016dbe8a15d24e392377a607592c0ae982831
+ms.sourcegitcommit: fc240ac77d4c40a9f3a27714d7b852abbd234774
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005887"
+ms.lasthandoff: 10/14/2019
+ms.locfileid: "72310684"
 ---
 # <a name="creating-descriptors"></a>创建描述符
 
@@ -382,10 +382,7 @@ typedef struct D3D12_RENDER_TARGET_VIEW_DESC
 
 最后，调用 [ID3D12Device::CreateRenderTargetView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createrendertargetview)。
 
-注意，创建呈现器目标视图的另一种方法是创建呈现器目标描述符堆。
-
 例如，应用于对象的
-
 
 ```C++
 // Create descriptor heaps.
