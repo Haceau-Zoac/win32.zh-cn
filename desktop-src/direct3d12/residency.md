@@ -5,12 +5,12 @@ ms.assetid: 956F80D7-EEC8-4D88-B251-EE325614F31E
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 4028c6b30915aa962969c5e8fae8ac66dee268b0
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 819883df41edfc74b3cde49ebf8f27e2b0d9ef3d
+ms.sourcegitcommit: 4e6351be806497fec41a0a5eebdfddabeb88878c
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006106"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72510761"
 ---
 # <a name="residency"></a>驻留
 
@@ -44,7 +44,7 @@ D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用�
 
 -   已提交资源同时创建资源和堆。 堆是隐式的，不可直接访问。 堆的大小适当，可在其中放置整个资源。
 -   已定位资源允许将资源放在堆中的非零偏移位置。 偏移量通常必须经过 64KB 对齐；但两个方向存在某些例外情况。 MSAA 资源需要 4MB 偏移对齐，对于小纹理可以使用 4KB 偏移对齐。 已定位资源不能直接重新定位或重新映射到另一个堆；但是，使用它们可在堆之间方便地重新定位资源数据。 在不同的堆中创建新的已定位资源并复制资源数据后，必须对新的资源数据位置使用新的资源描述符。
--   仅当适配器支持图块式资源层 1 或更高的层时，已保留资源才可用。 如果可用，它们会提供可用的最先进驻留管理技术；但目前并非所有适配器都支持这些技术。 使用已保留资源可以重新映射资源，而无需重新生成资源描述符、部分 mip 级驻留和稀疏纹理方案等。即使已保留资源可用，也并非所有资源类型均受支持，因此，完全基于常规页面的驻留管理器尚不可行。
+-   仅当适配器支持图块式资源层 1 或更高的层时，已保留资源才可用。 如果可用，它们会提供可用的最先进驻留管理技术；但目前并非所有适配器都支持这些技术。 它们允许重新映射资源，而无需重新生成资源描述符、部分 mip 级别常驻和稀疏纹理方案等。即使保留的资源可用，并非所有资源类型都受支持，因此，完全基于页的常驻管理器尚不可行。
 
 ## <a name="residency-priorities"></a>驻留优先级
 
@@ -71,7 +71,7 @@ D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用�
 
 只需创建已提交资源，直到出现内存不足错误，即可创建简单的应用程序。 失败时，应用程序可能销毁其他已提交的资源或 API 对象，使后续的资源创建能够成功。 但是，即使是对于简单应用程序，我们也强烈建议监视负面的预算更改，并在大约处理一帧后销毁未使用的 API 对象。
 
-如果尝试针对适配器体系结构进行优化或整合驻留优先级，驻留管理设计的复杂性将会增大。 以离散方式预算和管理两个离散内存池比仅管理一个要复杂一些，以较大的规模分配固定的优先级可能会在使用模式演变时造成维护负担。 将纹理溢出到系统内存会进一步增大复杂性，因为系统内存中的错误资源可能会严重影响帧速率。 此外，没有任何简单的功能可帮助识别能够受益于更高 GPU 带宽或容忍更低 GPU 带宽的资源。
+如果尝试针对适配器体系结构进行优化或整合驻留优先级，驻留管理设计的复杂性将会增大。 单独预算和管理离散内存的两个池比只管理一个池复杂得多，在大规模分配固定优先级时，可能会成为维护的负担。 将纹理溢出到系统内存会进一步增大复杂性，因为系统内存中的错误资源可能会严重影响帧速率。 此外，没有任何简单的功能可帮助识别能够受益于更高 GPU 带宽或容忍更低 GPU 带宽的资源。
 
 更复杂的设计需要查询当前适配器的功能。 [**D3D12\_FEATURE\_DATA\_GPU\_VIRTUAL\_ADDRESS\_SUPPORT**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_gpu_virtual_address_support)、[**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)、[**D3D12\_TILED\_RESOURCES\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier) 和 [**D3D12\_RESOURCE\_HEAP\_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_heap_tier) 中已提供相关信息。
 
