@@ -1,16 +1,16 @@
 ---
-title: 定时
+title: 计时（Direct3D 12 图形）
 description: 本节介绍如何查询时间戳，以及如何校准 GPU 和 CPU 时间戳计数器。
 ms.assetid: CC1E5BAB-4363-43FF-BF5B-6C9AEBECD6CA
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 6ca607deeb1c30d492af330bd8f19db7606d674a
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 6de008f7e039338089e2ffa686644a8487af882e
+ms.sourcegitcommit: 40a1246849dba8ececf54c716b2794b99c96ad50
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006210"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73957230"
 ---
 # <a name="timing"></a>定时
 

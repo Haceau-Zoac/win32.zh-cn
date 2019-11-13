@@ -1,18 +1,18 @@
 ---
-title: 保守光栅化
+title: 保守光栅（Direct3D 12 图形）
 description: 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。
 ms.assetid: 081199AD-1702-4EC8-95AD-B1148C676199
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 3f80d96bc1118617ef87d1321e6b4868758814db
-ms.sourcegitcommit: ba225179cba1e27f4dbf5b9e1aefabf7c250b71e
+ms.openlocfilehash: 8078f4a2668fa5d8f6c74f26aec87383e789ffa6
+ms.sourcegitcommit: 40a1246849dba8ececf54c716b2794b99c96ad50
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71157551"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73957542"
 ---
-# <a name="conservative-rasterization"></a>保守光栅化
+# <a name="conservative-rasterization"></a>传统型光栅化
 
 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。
 
@@ -73,7 +73,7 @@ ms.locfileid: "71157551"
 
 ### <a name="samplemask-interaction"></a>样本掩码交互
 
-应用 *SampleMask* 光栅器状态的方式与未为 `InputCoverage` 启用保守光栅化时相同，但不影响 `InnerCoverage`（即，不会通过 AND 运算符将它与使用 `InnerCoverage` 声明的输入合并）。 这是因为，`InnerCoverage` 与是否已掩码掉 MSAA 无关：0 `InnerCoverage` 仅表示不保证完全覆盖像素，而不表示不会更新任何样本。
+应用 *SampleMask* 光栅器状态的方式与未为 `InputCoverage` 启用保守光栅化时相同，但不影响 `InnerCoverage`（即，不会通过 AND 运算符将它与使用 `InnerCoverage` 声明的输入合并）。 这是因为 `InnerCoverage` 与是否屏蔽 MSAA 样本无关： 0 `InnerCoverage` 只意味着不保证该像素完全覆盖，而不会更新任何示例。
 
 ### <a name="depthstencil-test-interaction"></a>深度/模具测试交互
 
@@ -93,7 +93,7 @@ ms.locfileid: "71157551"
 
 ### <a name="inputcoverage-interaction"></a>InputCoverage 交互
 
-在保守光栅化模式下，填充此输入寄存器的方式如同未针对给定保守光栅化像素启用保守光栅化时覆盖了所有样本时一样。 也就是说，将应用所有现有的交互（例如，应用*SampleMask* ），并将 LSB 中`InputCoverage`的第一个 n 位设置为1，以便在每个像素**RenderTarget**和/或**DepthStencil 为每个像素指定 n 个样本。** 在**输出合并**时绑定的缓冲区，或 n 示例*ForcedSampleCount*。 余下的位均为 0。
+在保守光栅化模式下，填充此输入寄存器的方式如同未针对给定保守光栅化像素启用保守光栅化时覆盖了所有样本时一样。 也就是说，将应用所有现有的交互（例如，应用*SampleMask* ），并将在 LSB 中 `InputCoverage` 的前 n 位设置为1，而在**输出合并**时，为每个像素**RenderTarget**和/或**DepthStencil**缓冲区绑定，或使用 n 示例*ForcedSampleCount*。 余下的位均为 0。
 
 无论是否使用保守光栅化，此输入在着色器中均可用，不过，保守光栅化会改变其行为，只显示所有覆盖的样本（或者不显示帮助器像素的任何样本）。
 
@@ -191,7 +191,7 @@ Direct3D 12 支持的光栅化类型有时称为“高估保守光栅化”。 �
 -   第 2 层将最大不确定性区域减小为 1/256，要求不剔除后期贴靠退化。 此层对于基于 CPU 的算法加速（例如体素化）很有帮助。
 -   第 3 层保留最大 1/256 不确定性区域，并添加了对内部输入覆盖的支持。 内部输入覆盖将新值 `SV_InnerCoverage` 添加到高级着色语言 (HLSL)。 这是一个可以在像素着色器的输入中指定的 32 位标量整数，表示低估保守光栅化信息（即，是否保证完全覆盖某个像素）。 此层对于遮挡剔除很有帮助。
 
-## <a name="api-summary"></a>API 摘要
+## <a name="api-summary"></a>API 总结
 
 以下方法、结构、枚举和帮助器类引用保守光栅化：
 
@@ -206,7 +206,7 @@ Direct3D 12 支持的光栅化类型有时称为“高估保守光栅化”。 �
 
 <dl> <dt>
 
-[DirectX 高级学习视频教程：保守光栅化](https://www.youtube.com/watch?v=zL0oSY_YmDY)
+[DirectX 高级学习视频教程：保守光栅](https://www.youtube.com/watch?v=zL0oSY_YmDY)
 </dt> <dt>
 
 [光栅器有序视图](rasterizer-order-views.md)
