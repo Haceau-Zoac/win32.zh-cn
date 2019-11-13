@@ -1,32 +1,32 @@
 ---
-title: 渲染
+title: 呈现（Direct3D 12 图形）
 description: 本节介绍 Direct3D 12（和 Direct3D 11.3）中新增的渲染功能。
 ms.assetid: 5BF1440E-E4D8-43C8-BF0E-F02FEFE79C93
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 51ddf17f67433e08e5f630739a31743215647577
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: c47924366304a861431798dad204394e7d6918a6
+ms.sourcegitcommit: 40a1246849dba8ececf54c716b2794b99c96ad50
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006093"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73957229"
 ---
 # <a name="rendering"></a>渲染
 
 本节介绍 Direct3D 12（和 Direct3D 11.3）中新增的渲染功能。
 
-## <a name="in-this-section"></a>本节内容
+## <a name="in-this-section"></a>本部分内容
 
 
 
 | 主题                                                                                               | 描述                                                                                                                                                                                                                                                                                                                                                                                  |
 |-----------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [传统型光栅化](conservative-rasterization.md)<br/>                             | 传统型光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。<br/>                                                                                                                                                                                                                                              |
-| [间接绘制](indirect-drawing.md)<br/>                                                 | 通过间接绘制，某些场景遍历和剔除可以从 CPU 移动到 GPU，从而可以提高性能。 可以通过 CPU 或 GPU 生成命令缓冲区。<br/>                                                                                                                                                                                              |
+| [传统型光栅化](conservative-rasterization.md)<br/>                             | 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。<br/>                                                                                                                                                                                                                                              |
+| [间接绘制](indirect-drawing.md)<br/>                                                 | 通过间接绘制，某些场景遍历和精选可以从 CPU 移动到 GPU，从而可以提高性能。 可以通过 CPU 或 GPU 生成命令缓冲区。<br/>                                                                                                                                                                                              |
 | [光栅器有序视图](rasterizer-order-views.md)<br/>                                   | 像素着色器代码可通过光栅器有序视图 (ROV) 使用声明来标记 UAV 绑定，该声明改变了 UAV 图形管道结果顺序的正常要求。 这可确保顺序无关透明度 (OIT) 算法能够正常工作，多个透明对象在视图中彼此对齐时，可以提供更好的渲染效果。 <br/> |
 | [着色器指定的模具参考值](shader-specified-stencil-reference-value.md)<br/> | 启用像素着色器来输出模具参考值，而不是使用特定于 API 的模具参考值，可以对模具操作进行非常精细的粒度控制。<br/>                                                                                                                                                                                                              |
-| [交换链](swap-chains.md)<br/>                                                           | 交换链控制后台缓冲区旋转，构成图形动画的基础。<br/>                                                                                                                                                                                                                                                                                            |
+| [交换链](swap-chains.md)<br/>                                                           | 交换链控制反向缓冲区轮转，构成图形动画的基础。<br/>                                                                                                                                                                                                                                                                                            |
 
 
 

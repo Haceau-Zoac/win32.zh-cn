@@ -1,16 +1,16 @@
 ---
-title: 子资源
+title: 子资源（Direct3D 12 图形）
 description: 介绍如何将资源划分为子资源，以及如何引用单个、多个或切片子资源。
 ms.assetid: C4F92F8A-DBF0-412B-8707-CC4C1BF2D88F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fd01d9b317d86caae7dac938034961e8d3db9a2b
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 62a6d8b026c8ef18b4df1895d5152a821ec5f52b
+ms.sourcegitcommit: 40a1246849dba8ececf54c716b2794b99c96ad50
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006227"
+ms.lasthandoff: 11/12/2019
+ms.locfileid: "73957235"
 ---
 # <a name="subresources"></a>子资源
 
