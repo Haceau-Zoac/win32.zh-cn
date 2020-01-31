@@ -1,17 +1,17 @@
 ---
 title: Direct3D 12 术语表
 description: 这些术语是 Direct3D 12 特有的。
-Robots: noindex, nofollow
+ROBOTS: NOINDEX, NOFOLLOW
 ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9d2c4d35fb23e5bc57a6366d6ac54a29700e15ef
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.openlocfilehash: 4da5df08366687ceaf5c0b860b51a8aa2ac9b43f
+ms.sourcegitcommit: fdd00b445ee88366e9cdd1eed0cb3e42e2a73eca
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306437"
+ms.lasthandoff: 12/10/2019
+ms.locfileid: "74997373"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -65,7 +65,7 @@ D3D12 命令列表不会映射或取消映射资源、更改图块映射、调�
 <span id="direct3d12.directx_12_glossary_command_queue"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_COMMAND_QUEUE"></span>**命令队列**
 </dt> <dd>
 
-GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表提交到命令队列以供执行。 通常有三个命令队列：3D 图形、计算和复制，分别对应于 GPU 上的 3D 图形管道、计算引擎及一个或多个复制引擎。
+GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表提交到命令队列以供执行。 通常有三个命令队列：3D 图形、计算和复制、对应于 GPU 上的3D 图形管道、计算引擎以及一个或多个复制引擎。
 
 </dd> <dt>
 
@@ -95,14 +95,14 @@ GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表
 <span id="direct3d12.directx_12_glossary_descriptor"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_DESCRIPTOR"></span>**描述符**
 </dt> <dd>
 
-描述符是 D3D12 中单个资源的主要绑定单元。 描述符是一个相对较小的数据块，以 GPU 特定的格式完全描述提交到 GPU 的对象。 有多种不同类型的描述符：着色器资源视图 (SRV)、无序访问视图 (UAV)、常量缓冲区视图 (CBV) 和采样器就是其中的几个例子。
+描述符是 D3D12 中单个资源的主要绑定单元。 描述符是一个相对较小的数据块，以 GPU 特定的格式完全描述提交到 GPU 的对象。 有许多不同类型的描述符：着色器资源视图（SRVs）、无序访问视图（Uav）、常量缓冲视图（CBVs）和取样器都是几个示例。
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_descriptor_heap"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_DESCRIPTOR_HEAP"></span>**描述符堆**
 </dt> <dd>
 
-描述符堆是描述符的连续分配的集合，每个描述符有一个分配。 描述符堆的要点是包含所需的批量内存分配，用于存储着色器在尽可能大的渲染窗口（最好是在整个渲染帧或更大的窗口）中引用的对象类型的描述符规范。
+描述符堆是描述符的连续分配的集合，每个描述符都有一个分配。 描述符堆的要点是包含所需的批量内存分配，用于存储着色器在尽可能大的渲染窗口（最好是在整个渲染帧或更大的窗口）中引用的对象类型的描述符规范。
 
 </dd> <dt>
 
@@ -167,7 +167,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_predication"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_PREDICATION"></span>**断言**
 </dt> <dd>
 
-断言功能使 GPU（而不是 CPU）能够决定不绘制、复制或调度对象。 例如，如果某个对象的边界框完全由另一个对象封闭，或透视图将该对象缩减为小于一个像素的大小，则可能根本没有必要尝试绘制隐藏的对象。 请参阅[断言](predication.md)。
+预测是一种功能，使 GPU 而不是 CPU 能够决定不绘制、复制或调度对象。 例如，如果某个对象的边界框完全由另一个对象封闭，或透视图将该对象缩减为小于一个像素的大小，则可能根本没有必要尝试绘制隐藏的对象。 请参阅[断言](predication.md)。
 
 </dd> <dt>
 
@@ -281,7 +281,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_uav"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_UAV"></span>**无序访问视图 (UAV)**
 </dt> <dd>
 
-使用资源（包括缓冲区、纹理和纹理数组 - 不包括多重采样）的无序访问视图可通过多个线程进行临时性的无序读/写访问。 这意味着此资源类型可由多个线程同时读/写，且不会产生内存冲突。
+使用资源（包括缓冲区、纹理和纹理数组 - 不包括多重采样）的无序访问视图可通过多个线程进行临时性的无序读/写访问。 这意味着该资源类型可以由多个线程同时读/写，且不会产生内存冲突。
 
 </dd> <dt>
 

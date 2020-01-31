@@ -1,36 +1,51 @@
 ---
-title: 最新发布
-description: 介绍最新 SDK 发布中最重要的新文档。
+title: Direct3D 12 中的新增功能
+description: 本主题介绍可用于各种版本的最重要的新 Direct3D 12 文档。
 ms.assetid: 38F41E05-FECB-41DE-8D30-09733FBEAC48
 ms.localizationpriority: high
 ms.topic: article
-ms.date: 05/31/2018
-ms.openlocfilehash: cf74e388530cd91ee7b741fedac88b809e0d741a
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.date: 12/05/2019
+ms.openlocfilehash: 0315ca8fd4e641df0fd8de3445583fd479cc17c6
+ms.sourcegitcommit: bf6a52b91604d8a9432bf646097e3f31e44967d7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306455"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74883943"
 ---
-# <a name="new-releases"></a>最新发布
+# <a name="whats-new-in-direct3d-12"></a>Direct3D 12 中的新增功能
 
-介绍最新 SDK 发布中最重要的新文档。
+本主题介绍可用于各种版本的最重要的新 Direct3D 12 文档。
 
--   [Windows 7](#windows-7)
--   [Windows 10 版本 1809](#windows-10-version-1809)
--   [Windows 10 版本 1709](#windows-10-version-1709)
--   [Windows 10 版本 1703](#windows-10-version-1703)
--   [2016 年 11 月文档更新](#november-2016-documentation-update)
--   [2016 年 8 月文档更新 2](#august-2016-documentation-update-2)
--   [2016 年 8 月文档更新 1](#august-2016-documentation-update-1)
--   [Windows 10 版本 1607](#windows-10-version-1607)
--   [相关主题](#related-topics)
+## <a name="direct3d-12-on-windows-7"></a>Windows 7 上的 Direct3D 12
 
-## <a name="windows-7"></a>Windows 7
+- [基于 Windows 7 的 Direct3D 12](https://devblogs.microsoft.com/directx/porting-directx-12-games-to-windows-7/) 现在可供开发人员使用。
 
-- [基于 Windows 7 的 Direct3D 12](http://aka.ms/d3d12on7) 现在可供开发人员使用。
+## <a name="windows-10-may-2019-update"></a>Windows 10 可能会2019更新
+
+为 Windows 10 版本1903（10.0;）添加或更新了这些功能和 Api版本18362）&mdash;也称为 Windows 10 2019 更新。
+
+- [可变速率底纹（VRS）](/windows/win32/direct3d12/vrs)。 使你能够以不同于呈现的图像的速率分配呈现性能/功率。
+- [HLSL 着色器模型 6.4](/windows/win32/direct3dhlsl/hlsl-shader-model-6-4-features-for-direct3d-12)。 介绍添加到 HLSL 着色器模型6.4 的机器学习内部函数。
+- [**D3D12_DRED_VERSION**](/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_version)枚举。 定义指定设备的版本（删除了扩展数据，通过）的常量。
+- [**D3D12_FEATURE_DATA_D3D12_OPTIONS6**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)结构。 指示适配器为 metacommands 提供的支持级别。
+- [**D3D12_FEATURE_DATA_QUERY_META_COMMAND**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_query_meta_command)结构。 指示适配器为 metacommands 提供的支持级别。
+- [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/win32/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier)枚举。 定义用于指定着色速率层的常量（用于可变速率底纹或 VRS）。
+- [**ID3D12Device6**](/windows/win32/api/d3d12/nn-d3d12-id3d12device6)接口及其方法。 用于设置驱动程序后台处理优化模式。 另请参阅[背景着色器优化](https://devblogs.microsoft.com/directx/background-shader-optimizations/)。
+- [**ID3D12DeviceRemovedExtendedData**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddata)接口及其方法。 提供对设备删除的扩展数据（通过）数据的运行时访问。
+- [**ID3D12DeviceRemovedExtendedDataSettings**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddatasettings)接口及其方法。 控制设备删除的扩展数据（通过）设置。
+- [**D3D12GraphicsCommandList5**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist5)接口及其方法。 支持可变速率底纹（VRS）。
+
+已更新[**D3D_SHADER_MODEL**](/windows/win32/api/d3d12/ne-d3d12-d3d_shader_model)枚举，并增加了**D3D_SHADER_MODEL_6_5**常量（一种试验级别功能）。
+
+已更新[**D3D12_COMMAND_LIST_TYPE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type)枚举，并增加了**D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE**常数。
+
+已更新[**D3D12_FEATURE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_feature)枚举，同时增加了**D3D12_FEATURE_D3D12_OPTIONS6**和**D3D12_FEATURE_QUERY_META_COMMAND**常数。
+
+已更新[**D3D12_RESOURCE_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)枚举，并增加了**D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE**常数。
 
 ## <a name="windows-10-version-1809"></a>Windows 10 版本 1809
+
+为 Windows 10 版本1809（10.0;）添加或更新了这些功能和 Api版本17763）&mdash;也称为 Windows 10 10 月2018更新。
 
 - [Direct3D 12 光线跟踪](/windows/win32/direct3d12/direct3d-12-raytracing)
 - [Direct3D 12 呈现通道](/windows/win32/direct3d12/direct3d-12-render-passes)
@@ -78,7 +93,7 @@ ms.locfileid: "71306455"
 
 -   新增了名为[了解 D3D12 调试层](understanding-the-d3d12-debug-layer.md)的指南部分。
 
-    描述了 3 个新的调试层接口（在预览模式下）：[ID3D12Debug1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、[ID3D12DebugCommandList1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、[ID3D12DebugDevice1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
+    描述了三个新的调试层接口（在预览模式下）： [**ID3D12Debug1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、 [**ID3D12DebugCommandList1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、 [**ID3D12DebugDevice1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
 
 ## <a name="august-2016-documentation-update-1"></a>2016 年 8 月文档更新 1
 

@@ -1,18 +1,18 @@
 ---
-title: 立体平铺资源
+title: 卷磁贴资源（Direct3D 12）
 description: 立体 (3D) 纹理可以用作平铺资源，请注意，平铺分辨率是三维的。
 ms.assetid: F670D15D-BC0F-4F90-99C1-A35192FE8980
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 57e0817910d593348b1a0e3595e81a852ad726d9
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: e3eac806ad29151cd49c894e47846c7bebd048a6
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005880"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74418227"
 ---
-# <a name="volume-tiled-resources"></a>立体平铺资源
+# <a name="volume-tiled-resources-direct3d-12"></a>卷磁贴资源（Direct3D 12）
 
 立体 (3D) 纹理可以用作平铺资源，请注意，平铺分辨率是三维的。
 
@@ -40,7 +40,7 @@ D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 
 | BC 1、4                      | 128x64x16                           |
 | BC 2、3、5、6、7                | 64x64x16                            |
 
-请注意，平铺资源不可使用以下格式：96bpp 格式、视频格式、R1\_UNORM、R8G8\_B8G8\_UNORM、R8R8\_G8B8\_UNORM。
+注意平铺资源不支持以下格式：96bpp 格式、视频格式、R1\_UNORM、R8G8\_B8G8\_UNORM、R8R8\_G8B8\_UNORM。
 
 在下面的图表中，深灰色表示 NULL 平铺。
 
@@ -150,7 +150,7 @@ trSize.Depth = 3;
 
 结构
 
--   [**D3D12\_TILED\_RESOURCE\_COORDINATE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate)：保存x、y 和 z 坐标以及子资源引用。 请注意有一个帮助程序结构：[**CD3DX12\_TILED\_RESOURCE\_COORDINATE**](cd3dx12-tiled-resource-coordinate.md)。
+-   [**D3D12\_TILED\_RESOURCE\_COORDINATE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate)：保存x、y 和 z 坐标以及子资源引用。 请注意，有一个帮助器结构： [**CD3DX12\_平铺\_资源\_坐标**](cd3dx12-tiled-resource-coordinate.md)。
 -   [**D3D12\_TILE\_REGION\_SIZE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size)：指定平铺区域的平铺大小和数量。
 -   [**D3D12\_TILE\_SHAPE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_shape)：平铺的宽度、高度和深度（以纹素为单位）。
 -   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：包含支持的平铺资源级别和布尔值 VolumeTiledResourcesSupported，该值指示是否支持立体平铺资源。

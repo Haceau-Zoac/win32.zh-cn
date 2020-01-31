@@ -5,12 +5,12 @@ ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: c59643376c571f67894c574b0c5573ca8ab8802a
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.openlocfilehash: 9e5c15bfb6caf815b06ba42f021bc236a8a3b293
+ms.sourcegitcommit: 62e758931c610782807c7c9fad284921a6c56232
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306450"
+ms.lasthandoff: 01/22/2020
+ms.locfileid: "76520588"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
@@ -115,21 +115,21 @@ ms.locfileid: "71306450"
 | 状态标志                    | 可提升状态                             |                                      |
 |-------------------------------|----------------------------------------------|--------------------------------------|
 |                               | **缓冲区和同时访问纹理** | **非同时访问纹理** |
-| VERTEX\_AND\_CONSTANT\_BUFFER | 是                                          | 否                                   |
-| INDEX\_BUFFER                 | 是                                          | 否                                   |
-| RENDER\_TARGET                | 是                                          | 否                                   |
-| UNORDERED\_ACCESS             | 是                                          | 否                                   |
-| DEPTH\_WRITE                  | 否<sup>\*</sup>                              | 否                                   |
-| DEPTH\_READ                   | 否<sup>\*</sup>                              | 否                                   |
-| NON\_PIXEL\_SHADER\_RESOURCE  | 是                                          | 是                                  |
-| PIXEL\_SHADER\_RESOURCE       | 是                                          | 是                                  |
-| STREAM\_OUT                   | 是                                          | 否                                   |
-| INDIRECT\_ARGUMENT            | 是                                          | 否                                   |
-| COPY\_DEST                    | 是                                          | 是                                  |
-| COPY\_SOURCE                  | 是                                          | 是                                  |
-| RESOLVE\_DEST                 | 是                                          | 否                                   |
-| RESOLVE\_SOURCE               | 是                                          | 否                                   |
-| PREDICATION                   | 是                                          | 否                                   |
+| VERTEX\_AND\_CONSTANT\_BUFFER | “是”                                          | 无                                   |
+| INDEX\_BUFFER                 | “是”                                          | 无                                   |
+| RENDER\_TARGET                | “是”                                          | 无                                   |
+| UNORDERED\_ACCESS             | “是”                                          | 无                                   |
+| DEPTH\_WRITE                  | 否<sup>\*</sup>                              | 无                                   |
+| DEPTH\_READ                   | 否<sup>\*</sup>                              | 无                                   |
+| NON\_PIXEL\_SHADER\_RESOURCE  | “是”                                          | “是”                                  |
+| PIXEL\_SHADER\_RESOURCE       | “是”                                          | “是”                                  |
+| STREAM\_OUT                   | “是”                                          | 无                                   |
+| INDIRECT\_ARGUMENT            | “是”                                          | 无                                   |
+| COPY\_DEST                    | “是”                                          | “是”                                  |
+| COPY\_SOURCE                  | “是”                                          | “是”                                  |
+| RESOLVE\_DEST                 | “是”                                          | 无                                   |
+| RESOLVE\_SOURCE               | “是”                                          | 无                                   |
+| PREDICATION                   | “是”                                          | 无                                   |
 
 
 
@@ -154,7 +154,7 @@ ms.locfileid: "71306450"
 
 与通用状态提升一样，衰减也是无开销的，因为不需要附加的同步。 将通用状态提升和衰减相结合有助于消除许多不必要的 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换。 在某些情况下，这可以大幅提高性能。
 
-不管资源是使用资源屏障显式转换的还是隐式提升的，它们都会衰减到通用状态。
+缓冲区和同时访问的资源将会衰减到通用状态，而不管它们是使用资源障碍显式转换还是隐式升级。
 
 ### <a name="performance-implications"></a>性能影响
 
@@ -588,7 +588,7 @@ D3D12_RESOURCE_BARRIER BarrierDesc = {};
 
 ## <a name="related-topics"></a>相关主题
 
-[DirectX 高级学习视频教程：资源屏障和状态跟踪](https://www.youtube.com/watch?v=nmB2XMasz2o)
+[DirectX 高级学习视频教程：资源障碍和状态跟踪](https://www.youtube.com/watch?v=nmB2XMasz2o)
 
 [多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)
 

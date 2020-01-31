@@ -1,18 +1,18 @@
 ---
-title: 在 Direct3D 12 调试层中使用基于 GPU 的验证
+title: 基于 GPU 的验证和 Direct3D 12 调试层
 description: 本主题介绍如何充分利用 Direct3D 12 调试层。 基于 GPU 的验证（GBV）可在 CPU 上的 API 调用期间无法执行的 GPU 时间线上启用验证方案。
 ms.assetid: 01D1F94F-4DD4-4781-86EF-6C639E8B1069
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 02/12/2019
-ms.openlocfilehash: cd7b46ef5fb424f24f9d043d0c89bef7acc38786
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 3160df3faf994df2abf9cf878088e84564bb5fe1
+ms.sourcegitcommit: 00e0a8e56d28c4c720b97f0cf424c29f547460d7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005723"
+ms.lasthandoff: 11/26/2019
+ms.locfileid: "74536564"
 ---
-# <a name="use-gpu-based-validation-with-the-direct3d-12-debug-layer"></a>在 Direct3D 12 调试层中使用基于 GPU 的验证
+# <a name="gpu-based-validation-and-the-direct3d-12-debug-layer"></a>基于 GPU 的验证和 Direct3D 12 调试层
 
 本主题介绍如何充分利用 Direct3D 12 调试层。 基于 GPU 的验证（GBV）可在 CPU 上的 API 调用期间无法执行的 GPU 时间线上启用验证方案。 从适用于 Windows 10 周年更新的图形工具开始，可以使用 GBV。
 
@@ -90,12 +90,12 @@ Pipeline State: 0x0000016F572C89F0:'Unnamed ID3D12PipelineState Object',
 
 请参阅以下枚举和结构：
 
-- [**D3D12\_调试\_命令\_列表参数类型\_\_** ](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_command_list_parameter_type)
-- [**D3D12\_调试\_设备参数\_类型\_** ](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type)
-- [**D3D12\_基于\_GPU的\_验证管道\_状态创建\_标志\_\_** ](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_pipeline_state_create_flags)
-- [**D3D12\_基于\_GPU的验证着色器\_修补程序模式\_\_\_** ](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_shader_patch_mode)
-- [**D3D12\_调试\_命令列表基于\_GPU 的验证\_设置\_\_\_** ](/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_command_list_gpu_based_validation_settings)
-- [**D3D12\_调试\_设备基于\_GPU的验证\_设置\_\_** ](/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_device_gpu_based_validation_settings)
+- [**D3D12\_调试\_命令\_列表\_参数\_类型**](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_command_list_parameter_type)
+- [**D3D12\_调试\_设备\_参数\_类型**](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_debug_device_parameter_type)
+- [**D3D12\_基于 GPU\_\_验证\_管道\_状态\_创建\_标志**](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_pipeline_state_create_flags)
+- [**D3D12\_基于 GPU\_\_验证\_着色器\_修补程序\_模式**](/windows/desktop/api/d3d12sdklayers/ne-d3d12sdklayers-d3d12_gpu_based_validation_shader_patch_mode)
+- [**D3D12\_调试\_命令\_列表\_基于\_验证\_设置的 GPU\_** ](/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_command_list_gpu_based_validation_settings)
+- [**D3D12\_调试\_设备\_GPU\_基于\_验证\_设置**](/windows/desktop/api/d3d12sdklayers/ns-d3d12sdklayers-d3d12_debug_device_gpu_based_validation_settings)
 
 ## <a name="related-topics"></a>相关主题
 

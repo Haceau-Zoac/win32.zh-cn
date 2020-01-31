@@ -1,18 +1,18 @@
 ---
-title: 保守光栅（Direct3D 12 图形）
+title: Direct3D 12 保守光栅化
 description: 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。
 ms.assetid: 081199AD-1702-4EC8-95AD-B1148C676199
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 8078f4a2668fa5d8f6c74f26aec87383e789ffa6
-ms.sourcegitcommit: 40a1246849dba8ececf54c716b2794b99c96ad50
+ms.openlocfilehash: 4e4fae3489d54ab7b6b7abfda56f54dd8d970962
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73957542"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74420392"
 ---
-# <a name="conservative-rasterization"></a>传统型光栅化
+# <a name="direct3d-12-conservative-rasterization"></a>Direct3D 12 保守光栅化
 
 保守光栅化为像素渲染增加了一定的确定性，这对碰撞检测算法特别有帮助。
 

@@ -1,16 +1,16 @@
 ---
-title: DirectML 中的绑定
+title: DirectML 中的 UAV 屏障和资源状态屏障
 description: 描述屏障的正确性好处，以及在 DirectML 中的使用方式。
 ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 09107959853cd91b47c99e94fe6e63e47ae36280
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 9bfc93d4fb28cff5d7d196287c6573e3e494d1d5
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006061"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74418218"
 ---
 # <a name="uav-barriers-and-resource-state-barriers-in-directml"></a>DirectML 中的 UAV 屏障和资源状态屏障
 
@@ -78,9 +78,9 @@ CONVOLUTION  CONVOLUTION
 
 作为调用方，在 GPU 上执行 DirectML 调度之前，你有责任确保所有 Direct3D 12 资源的资源屏障状态均正确。 DirectML 不会代表你执行任何转换屏障。
 
-在 GPU 上执行 [IDMLCommandRecorder::RecordDispatch](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之前，必须将所有绑定资源都转换为 D3D12_RESOURCE_STATE_UNORDERED_ACCESS 状态，或者转换为可隐式升级到 D3D12_RESOURCE_STATE_UNORDERED_ACCESS 的状态（例如 D3D12_RESOURCE_STATE_COMMON）。 此调用完成后，资源仍然处于 D3D12_RESOURCE_STATE_UNORDERED_ACCESS 状态。 有关详细信息，请参阅 [DirectML 中的绑定](dml-binding.md)。
+在 GPU 上执行 [IDMLCommandRecorder::RecordDispatch](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之前，必须将所有绑定资源都转换为 D3D12_RESOURCE_STATE_UNORDERED_ACCESS 状态，或者转换为可隐式升级到 D3D12_RESOURCE_STATE_UNORDERED_ACCESS 的状态（例如 D3D12_RESOURCE_STATE_COMMON）。 此调用完成后，资源将保持 **D3D12_RESOURCE_STATE_UNORDERED_ACCESS** 状态。 有关详细信息，请参阅 [DirectML 中的绑定](dml-binding.md)。
 
-## <a name="see-also"></a>请参阅
+## <a name="see-also"></a>另请参阅
 
 * [在 Direct3D 12 中使用资源屏障同步资源状态](/windows/desktop/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12)
 * [DirectML 中的绑定](dml-binding.md)

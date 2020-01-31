@@ -1,16 +1,16 @@
 ---
-title: DirectML 中的绑定
+title: 使用 DirectML 调试层
 description: DirectML 调试层是可选的开发时组件，可帮助调试 DirectML 代码。
 ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: faab931c988c4a9fca94db0a2f7316e1823f6bba
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 75bc7f1bf7297a971efe33ee8e19e7b81403c131
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006055"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74420390"
 ---
 # <a name="using-the-directml-debug-layer"></a>使用 DirectML 调试层
 
@@ -41,7 +41,7 @@ Add-WindowsCapability -Online -Name "Tools.Graphics.DirectX~~~~0.0.1.0"
 DML_OPERATOR_CONVOLUTION: invalid D3D12_HEAP_TYPE. DirectML requires all bound buffers to be D3D12_HEAP_TYPE_DEFAULT.
 ```
 
-## <a name="see-also"></a>请参阅
+## <a name="see-also"></a>另请参阅
 
 * [DMLCreateDevice 函数](/windows/desktop/api/directml/nf-directml-dmlcreatedevice.md)
 * [可用的按需功能](/windows-hardware/manufacture/desktop/features-on-demand-non-language-fod)

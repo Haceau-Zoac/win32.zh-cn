@@ -5,12 +5,12 @@ ms.assetid: 0074B796-33A4-4AA1-A4E7-48A2A63F25B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 11e78bf1c6661a67632d2ed32c03de3b0d33d76b
-ms.sourcegitcommit: edb653433bc4298554a9a45b56c7c8056e628593
+ms.openlocfilehash: 090ba89c478403e3d3ceb02eff2a81fb3f3b8343
+ms.sourcegitcommit: f4f4b6bf2c455abae70862e4ddd1fa5c43ab6b2f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/17/2019
-ms.locfileid: "71038978"
+ms.lasthandoff: 01/22/2020
+ms.locfileid: "76315650"
 ---
 # <a name="creating-and-recording-command-lists-and-bundles"></a>创建和记录命令列表与捆绑
 
@@ -82,7 +82,7 @@ ms.locfileid: "71038978"
 -   描述符堆 - 应用使用描述符堆来管理内存资源的管道绑定。
 -   资源屏障 - 用于管理资源的不同状态转换，例如，从渲染器目标视图转换为着色器资源视图。 有关详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 
-例如，应用于对象的
+例如，
 
 
 ```C++
@@ -222,11 +222,83 @@ void D3D12HelloTriangle::LoadAssets()
 -   [**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)
 -   [**GetDeviceRemovedReason**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdeviceremovedreason)
 
+## <a name="command-list-api-restrictions"></a>命令列表 API 限制
+
+某些命令列表 Api 只能在某些类型的命令列表中调用。 下表显示了在每种类型的命令列表中，哪些命令列表 Api 是有效的。 它还显示了哪些 Api 在[**D3D12 呈现阶段**](/windows/desktop/direct3d12/direct3d-12-render-passes)中可以调用。 
+
+| API 名称                                         | 显卡 | 计算 | “复制” | 软件包 | 在呈现阶段中 |
+|--------------------------------------------------|:--------:|:-------:|:----:|:------:|:--------------:|
+| AtomicCopyBufferUINT                             | ✓        | ✓       | ✓    |        |                |
+| AtomicCopyBufferUINT64                           | ✓        | ✓       | ✓    |        |                |
+| BeginQuery                                       | ✓        |         |      |        | ✓              |
+| BeginRenderPass                                  | ✓        |         |      |        |                |
+| BuildRaytracingAccelerationStructure             | ✓        | ✓       |      |        |                |
+| ClearDepthStencilView                            | ✓        |         |      |        |                |
+| ClearRenderTargetView                            | ✓        |         |      |        |                |
+| ClearState                                       | ✓        | ✓       |      |        |                |
+| ClearUnorderedAccessViewFloat                    | ✓        | ✓       |      |        |                |
+| ClearUnorderedAccessViewUint                     | ✓        | ✓       |      |        |                |
+| CopyBufferRegion                                 | ✓        | ✓       | ✓    |        |                |
+| CopyRaytracingAccelerationStructure              | ✓        | ✓       |      |        |                |
+| CopyResource                                     | ✓        | ✓       | ✓    |        |                |
+| CopyTextureRegion                                | ✓        | ✓       | ✓    |        |                |
+| CopyTiles                                        | ✓        | ✓       | ✓    |        |                |
+| DiscardResource                                  | ✓        | ✓       |      |        |                |
+| Dispatch                                         | ✓        | ✓       |      | ✓      |                |
+| DispatchRays                                     | ✓        | ✓       |      | ✓      |                |
+| DrawIndexedInstanced                             | ✓        |         |      | ✓      | ✓              |
+| DrawInstanced                                    | ✓        |         |      | ✓      | ✓              |
+| EmitRaytracingAccelerationStructurePostbuildInfo | ✓        | ✓       |      |        |                |
+| EndQuery                                         | ✓        | ✓       | ✓    |        | ✓              |
+| EndRenderPass                                    | ✓        |         |      |        | ✓              |
+| ExecuteBundle                                    | ✓        |         |      |        | ✓              |
+| ExecuteIndirect                                  | ✓        | ✓       |      | ✓      | ✓              |
+| ExecuteMetaCommand                               | ✓        | ✓       |      |        |                |
+| IASetIndexBuffer                                 | ✓        |         |      | ✓      | ✓              |
+| IASetPrimitiveTopology                           | ✓        |         |      | ✓      | ✓              |
+| IASetVertexBuffers                               | ✓        |         |      | ✓      | ✓              |
+| InitializeMetaCommand                            | ✓        | ✓       |      |        |                |
+| OMSetBlendFactor                                 | ✓        |         |      | ✓      | ✓              |
+| OMSetDepthBounds                                 | ✓        |         |      | ✓      | ✓              |
+| OMSetRenderTargets                               | ✓        |         |      |        |                |
+| OMSetStencilRef                                  | ✓        |         |      | ✓      | ✓              |
+| ResolveQueryData                                 | ✓        | ✓       | ✓    |        |                |
+| ResolveSubresource                               | ✓        |         |      |        |                |
+| ResolveSubresourceRegion                         | ✓        |         |      |        |                |
+| ResourceBarrier                                  | ✓        | ✓       | ✓    |        | ✓              |
+| RSSetScissorRects                                | ✓        |         |      |        | ✓              |
+| RSSetShadingRate                                 | ✓        |         |      | ✓      | ✓              |
+| RSSetShadingRateImage                            | ✓        |         |      | ✓      | ✓              |
+| RSSetViewports                                   | ✓        |         |      |        | ✓              |
+| SetComputeRoot32BitConstant                      | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRoot32BitConstants                     | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRootConstantBufferView                 | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRootDescriptorTable                    | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRootShaderResourceView                 | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRootSignature                          | ✓        | ✓       |      | ✓      | ✓              |
+| SetComputeRootUnorderedAccessView                | ✓        | ✓       |      | ✓      | ✓              |
+| SetDescriptorHeaps                               | ✓        | ✓       |      | ✓      | ✓              |
+| SetGraphicsRoot32BitConstant                     | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRoot32BitConstants                    | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRootConstantBufferView                | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRootDescriptorTable                   | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRootShaderResourceView                | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRootSignature                         | ✓        |         |      | ✓      | ✓              |
+| SetGraphicsRootUnorderedAccessView               | ✓        |         |      | ✓      | ✓              |
+| SetPipelineState                                 | ✓        | ✓       |      | ✓      | ✓              |
+| SetPipelineState1                                | ✓        | ✓       |      | ✓      |                |
+| SetPredication                                   | ✓        | ✓       |      |        | ✓              |
+| SetProtectedResourceSession                      | ✓        | ✓       | ✓    |        |                |
+| SetSamplePositions                               | ✓        |         |      | ✓      | ✓              |
+| SetViewInstanceMask                              | ✓        |         |      | ✓      | ✓              |
+| SOSetTargets                                     | ✓        |         |      |        | ✓              |
+| WriteBufferImmediate                             | ✓        | ✓       | ✓    | ✓      | ✓              |
+
 ## <a name="bundle-restrictions"></a>捆绑限制
 
 限制可使 Direct3D 12 驱动程序在记录时执行大部分与捆绑相关的工作，因此能够以较低的开销运行 [**ExecuteBundle**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executebundle) API。 捆绑引用的所有管道状态对象必须具有相同的渲染器目标格式、深度缓冲区格式和样本说明。
 
-不允许对使用类型创建的命令列表执行以下命令列表 API 调用：D3D12\_COMMAND\_LIST\_TYPE\_BUNDLE:
+不允许对使用 type： D3D12\_COMMAND\_LIST\_类型\_捆绑创建的命令列表执行以下命令列表 API 调用：
 
 -   任何 Clear 方法
 -   任何 Copy 方法

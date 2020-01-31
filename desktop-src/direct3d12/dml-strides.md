@@ -1,16 +1,16 @@
 ---
-title: DirectML 中的绑定
-description: DirectML 张量由张量的大小和步幅属性描述。
+title: 使用步幅来表示填充和内存布局
+description: DirectML 张量用张量的“大小”和“步幅”等属性进行描述。
 ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 25200249f4ecf152c35df43d234779043f23cb13
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: b944b1a2600febe27f209bffcc0e355c6a9fc7db
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006029"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74418245"
 ---
 # <a name="using-strides-to-express-padding-and-memory-layout"></a>使用步幅来表示填充和内存布局
 
@@ -43,7 +43,7 @@ D E F
 
 偏移量：|0|1|2|3|4|5
 -|-|-|-|-|-|-
-值：|A|B|C|D|E|F
+值：|一个|B|C|D|E|F
 
 维度的步幅是为了访问该维度中的下一个元素而要跳过的元素数。 步幅表示内存中的张量布局。 使用行主序时，宽度维度的步幅始终为 1，因为维度上的相邻元素是连续存储的。 高度维度的步幅依赖于宽度维度的大小；在上述示例中，高度维度上的连续元素之间的距离（例如 A 到 D）等于张量的宽度（在本示例中为 3）。
 
@@ -51,17 +51,17 @@ D E F
 
 偏移量：|0|1|2|3|4|5
 -|-|-|-|-|-|-
-值：|A|D|B|E|C|F
+值：|一个|D|B|E|C|F
 
 ## <a name="higher-dimensions"></a>更高的维度
 
 超过两个维度时，以行主序或列主序方式引用布局会很不方便。 因此，本主题的余下部分使用了如下所述的术语和标签。
 
-- 2D：“HW”&mdash; 高度是最高序维度（行主序）。
-- 2D：“WH”&mdash; 宽度是最高序维度（列主序）。
-- 3D：“DHW”&mdash; 深度是最高序维度，依次后接高度和宽度。
-- 3D：“WDH”&mdash; 宽度是最高序维度，依次后接高度和深度。
-- 4D：“NCHW”&mdash; 依次为图像数目（批大小）、通道数、高度、宽度。
+- 2D： "HW"&mdash;高度是最高顺序维度（行-主维度）。
+- 2D： "符合"&mdash;width 是最高顺序维度（列主要）。
+- 3D： "DHW"&mdash;深度是最高顺序维度，后跟 height 和 width。
+- 3D： "WHD"&mdash;width 是最高顺序维度，后跟高度，然后是 "深度"。
+- 4D： "NCHW"&mdash;图像的数量（批大小），然后是 "通道数"、"高度"、"宽度"。
 
 一般情况下，维度的打包步幅等于低序维度大小的乘积。 例如，对于“DHW”布局，D 步幅等于高度 * 宽度；H 步幅等于宽度；W 步幅等于 1。 如果张量的总物理大小等于张量的总逻辑大小，则认为步幅是打包的；换言之，不存在任何额外的空间，也不存在重叠的元素。
 
@@ -79,7 +79,7 @@ J K L
 
 偏移量：|0|1|2|3|4|5|6|7|8|9|10|11|
 -|-|-|-|-|-|-|-|-|-|-|-|-|
-值：|A|B|C|D|E|F|G|H|I|J|K|L|
+值：|一个|B|C|D|E|F|G|H|I|J|K|L|
 
 - D 步幅 = 高度 (2) * 宽度 (3) = 6（例如，“A”到“G”的距离）。
 - H 步幅 = 宽度 (3) = 3（例如，“A”到“G”的距离）。
@@ -114,7 +114,7 @@ A B C
 
 0|1|2|3|4|5|6|7|8|9|
 -|-|-|-|-|-|-|-|-|-|
-A|B|C|x|x|D|E|F|x|x
+一个|B|C|x|x|D|E|F|x|x
 
 可以使用高度步幅 5 而不是 3 来描述填充的张量。 不是按 3 个元素步进到下一行，而步幅为 5（3 个真实元素加上 2 个填充元素）。 例如，填充在计算机图形中很常见，目的是确保图像采用 2 次幂对齐。
 
@@ -163,7 +163,7 @@ DirectML 可以使用各种物理张量布局，因为 [**DML_BUFFER_TENSOR_DESC
 - **DML_BUFFER_TENSOR_DESC::Sizes** = { 1, 1, 3, 5 }
 - **DML_BUFFER_TENSOR_DESC::Strides** = { 15, 1, 5, 1 }
 
-## <a name="see-also"></a>请参阅
+## <a name="see-also"></a>另请参阅
 
 * [DirectML 帮助器函数](dml-helper-functions.md)
 * [DML_BUFFER_TENSOR_DESC 结构](/windows/desktop/api/directml/ns-directml-dml_buffer_tensor_desc)

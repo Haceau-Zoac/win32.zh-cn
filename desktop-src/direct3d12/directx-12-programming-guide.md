@@ -6,23 +6,23 @@ ms.custom: 19H1
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: e69563e0db09142e2f8c0cc2cf67bb313dc9e218
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.openlocfilehash: 94afd9125a2e73665e3783419651f34fd72285ca
+ms.sourcegitcommit: bf6a52b91604d8a9432bf646097e3f31e44967d7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306446"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74883941"
 ---
 # <a name="direct3d-12-programming-guide"></a>Direct3D 12 编程指南
 
 如果电脑配备有一个或多个与 Direct3D 12 兼容的 GPU，则应用可通过 Direct3D 12 提供的 API 和平台使用该电脑的图形和计算功能。
 
-## <a name="in-this-section"></a>本节内容
+## <a name="in-this-section"></a>本部分内容
 
 | 主题 | 描述 |
 |-|-|
 | [什么是 Direct3D 12？](what-is-directx-12-.md) | DirectX 12 引入了下一版本的 Direct3D，它是 DirectX 的核心 3D 图形 API。 此版本的 Direct3D 比以前的任何版本都更快更高效。 Direct3D 12 提供更丰富的场景、更多的对象、更复杂的效果，并且能全面利用现代 GPU 硬件。  |
-| [最新发布](new-releases.md) | 介绍最新 SDK 发布中最重要的新文档。 |
+| [Direct3D 12 中的新增功能](new-releases.md) | 介绍最新 SDK 发布中最重要的新文档。 |
 | [了解 Direct3D 12](directx-12-getting-started.md) | 若要为 Windows 10 和 Windows 10 移动版编写 3D 游戏和应用，则必须了解 Direct3D 12 技术的基础知识，还需了解如何准备以便在游戏和应用中使用。 |
 | [Direct3D 12 中的工作提交](command-queues-and-command-lists.md) | 为了提高 Direct3D 应用的 CPU 效率，Direct3D 12 不再支持与设备关联的即时上下文。 相反，应用会记录并提交“命令列表”，其中包含绘图和资源管理调用。 这些命令列表可以从多个线程提交到一个或多个命令队列，命令队列用于管理命令的执行。 这种根本性的改变通过允许应用预先计算渲染工作以供以后重用，从而提高了单线程的效率，并且它通过将渲染工作分散到多个线程来利用多核系统。  |
 | [Direct3D 12 中的资源绑定](resource-binding.md) | 绑定是将资源对象链接到图形管道着色器的过程。  |

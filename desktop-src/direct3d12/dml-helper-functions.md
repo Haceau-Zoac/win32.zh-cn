@@ -1,16 +1,16 @@
 ---
-title: DirectML 中的绑定
+title: DirectML 帮助程序函数
 description: 基础 DirectML 帮助程序函数的部分代码列表。
 ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: eebdf09f171cbefb8c91a07f99280ae41678ddda
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 7c223ac8d5649c385b4a6f2ccf38e53be6456049
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006049"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74418244"
 ---
 # <a name="directml-helper-functions"></a>DirectML 帮助程序函数
 

@@ -9,12 +9,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 86b95c2c1947ced409cb96fa7bb833fe365f659a
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: bfcb4bc71c56046fd4d2a83d2e3db0f93b5eee3a
+ms.sourcegitcommit: 62e758931c610782807c7c9fad284921a6c56232
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006020"
+ms.lasthandoff: 01/22/2020
+ms.locfileid: "76520594"
 ---
 # <a name="executing-and-synchronizing-command-lists"></a>执行和同步命令列表
 
@@ -72,9 +72,8 @@ Direct3D 12 命令队列将以前不会向开发人员公开的即时模式工�
 
 运行时会施加几条规则来限制从多个命令队列对资源进行访问。 这些规则如下：
 
-<dl> 1. 不能同时从多个命令队列写入一个资源。 当某个资源在队列中转换为可写状态后，该资源被视为由该队列独占拥有，在可由另一个队列访问之前，它必须转换到读取或 COMMON 状态（请参阅 <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">**D3D12\_RESOURCE\_STATES**</a>）。  
-2.处于读取状态时，可以从多个命令队列同时读取资源，包括进程的读取状态。  
-</dl>
+<dl> 1. 不能同时从多个命令队列写入一个资源。 当某个资源在队列中转换为可写状态后，该资源被视为由该队列独占拥有，在可由另一个队列访问之前，它必须转换到读取或 COMMON 状态（请参阅 <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">**D3D12\_RESOURCE\_STATES**</a>）。  </dl>
+<dl> 当处于读取状态时，可以同时从多个命令队列中读取资源，其中包括基于其读取状态的进程。 2. </dl>
 
 有关资源访问限制和使用资源屏障来同步资源访问的详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 

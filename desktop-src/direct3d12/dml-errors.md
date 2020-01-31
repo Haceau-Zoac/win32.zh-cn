@@ -1,16 +1,16 @@
 ---
-title: DirectML 中的绑定
+title: 在 DirectML 中处理错误和设备删除
 description: 本主题论述如何调试 DirectML 设备删除和其他错误条件。
 ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: d1321372e70ed381307e686ed24d2ff1eb5d6f6a
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: b4567558b8b75685db16796e921f3daf35b849a1
+ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006050"
+ms.lasthandoff: 11/23/2019
+ms.locfileid: "74420065"
 ---
 # <a name="handling-errors-and-device-removal-in-directml"></a>在 DirectML 中处理错误和设备删除
 
@@ -30,6 +30,6 @@ DirectML 错误最常见的原因是无效的 API 用法。 无效的 API 用法
 
 我们强烈建议在开发期间启用 [DirectML 调试层](dml-debug-layer.md)，以便捕获并调试此类错误。 DirectML 调试层执行方法参数和 API 用法的广泛验证，它将发出调试输出消息来帮助进行调试。
 
-## <a name="see-also"></a>请参阅
+## <a name="see-also"></a>另请参阅
 
 * [使用 DirectML 调试层](dml-debug-layer.md)
