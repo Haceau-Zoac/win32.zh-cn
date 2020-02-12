@@ -5,12 +5,12 @@ ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5c6a5bc891fc7e98469c75290acc38c704e19104
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 787a941add89e3e65bf3716c296d39537abd5c52
+ms.sourcegitcommit: 927b9c371f75f52b8011483edf3a4ba37d11ebe4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006062"
+ms.lasthandoff: 02/11/2020
+ms.locfileid: "77128113"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -18,7 +18,7 @@ ms.locfileid: "71006062"
 
 -   [开发环境](#development-environment)
 -   [支持的语言](#supported-languages)
--   [帮助程序结构](#helper-structures)
+-   [帮助器结构](#helper-structures)
 -   [内存管理库](#memory-management-library)
 -   [支持的工具和库](#supported-tools-and-libraries)
 -   [示例](#samples)
@@ -30,7 +30,7 @@ ms.locfileid: "71006062"
 
 Direct3D 12 标头和库是 Windows 10 SDK 的一部分。 使用 Direct3D 12 时无需单独下载或安装。
 
-安装 Windows 10 SDK 软件和 Visual Studio 2015 后，已完成 Direct3D 12 编程环境的设置。 建议使用 Visual Studio 2015，因为它将包括 D3D12 图形调试工具，但早期版本的 Visual Studio 将适用于程序开发。
+安装 Windows 10 SDK 软件和 Visual Studio 后，将完成 Direct3D 12 编程环境的设置。 建议使用 visual Studio 2019，因为它将包含 D3D12 图形调试工具，但早期版本的 Visual Studio 将适用于程序开发。
 
 若要使用 [Direct3D 12 API](direct3d-12-reference.md)，请包括 D3d12.h 并链接到 D3d12.lib，或直接在 D3d12.dll 中查询入口点。
 
@@ -38,31 +38,21 @@ Direct3D 12 标头和库是 Windows 10 SDK 的一部分。 使用 Direct3D 12 �
 
 
 
-| 标头或库文件名 | 描述                         | 安装位置      |
+| 标头或库文件名 | 说明                         | 安装位置      |
 |-----------------------------|-------------------------------------|-----------------------|
-| D3d12.h                     | Direct3D 12 API 标头              | %DXSDK\_DIR%\\Include |
-| D3d12.lib                   | 静态 Direct3D 12 API 存根库 | %DXSDK\_DIR%\\Lib     |
+| D3d12.h                     | Direct3D 12 API 标头              | % WindowsSdkDir\\包括\%WindowsSDKVersion%\\\um |
+| D3d12.lib                   | 静态 Direct3D 12 API 存根库 | % WindowsSdkDir\\Lib\%WindowsSDKVersion%\\\um\arch |
 | D3d12.dll                   | 动态 Direct3D 12 API 库     | %WINDIR%\\System32    |
-| D3d12SDKLayers.h            | Direct3D 12 调试标头            | %DXSDK\_DIR%\\Include |
+| D3d12SDKLayers.h            | Direct3D 12 调试标头            | % WindowsSdkDir\\包括\%WindowsSDKVersion%\\\um |
 | D3d12SDKLayers.dll          | 动态 Direct3D 12 调试库   | %WINDIR%\\System32    |
 
 
-
- 
-
-若要正确地包括标头文件，请使用类似于以下内容的语句：
-
-`#include <%DXSDK_DIR%Include\d3d12.h>`
-
-若要确定开发计算机上的 %DXSDK\_DIR% 的绝对位置，请在命令窗口中键入：
-
-`set dx`
 
 ## <a name="supported-languages"></a>支持的语言
 
 C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受支持。
 
-## <a name="helper-structures"></a>帮助程序结构
+## <a name="helper-structures"></a>帮助器结构
 
 具体而言，通过大量帮助程序结构可轻松地初始化大量 D3D12 结构。 这些结构和某些实用工具函数位于标头 D3dx12.h 中。 此标头是开放源代码，可由开发人员根据需要进行修改 - 从 [D3D12 帮助程序库](https://github.com/Microsoft/DirectX-Graphics-Samples/tree/master/Libraries/D3DX12)中下载该标头并参阅 [D3D12 的帮助程序结构和函数](helper-structures-and-functions-for-d3d12.md)。
 
@@ -102,6 +92,9 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 ## <a name="debug-layer"></a>调试层
 
 调试层提供大量额外参数和一致性验证（例如，验证着色器链接和资源绑定、验证参数一致性和报告错误说明）。
+
+> [!Note]  
+> 对于 Windows 10，若要创建支持调试层的设备，请启用 "图形工具" 可选功能。 请参阅 "系统"、"应用 & 功能" 下的 "设置" 面板、"管理可选功能"、"添加功能"，然后查找 "图形工具"。
 
 默认情况下，d3d12.h 中包含支持调试层 D3D12SDKLayers.h 所需的标头。
 

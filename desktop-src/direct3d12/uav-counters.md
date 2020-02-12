@@ -1,39 +1,36 @@
 ---
 title: UAV 计数器
-description: UAV 计数器可用于将 32 位原子计数器与无序访问视图 (UAV) 关联。
+description: 可以使用无序访问视图（UAV）计数器将32位原子计数器与无序访问视图（UAV）相关联。
 ms.assetid: 0B77E238-E8CF-466B-9188-3DE96AF97F42
 ms.localizationpriority: high
 ms.topic: article
-ms.date: 05/31/2018
-ms.openlocfilehash: 20d64c526fb18857787a75a75bd0681def4e7360
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.date: 02/10/2020
+ms.openlocfilehash: 94bc1492e3b984d96c76788430d2e63c0672ca76
+ms.sourcegitcommit: 927b9c371f75f52b8011483edf3a4ba37d11ebe4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006205"
+ms.lasthandoff: 02/11/2020
+ms.locfileid: "77128116"
 ---
 # <a name="uav-counters"></a>UAV 计数器
-
-UAV 计数器可用于将 32 位原子计数器与无序访问视图 (UAV) 关联。
-
--   [从 Direct3D 11 到 Direct3D 12 的 UAV 计数器的差异](#differences-in-uav-counters-from-direct3d-11-to-direct3d-12)
--   [使用 UAV 计数器](#using-uav-counters)
--   [相关主题](#related-topics)
+可以使用无序访问视图（UAV）计数器将32位原子计数器与无序访问视图（UAV）相关联。
 
 ## <a name="differences-in-uav-counters-from-direct3d-11-to-direct3d-12"></a>从 Direct3D 11 到 Direct3D 12 的 UAV 计数器的差异
-
-在 Direct3D 12 中，应用使用与 Direct3D 11 相同的 HLSL 着色器函数来访问 UAV 计数器：
+Direct3D 12 应用和 Direct3D 11 应用都使用相同的高级着色器语言（HLSL）着色器函数来访问 UAV 计数器。
 
 -   **IncrementCounter**
 -   **DecrementCounter**
 -   **Append**
 -   **Consume**
 
-除着色器之外，Direct3D 11 还使用 API 方法访问计数器，而在 Direct3D 12 中，32 位值是由应用分配的，因此 CPU 或 GPU 可以读写 32 位值（类似于其他 Direct3D 12 资源）。
+### <a name="direct3d-12"></a>Direct3D 12
+在 Direct3D 12 中，32位值由应用程序分配，因此 CPU 或 GPU 可以读取和写入32位值，就像其他任何 Direct3D 12 资源一样。
+
+### <a name="direct3d-11"></a>Direct3D 11
+在着色器外，使用 Direct3D 11 时，需要调用 API 方法才能访问计数器（例如， [ID3D11DeviceContext：： CopyStructureCount](/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-copystructurecount)）。
 
 ## <a name="using-uav-counters"></a>使用 UAV 计数器
-
-应用负责分配 UAV 计数器的 32 位存储。 此存储可分配在不同的资源中，类似于包含可通过 UAV 访问的数据的存储。
+应用负责为 UAV 计数器分配32位的存储。 此存储可分配在不同的资源中，类似于包含可通过 UAV 访问的数据的存储。
 
 请参阅 [CreateUnorderedAccessView](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createunorderedaccessview)、[D3D12\_BUFFER\_UAV\_FLAGS](/windows/desktop/api/d3d12/ne-d3d12-d3d12_buffer_uav_flags) 和 [D3D12\_BUFFER\_UAV](/windows/desktop/api/d3d12/ns-d3d12-d3d12_buffer_uav)。
 
@@ -71,15 +68,4 @@ UAV 计数器支持所有堆类型（默认、上传、回读）。
 
 ## <a name="related-topics"></a>相关主题
 
-<dl> <dt>
-
-[计数器和查询](counters-and-queries.md)
-</dt> </dl>
-
- 
-
- 
-
-
-
-
+* [计数器和查询](counters-and-queries.md)

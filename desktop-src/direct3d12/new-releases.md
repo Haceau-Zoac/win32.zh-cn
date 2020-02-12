@@ -5,16 +5,18 @@ ms.assetid: 38F41E05-FECB-41DE-8D30-09733FBEAC48
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 12/05/2019
-ms.openlocfilehash: 0315ca8fd4e641df0fd8de3445583fd479cc17c6
-ms.sourcegitcommit: bf6a52b91604d8a9432bf646097e3f31e44967d7
+ms.openlocfilehash: e1eefc7c895e44b4757d0ba632a6409db8d382c0
+ms.sourcegitcommit: 927b9c371f75f52b8011483edf3a4ba37d11ebe4
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74883943"
+ms.lasthandoff: 02/11/2020
+ms.locfileid: "77128110"
 ---
 # <a name="whats-new-in-direct3d-12"></a>Direct3D 12 中的新增功能
 
 本主题介绍可用于各种版本的最重要的新 Direct3D 12 文档。
+
+有关获取和安装 Direct3D 的信息，请参阅[direct3d 12 编程环境设置](/windows/win32/direct3d12/directx-12-programming-environment-set-up)。
 
 ## <a name="direct3d-12-on-windows-7"></a>Windows 7 上的 Direct3D 12
 
@@ -93,7 +95,7 @@ ms.locfileid: "74883943"
 
 -   新增了名为[了解 D3D12 调试层](understanding-the-d3d12-debug-layer.md)的指南部分。
 
-    描述了三个新的调试层接口（在预览模式下）： [**ID3D12Debug1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、 [**ID3D12DebugCommandList1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、 [**ID3D12DebugDevice1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
+    描述了 3 个新的调试层接口（在预览模式下）：[ID3D12Debug1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、[ID3D12DebugCommandList1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、[ID3D12DebugDevice1](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
 
 ## <a name="august-2016-documentation-update-1"></a>2016 年 8 月文档更新 1
 
