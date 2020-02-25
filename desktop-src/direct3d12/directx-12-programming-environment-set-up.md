@@ -5,12 +5,12 @@ ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 787a941add89e3e65bf3716c296d39537abd5c52
-ms.sourcegitcommit: 927b9c371f75f52b8011483edf3a4ba37d11ebe4
+ms.openlocfilehash: 091041dea3bec66e1fc88ea8d4ae66d102eda001
+ms.sourcegitcommit: 3e70ae762629e244028b437420ed50b5850db4e3
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/11/2020
-ms.locfileid: "77128113"
+ms.lasthandoff: 02/20/2020
+ms.locfileid: "77520433"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -73,11 +73,11 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 |                                                                                  |                                                                                                                                                                                                                                                                        |                                                                                                            |
 |----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | **库**                                                                      | **用途**                                                                                                                                                                                                                                                            | **文档**                                                                                          |
-| [用于 DirectX 12 的 DirectX 工具包](https://go.microsoft.com/fwlink/?LinkID=615561) | 用于为通用 Windows 平台 (UWP) 应用、适用于 Windows 10 的 Win32 桌面应用程序和 Xbox One 独占应用编写 Direct3D 12 C++ 代码的帮助程序类的大量集合。                                                                         | [DirectX12TK wiki](https://github.com/Microsoft/DirectXTK12/wiki)                                          |
-| [DirectXTex](https://go.microsoft.com/fwlink/?LinkId=248926)                      | 适用于读取和写入 DDS 文件，以及执行各种纹理内容处理操作，包括调整大小、格式转换、mip 贴图生成、Direct3D 运行时纹理资源的块压缩和高度贴图到法线贴图的转换。 | [DirectXTex wiki](https://github.com/Microsoft/DirectXTex/wiki)                                            |
-| [DirectXMesh](https://go.microsoft.com/fwlink/p/?linkid=324981)                   | 适用于执行各种几何图形内容处理操作，包括生成法线和切线帧、三角形相邻计算和顶点缓存优化。                                                                                | [DirectXMesh wiki](https://github.com/Microsoft/DirectXMesh/wiki)                                          |
-| [DirectXMath](https://go.microsoft.com/fwlink/?LinkID=615560)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](https://docs.microsoft.com/windows/desktop/dxmath/ovw-xnamath-progguide) |
-| [UVAtlas](https://go.microsoft.com/fwlink/?LinkID=512686)                         | 适用于创建和打包 isochart 纹理图集。                                                                                                                                                                                                           | [UVAtlas wiki](https://github.com/Microsoft/UVAtlas/wiki)                                                  |
+| [用于 DirectX 12 的 DirectX 工具包](https://github.com/Microsoft/DirectXTK12) | 用于为通用 Windows 平台 (UWP) 应用、适用于 Windows 10 的 Win32 桌面应用程序和 Xbox One 独占应用编写 Direct3D 12 C++ 代码的帮助程序类的大量集合。                                                                         | [DirectX12TK wiki](https://github.com/Microsoft/DirectXTK12/wiki)                                          |
+| [DirectXTex](https://github.com/Microsoft/DirectXTex)                      | 适用于读取和写入 DDS 文件，以及执行各种纹理内容处理操作，包括调整大小、格式转换、mip 贴图生成、Direct3D 运行时纹理资源的块压缩和高度贴图到法线贴图的转换。 | [DirectXTex wiki](https://github.com/Microsoft/DirectXTex/wiki)                                            |
+| [DirectXMesh](https://github.com/Microsoft/DirectXMesh)                   | 适用于执行各种几何图形内容处理操作，包括生成法线和切线帧、三角形相邻计算和顶点缓存优化。                                                                                | [DirectXMesh wiki](https://github.com/Microsoft/DirectXMesh/wiki)                                          |
+| [DirectXMath](https://github.com/Microsoft/DirectXMath)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](https://docs.microsoft.com/windows/desktop/dxmath/ovw-xnamath-progguide) |
+| [UVAtlas](https://github.com/Microsoft/UVAtlas)                         | 适用于创建和打包 isochart 纹理图集。                                                                                                                                                                                                           | [UVAtlas wiki](https://github.com/Microsoft/UVAtlas/wiki)                                                  |
 
 
 
