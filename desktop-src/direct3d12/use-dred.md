@@ -1,18 +1,18 @@
 ---
-title: 使用 DRED 诊断 GPU 错误
+title: 使用 DRED 诊断 GPU 故障
 description: 设备删除扩展数据 (DRED) 是一组不断发展的诊断功能，专门用于帮助确定意外设备删除错误的原因。
 ms.custom: 19H1
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: 1e5c851caf46005c76d5eaae807146d305d23dac
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: bbc754239210899e804d41a294e8c9f47967fb25
+ms.sourcegitcommit: 780d4b1601c45658ef0b799b80d13f45a53d808d
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005717"
+ms.lasthandoff: 02/26/2020
+ms.locfileid: "77635089"
 ---
-# <a name="use-dred-to-diagnose-gpu-faults"></a>使用 DRED 诊断 GPU 错误
+# <a name="use-dred-to-diagnose-gpu-faults"></a>使用 DRED 诊断 GPU 故障
 DRED 表示设备删除扩展数据。 DRED 是一组不断发展的诊断功能，专门用于帮助确定意外设备删除错误的原因。 在支持必要功能（如下面的定义所示）的硬件上，DRED 传送自动痕迹导航以及 GPU 页面错误报告。
 
 ## <a name="auto-breadcrumbs"></a>自动痕迹导航
@@ -20,12 +20,12 @@ DRED 表示设备删除扩展数据。 DRED 是一组不断发展的诊断功能
 
 若要创建自定义低开销实现，这是一种合理的方法。 但是它可能会缺少标准化解决方案的部分功能，例如调试器扩展，或通过 [Windows 错误报告 (WER)](/windows/desktop/wer/windows-error-reporting)（又称为 Watson）报告。
 
-因此，自动痕迹导航调用WriteBufferImmediate 来将进度计数器置于 GPU 命令流中。 DRED 在每个呈现器运行（即引发 GPU 作业的各个运行，如绘制、调度、复制、解析等）后面插入痕迹导航。&mdash; 若在运行 GPU 工作负载期间删除了设备，DRED 痕迹导航值实质上是在发生错误前完成的呈现器运行的集合。
+因此，自动痕迹导航调用WriteBufferImmediate 来将进度计数器置于 GPU 命令流中。 DRED 在每个呈现器运行（即引发 GPU 作业的各个运行，如绘制、调度、复制、解析等）后面插入痕迹导航。&mdash; 如果设备是在 GPU 工作负荷的中间删除的，则通过痕迹值实质上是在发生错误之前完成的 render 操作的集合。
 
 痕迹导航历史记录环形缓冲区最多保留给定命令列表中 64KB 的运行。 若命令列表中的运行数超过 65536，则仅存储最近的 64KB 运行&mdash;首先将重写时间最早的运行。 但是，痕迹导航计数器值继续计数，最高计数为 `UINT_MAX`。 因此，最后的运行索引 =（痕迹导航计数 - 1）% 65536。
 
-Windows 10 版本 1809（Windows 10 2018 年 10 月更新）首次发布了 DRED 1.0，并且它公开了初步的自动痕迹导航。 不过，没有针对它的 API，启用 DRED 1.0 的唯一方法是使用“反馈中心”捕获“应用和游戏”\>“游戏性能和功能”的 TDR 重现。 DRED 1.0 主要用于借助客户反馈帮助执行游戏崩溃根本原因分析。
-### <a name="caveats"></a>警告
+Windows 10 版本 1809（Windows 10 2018 年 10 月更新）首次发布了 DRED 1.0，并且它公开了初步的自动痕迹导航。 但是，没有适用于它的 Api，启用通过1.0 的唯一方法是使用**反馈中心**来捕获**应用程序**的 TDR 复制（重现） & 游戏 \>**游戏性能和兼容性**。 DRED 1.0 主要用于借助客户反馈帮助执行游戏崩溃根本原因分析。
+### <a name="caveats"></a>注意事项
 - 由于 GPU 占用大量管道，因此无法确保痕迹导航计数器准确地指示已失败的运行。 实际上，在一些基于磁贴的延迟呈现器设备上，痕迹导航计数器可以是实际 GPU 进程后面的完整资源或无序访问视图 (UAV) 屏障。
 - 显示驱动程序可以在执行命令很久之前将命令重新排序、从资源内存预提取，或在完成命令很久之后刷新缓存内存。 上述任意操作均可以引发 GPU 错误。 在这些情况下，自动痕迹导航计数器的用途较小，或会误导用户。
 ### <a name="performance"></a>性能
@@ -43,7 +43,7 @@ DRED 1.1 的新增功能是 DRED GPU 页面错误报告。 GPU 页面错误通�
 DRED 尝试通过报告与 GPU 报告页面错误虚拟地址 (VA) 匹配的任何现有或最新释放的 API 对象的名称和类型，来解决上述某些场景。
 
 ### <a name="caveat"></a>警告
-尽管许多 GPU 都支持页面错误，但并非所有都支持。 一些 GPU 使用下列方式响应内存错误：位存储桶写入；读取模拟数据（如零）；或仅挂起。 遗憾的是，若 GPU 未立即挂起，管道稍后可能会执行[超时检测和恢复(TDR)](/windows-hardware/drivers/display/timeout-detection-and-recovery)，这样将更加难以找到根本原因。
+尽管许多 GPU 都支持页面错误，但并非所有都支持。 某些 Gpu 通过以下方式响应内存错误：位桶写入;读取模拟数据（例如零）;或者只是挂起。 遗憾的是，若 GPU 未立即挂起，管道稍后可能会执行[超时检测和恢复(TDR)](/windows-hardware/drivers/display/timeout-detection-and-recovery)，这样将更加难以找到根本原因。
 
 ### <a name="performance"></a>性能
 Direct3D 12 运行时必须主动策展可通过虚拟地址 (VA) 索引的现有和最近删除的 API 对象集合。 这将增加系统内存开销，并对对象创建和析构性能产生轻微的不利影响。 鉴于此原因，默认为禁用此行为。
@@ -69,7 +69,7 @@ pDredSettings->SetPageFaultEnablement(D3D12_DRED_ENABLEMENT_FORCED_ON);
 ## <a name="accessing-dred-data-in-code"></a>在代码中访问 DRED 数据
 检测到设备删除后（如 Present返回 [DXGI_ERROR_DEVICE_REMOVED](/windows/desktop/com/com-error-codes-10)），请使用 [ID3D12DeviceRemovedExtendedData](/windows/desktop/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddata) 接口的方法访问已删除设备的 DRED 数据。
 
-若要检索 ID3D12DeviceRemovedExtendedData 接口，请在 [ID3D12Device](/windows/desktop/api/d3d12/nn-d3d12-id3d12device.md) （或派生的）接口上调用 [QueryInterface](/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void))，并传送 ID3D12DeviceRemovedExtendedData 的接口标识符 (IID)。
+若要检索 ID3D12DeviceRemovedExtendedData 接口，请在 [ID3D12Device](/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)) （或派生的）接口上调用 [QueryInterface](/windows/win32/api/d3d12/nn-d3d12-id3d12device)，并传送 ID3D12DeviceRemovedExtendedData 的接口标识符 (IID)。
 
 ```cpp
 void MyDeviceRemovedHandler(ID3D12Device * pDevice)
