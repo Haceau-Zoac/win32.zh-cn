@@ -4,12 +4,12 @@ description: 可变速率着色 &mdash; 或粗略像素着色 &mdash; 是一种�
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/08/2019
-ms.openlocfilehash: cd871fcd72234af6c18df416886822b37777aabb
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 590a20d4616723482c24bd0e38253071566d1ba9
+ms.sourcegitcommit: 686cb805bed0e89573fc68d145809f50c6b0e6d5
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006013"
+ms.lasthandoff: 04/13/2020
+ms.locfileid: "81266806"
 ---
 # <a name="variable-rate-shading-vrs"></a>可变速率着色 (VRS)
 
@@ -41,7 +41,7 @@ MSAA 机制可以减少几何失真，与不使用 MSAA 相比，它可以改善
 ## <a name="feature-tiers"></a>功能层
 VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地描述了每个层。
 
-![层](images/Tiers.PNG "层")
+![底层](images/Tiers.PNG "层")
 
 ### <a name="tier-1"></a>第 1 层
 - 只能按绘制指定着色速率；不存在更高的粒度。
@@ -131,7 +131,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 创建屏幕空间图像时允许使用这些标志。
 
-- NONE
+- 无
 - ALLOW_UNORDERED_ACCESS
 - DENY_SHADER_RESOURCE
 
@@ -147,7 +147,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 
 资源不能是 SIMULTANEOUS_ACCESS。 不允许资源跨适配器。
 
-#### <a name="data"></a>Data
+#### <a name="data"></a>数据
 屏幕空间图像的每个字节对应于 [**D3D12_SHADING_RATE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shading_rate) 枚举的值。
 
 #### <a name="resource-state"></a>资源状态
@@ -191,7 +191,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 - **重写**。 C.xy = B.xy。
 - **更高的质量**。 C.xy = min(A.xy, B.xy)。
 - **更低的质量**。 C.xy = max(A.xy, B.xy)。
-- **应用相对于 A 的成本 B**。C.xy = min(maxRate, A.xy + B.xy)。
+- **应用相对于的成本 B**。C. xy = min （maxRate，xy + b. xy）。
 
 其中，`maxRate` 是设备上允许的最大粗略像素维度。 这将是
 
@@ -258,7 +258,7 @@ VRS 实现有两个层，你可以查询两项功能。 表格后面更详细地
 ## <a name="attribute-interpolation"></a>属性内插
 可以根据源顶点内插像素着色器的输入。 由于可变速率着色会影响每次调用像素着色器时写入的目标区域，因此，着色器将与属性内插交互。 有三种类型的内插：中点、质心和样本。
 
-### <a name="center"></a>中点
+### <a name="center"></a>中心
 粗略像素的中点内插位置是完整粗略像素区域的几何中心。 `SV_Position` 始终在粗略像素区域的中心内插。
 
 ### <a name="centroid"></a>质心
@@ -468,7 +468,7 @@ numeric EvaluateAttributeSnapped(
 
 ![Coverage4x](images/Coverage4x.PNG "Coverage4x")
 
-## <a name="discard"></a>丢弃
+## <a name="discard"></a>Discard
 对粗略像素着色使用 HLSL 语义 `discard` 时，会丢弃粗略像素。
 
 ## <a name="target-independent-rasterization-tir"></a>目标独立的光栅化 (TIR)
@@ -480,7 +480,7 @@ ROV 联锁指定为以精细像素粒度运行。 如果按样本执行着色，
 ## <a name="conservative-rasterization"></a>保守光栅化
 可对可变速率着色使用保守光栅化。 对粗略像素着色使用保守光栅化时，将按给定的完整覆盖范围，以保守方式将不包含精细像素的精细像素光栅化。
 
-### <a name="coverage"></a>覆盖范围
+### <a name="coverage"></a>涵盖范围广
 使用保守光栅化时，覆盖语义将包含所覆盖的精细像素的完整掩码，并为未覆盖的精细像素包含 0。
 
 ## <a name="bundles"></a>捆绑
@@ -494,7 +494,7 @@ ROV 联锁指定为以精细像素粒度运行。 如果按样本执行着色，
 
 ### <a name="capability-querying"></a>功能查询
 
-若要查询适配器的可变速率着色功能，请结合 [**D3D12_FEATURE::D3D12_FEATURE_D3D12_OPTIONS6**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature) 调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)，并提供函数要为你填充的 [**D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)。 **D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构包含多个成员，这些成员包括一个 [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier) (D3D12_FEATURE_DATA_D3D12_OPTIONS6::VariableShadingRateTier) 枚举类型的成员，以及一个指示是否支持后台处理的成员 (D3D12_FEATURE_DATA_D3D12_OPTIONS6::BackgroundProcessingSupported)。
+若要查询适配器的可变速率着色功能，请结合 [**D3D12_FEATURE::D3D12_FEATURE_D3D12_OPTIONS6**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_feature)，并提供函数要为你填充的 [**D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)。 **D3D12_FEATURE_DATA_D3D12_OPTIONS6** 结构包含多个成员，这些成员包括一个 [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier) (D3D12_FEATURE_DATA_D3D12_OPTIONS6::VariableShadingRateTier) 枚举类型的成员，以及一个指示是否支持后台处理的成员 (D3D12_FEATURE_DATA_D3D12_OPTIONS6::BackgroundProcessingSupported)。
 
 例如，若要查询第 1 层功能，可以执行此操作。
 
@@ -505,7 +505,7 @@ return
         D3D12_FEATURE_D3D12_OPTIONS6, 
         &options, 
         sizeof(options))) && 
-    options.ShadingRateTier == D3D12_SHADING_RATE_TIER_1;
+    options.ShadingRateTier == D3D12_VARIABLE_SHADING_RATE_TIER_1;
 ```
 
 ### <a name="shading-rates"></a>着色速率
