@@ -5,16 +5,16 @@ ms.assetid: B20C5575-0616-43F7-9AC9-5F802E5597B5
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: a87ebaed42030936264d3396b0c1062114d3c93f
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.openlocfilehash: d62071b5e834c8be3a2c972b0b549277deab7b12
+ms.sourcegitcommit: c2a1c4314550ea9bd202d28adfcc7bfe6180932f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306456"
+ms.lasthandoff: 06/11/2020
+ms.locfileid: "84717432"
 ---
 # <a name="multi-engine-n-body-gravity-simulation"></a>多引擎 n 体重力模拟
 
-D3D12nBodyGravity 示例演示如何异步执行计算工作。 示例旋转若干线程，且每个线程都具有计算命令队列，并在执行 n 体重力模拟的 GPU 上调度计算工作。 每个线程在两个充满位置和速度数据的缓冲区上运行。 通过每次迭代，计算着色器从其中一个缓冲区读取当前的位置和速度数据，并将下一个迭代写入另一个缓冲区。 迭代完成时，计算着色器通过更改每个缓冲区上的资源状态来交换用于读取位置/速度数据的 SRV 缓冲区，和用于写入位置/速度更新的 UAV 缓冲区。
+D3D12nBodyGravity 示例演示如何异步执行计算工作****。 示例旋转若干线程，且每个线程都具有计算命令队列，并在执行 n 体重力模拟的 GPU 上调度计算工作。 每个线程在两个充满位置和速度数据的缓冲区上运行。 通过每次迭代，计算着色器从其中一个缓冲区读取当前的位置和速度数据，并将下一个迭代写入另一个缓冲区。 迭代完成时，计算着色器通过更改每个缓冲区上的资源状态来交换用于读取位置/速度数据的 SRV 缓冲区，和用于写入位置/速度更新的 UAV 缓冲区。
 
 -   [创建根签名](#create-the-root-signatures)
 -   [创建 SRV 和 UAV 缓冲区](#create-the-srv-and-uav-buffers)
@@ -25,7 +25,7 @@ D3D12nBodyGravity 示例演示如何异步执行计算工作。 示例旋转若�
 
 ## <a name="create-the-root-signatures"></a>创建根签名
 
-首先在 LoadAssets 方法中创建一个图形和一个计算根签名。 两个根签名都具有根常量缓冲区视图 (CBV) 和着色器资源视图 (SRV) 描述符表。 计算根签名还具有无序访问视图 (UAV) 描述符表。
+首先在 LoadAssets 方法中创建一个图形和一个计算根签名****。 两个根签名都具有根常量缓冲区视图 (CBV) 和着色器资源视图 (SRV) 描述符表。 计算根签名还具有无序访问视图 (UAV) 描述符表。
 
 ``` syntax
  // Create the root signatures.
@@ -60,16 +60,16 @@ D3D12nBodyGravity 示例演示如何异步执行计算工作。 示例旋转若�
 
 
 
-| 调用流程                                                             | Parameters                                                            |
+| 调用流程                                                             | 参数                                                            |
 |-----------------------------------------------------------------------|-----------------------------------------------------------------------|
-| [CD3DX12\_DESCRIPTOR\_RANGE](cd3dx12-descriptor-range.md)        | [D3D12\_DESCRIPTOR\_RANGE\_TYPE](/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) |
-| [**CD3DX12\_ROOT\_PARAMETER**](cd3dx12-root-parameter.md)            | [D3D12\_SHADER\_VISIBILITY](/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_visibility)          |
-| [CD3DX12\_ROOT\_SIGNATURE\_DESC](cd3dx12-root-signature-desc.md) | [D3D12\_ROOT\_SIGNATURE\_FLAGS](/windows/win32/api/d3d12/ne-d3d12-d3d12_root_signature_flags)   |
-| [**ID3DBlob**](https://docs.microsoft.com/previous-versions/windows/win32/legacy/ff728743(v=vs.85))                                   |                                                                       |
-| [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [D3D\_ROOT\_SIGNATURE\_VERSION](/windows/win32/api/d3d12/ne-d3d12-d3d_root_signature_version)   |
+| [**CD3DX12 \_ 描述符 \_ 范围**](cd3dx12-descriptor-range.md)        | [**D3D12 \_ 描述符 \_ 范围 \_ 类型**](/windows/win32/api/d3d12/ne-d3d12-d3d12_descriptor_range_type) |
+| [**CD3DX12 \_ 根 \_ 参数**](cd3dx12-root-parameter.md)            | [**D3D12 \_ 着色器 \_ 可见性**](/windows/win32/api/d3d12/ne-d3d12-d3d12_shader_visibility)          |
+| [**CD3DX12 \_ 根 \_ 签名 \_ DESC**](cd3dx12-root-signature-desc.md) | [**D3D12 \_ 根 \_ 签名 \_ 标志**](/windows/win32/api/d3d12/ne-d3d12-d3d12_root_signature_flags)   |
+| [**ID3DBlob**](/previous-versions/windows/desktop/legacy/ff728743(v=vs.85))                                   |                                                                       |
+| [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [**D3D \_ 根 \_ 签名 \_ 版本**](/windows/win32/api/d3d12/ne-d3d12-d3d_root_signature_version)   |
 | [**CreateRootSignature**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature)       |                                                                       |
-| [CD3DX12\_ROOT\_SIGNATURE\_DESC](cd3dx12-root-signature-desc.md) |                                                                       |
-| [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [D3D\_ROOT\_SIGNATURE\_VERSION](/windows/win32/api/d3d12/ne-d3d12-d3d_root_signature_version)   |
+| [**CD3DX12 \_ 根 \_ 签名 \_ DESC**](cd3dx12-root-signature-desc.md) |                                                                       |
+| [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)    | [**D3D \_ 根 \_ 签名 \_ 版本**](/windows/win32/api/d3d12/ne-d3d12-d3d_root_signature_version)   |
 | [**CreateRootSignature**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature)       |                                                                       |
 
 
@@ -95,7 +95,7 @@ SRV 和 UAV 缓冲器包含位置和速度数据数组。
 
 
 
-| 调用流程                       | Parameters |
+| 调用流程                       | 参数 |
 |---------------------------------|------------|
 | [**XMFLOAT4**](/windows/win32/api/directxmath/ns-directxmath-xmfloat4) |            |
 
@@ -105,7 +105,7 @@ SRV 和 UAV 缓冲器包含位置和速度数据数组。
 
 ## <a name="create-the-cbv-and-vertex-buffers"></a>创建 CBV 和顶点缓冲区
 
-对于图形管道而言，CBV 是一个结构，其中包含几何着色器使用的两个矩阵。 几何着色器获取系统中每个粒子的位置，然后使用这些矩阵生成四边形来表示。
+对于图形管道而言，CBV 是一个结构，其中包含几何着色器使用的两个矩阵****。 几何着色器获取系统中每个粒子的位置，然后使用这些矩阵生成四边形来表示。
 
 ``` syntax
  struct ConstantBufferGS
@@ -121,7 +121,7 @@ SRV 和 UAV 缓冲器包含位置和速度数据数组。
 
 
 
-| 调用流程                       | Parameters |
+| 调用流程                       | 参数 |
 |---------------------------------|------------|
 | [**XMMATRIX**](/windows/win32/api/directxmath/ns-directxmath-xmmatrix) |            |
 
@@ -143,7 +143,7 @@ SRV 和 UAV 缓冲器包含位置和速度数据数组。
 
 
 
-| 调用流程                       | Parameters |
+| 调用流程                       | 参数 |
 |---------------------------------|------------|
 | [**XMFLOAT4**](/windows/win32/api/directxmath/ns-directxmath-xmfloat4) |            |
 
@@ -151,7 +151,7 @@ SRV 和 UAV 缓冲器包含位置和速度数据数组。
 
  
 
-对于计算管道而言，CBV 是一个结构，其中包含计算着色器中的 n 体重力模拟使用的一些常数。
+对于计算管道而言，CBV 是一个结构，其中包含计算着色器中的 n 体重力模拟使用的一些常数****。
 
 ``` syntax
  struct ConstantBufferCS
@@ -206,12 +206,12 @@ void D3D12nBodyGravity::OnRender()
 
 
 
-| 调用流程                                                              | Parameters |
+| 调用流程                                                              | 参数 |
 |------------------------------------------------------------------------|------------|
 | [**InterlockedExchange**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedexchange)                  |            |
 | [**InterlockedGetValue**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedcompareexchange)           |            |
 | [**GetCompletedValue**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)             |            |
-| [Wait](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait)                                |            |
+| [**Wait**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait)                                |            |
 | [**ID3D12CommandList**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandlist)                         |            |
 | [**ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)  |            |
 | [**IDXGISwapChain1::Present1**](/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1) |            |
@@ -272,23 +272,23 @@ DWORD D3D12nBodyGravity::AsyncComputeThreadProc(int threadIndex)
 
 
 
-| 调用流程                                                                   | Parameters |
+| 调用流程                                                                   | 参数 |
 |-----------------------------------------------------------------------------|------------|
 | [**ID3D12CommandQueue**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandqueue)                            |            |
 | [**ID3D12CommandAllocator**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandallocator)                    |            |
 | [**ID3D12GraphicsCommandList**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist)              |            |
 | [**ID3D12Fence**](/windows/win32/api/d3d12/nn-d3d12-id3d12fence)                                          |            |
 | [**InterlockedGetValue**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedcompareexchange)                |            |
-| [Close](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)                            |            |
+| [**关闭**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)                            |            |
 | [**ID3D12CommandList**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandlist)                              |            |
 | [**ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)       |            |
 | [**InterlockedIncrement**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedincrement)                     |            |
-| [Signal](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal)                                 |            |
+| [**指明**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-signal)                                 |            |
 | [**SetEventOnCompletion**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion)            |            |
 | [**WaitForSingleObject**](/windows/win32/api/synchapi/nf-synchapi-waitforsingleobject)                         |            |
 | [**InterlockedGetValue**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedcompareexchange)                |            |
 | [**GetCompletedValue**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)                  |            |
-| [Wait](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait)                                     |            |
+| [**Wait**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-wait)                                     |            |
 | [**InterlockedExchange**](https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-interlockedexchange)                       |            |
 | [**ID3D12CommandAllocator::Reset**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandallocator-reset)       |            |
 | [**ID3D12GraphicsCommandList::Reset**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset) |            |

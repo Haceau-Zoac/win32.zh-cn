@@ -5,22 +5,22 @@ ms.custom: Windows 10 May 2019 Update
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 04/19/2019
-ms.openlocfilehash: d140d783be1daef4c6e90b68af86fb5a96f7d31d
-ms.sourcegitcommit: f776aaac91933a43f8aa2f88feb78bf8dccbc791
+ms.openlocfilehash: 6da6903f9cf576f5ca75c9d8368483bd73b430f2
+ms.sourcegitcommit: c2a1c4314550ea9bd202d28adfcc7bfe6180932f
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150285"
+ms.lasthandoff: 06/11/2020
+ms.locfileid: "84717435"
 ---
 # <a name="binding-in-directml"></a>DirectML 中的绑定
 
-在 DirectML 中，绑定是指将资源附加到管道，以供 GPU 在机器学习运算符初始化和执行时使用。 例如，这些资源可以是输入和输出张量，也可以是运算符需要的任何临时性或永久性资源。
+在 DirectML 中，*绑定*指的是在初始化和执行机器学习操作员期间要使用的 GPU 的资源附件。 例如，这些资源可以是输入和输出张量，也可以是运算符需要的任何临时性或永久性资源。
 
 本主题介绍绑定的概念和过程详细信息。 此外，我们建议通篇阅读所要调用的 API 的文档，包括参数和备注。
 
 ## <a name="important-ideas-in-binding"></a>绑定中的重要概念
 
-以下步骤列表包含绑定相关的任务的概要说明。 每次执行[可调度对象](/windows/desktop/api/directml/nn-directml-idmldispatchable)时，都需要执行这些步骤 &mdash; 可调度对象是运算符初始值设定项或编译的运算符。 这些步骤会介绍 DirectML 绑定所涉及的重要概念、结构和方法。
+以下步骤列表包含绑定相关的任务的概要说明。 每次执行可调度时，都需要执行以下步骤[dispatchable](/windows/desktop/api/directml/nn-directml-idmldispatchable) &mdash; ：可调度是运算符初始值设定项或编译的运算符。 这些步骤会介绍 DirectML 绑定所涉及的重要概念、结构和方法。
 
 本主题中的后续部分将使用摘自[精简 DirectML 应用程序](dml-min-app.md)代码示例的演示性代码片段更深入、更详细地解释这些绑定任务。
 
@@ -230,7 +230,7 @@ DirectML 中绑定的适当心理模型是，DirectML 绑定表本身在幕后�
 
 使用描述符（例如，由以前的框架使用）时，绑定表无法覆盖该描述符。 因此，若要重复使用已绑定的描述符堆（例如，通过针对指向它的绑定表再次调用 Bind*，或手动覆盖描述符堆），则应该等待当前正在使用该描述符堆的可调度对象在 GPU 上完成执行。 绑定表不会在它写入到的描述符堆中保留强引用，因此，在使用该绑定表的所有工作在 GPU 上完成执行之前，不得释放后备着色器可见的描述符堆。
 
-另一方面，尽管绑定表不会指定和管理描述符堆，但表本身不包含任何此类内存。 因此，在对绑定表调用 [**IDMLCommandRecorder::RecordDispatch**](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之后，随时可以释放或重置该绑定表（无需等待该调用在 GPU 上完成，前提是基础描述符仍然有效）。
+另一方面，尽管绑定表不会指定和管理描述符堆，但表本身不包含任何此类内存。** 因此，在对绑定表调用 [**IDMLCommandRecorder::RecordDispatch**](/windows/desktop/api/directml/nf-directml-idmlcommandrecorder-recorddispatch) 之后，随时可以释放或重置该绑定表（无需等待该调用在 GPU 上完成，前提是基础描述符仍然有效）。
 
 绑定表不会在使用它绑定的任何资源上保留强引用 &mdash; 应用程序必须确保在 GPU 仍使用这些资源时不会将其删除。 此外，绑定表不是线程安全的 &mdash; 在未同步的情况下，应用程序不得从不同的线程同时针对绑定表调用方法。
 
@@ -242,4 +242,4 @@ DirectML 中绑定的适当心理模型是，DirectML 绑定表本身在幕后�
 
 如果处理的是编译的运算符（而不是运算符初始值设定项），则可以选择为运算符指定后期绑定。 如果不使用后期绑定，必须在将运算符记录到命令列表之前，在绑定表中设置所有绑定。 如果使用后期绑定，则可以先在尚未提交互命令列表的运算符中设置（或更改）绑定，然后再将其提交到命令队列。
 
-若要指定后期绑定，请结合 [**DML_EXECUTION_FLAG_DESCRIPTORS_VOLATILE**](/windows/desktop/api/directml/ne-directml-dml_execution_flags) 的 `flags` 参数调用 [**IDMLDevice::CompileOperator**](/windows/desktop/api/directml/nf-directml-idmldevice::compileoperator)。
+若要指定后期绑定，请结合 [**DML_EXECUTION_FLAG_DESCRIPTORS_VOLATILE**](/windows/desktop/api/directml/ne-directml-dml_execution_flags) 的 `flags` 参数调用 [**IDMLDevice::CompileOperator**](/windows/win32/api/directml/nf-directml-idmldevice-compileoperator)。
