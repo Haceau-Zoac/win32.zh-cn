@@ -5,16 +5,16 @@ ms.assetid: 6106D15E-EAF6-4583-B4F2-7CC7EE30DE15
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 5e3fcf6f1a2f6d7baf3265cc974c8434d0ffb41d
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 7b6b8e8bb193ab24211d7f412a829b2cf4a815b4
+ms.sourcegitcommit: f0ca63c18dc52c357d3398af7be766d2bdd40be7
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006208"
+ms.lasthandoff: 06/17/2020
+ms.locfileid: "84977307"
 ---
 # <a name="typed-unordered-access-view-uav-loads"></a>类型化无序访问视图 (UAV) 加载
 
-无序访问视图 (UAV) 类型化加载是着色器通过特定 [DXGI\_FORMAT](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) 读取 UAV 的能力。
+无序访问视图（UAV）类型化负载是指着色器使用特定[**DXGI \_ 格式**](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format)从 UAV 读取的功能。
 
 -   [概述](#overview)
 -   [支持的格式和 API 调用](#supported-formats-and-api-calls)
@@ -24,7 +24,7 @@ ms.locfileid: "71006208"
 
 ## <a name="overview"></a>概述
 
-无序访问视图 (UAV) 是无序访问资源的视图（可包括缓冲区、纹理和纹理数组，但无需多次采样）。 使用 UAV 可通过多个线程临时进行无序读/写访问。 这意味着该资源类型可以由多个线程同时读/写，且不会产生内存冲突。 这种同时访问是通过使用 [Atomic Functions](https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-atomic-functions)（原子函数）来进行的。
+无序访问视图 (UAV) 是无序访问资源的视图（可包括缓冲区、纹理和纹理数组，但无需多次采样）。 使用 UAV 可通过多个线程临时进行无序读/写访问。 这意味着此资源类型可由多个线程同时读/写，且不会产生内存冲突。 这种同时访问是通过使用 [Atomic Functions](https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-atomic-functions)（原子函数）来进行的。
 
 D3D12（和 D3D11.3）扩展了可用于类型化 UAV 加载的格式列表。
 
@@ -73,7 +73,7 @@ D3D12 和 D3D11.3 硬件可选择性支持或单独支持以下格式，因此�
 -   R8G8\_UNORM
 -   R8G8\_UINT
 -   R8G8\_SNORM
--   8G8\_SINT
+-   R8G8 \_ 圣马丁
 -   R16\_UNORM
 -   R16\_SNORM
 -   R8\_SNORM
@@ -82,7 +82,7 @@ D3D12 和 D3D11.3 硬件可选择性支持或单独支持以下格式，因此�
 -   B5G5R5A1\_UNORM
 -   B4G4R4A4\_UNORM
 
-若要确定对任何其他格式的支持，请将 [D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) 结构用作第一个参数（参阅[功能查询](capability-querying.md)）来调用 [CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。 如果支持上述“以集合形式支持”列表，则将设置 TypedUAVLoadAdditionalFormats 字段。 再次调用 CheckFeatureSupport，并使用 [D3D12\_FEATURE\_DATA\_FORMAT\_SUPPORT](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_format_support) 结构（根据 [D3D12\_FORMAT\_SUPPORT2](/windows/desktop/api/d3d12/ne-d3d12-d3d12_format_support2) 枚举中的 D3D12\_FORMAT\_SUPPORT2\_UAV\_TYPED\_LOAD 成员检查返回的结构）来确定上述可选支持格式列表中的支持，例如：
+若要确定对任何其他格式的支持，请将 [D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options) 结构用作第一个参数（参阅[功能查询](capability-querying.md)）来调用 [CheckFeatureSupport](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)********。 如果支持上述“以集合形式支持”列表，则将设置 TypedUAVLoadAdditionalFormats 字段**。 再次调用 CheckFeatureSupport，并使用 [D3D12\_FEATURE\_DATA\_FORMAT\_SUPPORT](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_format_support) 结构（根据 [D3D12\_FORMAT\_SUPPORT2](/windows/desktop/api/d3d12/ne-d3d12-d3d12_format_support2) 枚举中的 D3D12\_FORMAT\_SUPPORT2\_UAV\_TYPED\_LOAD 成员检查返回的结构）来确定上述可选支持格式列表中的支持，例如************：
 
 ``` syntax
 D3D12_FEATURE_DATA_D3D12_OPTIONS FeatureData;
@@ -141,7 +141,7 @@ RWBuffer<unorm float> uav;
 [HLSL 中的资源绑定](resource-binding-in-hlsl.md)
 </dt> <dt>
 
-[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)
+[Shader Model 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)（着色器模型 5.1）
 </dt> <dt>
 
 [在 HLSL 中指定根签名](specifying-root-signatures-in-hlsl.md)
