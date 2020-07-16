@@ -5,12 +5,12 @@ ms.assetid: 26C41948-9625-4786-BBDF-552D1F8A2437
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fd0f0c636e21f28dc3c77212470579463766a15e
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 47725702676d385d607fa87533680b9ffe0fc0df
+ms.sourcegitcommit: 294c5ab750c46b5100bb2c84ef6c33ef7266c54b
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006270"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86401436"
 ---
 # <a name="uma-optimizations-cpu-accessible-textures-and-standard-swizzle"></a>UMA 优化：CPU 可访问纹理和标准重排
 
@@ -23,7 +23,7 @@ ms.locfileid: "71006270"
 
 ## <a name="overview-of-cpu-accessible-textures"></a>CPU 可访问纹理的概述
 
-图形管道中的 CPU 可访问纹理是 UMA 体系结构的一项功能，允许 CPU 对纹理进行读写访问。 在更常见的离散 GPU 上，CPU 没有权限访问图形管道中的纹理。
+图形管道中的 CPU 可访问纹理是 UMA 体系结构的一项功能，允许 CPU 对纹理进行读写访问。 在更常见的离散 Gpu 上，CPU 无权访问图形管道中的纹理。
 
 纹理的一般最佳做法建议是容纳离散 GPU，这通常涉及执行[通过缓冲区上传纹理数据](upload-and-readback-of-texture-data.md)中的过程，总结如下：
 
@@ -33,7 +33,7 @@ ms.locfileid: "71006270"
 
 但是，在某些情况下，CPU 和 GPU 可能会在相同的数据上非常频繁地交互，以便于映射纹理节约电量，或加速有关特定适配器或体系结构的特定设计。 应用程序应检测这些情况，并优化掉不必要的副本。 在这种情况下，为了获得最佳性能，请考虑以下事项：
 
--   当 [**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)::UMA 为 TRUE 时，仅开始实现映射纹理的更好性能。 然后注意 CacheCoherentUMA（如果决定在堆上选择哪些 CPU 缓存属性）。
+-   当 [**D3D12\_FEATURE\_DATA\_ARCHITECTURE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_architecture)::UMA 为 TRUE 时，仅开始实现映射纹理的更好性能。 然后注意 CacheCoherentUMA**（如果决定在堆上选择哪些 CPU 缓存属性）。
 
 -   利用纹理的 CPU 访问权限比利用缓冲区的 CPU 访问权限更复杂。 GPU 的最高效纹理布局很少是行主序布局\_。 事实上，当复制周围的纹理数据时，某些 GPU 只能支持行主序纹理\_。
 
@@ -57,7 +57,7 @@ D3D12（和 D3D11.3）引入了标准多维数据布局。 这样做是为了对
 
 ## <a name="apis"></a>API
 
-与 D3D11.3 不同，D3D12 默认支持纹理映射，因此无需查询 [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)。 但是，D3D12 并不总是支持标准重排，将需要通过调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 并选中 **D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS** 的 StandardSwizzle64KBSupported 字段来查询此功能。
+与 D3D11.3 不同，D3D12 默认支持纹理映射，因此无需查询 [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)。 但是，D3D12 并不总是支持标准重排，将需要通过调用 [**CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport) 并选中 **D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS** 的 StandardSwizzle64KBSupported** 字段来查询此功能。
 
 以下 API 引用纹理映射：
 
@@ -65,7 +65,7 @@ D3D12（和 D3D11.3）引入了标准多维数据布局。 这样做是为了对
 
 -   [**D3D12\_TEXTURE\_LAYOUT**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_texture_layout)：控制默认纹理的重排模式并启用对 CPU 可访问纹理的映射支持。
 
-结构
+結構
 
 -   [**D3D12\_RESOURCE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_resource_desc)：描述资源（如纹理），这是一个广泛使用的结构。
 -   [**D3D12\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc)：描述堆。
@@ -76,7 +76,7 @@ D3D12（和 D3D11.3）引入了标准多维数据布局。 这样做是为了对
 -   [**ID3D12Device::CreateHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createheap)：为缓冲区或纹理创建堆。
 -   [**ID3D12Device::CreatePlacedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createplacedresource)：创建放置在特定堆中的资源，这通常是比 [**CreateHeap**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createheap) 更快的创建资源方法。
 -   [**ID3D12Device::CreateReservedResource**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createreservedresource)：创建预留，但尚未提交或放置在堆中的资源。
--   [**ID3D12CommandQueue::UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings)：将平铺资源中的磁贴位置映射更新到资源堆中的内存位置。
+-   [**ID3D12CommandQueue::UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings)：将平铺资源中的平铺位置映射更新到资源堆中的内存位置。
 -   [**ID3D12Resource::Map**](/windows/desktop/api/d3d12/nf-d3d12-id3d12resource-map)：获取指向资源中的指定数据的指针，并拒绝对子资源的 GPU 访问。
 -   [**ID3D12Resource::GetDesc**](id3d12resource-getdesc.md)：获取资源属性。
 -   [**ID3D12Heap::GetDesc**](id3d12heap-getdesc.md)：获取堆属性。
