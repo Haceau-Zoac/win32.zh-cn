@@ -6,12 +6,12 @@ ms.assetid: 46B0F055-7E4F-4F8D-9915-3D195FD695B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 4da5df08366687ceaf5c0b860b51a8aa2ac9b43f
-ms.sourcegitcommit: fdd00b445ee88366e9cdd1eed0cb3e42e2a73eca
+ms.openlocfilehash: 9a84b4b2e5a993b33b4c322b91682c8f9b5499bc
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74997373"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644293"
 ---
 # <a name="direct3d-12-glossary"></a>Direct3D 12 术语表
 
@@ -19,31 +19,31 @@ ms.locfileid: "74997373"
 
 <dl> <dt>
 
-<span id="direct3d12.directx_12_glossary_binding"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BINDING"></span>**绑定**
+<span id="direct3d12.directx_12_glossary_binding"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BINDING"></span>**binding**
 </dt> <dd>
 
 将内存附加到图形管道的过程。 例如，资源绑定涉及到将纹理等资源绑定到管道，以用于渲染对象。
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_buffer"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BUFFER"></span>**buffer**
+<span id="direct3d12.directx_12_glossary_buffer"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BUFFER"></span>**宽限**
 </dt> <dd>
 
 与连续内存分配同义的一种 D3D 资源。
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_bundle"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BUNDLE"></span>**bundle**
+<span id="direct3d12.directx_12_glossary_bundle"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_BUNDLE"></span>**软件包**
 </dt> <dd>
 
-一个命令缓冲区，图形处理单元 (GPU) 只能直接通过直接命令列表执行该缓冲区。 捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。
+一个命令缓冲区，图形处理单元 (GPU) 只能直接通过直接命令列表执行该缓冲区。** 捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。**
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_command_allocator"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_COMMAND_ALLOCATOR"></span>**命令分配器**
 </dt> <dd>
 
-用于存储 GPU 命令的基础内存分配。 命令分配器对象将应用到直接命令列表和捆绑。
+用于存储 GPU 命令的基础内存分配。 命令分配器对象将应用到直接命令列表和捆绑。****
 
 </dd> <dt>
 
@@ -54,18 +54,18 @@ ms.locfileid: "74997373"
 
 D3D12 命令列表不会映射或取消映射资源、更改图块映射、调整图块池的大小、获取查询数据，也不会将命令隐式提交到 GPU 供执行。
 
-与 D3D11 延迟上下文不同，D3D12 命令列表仅支持两个间接性级别。 直接命令列表对应于 GPU 可以执行的命令缓冲区。 只能通过直接命令列表直接执行捆绑。
+与 D3D11 延迟上下文不同，D3D12 命令列表仅支持两个间接性级别。 直接命令列表对应于 GPU 可以执行的命令缓冲区。** 只能通过直接命令列表直接执行捆绑。**
 
 直接命令列表不会继承任何 GPU 状态。 捆绑继承整个 GPU 状态（当前设置的管道状态对象和基元拓扑除外）。
 
-命令列表的内存由命令分配器设置。 命令列表可以作为单个渲染请求提交到 GPU。
+命令列表的内存由命令分配器设置。** 命令列表可以作为单个渲染请求提交到 GPU。
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_command_queue"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_COMMAND_QUEUE"></span>**命令队列**
 </dt> <dd>
 
-GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表提交到命令队列以供执行。 通常有三个命令队列：3D 图形、计算和复制、对应于 GPU 上的3D 图形管道、计算引擎以及一个或多个复制引擎。
+GPU 连续执行的命令列表队列。** 应用程序必须显式将命令列表提交到命令队列以供执行。** 通常有三个命令队列：3D 图形、计算和复制、对应于 GPU 上的3D 图形管道、计算引擎以及一个或多个复制引擎。
 
 </dd> <dt>
 
@@ -78,7 +78,7 @@ GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_cbv"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_CBV"></span>**常量缓冲区视图 (CBV)**
+<span id="direct3d12.directx_12_glossary_cbv"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_CBV"></span>**常量缓冲区视图 (CBV) **
 </dt> <dd>
 
 常量缓冲区包含着色器常量数据，例如相机视图、投影矩阵和世界矩阵。 “常量缓冲区视图”是图形管道看到的格式特定的缓冲区视图。
@@ -95,14 +95,14 @@ GPU 连续执行的命令列表队列。 应用程序必须显式将命令列表
 <span id="direct3d12.directx_12_glossary_descriptor"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_DESCRIPTOR"></span>**描述符**
 </dt> <dd>
 
-描述符是 D3D12 中单个资源的主要绑定单元。 描述符是一个相对较小的数据块，以 GPU 特定的格式完全描述提交到 GPU 的对象。 有许多不同类型的描述符：着色器资源视图（SRVs）、无序访问视图（Uav）、常量缓冲视图（CBVs）和取样器都是几个示例。
+描述符是 D3D12 中单个资源的主要绑定单元。 描述符是一个相对较小的数据块，以 GPU 特定的格式完全描述提交到 GPU 的对象。 有许多不同类型的描述符：着色器资源视图 (SRVs) 、无序访问视图 (Uav) 、常量缓冲区视图 (CBVs) 和取样器是几个示例。
 
 </dd> <dt>
 
 <span id="direct3d12.directx_12_glossary_descriptor_heap"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_DESCRIPTOR_HEAP"></span>**描述符堆**
 </dt> <dd>
 
-描述符堆是描述符的连续分配的集合，每个描述符都有一个分配。 描述符堆的要点是包含所需的批量内存分配，用于存储着色器在尽可能大的渲染窗口（最好是在整个渲染帧或更大的窗口）中引用的对象类型的描述符规范。
+描述符堆是描述符的连续分配的集合，每个描述符有一个分配。 描述符堆的要点是包含所需的批量内存分配，用于存储着色器在尽可能大的渲染窗口（最好是在整个渲染帧或更大的窗口）中引用的对象类型的描述符规范。
 
 </dd> <dt>
 
@@ -123,7 +123,7 @@ GPU 可以执行的命令缓冲区。 直接命令列表不会继承任何 GPU �
 <span id="direct3d12.directx_12_glossary_fence"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_FENCE"></span>**fence**
 </dt> <dd>
 
-用于同步 GPU 和 CPU 的机制。 可以指示 GPU 和 CPU 等待围栏完成，这实际上是等待另一个处理器跟上进度。 请参阅[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)。
+用于同步 GPU 和 CPU 的机制。 可以指示 GPU 和 CPU 等待围栏完成，这实际上是等待另一个处理器跟上进度。 请参阅 [多引擎同步](./user-mode-heap-synchronization.md)。
 
 </dd> <dt>
 
@@ -164,10 +164,10 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_predication"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_PREDICATION"></span>**断言**
+<span id="direct3d12.directx_12_glossary_predication"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_PREDICATION"></span>**断言而**
 </dt> <dd>
 
-预测是一种功能，使 GPU 而不是 CPU 能够决定不绘制、复制或调度对象。 例如，如果某个对象的边界框完全由另一个对象封闭，或透视图将该对象缩减为小于一个像素的大小，则可能根本没有必要尝试绘制隐藏的对象。 请参阅[断言](predication.md)。
+断言功能使 GPU（而不是 CPU）能够决定不绘制、复制或调度对象。 例如，如果某个对象的边界框完全由另一个对象封闭，或透视图将该对象缩减为小于一个像素的大小，则可能根本没有必要尝试绘制隐藏的对象。 请参阅[断言](predication.md)。
 
 </dd> <dt>
 
@@ -222,7 +222,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_sampler"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_SAMPLER"></span>**sampler**
+<span id="direct3d12.directx_12_glossary_sampler"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_SAMPLER"></span>**采样**
 </dt> <dd>
 
 采样器是从纹理读取数据的代码。
@@ -246,7 +246,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 <span id="direct3d12.directx_12_glossary_swap_chain"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_SWAP_CHAIN"></span>**交换链**
 </dt> <dd>
 
-交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](/windows/win32/direct3ddxgi/d3d10-graphics-programming-guide-dxgi)）。
+交换链控制反向缓冲区轮转，构成图形动画的基础。 交换链由低级 API 设置的 DXGI 处理（请参阅 [DXGI 概述](../direct3ddxgi/d3d10-graphics-programming-guide-dxgi.md)）。
 
 </dd> <dt>
 
@@ -257,31 +257,31 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_static_texture"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_STATIC_TEXTURE"></span>**纹理**
+<span id="direct3d12.directx_12_glossary_static_texture"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_STATIC_TEXTURE"></span>**褐色**
 </dt> <dd>
 
 一种多维 D3D 资源，它采用优化的内存布局，可方便从 GPU 进行多维访问。 纹理通常包含在发生照明和混合之前，在图面上进行渲染所需的原始图像，但也可以包含其他形式的数据，例如颜色渐变和引用颜色。 Direct3D 12 支持一维、二维和三维纹理。
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_tile"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_TILE"></span>**图块**
+<span id="direct3d12.directx_12_glossary_tile"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_TILE"></span>**磁**
 </dt> <dd>
 
 一个视频内存页面，类似于内存的 CPU/系统页面。 图块表示法有助于将 GPU 虚拟内存子系统与 CPU 虚拟内存子系统区分开来。 GPU 提供与系统虚拟内存类似的虚拟内存功能。 某些 GPU 提供共享虚拟内存功能，可将虚拟内存子系统的某些页面与 CPU 和 GPU 共享。
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_tiled_resources"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_TILED_RESOURCES"></span>**图块化资源**
+<span id="direct3d12.directx_12_glossary_tiled_resources"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_TILED_RESOURCES"></span>**平铺资源**
 </dt> <dd>
 
 使用图块化资源可以减少 GPU 内存的浪费，这样就不必存储应用程序知道不会访问的图面区域，并且硬件知道如何对相邻的图块进行筛选。 图块化资源是较大的逻辑资源，但它们所需的物理内存量较少。
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_uav"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_UAV"></span>**无序访问视图 (UAV)**
+<span id="direct3d12.directx_12_glossary_uav"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_UAV"></span>** (UAV) 的无序访问视图 **
 </dt> <dd>
 
-使用资源（包括缓冲区、纹理和纹理数组 - 不包括多重采样）的无序访问视图可通过多个线程进行临时性的无序读/写访问。 这意味着该资源类型可以由多个线程同时读/写，且不会产生内存冲突。
+使用资源（包括缓冲区、纹理和纹理数组 - 不包括多重采样）的无序访问视图可通过多个线程进行临时性的无序读/写访问。 这意味着此资源类型可由多个线程同时读/写，且不会产生内存冲突。
 
 </dd> <dt>
 
@@ -299,7 +299,7 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
 
 </dd> <dt>
 
-<span id="direct3d12.directx_12_glossary_volume_tiled_resources"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_VOLUME_TILED_RESOURCES"></span>**立体图块化资源**
+<span id="direct3d12.directx_12_glossary_volume_tiled_resources"></span><span id="DIRECT3D12.DIRECTX_12_GLOSSARY_VOLUME_TILED_RESOURCES"></span>**卷磁贴资源**
 </dt> <dd>
 
 三维[图块化资源](/windows)。
@@ -309,7 +309,3 @@ GPU 状态的重要部分。 此状态包括所有当前设置的着色器和某
  
 
  
-
-
-
-

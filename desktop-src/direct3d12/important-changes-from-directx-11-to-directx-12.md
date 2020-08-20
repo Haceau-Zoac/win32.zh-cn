@@ -5,12 +5,12 @@ ms.assetid: CE5066C9-7EA6-437D-9EB0-AACFB6CFAD9E
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9299c0c708a38f1c0a54abba26ec72b4270a130d
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 5be891d71d6c1f3a12d8d5aac3ec46785207ed31
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006278"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644109"
 ---
 # <a name="important-changes-from-direct3d-11-to-direct3d-12"></a>从 Direct3D 11 到 Direct3D 12 的重要更改
 
@@ -31,7 +31,7 @@ Direct3D 12 中应用的速度和效率更高，但你要负责完成的任务�
 ## <a name="explicit-synchronization"></a>显式同步
 
 -   在 Direct3D 12 中，CPU-GPU 同步现在明确由应用负责，而不再像 Direct3D 11 中那样由运行时隐式执行。 这一事实也意味着，Direct3D 12 不会自动执行管道风险检查，因此，此工作同样由应用负责。
--   在 Direct3D 12 中，应用负责通过管道传输数据更新。 也就是说，Direct3D 11 中的“映射/锁定-丢弃”模式在 Direct3D 12 中必须手动执行。 在 Direct3D 11 中，如果当你结合 [**D3D11\_MAP\_WRITE\_DISCARD**](https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_map) 调用 [**ID3D11DeviceContext::Map**](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map) 时 GPU 仍在使用缓冲区，则运行时将返回指向内存新区域（而不是旧缓冲区数据）的指针。 因此，当应用在新缓冲区中放置数据时，GPU 可继续使用旧数据。 在应用中无需进行额外的内存管理；当 GPU 用完旧缓冲区时，系统会自动重复使用或销毁旧缓冲区。
+-   在 Direct3D 12 中，应用负责通过管道传输数据更新。 也就是说，Direct3D 11 中的“映射/锁定-丢弃”模式在 Direct3D 12 中必须手动执行。 在 Direct3D 11 中，如果当你结合 [**D3D11\_MAP\_WRITE\_DISCARD**](/windows/desktop/api/d3d11/ne-d3d11-d3d11_map) 调用 [**ID3D11DeviceContext::Map**](/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-map) 时 GPU 仍在使用缓冲区，则运行时将返回指向内存新区域（而不是旧缓冲区数据）的指针。 因此，当应用在新缓冲区中放置数据时，GPU 可继续使用旧数据。 在应用中无需进行额外的内存管理；当 GPU 用完旧缓冲区时，系统会自动重复使用或销毁旧缓冲区。
 -   在 Direct3D 12 中，所有动态更新（包括常量缓冲区、动态顶点缓冲区、动态纹理等）由应用显式控制。 这些动态更新包括任何所需的 GPU 围栏或缓冲。 应用负责使内存保持可用，直到不再需要内存。
 -   Direct3D 12 仅在接口的生存期内使用 COM 式的引用计数（通过使用与设备生存期关联的 Direct3D 弱引用模型）。 应用独自负责所有资源和描述内存生存期的适当持续时间，它们不会进行引用计数。 Direct3D 11 也使用引用计数来管理接口依赖项的生存期。
 
@@ -53,17 +53,17 @@ Direct3D 12 将大部分管道状态统一为在创建时即已确认的不可�
 
 ## <a name="command-lists-and-bundles"></a>命令列表和捆绑
 
-在 Direct3D 11 中，所有工作提交都是通过[中间上下文](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)（表示进入 GPU 的单一命令流）完成的。 为了实现多线程缩放，游戏还可以使用[延迟上下文](https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)。 Direct3D 11 中的延迟上下文不能完美映射到硬件，因此可在其中完成的工作量相对较小。
+在 Direct3D 11 中，所有工作提交都是通过[中间上下文](/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)（表示进入 GPU 的单一命令流）完成的。 为了实现多线程缩放，游戏还可以使用[延迟上下文](/windows/desktop/direct3d11/overviews-direct3d-11-render-multi-thread-render)。 Direct3D 11 中的延迟上下文不能完美映射到硬件，因此可在其中完成的工作量相对较小。
 
 Direct3D 12 中为工作提交引入了一个基于命令列表的新模型，这些命令列表包含在 GPU 上执行特定工作负荷所需的整个信息。 每个新命令列表包含要使用的 PSO、所需的纹理和缓冲区资源、所有绘制调用的参数等信息。 由于每个命令列表是独立性的且不继承任何状态，因此，驱动程序可以提前以自由线程的方式预先计算全部所需的 GPU 命令。 所需的唯一串行进程是通过命令队列将命令列表最终提交到 GPU。
 
-除命令列表以外，Direct3D 12 还引入了另一个工作预先计算级别：捆绑。 与完全独立的并且通常是结构化的、仅提交一次且会被丢弃的命令列表不同，捆绑提供允许重复使用的状态继承形式。 例如，如果某个游戏想要使用两种不同的纹理绘制两个人物模式，一种方法是使用两组相同的绘制调用来记录某个命令列表。 另一种方法是“记录”一个捆绑来绘制单个人物模型，然后使用不同的资源在命令列表中“播放”该捆绑两次。 对于后一种情况，显示驱动程序只需计算相应的指令一次，创建命令列表实质上相当于两次低开销的函数调用。
+除命令列表以外，Direct3D 12 还引入了另一个工作预先计算级别：捆绑。** 与完全独立的并且通常是结构化的、仅提交一次且会被丢弃的命令列表不同，捆绑提供允许重复使用的状态继承形式。 例如，如果某个游戏想要使用两种不同的纹理绘制两个人物模式，一种方法是使用两组相同的绘制调用来记录某个命令列表。 另一种方法是“记录”一个捆绑来绘制单个人物模型，然后使用不同的资源在命令列表中“播放”该捆绑两次。 对于后一种情况，显示驱动程序只需计算相应的指令一次，创建命令列表实质上相当于两次低开销的函数调用。
 
 有关命令列表和捆绑的详细信息，请参阅 [Direct3D 12 中的工作提交](command-queues-and-command-lists.md)。
 
 ## <a name="descriptor-heaps-and-tables"></a>描述符堆和表
 
-Direct3D 11 中的资源绑定是高度抽象化的且非常方便，但会造成许多新式硬件功能的利用不足。 在 Direct3D 11 中，游戏会创建资源的视图对象，然后在管道中的不同着色器阶段将这些视图绑定到多个槽。 而着色器又会从绘制时固定的这些显式绑定槽读取数据。 此模型意味着，每当游戏使用不同的资源进行绘制时，都必须将不同的视图重新绑定到不同的槽，并再次调用绘制。 这种情况也意味着可以通过充分利用新式硬件功能来消除开销。
+Direct3D 11 中的资源绑定是高度抽象化的且非常方便，但会造成许多新式硬件功能的利用不足。 在 Direct3D 11 中，游戏会创建资源的视图对象，然后在管道中的不同着色器阶段将这些视图绑定到多个槽。**** 而着色器又会从绘制时固定的这些显式绑定槽读取数据。 此模型意味着，每当游戏使用不同的资源进行绘制时，都必须将不同的视图重新绑定到不同的槽，并再次调用绘制。 这种情况也意味着可以通过充分利用新式硬件功能来消除开销。
 
 Direct3D 12 更改了绑定模型，以匹配新式硬件并显著提高性能。 Direct3D 12 不需要独立的资源视图和显式映射到槽，它会一个描述符堆，让游戏在其中创建各种资源视图。 此方案为 GPU 提供一种机制，让它提前将硬件本机资源描述（描述符）直接写入内存。 若要声明管道要对特定的绘制调用使用哪些资源，游戏需指定一个或多个描述符表，表示完整描述符堆的子范围。 由于描述符堆中已填充相应的硬件特定描述符数据，更改描述符表是开销极低的操作。
 
@@ -85,7 +85,3 @@ Direct3D 12 更改了绑定模型，以匹配新式硬件并显著提高性能�
  
 
  
-
-
-
-

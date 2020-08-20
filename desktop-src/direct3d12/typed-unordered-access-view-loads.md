@@ -5,18 +5,18 @@ ms.assetid: 6106D15E-EAF6-4583-B4F2-7CC7EE30DE15
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 7b6b8e8bb193ab24211d7f412a829b2cf4a815b4
-ms.sourcegitcommit: f0ca63c18dc52c357d3398af7be766d2bdd40be7
+ms.openlocfilehash: 4adfd7511590a43b7f87507c5a1e0a2a87c925b0
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 06/17/2020
-ms.locfileid: "84977307"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644052"
 ---
 # <a name="typed-unordered-access-view-uav-loads"></a>类型化无序访问视图 (UAV) 加载
 
-无序访问视图（UAV）类型化负载是指着色器使用特定[**DXGI \_ 格式**](https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format)从 UAV 读取的功能。
+无序访问视图 (UAV) 类型化的负载是指着色器使用特定 [**DXGI \_ 格式**](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format)从 UAV 读取的功能。
 
--   [概述](#overview)
+-   概述
 -   [支持的格式和 API 调用](#supported-formats-and-api-calls)
 -   [通过 HLSL 使用类型化 UAV 加载](#using-typed-uav-loads-from-hlsl)
 -   [通过 HLSL 使用 UNORM 和 SNORM 类型化 UAV 加载](#using-unorm-and-snorm-typed-uav-loads-from-hlsl)
@@ -24,7 +24,7 @@ ms.locfileid: "84977307"
 
 ## <a name="overview"></a>概述
 
-无序访问视图 (UAV) 是无序访问资源的视图（可包括缓冲区、纹理和纹理数组，但无需多次采样）。 使用 UAV 可通过多个线程临时进行无序读/写访问。 这意味着此资源类型可由多个线程同时读/写，且不会产生内存冲突。 这种同时访问是通过使用 [Atomic Functions](https://docs.microsoft.com/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-atomic-functions)（原子函数）来进行的。
+无序访问视图 (UAV) 是无序访问资源的视图（可包括缓冲区、纹理和纹理数组，但无需多次采样）。 使用 UAV 可通过多个线程临时进行无序读/写访问。 这意味着此资源类型可由多个线程同时读/写，且不会产生内存冲突。 这种同时访问是通过使用 [Atomic Functions](/windows/desktop/direct3d11/direct3d-11-advanced-stages-cs-atomic-functions)（原子函数）来进行的。
 
 D3D12（和 D3D11.3）扩展了可用于类型化 UAV 加载的格式列表。
 
@@ -141,7 +141,7 @@ RWBuffer<unorm float> uav;
 [HLSL 中的资源绑定](resource-binding-in-hlsl.md)
 </dt> <dt>
 
-[Shader Model 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)（着色器模型 5.1）
+[Shader Model 5.1](/windows/desktop/direct3dhlsl/shader-model-5-1)（着色器模型 5.1）
 </dt> <dt>
 
 [在 HLSL 中指定根签名](specifying-root-signatures-in-hlsl.md)
@@ -150,7 +150,3 @@ RWBuffer<unorm float> uav;
  
 
  
-
-
-
-

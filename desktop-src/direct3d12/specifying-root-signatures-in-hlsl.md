@@ -5,12 +5,12 @@ ms.assetid: 399F5E91-B017-4F5E-9037-DC055407D96F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 92becdf125f46aeeecd3a3aef57de1e58aa40303
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 236876e22c3e1e0bb849ec1e1bc7d45692c900d6
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006224"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644055"
 ---
 # <a name="specifying-root-signatures-in-hlsl"></a>在 HLSL 中指定根签名
 
@@ -29,7 +29,7 @@ ms.locfileid: "71006224"
 -   [静态采样器](#static-sampler)
 -   [编译 HLSL 根签名](#compiling-an-hlsl-root-signature)
 -   [使用 FXC 编译器处理根签名](#manipulating-root-signatures-with-the-fxc-compiler)
--   [说明](#notes)
+-   [备注](#notes)
 -   [相关主题](#related-topics)
 
 ## <a name="an-example-hlsl-root-signature"></a>示例 HLSL 根签名
@@ -120,7 +120,7 @@ RootConstants(num32BitConstants=N, bReg [, space=0,
 RootConstants(num32BitConstants=3, b3)
 ```
 
-## <a name="visibility"></a>可见性
+## <a name="visibility"></a>能见度
 
 Visibility 是一个可选参数，可以使用 [**D3D12\_SHADER\_VISIBILITY**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_shader_visibility) 中的值之一。
 
@@ -271,7 +271,7 @@ float4 main(float4 coord : COORD) : SV_Target
 
 编译器将创建并验证着色器的根签名 Blob，并将它连同着色器字节码一起嵌入到着色器 Blob。 编译器支持着色器模型 5.0 及更高版本的根签名语法。 如果根签名嵌入在着色器模型 5.0 着色器中，而该着色器已发送到 D3D11 运行时，则不同于 D3D12，D3D11 会以无提示方式忽略根签名部分。
 
-另一种机制是创建独立的根签名 Blob。也许可对大量的着色器重用该 Blob，以节省空间。 [效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc) (FXC) 支持 **rootsig\_1\_0** 和 **rootsig\_1\_1** 着色器模型。 通过常用的 /E 参数指定定义字符串的名称。 例如：
+另一种机制是创建独立的根签名 Blob。也许可对大量的着色器重用该 Blob，以节省空间。 [效应编译器工具](/windows/desktop/direct3dtools/fxc) (FXC) 支持 **rootsig\_1\_0** 和 **rootsig\_1\_1** 着色器模型。 通过常用的 /E 参数指定定义字符串的名称。 例如：
 
 ``` syntax
 fxc.exe /T rootsig_1_1 MyRS1.hlsl /E MyRS1 /Fo MyRS1.fxo
@@ -281,13 +281,13 @@ fxc.exe /T rootsig_1_1 MyRS1.hlsl /E MyRS1 /Fo MyRS1.fxo
 
 ## <a name="manipulating-root-signatures-with-the-fxc-compiler"></a>使用 FXC 编译器处理根签名
 
-FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多的可选参数，具体请参阅[效应编译器工具](https://docs.microsoft.com/windows/desktop/direct3dtools/fxc)。
+FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多的可选参数，具体请参阅[效应编译器工具](/windows/desktop/direct3dtools/fxc)。
 
 下表提供了一些使用 FXC 的示例，供你在管理 HLSL 创作的根签名时参考。
 
 
 
-| Line | 命令行                                                                 | 描述                                                                                                                                                                                                                              |
+| 行 | 命令行                                                                 | 说明                                                                                                                                                                                                                              |
 |------|------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 1    | `fxc /T ps_5_1 shaderWithRootSig.hlsl /Fo rs1.fxo`                           | 为像素着色器 5.1 目标编译着色器，着色器源位于包含根签名的 shaderWithRootSig.hlsl 文件中。 着色器和根签名在 rs1.fxo 二进制文件中编译为独立的 Blob。    |
 | 2    | `fxc /dumpbin rs1.fxo /extractrootsignature /Fo rs1.rs.fxo`                  | 从第 1 行创建的文件中提取根签名，因此，rs1.rs.fxo 文件仅包含根签名。                                                                                                                      |
@@ -299,12 +299,12 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 
  
 
-可通过 FXC 使用的功能也可以通过 [**D3DCompile**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile) 函数以编程方式使用。 此调用将编译带有根签名的着色器，或独立的根签名（设置 rootsig\_1\_0 目标）。 [**D3DGetBlobPart**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dgetblobpart) 和 [**D3DSetBlobPart**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dsetblobpart) 可将根签名提取和附加到现有 Blob。  D3D\_BLOB\_ROOT\_SIGNATURE 用于指定根签名 Blob 部分类型。 [**D3DStripShader**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dstripshader) 从 Blob 中删除根签名（使用 D3DCOMPILER\_STRIP\_ROOT\_SIGNATURE 标志）。
+可通过 FXC 使用的功能也可以通过 [**D3DCompile**](/windows/desktop/direct3dhlsl/d3dcompile) 函数以编程方式使用。 此调用将编译带有根签名的着色器，或独立的根签名（设置 rootsig\_1\_0 目标）。 [**D3DGetBlobPart**](/windows/desktop/direct3dhlsl/d3dgetblobpart) 和 [**D3DSetBlobPart**](/windows/desktop/direct3dhlsl/d3dsetblobpart) 可将根签名提取和附加到现有 Blob。D3D\_BLOB\_ROOT\_SIGNATURE 用于指定根签名 Blob 部分类型。 [**D3DStripShader**](/windows/desktop/direct3dhlsl/d3dstripshader) 从 Blob 中删除根签名（使用 D3DCOMPILER\_STRIP\_ROOT\_SIGNATURE 标志）。
 
 ## <a name="notes"></a>说明
 
 > [!Note]  
-> 尽管我们强烈建议对着色器进行脱机编译，但如果必须在运行时编译着色器，请参阅 [**D3DCompile2**](https://docs.microsoft.com/windows/desktop/direct3dhlsl/d3dcompile2) 的备注。
+> 尽管我们强烈建议对着色器进行脱机编译，但如果必须在运行时编译着色器，请参阅 [**D3DCompile2**](/windows/desktop/direct3dhlsl/d3dcompile2) 的备注。
 
  
 
@@ -320,7 +320,7 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 [使用 HLSL 5.1 的动态索引](dynamic-indexing-using-hlsl-5-1.md)
 </dt> <dt>
 
-[Direct3D 12 的 HLSL 着色器模型 5.1 功能](https://docs.microsoft.com/windows/desktop/direct3dhlsl/hlsl-shader-model-5-1-features-for-direct3d-12)
+[Direct3D 12 的 HLSL 着色器模型 5.1 功能](/windows/desktop/direct3dhlsl/hlsl-shader-model-5-1-features-for-direct3d-12)
 </dt> <dt>
 
 [资源绑定](resource-binding.md)
@@ -332,19 +332,15 @@ FXC 编译器从 HLSL 源文件创建着色器字节码。 此编译器有很多
 [根签名](root-signatures.md)
 </dt> <dt>
 
-[着色器模型 5.1](https://docs.microsoft.com/windows/desktop/direct3dhlsl/shader-model-5-1)
+[Shader Model 5.1](/windows/desktop/direct3dhlsl/shader-model-5-1)（着色器模型 5.1）
 </dt> <dt>
 
 [着色器指定的模具参考值](shader-specified-stencil-reference-value.md)
 </dt> <dt>
 
-[类型化无序访问视图加载](typed-unordered-access-view-loads.md)
+[类型化的无序访问视图加载](typed-unordered-access-view-loads.md)
 </dt> </dl>
 
  
 
  
-
-
-
-

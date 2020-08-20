@@ -5,12 +5,12 @@ ms.assetid: 58677023-692C-4BA4-90B7-D568F3DD3F73
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fe2d4ff2dc3fa1ef7fc7b2606db75bf65aad60a8
-ms.sourcegitcommit: 61bde60d4c3bc09defc3dcdb64c0ddadf52b214e
+ms.openlocfilehash: 1e472a0749634d5cbaa9cbf1cde5e11202d4c4f9
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 07/11/2020
-ms.locfileid: "86269619"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644226"
 ---
 # <a name="creating-descriptor-heaps"></a>创建描述符堆
 
@@ -165,7 +165,7 @@ void D3D12nBodyGravity::PopulateCommandList()
 
 ## <a name="descriptor-heap-methods"></a>描述符堆方法
 
-描述符堆 ([**ID3D12DescriptorHeap**](/windows/desktop/api/d3d12/nn-d3d12-id3d12descriptorheap)) 继承自 [**ID3D12Pageable**](https://msdn.microsoft.com/library/Dn788704(v=VS.85).aspx)。 这会施加在应用程序上对描述符进行驻留管理的责任，就像资源堆一样。 驻留管理方法仅适用于着色器可见堆，因为非着色器可见堆不会直接向 GPU 显示。
+描述符堆 ([**ID3D12DescriptorHeap**](/windows/desktop/api/d3d12/nn-d3d12-id3d12descriptorheap)) 继承自 [**ID3D12Pageable**](/windows/win32/api/d3d12/nn-d3d12-id3d12pageable)。 这会施加在应用程序上对描述符进行驻留管理的责任，就像资源堆一样。 驻留管理方法仅适用于着色器可见堆，因为非着色器可见堆不会直接向 GPU 显示。
 
 [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize) 方法允许应用程序手动将句柄偏移到堆中（将句柄生成到描述符堆中的任意位置）。 堆起始位置的句柄来自[**ID3D12DescriptorHeap：： GetCPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart) / [**ID3D12DescriptorHeap：： GetGPUDescriptorHandleForHeapStart**](/windows/desktop/api/d3d12/nf-d3d12-id3d12descriptorheap-getgpudescriptorhandleforheapstart)。 偏移通过添加增量大小\*描述符数以偏移到描述符堆开始位置来完成。 请注意，增量大小不能被视为字节大小，因为应用程序不得取消引用句柄（如同它们是内存一样），所指向的内存具有非标准化的布局，甚至对于给定设备也会有所不同。
 
@@ -294,7 +294,3 @@ public:
  
 
  
-
-
-
-

@@ -5,12 +5,12 @@ ms.assetid: B2288866-E95F-46B8-A7A1-19888F029C03
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 091041dea3bec66e1fc88ea8d4ae66d102eda001
-ms.sourcegitcommit: 3e70ae762629e244028b437420ed50b5850db4e3
+ms.openlocfilehash: 48e6af0d0a93d55f700478ec839f3864ee0efbcd
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/20/2020
-ms.locfileid: "77520433"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644290"
 ---
 # <a name="direct3d-12-programming-environment-setup"></a>Direct3D 12 编程环境设置
 
@@ -18,7 +18,7 @@ ms.locfileid: "77520433"
 
 -   [开发环境](#development-environment)
 -   [支持的语言](#supported-languages)
--   [帮助器结构](#helper-structures)
+-   [帮助程序结构](#helper-structures)
 -   [内存管理库](#memory-management-library)
 -   [支持的工具和库](#supported-tools-and-libraries)
 -   [示例](#samples)
@@ -40,10 +40,10 @@ Direct3D 12 标头和库是 Windows 10 SDK 的一部分。 使用 Direct3D 12 �
 
 | 标头或库文件名 | 说明                         | 安装位置      |
 |-----------------------------|-------------------------------------|-----------------------|
-| D3d12.h                     | Direct3D 12 API 标头              | % WindowsSdkDir\\包括\%WindowsSDKVersion%\\\um |
-| D3d12.lib                   | 静态 Direct3D 12 API 存根库 | % WindowsSdkDir\\Lib\%WindowsSDKVersion%\\\um\arch |
+| D3d12.h                     | Direct3D 12 API 标头              | % WindowsSdkDir \\ 包含 \% WindowsSDKVersion% \\ \um |
+| D3d12.lib                   | 静态 Direct3D 12 API 存根库 | % WindowsSdkDir \\ Lib \% WindowsSDKVersion% \\ \um\arch |
 | D3d12.dll                   | 动态 Direct3D 12 API 库     | %WINDIR%\\System32    |
-| D3d12SDKLayers.h            | Direct3D 12 调试标头            | % WindowsSdkDir\\包括\%WindowsSDKVersion%\\\um |
+| D3d12SDKLayers.h            | Direct3D 12 调试标头            | % WindowsSdkDir \\ 包含 \% WindowsSDKVersion% \\ \um |
 | D3d12SDKLayers.dll          | 动态 Direct3D 12 调试库   | %WINDIR%\\System32    |
 
 
@@ -52,13 +52,13 @@ Direct3D 12 标头和库是 Windows 10 SDK 的一部分。 使用 Direct3D 12 �
 
 C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受支持。
 
-## <a name="helper-structures"></a>帮助器结构
+## <a name="helper-structures"></a>帮助程序结构
 
 具体而言，通过大量帮助程序结构可轻松地初始化大量 D3D12 结构。 这些结构和某些实用工具函数位于标头 D3dx12.h 中。 此标头是开放源代码，可由开发人员根据需要进行修改 - 从 [D3D12 帮助程序库](https://github.com/Microsoft/DirectX-Graphics-Samples/tree/master/Libraries/D3DX12)中下载该标头并参阅 [D3D12 的帮助程序结构和函数](helper-structures-and-functions-for-d3d12.md)。
 
 ## <a name="memory-management-library"></a>内存管理库
 
-内存管理帮助程序库可供下载，你可以将其集成到你的应用中以便更接近 D3D11 内存管理行为。 作为 D3D11 样式管理库，它最适用于仍在使用“提交的资源”样式分配策略的应用。 具体而言，当在内存受约束的情况下（例如，低端内存卡、4k、超级设置等），库应被视为很可能返回到 D3D11 性能内存管理的垫脚石。 D3D12 API 启用的技巧可使你获得比 D3D11 更好的内存效率，尽管这些技术可能颇具挑战性且需要较长时间才能实现也是如此。
+内存管理帮助程序库可供下载，你可以将其集成到你的应用中以便更接近 D3D11 内存管理行为。 作为 D3D11 样式管理库，它最适用于仍在使用“提交的资源”** 样式分配策略的应用。 具体而言，当在内存受约束的情况下（例如，低端内存卡、4k、超级设置等），库应被视为很可能返回到 D3D11 性能内存管理的垫脚石。 D3D12 API 启用的技巧可使你获得比 D3D11 更好的内存效率，尽管这些技术可能颇具挑战性且需要较长时间才能实现也是如此。
 
 请注意，此库是正在进行的工作，可能会随着时间的推移发生更改。 使用以下链接访问库和示例。
 
@@ -72,11 +72,11 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
 
 |                                                                                  |                                                                                                                                                                                                                                                                        |                                                                                                            |
 |----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
-| **库**                                                                      | **用途**                                                                                                                                                                                                                                                            | **文档**                                                                                          |
+| **Library**                                                                      | **用途**                                                                                                                                                                                                                                                            | **文档**                                                                                          |
 | [用于 DirectX 12 的 DirectX 工具包](https://github.com/Microsoft/DirectXTK12) | 用于为通用 Windows 平台 (UWP) 应用、适用于 Windows 10 的 Win32 桌面应用程序和 Xbox One 独占应用编写 Direct3D 12 C++ 代码的帮助程序类的大量集合。                                                                         | [DirectX12TK wiki](https://github.com/Microsoft/DirectXTK12/wiki)                                          |
 | [DirectXTex](https://github.com/Microsoft/DirectXTex)                      | 适用于读取和写入 DDS 文件，以及执行各种纹理内容处理操作，包括调整大小、格式转换、mip 贴图生成、Direct3D 运行时纹理资源的块压缩和高度贴图到法线贴图的转换。 | [DirectXTex wiki](https://github.com/Microsoft/DirectXTex/wiki)                                            |
 | [DirectXMesh](https://github.com/Microsoft/DirectXMesh)                   | 适用于执行各种几何图形内容处理操作，包括生成法线和切线帧、三角形相邻计算和顶点缓存优化。                                                                                | [DirectXMesh wiki](https://github.com/Microsoft/DirectXMesh/wiki)                                          |
-| [DirectXMath](https://github.com/Microsoft/DirectXMath)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](https://docs.microsoft.com/windows/desktop/dxmath/ovw-xnamath-progguide) |
+| [DirectXMath](https://github.com/Microsoft/DirectXMath)                     | 支持矢量、标量、矩阵、四元数和许多其他数学运算的大量帮助程序类和方法。                                                                                                                               | [MSDN 上的 DirectXMath 文档](/windows/desktop/dxmath/ovw-xnamath-progguide) |
 | [UVAtlas](https://github.com/Microsoft/UVAtlas)                         | 适用于创建和打包 isochart 纹理图集。                                                                                                                                                                                                           | [UVAtlas wiki](https://github.com/Microsoft/UVAtlas/wiki)                                                  |
 
 
@@ -130,7 +130,3 @@ C++ 是 Direct3D 12 开发唯一支持的语言，C# 和其他 .NET 语言不受
  
 
  
-
-
-
-

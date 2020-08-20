@@ -5,32 +5,32 @@ ms.assetid: A0FB108B-15C1-42AD-9277-D5CB63FA8329
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: fd5fd4adee155f7d195233b969ff08417a0a68ce
-ms.sourcegitcommit: d6102d9e2b26368142fe5b006c65acb50c98be65
+ms.openlocfilehash: 8c00656cf5630b8743240268a91a51aa2e466c97
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71306449"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644232"
 ---
 # <a name="creating-a-basic-direct3d-12-component"></a>创建基本的 Direct3D 12 组件
 
 本主题介绍用于创建基本 Direct3D 12 组件的调用流。
 
 -   [简单应用的代码流](#code-flow-for-a-simple-app)
-    -   [Initialize](#initialize)
-    -   [Update](#update)
+    -   [初始化](#initialize)
+    -   [更新](#update)
     -   [Render](#render)
-    -   [Destroy](#destroy)
+    -   [破坏](#destroy)
 -   [简单应用的代码示例](#code-example-for-a-simple-app)
     -   [类 D3D12HelloTriangle](#class-d3d12hellotriangle)
     -   [OnInit()](#oninit)
-    -   [LoadPipeline()](#loadpipeline)
+    -   [LoadPipeline ( # B1 ](#loadpipeline)
     -   [LoadAssets()](#loadassets)
-    -   [OnUpdate()](#onupdate)
+    -   [OnUpdate ( # B1 ](#onupdate)
     -   [OnRender()](#onrender)
     -   [PopulateCommandList()](#populatecommandlist)
     -   [WaitForPreviousFrame()](#waitforpreviousframe)
-    -   [OnDestroy()](#ondestroy)
+    -   [OnDestroy ( # B1 ](#ondestroy)
 -   [相关主题](#related-topics)
 
 ## <a name="code-flow-for-a-simple-app"></a>简单应用的代码流
@@ -42,13 +42,13 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
  
 
--   [Initialize](#initialize)
--   **Repeat**
-    -   [Update](#update)
+-   [初始化](#initialize)
+-   **以上**
+    -   [更新](#update)
     -   [Render](#render)
--   [Destroy](#destroy)
+-   [破坏](#destroy)
 
-### <a name="initialize"></a>Initialize
+### <a name="initialize"></a>初始化
 
 初始化涉及到首次设置全局变量和类，initialize 函数必须准备管道和资产。
 
@@ -80,7 +80,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
     -   创建顶点输入布局。
     -   创建[管道状态对象](managing-graphics-pipeline-state-in-direct3d-12.md)说明，然后创建对象。
         > [!Note]  
-        > 管道状态对象保留所有当前设置的着色器以及某些固定函数状态对象（例如输入汇编器、细分器、光栅器和输出合并器）的状态。
+        > 管道状态对象保留所有当前设置的着色器以及某些固定函数状态对象（例如输入汇编器、细分器、光栅器和输出合并器）的状态。********
 
          
 
@@ -90,7 +90,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
     -   创建顶点缓冲区视图。
     -   创建围栏。
         > [!Note]  
-        > 使用 GPU 将 CPU 与 GPU 同步（请参阅[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)）。
+        > 使用 GPU 将 CPU 与 GPU 同步 (参阅 [多引擎同步](./user-mode-heap-synchronization.md)) 。
 
          
 
@@ -103,7 +103,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
 请参阅[类 D3D12HelloTriangle](#class-d3d12hellotriangle)、[OnInit](#oninit)、[LoadPipeline](#loadpipeline) 和 [LoadAssets](#loadassets)。
 
-### <a name="update"></a>Update
+### <a name="update"></a>更新
 
 更新自完成上一帧以来应该更改的所有内容。
 
@@ -111,7 +111,7 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
 请参阅 [OnUpdate](#onupdate)。
 
-### <a name="render"></a>Render
+### <a name="render"></a>呈现
 
 绘制新世界。
 
@@ -176,9 +176,9 @@ D3D 12 程序的最外层循环遵循一个极其标准的图形过程：
 
 首先使用以下结构在标头文件中定义该类，包括视区、剪切矩形和顶点缓冲区：
 
--   [**D3D12\_VIEWPORT**](/windows/win32/api/d3d12/ns-d3d12-d3d12_viewport)
--   [**D3D12\_RECT**](d3d12-rect.md)
--   [**D3D12\_VERTEX\_BUFFER\_VIEW**](/windows/win32/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
+-   [**D3D12 \_ 视区**](/windows/win32/api/d3d12/ns-d3d12-d3d12_viewport)
+-   [**D3D12 \_ RECT**](d3d12-rect.md)
+-   [**D3D12 \_ 顶点 \_ 缓冲区 \_ 视图**](/windows/win32/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
 
 
 ```C++
@@ -270,7 +270,7 @@ void D3D12HelloTriangle::OnInit()
     </dl>
 -   填写命令队列说明，然后创建命令队列：<dl>
 
-[**D3D12\_COMMAND\_QUEUE\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc)  
+[**D3D12 \_ 命令 \_ 队列 \_ DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_command_queue_desc)  
     [**ID3D12Device::CreateCommandQueue**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue)  
     </dl>
 -   填写交换链说明，然后创建交换链： <dl>
@@ -281,18 +281,18 @@ void D3D12HelloTriangle::OnInit()
     </dl>
 -   填写堆说明。 然后创建描述符堆： <dl>
 
-[**D3D12\_DESCRIPTOR\_HEAP\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc)  
+[**D3D12 \_ 描述符 \_ 堆 \_ DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_descriptor_heap_desc)  
     [**ID3D12Device::CreateDescriptorHeap**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap)  
     [**ID3D12Device::GetDescriptorHandleIncrementSize**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-getdescriptorhandleincrementsize)  
     </dl>
 -   创建渲染器目标视图： <dl>
 
-[**CD3DX12\_CPU\_DESCRIPTOR\_HANDLE**](cd3dx12-cpu-descriptor-handle.md)  
+[**CD3DX12 \_ CPU \_ 描述符 \_ 句柄**](cd3dx12-cpu-descriptor-handle.md)  
     [**GetCPUDescriptorHandleForHeapStart**](/windows/win32/api/d3d12/nf-d3d12-id3d12descriptorheap-getcpudescriptorhandleforheapstart)  
     [**IDXGISwapChain::GetBuffer**](/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer)  
     [**ID3D12Device::CreateRenderTargetView**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrendertargetview)  
     </dl>
--   创建命令分配器：[**ID3D12Device::CreateCommandAllocator**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator)。
+-   创建命令分配器： [**ID3D12Device：： CreateCommandAllocator**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator)。
 
 在后续步骤中，将从命令分配器获取命令列表并将其提交到命令队列。
 
@@ -418,32 +418,32 @@ void D3D12HelloTriangle::LoadPipeline()
 
 -   使用可用的帮助器结构创建空的根签名： <dl>
 
-[**CD3DX12\_ROOT\_SIGNATURE\_DESC**](cd3dx12-root-signature-desc.md)  
+[**CD3DX12 \_ 根 \_ 签名 \_ DESC**](cd3dx12-root-signature-desc.md)  
     [**D3D12SerializeRootSignature**](/windows/win32/api/d3d12/nf-d3d12-d3d12serializerootsignature)  
     [**ID3D12Device::CreateRootSignature**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createrootsignature)  
     </dl>
--   加载并编译着色器：[**D3DCompileFromFile**](/windows/win32/direct3dhlsl/d3dcompilefromfile)。
--   创建顶点输入布局：[**D3D12\_INPUT\_ELEMENT\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_input_element_desc)。
+-   加载和编译着色器： [**D3DCompileFromFile**](/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompilefromfile)。
+-   创建顶点输入布局： [**D3D12 \_ input \_ 元素 \_ DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_input_element_desc)。
 -   填写管道状态说明，然后使用可用的帮助器结构创建图形管道状态： <dl>
 
-[**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)  
-    [**CD3DX12\_RASTERIZER\_DESC**](cd3dx12-rasterizer-desc.md)  
-    [**CD3DX12\_BLEND\_DESC**](cd3dx12-blend-desc.md)  
+[**D3D12 \_ 图形 \_ 管道 \_ 状态 \_ DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)  
+    [**CD3DX12 \_ 光栅化 \_ DESC**](cd3dx12-rasterizer-desc.md)  
+    [**CD3DX12 \_ BLEND \_ DESC**](cd3dx12-blend-desc.md)  
     [**ID3D12Device::CreateGraphicsPipelineState**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate)  
     </dl>
 -   创建然后关闭命令列表： <dl>
 
 [**ID3D12Device::CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist)  
-    [**ID3D12GraphicsCommandList::Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)  
+    [**ID3D12GraphicsCommandList：： Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)  
     </dl>
--   创建顶点缓冲区：[**ID3D12Device::CreateCommittedResource**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)。
+-   创建顶点缓冲区： [**ID3D12Device：： CreateCommittedResource**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource)。
 -   将顶点数据复制到顶点缓冲区：<dl>
 
 [**ID3D12Resource::Map**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map)  
     [**ID3D12Resource::Unmap**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-unmap)  
     </dl>
--   初始化顶点缓冲区视图：[**GetGPUVirtualAddress**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress)。
--   创建并初始化围栏：[**ID3D12Device::CreateFence**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence)。
+-   初始化顶点缓冲区视图： [**GetGPUVirtualAddress**](/windows/win32/api/d3d12/nf-d3d12-id3d12resource-getgpuvirtualaddress)。
+-   创建和初始化防护： [**ID3D12Device：： CreateFence**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence)。
 -   创建事件句柄用于帧同步。
 -   等待 GPU 完成。
 
@@ -589,7 +589,7 @@ void D3D12HelloTriangle::OnUpdate()
 渲染涉及到发出一个调用来填充命令列表，然后可以执行该命令列表，并呈现交换链中的下一个缓冲区：
 
 -   填充命令列表。
--   执行命令列表：[**ID3D12CommandQueue::ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)。
+-   执行命令列表： [**ID3D12CommandQueue：： ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)。
 -   对帧执行 [**IDXGISwapChain1::Present1**](/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1)。
 -   等待 GPU 完成。
 
@@ -645,8 +645,8 @@ void D3D12HelloTriangle::OnRender()
     [**ID3D12GraphicsCommandList::IASetVertexBuffers**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)  
     [**ID3D12GraphicsCommandList::DrawInstanced**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)  
     </dl>
--   指示现在要使用反向缓冲区来呈现信息：[**ID3D12GraphicsCommandList::ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)。
--   关闭命令列表：[**ID3D12GraphicsCommandList::Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)。
+-   指示现在将使用后台缓冲区显示： [**ID3D12GraphicsCommandList：： ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)。
+-   关闭命令列表： [**ID3D12GraphicsCommandList：： Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)。
 
 
 ```C++
@@ -704,7 +704,7 @@ void D3D12HelloTriangle::PopulateCommandList()
 -   [**ID3D12Fence::GetCompletedValue**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-getcompletedvalue)
 -   [**ID3D12Fence::SetEventOnCompletion**](/windows/win32/api/d3d12/nf-d3d12-id3d12fence-seteventoncompletion)
 -   等待事件。
--   更新帧索引：[**IDXGISwapChain3::GetCurrentBackBufferIndex**](/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)。
+-   更新帧索引： [**IDXGISwapChain3：： GetCurrentBackBufferIndex**](/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-getcurrentbackbufferindex)。
 
 
 ```C++
@@ -760,13 +760,9 @@ void D3D12HelloTriangle::OnDestroy()
 [了解 Direct3D 12](directx-12-getting-started.md)
 </dt> <dt>
 
-[工作示例](working-samples.md)
+[有用的示例](working-samples.md)
 </dt> </dl>
 
  
 
  
-
-
-
-

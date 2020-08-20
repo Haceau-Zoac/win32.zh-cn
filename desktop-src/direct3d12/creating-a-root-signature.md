@@ -5,12 +5,12 @@ ms.assetid: 565B28C1-DBD1-42B6-87F9-70743E4A2E4A
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 2b99cc3564d5d013684bdf0833719c7cd36a5330
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: a2c9f4c09c64812d88bcf0bc450e696a1ee6fbbe
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006154"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644229"
 ---
 # <a name="creating-a-root-signature"></a>创建根签名
 
@@ -107,7 +107,7 @@ Texture2D bar : register(t0);
 
 [**D3D12\_ROOT\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc) 结构可以包含描述符表和内联常量，每个插槽类型由 [**D3D12\_ROOT\_PARAMETER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_parameter) 结构和 [**D3D12\_ROOT\_PARAMETER\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_root_parameter_type) 枚举定义。
 
-若要启动根签名槽，请参阅 [**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 的 **SetComputeRoot\*\*\*** 和 **SetGraphicsRoot\*\*\*** 方法。
+若要启动根签名槽，请参阅[**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist)的**SetComputeRoot \* \* \* **和**SetGraphicsRoot \* \* \* **方法。
 
 使用 [**D3D12\_STATIC\_SAMPLER**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_static_sampler_desc) 结构在根签名中描述静态采样器。
 
@@ -129,7 +129,7 @@ Texture2D bar : register(t0);
 
 ## <a name="root-signature-in-pipeline-state-objects"></a>管道状态对象中的根签名
 
-用于创建管道状态（[**ID3D12Device::CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate) 和 [**ID3D12Device::CreateComputePipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate)）的方法采用可选的 [**ID3D12RootSignature**](https://msdn.microsoft.com/library/Dn788714(v=VS.85).aspx) 接口作为输入参数（存储在 [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) 结构中）。 这会重写着色器中已存在的任何根签名。
+用于创建管道状态（[**ID3D12Device::CreateGraphicsPipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate) 和 [**ID3D12Device::CreateComputePipelineState**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate)）的方法采用可选的 [**ID3D12RootSignature**](/windows/win32/api/d3d12/nn-d3d12-id3d12rootsignature) 接口作为输入参数（存储在 [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) 结构中）。 这会重写着色器中已存在的任何根签名。
 
 如果将根签名传入某个创建管道状态方法，将会根据 PSO 中的所有着色器验证此根签名以确认是否兼容，并提供给驱动程序以用于所有着色器。 如果任何着色器包含不同的根签名，该签名将被 API 中传入的根签名替换。 如果未传入根签名，所有传入的着色器必须包含一个根签名，并且它们必须匹配 – 此签名将提供给驱动程序。 在命令列表或捆绑中设置 PSO 不会更改根签名。 可以通过 [**SetGraphicsRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setgraphicsrootsignature) 和 [**SetComputeRootSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setcomputerootsignature) 方法实现此目的。 调用 draw(graphics)/dispatch(compute) 时，应用程序必须确保当前 PSO 与当前根签名匹配，否则行为是不确定的。
 
@@ -141,7 +141,7 @@ Texture2D bar : register(t0);
 
 |                        |                                                |                                              |
 |------------------------|------------------------------------------------|----------------------------------------------|
-| **RootParameterIndex** | **内容**                                   |                                              |
+| **RootParameterIndex** | **Contents**                                   |                                              |
 | \[0\]                  | 根常量：{ b2 }                         | （1 个 CBV）                                      |
 | \[1\]                  | 描述符表：{ t2-t7, u0-u3 }             | （6 个 SRV + 4 个 UAV）                            |
 | \[2\]                  | 根 CBV：{ b0 }                               | （1 个 CBV，静态数据）                         |
@@ -252,7 +252,3 @@ for(UINT i = 0; i < numObjects; i++)
  
 
  
-
-
-
-

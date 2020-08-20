@@ -5,12 +5,12 @@ ms.assetid: 8412D8BB-B6DD-471E-AAB2-A81121FB0FFA
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 3cbb263dcd4033ba785e36a7405839cfbf49e264
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 62816ea0d7d7969cd56e0a9f525b2c412c8da182
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71006244"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644361"
 ---
 # <a name="direct3d-11-on-12"></a>Direct3D 11 on 12
 
@@ -34,7 +34,7 @@ ms.locfileid: "71006244"
 
 D3D11On12 的典型用法是使用 D2D 在 D3D12 反向缓冲区的顶层渲染文本或图像。 有关代码示例，请参阅 D3D11On12 示例。 下面简要概述了相关的步骤：
 
--   创建一个 D3D12 设备 ([**D3D12CreateDevice**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice)) 和一个 D3D12 交换链（使用 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 作为输入的 [**CreateSwapChain**](https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain)）。
+-   创建一个 D3D12 设备 ([**D3D12CreateDevice**](/windows/desktop/api/d3d12/nf-d3d12-d3d12createdevice)) 和一个 D3D12 交换链（使用 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 作为输入的 [**CreateSwapChain**](/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-createswapchain)）。
 -   使用 D3D12 设备和相同的命令队列作为输入创建一个 D3D11On12 设备。
 -   检索交换链反向缓冲区，并为每个缓冲区创建包装的 D3D11 资源。 使用的输入状态应是 D3D12 上次使用该输入的方式（例如 RENDER\_TARGET），输出状态应是 D3D12 在 D3D11 完成后使用该输出的方式（例如 PRESENT）。
 -   初始化 D2D，并将 D3D11 已包装资源提供给 D2D 以准备渲染。
@@ -46,9 +46,9 @@ D3D11On12 的典型用法是使用 D2D 在 D3D12 反向缓冲区的顶层渲染�
 -   发出 D2D 渲染命令。
 -   释放已包装资源 ([**ReleaseWrappedResources**](/windows/desktop/api/d3d11on12/nf-d3d11on12-id3d11on12device-releasewrappedresources))。
 -   刷新 D3D11 即时上下文。
--   呈现 ([**IDXGISwapChain1::Present1**](https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1))。
+-   呈现 ([**IDXGISwapChain1::Present1**](/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-present1))。
 
-## <a name="background"></a>后台
+## <a name="background"></a>背景
 
 D3D11On12 有系统地工作。 每次调用 D3D11 API 都要经历典型的运行时验证，然后转到驱动程序。 在驱动程序层，特殊的 11on12 驱动程序会记录状态，并向 D3D12 命令列表发出渲染操作。 会根据需要或者按 Flush 的请求提交这些命令列表（例如，查询 `GetData` 或资源 `Map` 可能需要刷新命令）。 创建 D3D11 对象通常会导致创建相应的 D3D12 对象。 D3D11 中的某些固定函数渲染操作（例如 `GenerateMips` 或 `DrawAuto`）在 D3D12 中不受支持，因此，D3D11On12 会使用着色器和其他资源来模拟这些操作。
 
@@ -95,7 +95,3 @@ D3D11On12 未在性能方面经过优化。 与 D3D11 驱动程序相比，其 C
  
 
  
-
-
-
-

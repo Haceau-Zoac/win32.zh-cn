@@ -9,12 +9,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: bfcb4bc71c56046fd4d2a83d2e3db0f93b5eee3a
-ms.sourcegitcommit: 62e758931c610782807c7c9fad284921a6c56232
+ms.openlocfilehash: 2ef910463ba3a771ac142d41309ae590884e3bc9
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2020
-ms.locfileid: "76520594"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88645857"
 ---
 # <a name="executing-and-synchronizing-command-lists"></a>执行和同步命令列表
 
@@ -73,7 +73,7 @@ Direct3D 12 命令队列将以前不会向开发人员公开的即时模式工�
 运行时会施加几条规则来限制从多个命令队列对资源进行访问。 这些规则如下：
 
 <dl> 1. 不能同时从多个命令队列写入一个资源。 当某个资源在队列中转换为可写状态后，该资源被视为由该队列独占拥有，在可由另一个队列访问之前，它必须转换到读取或 COMMON 状态（请参阅 <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states">**D3D12\_RESOURCE\_STATES**</a>）。  </dl>
-<dl> 当处于读取状态时，可以同时从多个命令队列中读取资源，其中包括基于其读取状态的进程。 2. </dl>
+<dl> 2. 处于读取状态时，可以从多个命令队列同时读取资源，包括进程的读取状态。 </dl>
 
 有关资源访问限制和使用资源屏障来同步资源访问的详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 
@@ -91,11 +91,11 @@ Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，�
 
 ## <a name="command-queue-support-for-tiled-resources"></a>图块式资源的命令队列支持
 
-在 Direct3D 11 中通过 [**ID3D11DeviceContext2**](https://docs.microsoft.com/windows/desktop/api/d3d11_2/nn-d3d11_2-id3d11devicecontext2) 接口公开的用于管理图块式资源的方法在 Direct3D 12 中由 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 接口提供。 这些方法包括：
+在 Direct3D 11 中通过 [**ID3D11DeviceContext2**](/windows/desktop/api/d3d11_2/nn-d3d11_2-id3d11devicecontext2) 接口公开的用于管理图块式资源的方法在 Direct3D 12 中由 [**ID3D12CommandQueue**](/windows/desktop/api/d3d12/nn-d3d12-id3d12commandqueue) 接口提供。 这些方法包括：
 
 
 
-| 方法                                                              | 描述                                                                                              |
+| 方法                                                              | 说明                                                                                              |
 |---------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | [**CopyTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings)     | 将映射从源图块式资源复制到目标图块式资源。<br/>                 |
 | [**UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings) | 将图块式资源中的图块位置映射更新为资源堆中的内存位置。<br/> |
@@ -104,7 +104,7 @@ Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，�
 
  
 
-有关在 Direct3D 12 应用中使用图块式资源的详细信息，请参阅 [Direct3D11 图块式资源](https://docs.microsoft.com/windows/desktop/direct3d11/tiled-resources)。
+有关在 Direct3D 12 应用中使用图块式资源的详细信息，请参阅 [Direct3D11 图块式资源](/windows/desktop/direct3d11/tiled-resources)。
 
 ## <a name="related-topics"></a>相关主题
 
@@ -114,10 +114,4 @@ Direct3D 12 中对多个并行命令队列的支持提供更高的灵活性，�
 </dt> </dl>
 
  
-
- 
-
-
-
-
 

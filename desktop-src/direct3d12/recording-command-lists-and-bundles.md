@@ -5,12 +5,12 @@ ms.assetid: 0074B796-33A4-4AA1-A4E7-48A2A63F25B7
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 20f6ca217e0d5b12d998abaafda52ea1a2799a59
-ms.sourcegitcommit: 004d7881dc9ff92ea394cd2331774e13b1e7f13c
+ms.openlocfilehash: d5ef2b54138cf3a08b85e3e8cc31f97cbe66abf6
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/12/2020
-ms.locfileid: "88123206"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644261"
 ---
 # <a name="creating-and-recording-command-lists-and-bundles"></a>创建和记录命令列表和捆绑包
 
@@ -26,11 +26,11 @@ ms.locfileid: "88123206"
 
 ## <a name="creating-command-lists"></a>创建命令列表
 
-可以通过调用[**ID3D12Device：： CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist)或[**ID3D12Device4：： CreateCommandList1**](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1)来创建直接命令列表和捆绑包。
+可以通过调用 [**ID3D12Device：： CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist) 或 [**ID3D12Device4：： CreateCommandList1**](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1)来创建直接命令列表和捆绑包。
 
-使用[**ID3D12Device4：： CreateCommandList1**](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1)创建一个已关闭的命令列表，而不是创建一个新列表并立即将其关闭。 这可以避免使用分配器和 PSO 创建列表的效率低下，但不会使用它们。
+使用 [**ID3D12Device4：： CreateCommandList1**](/windows/win32/api/d3d12/nf-d3d12-id3d12device4-createcommandlist1) 创建一个已关闭的命令列表，而不是创建一个新列表并立即将其关闭。 这可以避免使用分配器和 PSO 创建列表的效率低下，但不会使用它们。
 
-[**ID3D12Device：： CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist)采用以下参数作为输入：
+[**ID3D12Device：： CreateCommandList**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist) 采用以下参数作为输入：
 
 ### <a name="d3d12_command_list_type"></a>D3D12\_COMMAND\_LIST\_TYPE
 
@@ -58,13 +58,13 @@ ms.locfileid: "88123206"
 
 将命令添加到命令列表后，调用 [**Close**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close) 使命令列表退出记录状态。
 
-命令分配器可以增长，但不会缩小池并重复使用分配器，而应考虑最大程度地提高应用程序的效率。 你可以将多个列表记录到同一个分配器，然后再重置，只要一次只将一个列表记录到给定分配器。 可以将每个列表可视化为拥有分配器的一部分，该部分指示将执行的[**ID3D12CommandQueue：： ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 。
+命令分配器可以增长，但不会缩小池并重复使用分配器，而应考虑最大程度地提高应用程序的效率。 你可以将多个列表记录到同一个分配器，然后再重置，只要一次只将一个列表记录到给定分配器。 可以将每个列表可视化为拥有分配器的一部分，该部分指示将执行的 [**ID3D12CommandQueue：： ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 。
 
 简单的分配器池策略应瞄准约 `numCommandLists * MaxFrameLatency` 分配器。 例如，如果您记录6个列表并允许最多3个潜在帧，则可以合理地期待18-20 分配器。 更高级的池策略（在同一线程上重用多个列表的分配器）可用于 `numRecordingThreads * MaxFrameLatency` 分配器。 使用前面的示例，如果在线程 A 上记录了2个列表，在线程 B 上记录了2个，在线程 C 上记录了1个，而在线程 D 上记录了1个，实际上可以将12-14 分配器。
 
 使用防护来确定何时能够重用给定分配器。
 
-在执行后，可以立即重置命令列表，它们可以完全在池中，并在每次调用[**ID3D12CommandQueue：： ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)后将它们添加回池中。
+在执行后，可以立即重置命令列表，它们可以完全在池中，并在每次调用 [**ID3D12CommandQueue：： ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists)后将它们添加回池中。
 
 ## <a name="example"></a>示例
 
@@ -74,7 +74,7 @@ ms.locfileid: "88123206"
 -   描述符堆 - 应用使用描述符堆来管理内存资源的管道绑定。
 -   资源屏障 - 用于管理资源的不同状态转换，例如，从渲染器目标视图转换为着色器资源视图。 有关详细信息，请参阅[使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
 
-例如，应用于对象的
+例如，
 
 
 ```C++
@@ -216,7 +216,7 @@ void D3D12HelloTriangle::LoadAssets()
 
 ## <a name="command-list-api-restrictions"></a>命令列表 API 限制
 
-某些命令列表 Api 只能在某些类型的命令列表中调用。 下表显示了在每种类型的命令列表中，哪些命令列表 Api 是有效的。 它还显示了哪些 Api 在[**D3D12 呈现阶段**](/windows/win32/direct3d12/direct3d-12-render-passes)中可以调用。 
+某些命令列表 Api 只能在某些类型的命令列表中调用。 下表显示了在每种类型的命令列表中，哪些命令列表 Api 是有效的。 它还显示了哪些 Api 在 [**D3D12 呈现阶段**](./direct3d-12-render-passes.md)中可以调用。 
 
 | API 名称                                         | 图形 | 计算 | 复制 | Bundle | 在呈现阶段中 |
 |--------------------------------------------------|:--------:|:-------:|:----:|:------:|:--------------:|

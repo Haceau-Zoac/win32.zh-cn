@@ -5,16 +5,16 @@ ms.assetid: 956F80D7-EEC8-4D88-B251-EE325614F31E
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 819883df41edfc74b3cde49ebf8f27e2b0d9ef3d
-ms.sourcegitcommit: 4e6351be806497fec41a0a5eebdfddabeb88878c
+ms.openlocfilehash: 6b842ce5b3e89c3877f50036e747a90f14104bce
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72510761"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644064"
 ---
 # <a name="residency"></a>驻留
 
-如果 GPU 可访问某个对象，则该对象将被视为常驻对象。
+如果 GPU 可访问某个对象，则该对象将被视为常驻对象。**
 
 -   [驻留预算](#residency-budget)
 -   [堆资源](#heap-resources)
@@ -27,7 +27,7 @@ ms.locfileid: "72510761"
 
 GPU 尚不支持分页错误，因此，当 GPU 可以访问数据时，应用程序必须将数据提交到物理内存。 此过程称为“使内容常驻”，必须针对物理系统内存和物理离散的视频内存执行。 在 D3D12 中，大多数 API 对象封装一定数量的 GPU 可访问内存。 在创建 API 对象期间，该 GPU 可访问内存被设置为常驻，在销毁 API 对象时将被逐出。
 
-可供该进程使用的物理内存量称为视频内存预算。 该预算可能会随着后台进程的唤醒和睡眠而有明显的波动；当用户切换到另一应用程序时，这种波动会很大。 应用程序在预算更改时可以收到通知，并可以轮询当前预算以及当前已消耗的内存量。 如果应用程序不在预算范围内，该进程将会间歇性地冻结以使其他应用程序能够运行，并且/或者创建 API 将返回失败。 [**IDXGIAdapter3**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3) 接口提供与此功能相关的方法，具体而言，是 [**QueryVideoMemoryInfo**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo) 和 [**RegisterVideoMemoryBudgetChangeNotificationEvent**](https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent)。
+可供该进程使用的物理内存量称为视频内存预算。 该预算可能会随着后台进程的唤醒和睡眠而有明显的波动；当用户切换到另一应用程序时，这种波动会很大。 应用程序在预算更改时可以收到通知，并可以轮询当前预算以及当前已消耗的内存量。 如果应用程序不在预算范围内，该进程将会间歇性地冻结以使其他应用程序能够运行，并且/或者创建 API 将返回失败。 [**IDXGIAdapter3**](/windows/desktop/api/dxgi1_4/nn-dxgi1_4-idxgiadapter3) 接口提供与此功能相关的方法，具体而言，是 [**QueryVideoMemoryInfo**](/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo) 和 [**RegisterVideoMemoryBudgetChangeNotificationEvent**](/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent)。
 
 建议应用程序使用预留来指示它们必须获得的内存量。 理想情况下，用户指定的“低”图形设置甚至更低的设置是此类预留的适当值。 设置预留不会使应用程序的预算高于它在正常情况下获得的预算。 相反，预留信息可帮助 OS 内核快速最小化较大内存压力造成的影响。 即使应用程序不是前台应用程序，也不保证预留可供该应用程序使用。
 
@@ -90,7 +90,3 @@ D3D12 在其资源模型中引入了更大的灵活性和正交性，使应用�
  
 
  
-
-
-
-

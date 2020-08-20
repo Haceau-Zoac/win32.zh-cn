@@ -5,18 +5,18 @@ ms.assetid: 38F41E05-FECB-41DE-8D30-09733FBEAC48
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 12/05/2019
-ms.openlocfilehash: d194a04b461680f03dfa4226a9f46fd41e68e30d
-ms.sourcegitcommit: 545f2d8506531e493e4e946a9842b3c744018457
+ms.openlocfilehash: ec3ecc9e68fc4711def2c364793eca32804d8d04
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82851244"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644346"
 ---
 # <a name="whats-new-in-direct3d-12"></a>Direct3D 12 中的新增功能
 
 本主题介绍可用于各种版本的最重要的新 Direct3D 12 文档。
 
-有关获取和安装 Direct3D 的信息，请参阅[direct3d 12 编程环境设置](/windows/win32/direct3d12/directx-12-programming-environment-set-up)。
+有关获取和安装 Direct3D 的信息，请参阅 [direct3d 12 编程环境设置](./directx-12-programming-environment-set-up.md)。
 
 ## <a name="direct3d-12-on-windows-7"></a>Windows 7 上的 Direct3D 12
 
@@ -24,33 +24,33 @@ ms.locfileid: "82851244"
 
 ## <a name="windows-10-may-2019-update"></a>Windows 10 2019 年 5 月更新
 
-为 Windows 10 版本1903（10.0;）添加或更新了这些功能和 Api版本18362）&mdash;也称为 Windows 10 2019 更新。
+为 Windows 10 （版本 1903 (10.0）添加或更新了这些功能和 Api。生成 18362) &mdash; 也称为 Windows 10 2019 更新。
 
-- [可变速率底纹（VRS）](/windows/win32/direct3d12/vrs)。 使你能够以不同于呈现的图像的速率分配呈现性能/功率。
-- [HLSL 着色器模型 6.4](/windows/win32/direct3dhlsl/hlsl-shader-model-6-4-features-for-direct3d-12)。 介绍添加到 HLSL 着色器模型6.4 的机器学习内部函数。
-- [**D3D12_DRED_VERSION**](/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_version)枚举。 定义指定设备的版本（删除了扩展数据，通过）的常量。
-- [**D3D12_FEATURE_DATA_D3D12_OPTIONS6**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6)结构。 指示适配器为 metacommands 提供的支持级别。
-- [**D3D12_FEATURE_DATA_QUERY_META_COMMAND**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_query_meta_command)结构。 指示适配器为 metacommands 提供的支持级别。
-- [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/win32/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier)枚举。 定义用于指定着色速率层的常量（用于可变速率底纹或 VRS）。
-- [**ID3D12Device6**](/windows/win32/api/d3d12/nn-d3d12-id3d12device6)接口及其方法。 用于设置驱动程序后台处理优化模式。 另请参阅[背景着色器优化](https://devblogs.microsoft.com/directx/background-shader-optimizations/)。
-- [**ID3D12DeviceRemovedExtendedData**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddata)接口及其方法。 提供对设备删除的扩展数据（通过）数据的运行时访问。
-- [**ID3D12DeviceRemovedExtendedDataSettings**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddatasettings)接口及其方法。 控制设备删除的扩展数据（通过）设置。
-- [**D3D12GraphicsCommandList5**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist5)接口及其方法。 支持可变速率底纹（VRS）。
+- [可变速率底纹 (VRS) ](./vrs.md)。 使你能够以不同于呈现的图像的速率分配呈现性能/功率。
+- [HLSL 着色器模型 6.4](../direct3dhlsl/hlsl-shader-model-6-4-features-for-direct3d-12.md)。 介绍添加到 HLSL 着色器模型6.4 的机器学习内部函数。
+- [**D3D12_DRED_VERSION**](/windows/win32/api/d3d12/ne-d3d12-d3d12_dred_version) 枚举。 定义指定设备版本 (通过) 删除扩展数据的常量。
+- [**D3D12_FEATURE_DATA_D3D12_OPTIONS6**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options6) 结构。 指示适配器为 metacommands 提供的支持级别。
+- [**D3D12_FEATURE_DATA_QUERY_META_COMMAND**](/windows/win32/api/d3d12/ns-d3d12-d3d12_feature_data_query_meta_command) 结构。 指示适配器为 metacommands 提供的支持级别。
+- [**D3D12_VARIABLE_SHADING_RATE_TIER**](/windows/win32/api/d3d12/ne-d3d12-d3d12_variable_shading_rate_tier) 枚举。 定义用于指定可变速率底纹 (或 VRS) 的底纹速率层的常量。
+- [**ID3D12Device6**](/windows/win32/api/d3d12/nn-d3d12-id3d12device6) 接口及其方法。 用于设置驱动程序后台处理优化模式。 另请参阅 [背景着色器优化](https://devblogs.microsoft.com/directx/background-shader-optimizations/)。
+- [**ID3D12DeviceRemovedExtendedData**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddata) 接口及其方法。 提供对设备的运行时访问 (通过) 数据的已删除扩展数据。
+- [**ID3D12DeviceRemovedExtendedDataSettings**](/windows/win32/api/d3d12/nn-d3d12-id3d12deviceremovedextendeddatasettings) 接口及其方法。 控制设备 (通过) 设置中删除了扩展数据。
+- [**D3D12GraphicsCommandList5**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist5) 接口及其方法。 支持可变速率底纹 (VRS) 。
 
-已更新[**D3D_SHADER_MODEL**](/windows/win32/api/d3d12/ne-d3d12-d3d_shader_model)枚举，并增加了**D3D_SHADER_MODEL_6_5**常量（一种试验级别功能）。
+已更新 [**D3D_SHADER_MODEL**](/windows/win32/api/d3d12/ne-d3d12-d3d_shader_model) 枚举，同时 (实验级别功能) 添加了 **D3D_SHADER_MODEL_6_5** 常量。
 
-已更新[**D3D12_COMMAND_LIST_TYPE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type)枚举，并增加了**D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE**常数。
+已更新 [**D3D12_COMMAND_LIST_TYPE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_command_list_type) 枚举，并增加了 **D3D12_COMMAND_LIST_TYPE_VIDEO_ENCODE** 常数。
 
-已更新[**D3D12_FEATURE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_feature)枚举，同时增加了**D3D12_FEATURE_D3D12_OPTIONS6**和**D3D12_FEATURE_QUERY_META_COMMAND**常数。
+已更新 [**D3D12_FEATURE**](/windows/win32/api/d3d12/ne-d3d12-d3d12_feature) 枚举，同时增加了 **D3D12_FEATURE_D3D12_OPTIONS6** 和 **D3D12_FEATURE_QUERY_META_COMMAND** 常数。
 
-已更新[**D3D12_RESOURCE_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states)枚举，并增加了**D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE**常数。
+已更新 [**D3D12_RESOURCE_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 枚举，并增加了 **D3D12_RESOURCE_STATE_SHADING_RATE_SOURCE** 常数。
 
 ## <a name="windows-10-version-1809"></a>Windows 10 版本 1809
 
-为 Windows 10 版本1809（10.0;）添加或更新了这些功能和 Api版本17763）&mdash;也称为 Windows 10 10 月2018更新。
+为 Windows 10 （版本 1809 (10.0）添加或更新了这些功能和 Api。生成 17763) &mdash; 也称为 Windows 10 10 月2018更新。
 
-- [Direct3D 12 光线跟踪](/windows/win32/direct3d12/direct3d-12-raytracing)
-- [Direct3D 12 呈现通道](/windows/win32/direct3d12/direct3d-12-render-passes)
+- [Direct3D 12 光线跟踪](./direct3d-12-raytracing.md)
+- [Direct3D 12 呈现通道](./direct3d-12-render-passes.md)
 
 ## <a name="windows-10-version-1709"></a>Windows 10 版本 1709
 
@@ -77,9 +77,9 @@ ms.locfileid: "82851244"
     -   [**ID3D12Device2**](/windows/win32/api/d3d12/nn-d3d12-id3d12device2)
     -   [**ID3D12Debug2**](/windows/win32/api/D3D12sdklayers/nn-d3d12sdklayers-id3d12debug2)
     -   [**ID3D12Tools**](/windows/win32/api/d3d12/nn-d3d12-id3d12tools)
--   请参阅 [HLSL 着色器模型 6.0 概述](/windows/win32/direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12)，其中介绍了多线程像素和计算着色器的批次内部操作。
+-   请参阅 [HLSL 着色器模型 6.0 概述](../direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12.md)，其中介绍了多线程像素和计算着色器的批次内部操作。
 -   [ID3D12Device::SetStablePowerState](/windows/win32/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改****。
--   在 [Direct3D 11.4 功能](/windows/win32/direct3d11/direct3d-11-4-features)中描述了 Direct3D 11 的一些新功能。
+-   在 [Direct3D 11.4 功能](../direct3d11/direct3d-11-4-features.md)中描述了 Direct3D 11 的一些新功能。
 -   [AtomicCopyBufferUINT](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint) 和 [AtomicCopyBufferUINT64](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-atomiccopybufferuint64) 实现了延迟锁存来降低出现的延迟************。
 -   [ID3D12Device2::CreatePipelineState](/windows/win32/api/d3d12/nf-d3d12-id3d12device2-createpipelinestate) 和 [OMSetDepthBounds](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-omsetdepthbounds) 在支持的硬件上实现了************。
 -   [ResolveSubresourceRegion](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist1-resolvesubresourceregion) 实现了子资源的部分解析，以帮助优化性能********。
@@ -95,12 +95,12 @@ ms.locfileid: "82851244"
 
 -   新增了名为[了解 D3D12 调试层](understanding-the-d3d12-debug-layer.md)的指南部分。
 
-    描述了三个新的调试层接口（在预览模式下）： [**ID3D12Debug1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、 [**ID3D12DebugCommandList1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、 [**ID3D12DebugDevice1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
+    在预览模式下 (三个新的调试层接口) ： [**ID3D12Debug1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug1)、 [**ID3D12DebugCommandList1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandlist1)、 [**ID3D12DebugDevice1**](/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice1)。
 
 ## <a name="august-2016-documentation-update-1"></a>2016 年 8 月文档更新 1
 
 -   修订了 [在 Direct3D 12 中使用资源屏障同步资源状态](using-resource-barriers-to-synchronize-resource-states-in-direct3d-12.md)。
--   [多队列资源访问](/windows/win32/direct3d12/user-mode-heap-synchronization#multi-queue-resource-access)的修订版本。
+-   [多队列资源访问](./user-mode-heap-synchronization.md#multi-queue-resource-access)的修订版本。
 
 ## <a name="windows-10-version-1607"></a>Windows 10 版本 1607
 
@@ -112,13 +112,13 @@ ms.locfileid: "82851244"
     -   [**ID3D12PipelineLibrary**](/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinelibrary)
     -   [**ID3D12Device1**](/windows/win32/api/d3d12/nn-d3d12-id3d12device1)
     -   [**ID3D12VersionedRootSignatureDeserializer**](/windows/win32/api/d3d12/nn-d3d12-id3d12versionedrootsignaturedeserializer)
--   请参阅 [HLSL 着色器模型 6.0 概述](/windows/win32/direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12)，其中介绍了多线程像素和计算着色器的批次内部操作。
+-   请参阅 [HLSL 着色器模型 6.0 概述](../direct3dhlsl/hlsl-shader-model-6-0-features-for-direct3d-12.md)，其中介绍了多线程像素和计算着色器的批次内部操作。
 -   [ID3D12Device::SetStablePowerState](/windows/win32/api/d3d12/nf-d3d12-id3d12device-setstablepowerstate) 的使用已更改****。
--   在 [Direct3D 11.4 功能](/windows/win32/direct3d11/direct3d-11-4-features)中描述了 Direct3D 11 的一些新功能。
+-   在 [Direct3D 11.4 功能](../direct3d11/direct3d-11-4-features.md)中描述了 Direct3D 11 的一些新功能。
 -   Direct3D 12 支持的库范围已更新，请参阅 [Direct3D 12 编程环境设置](directx-12-programming-environment-set-up.md)的“支持的工具和库”部分****。
--   [使用具有高动态范围的 DirectX 显示和高级颜色](/windows/win32/direct3darticles/high-dynamic-range)
--   [显示变量刷新频率](/windows/win32/direct3ddxgi/variable-refresh-rate-displays)
--   [DXGI 1.5 改进](/windows/win32/direct3ddxgi/dxgi-1-5-improvements)
+-   [使用具有高动态范围显示的 DirectX 和高级颜色](../direct3darticles/high-dynamic-range.md)
+-   [显示变量刷新频率](../direct3ddxgi/variable-refresh-rate-displays.md)
+-   [DXGI 1.5 改进](../direct3ddxgi/dxgi-1-5-improvements.md)
 
 ## <a name="related-topics"></a>相关主题
 

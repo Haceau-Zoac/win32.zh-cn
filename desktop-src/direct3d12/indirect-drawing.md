@@ -5,12 +5,12 @@ ms.assetid: F8D6C88A-101E-4F66-999F-43206F6527B6
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: ebc5559a6d28dae8e20d95b3a27aa2b2739320eb
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: fbf242309b7257ac4704a5fe0a5f6d4b5459429b
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005969"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644148"
 ---
 # <a name="indirect-drawing"></a>间接绘制
 
@@ -25,13 +25,13 @@ ms.locfileid: "71005969"
 
 ## <a name="command-signatures"></a>命令签名
 
-命令签名对象 ([**ID3D12CommandSignature**](https://msdn.microsoft.com/library/Dn891446(v=VS.85).aspx)) 允许应用指定间接绘制，特别是进行以下设置：
+命令签名对象 ([**ID3D12CommandSignature**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandsignature)) 允许应用指定间接绘制，特别是进行以下设置：
 
 -   间接参数缓冲区格式。
 -   将使用的命令类型（来自 [**ID3D12GraphicsCommandList**](/windows/desktop/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 方法 [**DrawInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawinstanced)、[**DrawIndexedInstanced**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-drawindexedinstanced) 或 [**Dispatch**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-dispatch)）。
 -   将更改每命令调用的资源绑定的集合与将继承的集合。
 
-启动时，应用会创建一小部分的命令签名。 运行时，应用程序会使用命令填充缓冲区（通过应用开发人员选择的任何方式）。 要为顶点缓冲区视图、索引缓冲区视图、根常量和根描述符（原始或结构化 SRV/UAV/CBV）设置的命令（可选择包含状态）。 这些参数布局不特定于硬件，因此应用可以直接生成缓冲区。 命令签名从命令列表继承剩余状态。 然后，应用调用 [**ExecuteIndirect**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) 以指示 GPU 根据特定命令签名所定义的的格式解释间接参数缓冲区的内容。
+启动时，应用会创建一小部分的命令签名****。 运行时，应用程序会使用命令填充缓冲区（通过应用开发人员选择的任何方式）。 要为顶点缓冲区视图、索引缓冲区视图、根常量和根描述符（原始或结构化 SRV/UAV/CBV）设置的命令（可选择包含状态）。 这些参数布局不特定于硬件，因此应用可以直接生成缓冲区。 命令签名从命令列表继承剩余状态。 然后，应用调用 [**ExecuteIndirect**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-executeindirect) 以指示 GPU 根据特定命令签名所定义的的格式解释间接参数缓冲区的内容。
 
 如果命令签名更改任何根参数，则该签名作为根签名的一部分存储在命令签名中。
 
@@ -52,11 +52,11 @@ ms.locfileid: "71005969"
 
 以下结构定义特定参数在间接参数缓冲区中的显示方式。 这些结构不会显示在任何 D3D12 API 中。 写入间接参数缓冲区（使用 CPU 或 GPU）时，应用程序使用这些定义：
 
--   [**D3D12\_DRAW\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_arguments)
--   [**D3D12\_DRAW\_INDEXED\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_indexed_arguments)
--   [**D3D12\_DISPATCH\_ARGUMENTS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_dispatch_arguments)
--   [**D3D12\_VERTEX\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
--   [**D3D12\_INDEX\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view)
+-   [**D3D12 \_ 绘制 \_ 参数**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_arguments)
+-   [**D3D12 \_ 绘制 \_ 索引 \_ 参数**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_draw_indexed_arguments)
+-   [**D3D12 \_ 调度 \_ 参数**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_dispatch_arguments)
+-   [**D3D12 \_ 顶点 \_ 缓冲区 \_ 视图**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_vertex_buffer_view)
+-   [**D3D12 \_ 索引 \_ 缓冲区 \_ 视图**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_index_buffer_view)
 -   D3D12\_GPU\_VIRTUAL\_ADDRESS（UINT64 的 typedef'd 同义词）。
 -   [**D3D12\_CONSTANT\_BUFFER\_VIEW**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_constant_buffer_view_desc)
 
@@ -64,12 +64,12 @@ ms.locfileid: "71005969"
 
 若要创建命令签名，请使用以下 API 项：
 
--   [**ID3D12Device::CreateCommandSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandsignature)（输出 [**ID3D12CommandSignature**](https://msdn.microsoft.com/library/Dn891446(v=VS.85).aspx)）
--   [**D3D12\_INDIRECT\_ARGUMENT\_TYPE**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type)
--   [**D3D12\_INDIRECT\_ARGUMENT\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc)
--   [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc)
+-   [**ID3D12Device::CreateCommandSignature**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-createcommandsignature)（输出 [**ID3D12CommandSignature**](/windows/win32/api/d3d12/nn-d3d12-id3d12commandsignature)）
+-   [**D3D12 \_ 间接 \_ 参数 \_ 类型**](/windows/desktop/api/d3d12/ne-d3d12-d3d12_indirect_argument_type)
+-   [**D3D12 \_ 间接 \_ 参数 \_ DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_indirect_argument_desc)
+-   [**D3D12 \_ 命令 \_ 签名 \_ DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc)
 
-间接参数缓冲区中的参数顺序定义为与 [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc) 的 pArguments 参数中指定的参数顺序完全匹配。 间接参数缓冲区中的一个绘制（图形）/调度（计算）调用的所有参数紧密打包。 但是，允许应用程序指定间接参数缓冲区中的绘制/调度命令之间的任意字节步幅。
+间接参数缓冲区中的参数顺序定义为与 [**D3D12\_COMMAND\_SIGNATURE\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_command_signature_desc) 的 pArguments** 参数中指定的参数顺序完全匹配。 间接参数缓冲区中的一个绘制（图形）/调度（计算）调用的所有参数紧密打包。 但是，允许应用程序指定间接参数缓冲区中的绘制/调度命令之间的任意字节步幅。
 
 当且仅当命令签名更改其中一个根参数时，必须指定根签名。
 
@@ -103,7 +103,7 @@ ProgramDesc.pArguments = Args;
 
 
 
-| 字节 | 描述           |
+| 字节 | 说明           |
 |-------|-----------------------|
 | 0:3   | IndexCountPerInstance |
 | 4:7   | InstanceCount         |
@@ -145,7 +145,7 @@ ProgramDesc.pArguments = Args;
 
 
 
-| 字节 | 描述                     |
+| 字节 | 说明                     |
 |-------|---------------------------------|
 | 0:3   | 根参数索引 2 的数据 |
 | 4:7   | 根参数索引 6 的数据 |
@@ -165,19 +165,15 @@ ProgramDesc.pArguments = Args;
 
 <dl> <dt>
 
-[DirectX 高级学习视频教程：执行间接和异步 GPU 精选](https://www.youtube.com/watch?v=fKD-VKJeeds)
+[DirectX 高级学习视频教程：执行间接和异步 GPU 剔除](https://www.youtube.com/watch?v=fKD-VKJeeds)
 </dt> <dt>
 
 [间接绘制和 GPU 精选：代码演练](indirect-drawing-and-gpu-culling-.md)
 </dt> <dt>
 
-[呈现](rendering.md)
+[渲染](rendering.md)
 </dt> </dl>
 
  
 
  
-
-
-
-

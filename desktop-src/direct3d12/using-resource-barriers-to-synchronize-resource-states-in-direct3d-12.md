@@ -5,12 +5,12 @@ ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 9e5c15bfb6caf815b06ba42f021bc236a8a3b293
-ms.sourcegitcommit: 62e758931c610782807c7c9fad284921a6c56232
+ms.openlocfilehash: 4db730e4d0a53aad8154c75c0d482ab6f39b965b
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 01/22/2020
-ms.locfileid: "76520588"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644343"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
@@ -38,21 +38,21 @@ ms.locfileid: "76520588"
 
 有三种类型的资源屏障：
 
--   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。
+-   **转换屏障** - 转换屏障指示不同用法之间的一组子资源转换。 使用 [**D3D12\_RESOURCE\_TRANSITION\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_transition_barrier) 结构指定正在转换的子资源，以及子资源之前和之后的状态。****
 
     系统将验证命令列表中的子资源转换是否与同一命令列表中以前的转换相一致。 调试层会进一步跟踪子资源状态，以查找其他错误，但这种验证是保守性的，而不是穷尽性的。
 
     请注意，可以使用 D3D12\_RESOURCE\_BARRIER\_ALL\_SUBRESOURCES 标志指定要转换资源中的所有子资源。
 
--   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。
+-   **失真屏障** - 失真屏障指示两个不同资源的用法之间的转换，这些资源在同一个堆中存在重叠的映射。 这适用于保留的资源和定位的资源。 使用 [**D3D12\_RESOURCE\_ALIASING\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_aliasing_barrier) 结构指定之前和之后的资源。****
 
-    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](/windows/win32/direct3d11/tiled-resources)和[立体图块化资源](volume-tiled-resources.md)。
+    请注意，其中的一个或两个资源可为 NULL，指示任何图块化资源都可能导致失真。 有关使用图块化资源的详细信息，请参阅[图块化资源](../direct3d11/tiled-resources.md)和[立体图块化资源](volume-tiled-resources.md)。
 
 -   **无序访问视图 (UAV) 屏障** - UAV 屏障指示对特定资源的所有 UAV 访问（读取或写入）必须在任何后续 UAV 访问（读取或写入）之间完成。 应用不需要在只读取 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 此外，如果应用程序知道它能够安全地按任意顺序执行 UAV 访问，则不需要在写入同一 UAV 的两个绘制或调度调用之间放置 UAV 屏障。 使用 [**D3D12\_RESOURCE\_UAV\_BARRIER**](/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_uav_barrier) 结构指定屏障应用到的 UAV 资源。 应用程序可为屏障的 UAV 指定 NULL，指示任何 UAV 访问都可能需要屏障。
 
 如果使用资源屏障描述数组调用 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier)，API 的行为将如同按照元素的提供顺序对每个元素调用该 API 一次。
 
-在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。
+在任意给定时间，子资源刚好处于一种状态，该状态由提供给 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 的 [**D3D12\_RESOURCE\_STATES**](/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_states) 标志集确定。 应用程序必须确保保守调用 **ResourceBarrier** 之前和之后的状态相一致。****
 
 > [!TIP]
 >
@@ -115,27 +115,27 @@ ms.locfileid: "76520588"
 | 状态标志                    | 可提升状态                             |                                      |
 |-------------------------------|----------------------------------------------|--------------------------------------|
 |                               | **缓冲区和同时访问纹理** | **非同时访问纹理** |
-| VERTEX\_AND\_CONSTANT\_BUFFER | “是”                                          | 无                                   |
-| INDEX\_BUFFER                 | “是”                                          | 无                                   |
-| RENDER\_TARGET                | “是”                                          | 无                                   |
-| UNORDERED\_ACCESS             | “是”                                          | 无                                   |
-| DEPTH\_WRITE                  | 否<sup>\*</sup>                              | 无                                   |
-| DEPTH\_READ                   | 否<sup>\*</sup>                              | 无                                   |
-| NON\_PIXEL\_SHADER\_RESOURCE  | “是”                                          | “是”                                  |
-| PIXEL\_SHADER\_RESOURCE       | “是”                                          | “是”                                  |
-| STREAM\_OUT                   | “是”                                          | 无                                   |
-| INDIRECT\_ARGUMENT            | “是”                                          | 无                                   |
-| COPY\_DEST                    | “是”                                          | “是”                                  |
-| COPY\_SOURCE                  | “是”                                          | “是”                                  |
-| RESOLVE\_DEST                 | “是”                                          | 无                                   |
-| RESOLVE\_SOURCE               | “是”                                          | 无                                   |
-| PREDICATION                   | “是”                                          | 无                                   |
+| VERTEX\_AND\_CONSTANT\_BUFFER | 是                                          | 否                                   |
+| INDEX\_BUFFER                 | 是                                          | 否                                   |
+| RENDER\_TARGET                | 是                                          | 否                                   |
+| UNORDERED\_ACCESS             | 是                                          | 否                                   |
+| DEPTH\_WRITE                  | 不<sup>\*</sup>                              | 否                                   |
+| DEPTH\_READ                   | 不<sup>\*</sup>                              | 否                                   |
+| NON\_PIXEL\_SHADER\_RESOURCE  | 是                                          | 是                                  |
+| PIXEL\_SHADER\_RESOURCE       | 是                                          | 是                                  |
+| STREAM\_OUT                   | 是                                          | 否                                   |
+| INDIRECT\_ARGUMENT            | 是                                          | 否                                   |
+| COPY\_DEST                    | 是                                          | 是                                  |
+| COPY\_SOURCE                  | 是                                          | 是                                  |
+| RESOLVE\_DEST                 | 是                                          | 否                                   |
+| RESOLVE\_SOURCE               | 是                                          | 否                                   |
+| PREDICATION                   | 是                                          | 否                                   |
 
 
 
  
 
-<sup>\*</sup>深度模具资源必须为非同时访问纹理，因此永远无法隐式提升。
+<sup>\*</sup>深度模具资源必须是不同时访问的纹理，因此永远不能进行隐式提升。
 
 发生这种访问时，提升将类似于隐式资源屏障。 对于后续的访问，必须使用资源屏障来按需更改资源状态。 例如，如果将处于通用状态的资源提升为绘制调用中的 PIXEL\_SHADER\_RESOURCE，然后将其用作复制源，则需要从 PIXEL\_SHADER\_RESOURCE 到 COPY\_SOURCE 的资源状态转换屏障。
 
@@ -147,9 +147,9 @@ ms.locfileid: "76520588"
 
 在 GPU 上完成 [**ExecuteCommandLists**](/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-executecommandlists) 操作后，以下资源将会衰减：
 
--   在复制队列中访问的资源，或
--   任何队列类型中的缓冲区资源，或
--   设置了 D3D12\_RESOURCE\_FLAG\_ALLOW\_SIMULTANEOUS\_ACCESS 标志的任何队列类型中的资源，或
+-   在复制队列中访问的资源，或**
+-   任何队列类型中的缓冲区资源，或**
+-   设置了 D3D12\_RESOURCE\_FLAG\_ALLOW\_SIMULTANEOUS\_ACCESS 标志的任何队列类型中的资源，或**
 -   隐式提升为只读状态的任何资源。
 
 与通用状态提升一样，衰减也是无开销的，因为不需要附加的同步。 将通用状态提升和衰减相结合有助于消除许多不必要的 [**ResourceBarrier**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-resourcebarrier) 转换。 在某些情况下，这可以大幅提高性能。
@@ -166,7 +166,7 @@ ms.locfileid: "76520588"
 
 ## <a name="split-barriers"></a>拆分屏障
 
-使用 D3D12\_RESOURCE\_BARRIER\_FLAG\_BEGIN\_ONLY 标志的资源转换屏障最初是拆分屏障，而转换屏障被视为挂起状态。 当屏障挂起时，GPU 无法读取或写入资源（子资源）。 可应用到使用挂起屏障的资源（子资源）的唯一合法转换屏障是具有相同的之前和之后状态以及 D3D12\_RESOURCE\_BARRIER\_FLAG\_END\_ONLY 标志的屏障，由该屏障完成挂起的转换。
+使用 D3D12\_RESOURCE\_BARRIER\_FLAG\_BEGIN\_ONLY 标志的资源转换屏障最初是拆分屏障，而转换屏障被视为挂起状态。 当屏障挂起时，GPU 无法读取或写入资源（子资源）。 可应用到使用挂起屏障的资源（子资源）的唯一合法转换屏障是具有相同的之前和之后状态以及 D3D12\_RESOURCE\_BARRIER\_FLAG\_END\_ONLY 标志的屏障，由该屏障完成挂起的转换。****
 
 拆分屏障将提示 GPU，指出在以后的某个时间，处于状态 *A* 的资源将以状态 *B* 使用。 这样，GPU 便可以选择优化转换工作负荷（也许是通过减少或消除执行停滞）。 发出仅限终止的屏障可保证在转到下一个命令之前所有 GPU 转换工作已完成。
 
@@ -590,6 +590,6 @@ D3D12_RESOURCE_BARRIER BarrierDesc = {};
 
 [DirectX 高级学习视频教程：资源障碍和状态跟踪](https://www.youtube.com/watch?v=nmB2XMasz2o)
 
-[多引擎同步](/windows/win32/direct3d12/user-mode-heap-synchronization)
+[多引擎同步](./user-mode-heap-synchronization.md)
 
 [Direct3D 12 中的工作提交](command-queues-and-command-lists.md)

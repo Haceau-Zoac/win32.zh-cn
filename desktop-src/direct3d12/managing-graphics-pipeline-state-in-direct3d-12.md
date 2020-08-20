@@ -8,12 +8,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 847745255f2a6a60f5b765932d2b98ad110c1e15
-ms.sourcegitcommit: 927b9c371f75f52b8011483edf3a4ba37d11ebe4
+ms.openlocfilehash: c7564b5863d3efebdf8a335e2c46945aeebea93e
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 02/11/2020
-ms.locfileid: "77128098"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644106"
 ---
 # <a name="managing-graphics-pipeline-state-in-direct3d-12"></a>在 Direct3D 12 中管理图形管道状态
 
@@ -23,13 +23,13 @@ ms.locfileid: "77128098"
 
 当几何图形提交到要绘制的图形处理单元 (GPU) 时，有各种硬件设置可用来确定如何解释和呈现输入数据。 这些设置统称为图形管道状态，并包括光栅器状态、混合状态和深度模具状态以及提交的 几何图形的基元拓扑类型和将用于呈现的着色器等常见设置。 在 Microsoft Direct3D 12 中，大多数图形管道状态是使用管道状态对象 (PSO) 设置的。 应用可以创建无限数量的这些对象，由 [**ID3D12PipelineState**](/windows/win32/api/d3d12/nn-d3d12-id3d12pipelinestate) 接口表示（通常在初始化时）。 然后，在呈现时，命令列表可以通过调用直接命令列表或捆绑中的 [**ID3D12GraphicsCommandList::SetPipelineState**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setpipelinestate) 来设置活动 PSO，以便快速切换管道状态的多个设置。
 
-在 Direct3D 11 中，图形管道状态已绑定到大型、粗粒度状态对象（如 [**ID3D11BlendState**](https://docs.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11blendstate)），可以在呈现时使用类似 [**ID3D11DeviceContext::OMSetBlendState**](https://docs.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10device-omsetblendstate) 的方法在即时上下文中创建和设置这些对象。 这背后的构想是 GPU 可以通过同时设置相关设置（例如，混合状态设置）来提高效率。 但是，在如今的图形硬件中，不同的硬件单元之间存在依赖项。 例如，硬件混合状态可能会存在光栅状态以及混合状态的依赖项。 Direct3D 12 中的 PSO 旨在允许 GPU 在每个管道状态中预处理所有依赖设置（通常在初始化时），以便在呈现时尽可能高效地在状态之间切换。
+在 Direct3D 11 中，图形管道状态已绑定到大型、粗粒度状态对象（如 [**ID3D11BlendState**](/windows/win32/api/d3d11/nn-d3d11-id3d11blendstate)），可以在呈现时使用类似 [**ID3D11DeviceContext::OMSetBlendState**](/windows/win32/api/d3d10/nf-d3d10-id3d10device-omsetblendstate) 的方法在即时上下文中创建和设置这些对象。 这背后的构想是 GPU 可以通过同时设置相关设置（例如，混合状态设置）来提高效率。 但是，在如今的图形硬件中，不同的硬件单元之间存在依赖项。 例如，硬件混合状态可能会存在光栅状态以及混合状态的依赖项。 Direct3D 12 中的 PSO 旨在允许 GPU 在每个管道状态中预处理所有依赖设置（通常在初始化时），以便在呈现时尽可能高效地在状态之间切换。
 
 请注意，虽然大多数管道状态设置是使用 PSO 设置的，但有一些状态设置是使用 [**ID3D12GraphicsCommandList**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 提供的 API 单独设置的。 下面详细介绍了这些设置和关联的 API。 此外，由直接命令列表和捆绑继承图形管道状态的方式和从直接命令列表和捆绑继承保留图形管道状态的方式存在差异。 本主题提供有关这两种方式的详细信息。
 
 ## <a name="graphics-pipeline-states-set-with-pipeline-state-objects"></a>使用管道状态对象设置的图形管道状态
 
-查看可使用管道状态对象设置的所有不同管道状态的最简单方法是查看在初始化对象时传递到 [**ID3D12Device::CreateGraphicsPipelineState\_\_ 的 \_\_D3D12**GRAPHICS](/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc)PIPELINE[STATE**DESC**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate) 的参考主题。 可以设置的状态的快速摘要包括：
+查看可使用管道状态对象设置的所有不同管道状态的最简单方法是查看在初始化对象时传递到 [**ID3D12Device::CreateGraphicsPipelineState**](/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate) 的 [**D3D12\_GRAPHICS\_PIPELINE\_STATE\_DESC**](/windows/win32/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc) 的参考主题。 可以设置的状态的快速摘要包括：
 
 -   所有着色器（包括顶点、像素、域、外壳和几何着色器）的字节码。
 -   输入顶点格式。
@@ -44,7 +44,7 @@ ms.locfileid: "77128098"
 
 大多数图形管道状态是使用 PSO 设置的。 但是，有一组管道状态参数是通过调用命令列表中的 [**ID3D12GraphicsCommandList**](/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist) 接口的方法设置的。 下表显示了通过此方式和相应的方法设置的状态。
 
-|State|方法|
+|状态|方法|
 |-|-|
 |资源绑定|[**IASetIndexBuffer**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetindexbuffer)<br/>[**IASetVertexBuffers**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-iasetvertexbuffers)<br/>[**SOSetTargets**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-sosettargets)<br/>[**OMSetRenderTargets**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-omsetrendertargets)<br/>[**SetDescriptorHeaps**](/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-setdescriptorheaps)<br/>所有 **SetGraphicsRoot...** 方法<br/>所有 **SetComputeRoot...** 方法<br/>
 |视区|<a href="/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist-rssetviewports">**RSSetViewports**</a>|
@@ -65,7 +65,7 @@ ms.locfileid: "77128098"
 
 保留在命令列表或捆绑中设置的资源绑定。 因此，将仍在后续子捆绑执行中设置在直接命令列表中修改的资源绑定。 将仍为父直接命令列表中的后续调用设置在捆绑中修改的资源绑定。
 
-有关绑定的详细信息，请参阅**使用根签名**的[捆绑语义](using-a-root-signature.md)部分。
+有关绑定的详细信息，请参阅[使用根签名](using-a-root-signature.md)的**捆绑语义**部分。
 
 ## <a name="related-topics"></a>相关主题
 

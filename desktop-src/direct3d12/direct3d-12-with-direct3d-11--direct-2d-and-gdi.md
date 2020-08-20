@@ -5,12 +5,12 @@ ms.assetid: 51F7E715-82B6-48D8-A06A-CBBEDF6968F5
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 7beab5966451605da5f4cf8baee2a00e0d53e623
-ms.sourcegitcommit: 2d531328b6ed82d4ad971a45a5131b430c5866f7
+ms.openlocfilehash: 3b5fcfe2adf756c12f034031675d0c3ac5571b44
+ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005890"
+ms.lasthandoff: 08/20/2020
+ms.locfileid: "88644355"
 ---
 # <a name="direct3d-12-interop"></a>Direct3D 12 互操作
 
@@ -40,9 +40,9 @@ D3D12 可以提供非常强大的功能，使应用程序能够以类似控制�
 
 ## <a name="reasons-for-using-interop"></a>使用互操作的原因
 
-应用程序需要使用其他 Api D3D12 互操作的原因有多种。 一些示例:
+应用程序需要使用其他 Api D3D12 互操作的原因有多种。 以下是一些示例：
 
--   增量移植：希望将整个应用程序从 D3D10 或 D3D11 移植到 D3D12，同时使其在迁移过程的中间阶段正常运行（以启用测试和调试）。
+-   增量移植：想要将整个应用程序从 D3D10 或 D3D11 移植到 D3D12，同时将其功能置于 (的迁移过程的中间阶段，以便启用测试和调试) 。
 -   黑色框代码：想要将应用程序的特定部分保留原样，同时移植代码的其余部分。 例如，可能无需移植游戏的 UI 元素。
 -   不可进行的组件：需要使用不属于应用程序的组件，这些组件不会写入目标 D3D12。
 -   新组件：不希望移植整个应用程序，而是想要使用通过 D3D12 编写的新组件。
@@ -50,9 +50,9 @@ D3D12 可以提供非常强大的功能，使应用程序能够以类似控制�
 D3D12 中有四种用于互操作的主要方法：
 
 -   应用程序可以选择向组件提供打开的命令列表，这会将一些其他呈现命令记录到已绑定的呈现器目标。 这等效于向 D3D11 中的另一个组件提供已准备好的设备上下文，并且非常适用于将 UI/文本添加到已绑定的后台缓冲区的情况。
--   应用可以选择向组件提供命令队列以及所需的目标资源。 这等效于使用 D3D11 中的[**ClearState**](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-clearstate)或[**DeviceContextState**](https://docs.microsoft.com/windows/desktop/api/d3d11_1/nn-d3d11_1-id3ddevicecontextstate) api 向另一个组件提供干净的设备上下文。 这是 D2D 等组件的工作方式。
+-   应用可以选择向组件提供命令队列以及所需的目标资源。 这等效于使用 D3D11 中的 [**ClearState**](/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-clearstate) 或 [**DeviceContextState**](/windows/desktop/api/d3d11_1/nn-d3d11_1-id3ddevicecontextstate) api 向另一个组件提供干净的设备上下文。 这是 D2D 等组件的工作方式。
 -   组件可以选择一个模型，在此模型中，它会生成一个命令列表（可能并行），应用负责稍后提交。 必须跨组件边界提供至少一个资源。 这一技术在使用延迟上下文的 D3D11 中可用，但 D3D12 的性能更适合。
--   每个组件都有其自己的队列和/或设备，应用程序和组件需要跨组件边界共享资源和同步信息。 这类似于旧版`ISurfaceQueue`，更新式的[**IDXGIKeyedMutex**](https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgikeyedmutex)。
+-   每个组件都有其自己的队列 () 和/或设备 () ，应用程序和组件需要跨组件边界共享资源和同步信息。 这类似于旧版 `ISurfaceQueue` ，更新式的 [**IDXGIKeyedMutex**](/windows/desktop/api/dxgi/nn-dxgi-idxgikeyedmutex)。
 
 这两种情况之间的区别是在组件边界之间共享的内容完全相同。 设备被认为是共享的，但由于它基本上是无状态的，因此它并不真正相关。 关键对象包括命令列表、命令队列、同步对象和资源。 其中每个都在共享它们时有其自身的复杂问题。
 
@@ -64,19 +64,19 @@ D3D12 中有四种用于互操作的主要方法：
 
 对于在同一进程中共享设备的多个组件，可能使用最常见的方法。
 
-如果命令队列是共享的单元，则需要对组件进行调用，以使其知道需要将所有未完成的命令列表立即提交到命令队列（并且需要同步任何内部命令队列）。 这等效于 D3D11 [**Flush**](https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush) API，它是应用程序可以提交其自己的命令列表或同步基元的唯一方法。
+如果命令队列是共享的单元，则需要对组件进行调用，以使其知道，所有未完成的命令列表都需要立即提交到命令队列 (并且所有内部命令队列都需要同步) 。 这等效于 D3D11 [**Flush**](/windows/desktop/api/d3d11/nf-d3d11-id3d11devicecontext-flush) API，它是应用程序可以提交其自己的命令列表或同步基元的唯一方法。
 
 ### <a name="sharing-sync-primitives"></a>共享同步基元
 
-在其自己的设备和/或命令队列上操作的组件的预期模式将是接受[**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence)或 shared 句柄，并在开始其工作时接受 UINT64 配对，它将等待，然后是另一个 ID3D12Fence 或共享句柄，完成所有工作后将发出信号的 UINT64 对。 此模式匹配[**IDXGIKeyedMutex**](https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgikeyedmutex)和 DWM/DXGI 翻转模型同步设计的当前实现。
+在其自己的设备和/或命令队列上操作的组件的预期模式为接受 [**ID3D12Fence**](/windows/desktop/api/d3d12/nn-d3d12-id3d12fence) 或 shared 句柄，并在开始其工作时（它将等待，然后是另一个 ID3D12Fence 或共享句柄）和 uint64 对（在所有工作完成后发出信号）。 此模式匹配 [**IDXGIKeyedMutex**](/windows/desktop/api/dxgi/nn-dxgi-idxgikeyedmutex) 和 DWM/DXGI 翻转模型同步设计的当前实现。
 
 ### <a name="sharing-resources"></a>共享资源
 
-到目前为止，编写利用多个组件的 D3D12 应用的最复杂的部分是如何处理跨组件边界共享的资源。 这主要是因为资源状态的概念。 尽管资源状态设计的某些方面旨在处理命令列表同步，但其他方面却会对命令列表产生影响，影响资源布局以及访问的有效操作集或性能特征资源数据。
+到目前为止，编写利用多个组件的 D3D12 应用的最复杂的部分是如何处理跨组件边界共享的资源。 这主要是因为资源状态的概念。 尽管资源状态设计的某些方面旨在处理命令列表同步，但其他方面却会对命令列表产生影响，从而影响资源布局以及访问资源数据的一组有效的操作或性能特征。
 
 有两种处理这一复杂的模式，这两种模式都涉及组件之间的协定。
 
--   协定可由组件开发人员定义并记录在文档中。 这可能很简单，如 "工作开始时资源必须处于默认状态，并将在工作完成时被恢复为默认状态"; 或者可以具有更复杂的规则，以允许在不强制中间深度的情况下共享深度缓冲区解析ves.
+-   协定可由组件开发人员定义并记录在文档中。 这可能很简单，如 "工作开始时资源必须处于默认状态，并将在工作完成时被恢复为默认状态"，或者具有更复杂的规则，以允许在不强制进行中间深度解析的情况下共享深度缓冲区。
 -   当资源在组件边界之间共享时，应用程序可以在运行时定义协定。 它包含相同的两条信息，即，当组件开始使用资源时，该资源将处于的状态，以及组件在完成后应将其保留的状态。
 
 ### <a name="choosing-an-interop-model"></a>选择互操作模型
@@ -89,12 +89,12 @@ D3D12 中有四种用于互操作的主要方法：
 
 ## <a name="interop-apis"></a>互操作 Api
 
-[Direct3D 11 on 12](/windows/win32/direct3d12/direct3d-11-on-12)主题介绍了与本主题中所述的互操作类型相关的大部分 API 图面。
+[Direct3D 11 on 12](./direct3d-11-on-12.md)主题介绍了与本主题中所述的互操作类型相关的大部分 API 图面。
 
-另请参阅[ID3D12Device：： CreateSharedHandle](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createsharedhandle)方法，该方法可用于在 Windows 图形 api 之间共享表面。
+另请参阅 [ID3D12Device：： CreateSharedHandle](/windows/win32/api/d3d12/nf-d3d12-id3d12device-createsharedhandle) 方法，该方法可用于在 Windows 图形 api 之间共享表面。
 
 ## <a name="related-topics"></a>相关主题
 
 * [了解 Direct3D 12](directx-12-getting-started.md)
 * [使用 Direct3D 11、Direct3D 10 和 Direct2D](direct3d-12-interop.md)
-* [Direct3D 11 on 12](/windows/win32/direct3d12/direct3d-11-on-12)
+* [Direct3D 11 on 12](./direct3d-11-on-12.md)
