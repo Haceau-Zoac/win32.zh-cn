@@ -10,12 +10,12 @@ keywords:
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 3f44103227397b57139a92921a2c1b5ca2d10f2f
-ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
+ms.openlocfilehash: d464f6cc52539e31fee5e234af2c045dfff7e413
+ms.sourcegitcommit: 218b1ff779402c3ebe1786679e1aa80a5c0d6c95
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/20/2020
-ms.locfileid: "88644067"
+ms.lasthandoff: 09/01/2020
+ms.locfileid: "89224697"
 ---
 # <a name="hardware-feature-levels"></a>硬件功能级别
 
@@ -32,7 +32,7 @@ ms.locfileid: "88644067"
 
 功能级别的基本属性包括：
 
--   所有 Direct3D 12 驱动程序将是功能级别 11.0 或更好。
+-   所有 Direct3D 12 驱动程序都将是功能级别 11 \_ 0 或更高。
 -   允许创建设备的 GPU 达到或超过该功能级别的功能。
 -   功能级别始终包括上一个或更低功能级别的功能。
 -   功能级别并不意味着性能，而只是功能。 性能依赖于硬件实现。
@@ -106,9 +106,9 @@ ms.locfileid: "88644067"
 -   ¹ 需要 Direct3D 11.1 运行时。
 -   ² 着色器模型 5.0 可以选择性地支持双精度着色器、扩展的双精度着色器、SAD4**** 着色器说明和部分精度着色器。 若要确定可用的着色器模型 5.0 选项，请调用 [**ID3D12Device::CheckFeatureSupport**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport)。 某些兼容性取决于运行的硬件：着色器模型5.1 仅在支持 DirectX 12 API 的硬件上受支持，而不考虑所使用的功能级别。 DirectX 11 硬件最多仅支持着色器模型 5.0。 DirectX 12 API 仅延续至功能级别 11\_0。
 -   ³ 更高的层是可选的。
--   功能级别 12.0 和 12.1 需要 Direct3D 11.3 或 Direct3D 12 运行时。
--   功能级别 11.1 需要 Direct3D 11.1 运行时。
--   功能级别 11.0 需要 Direct3D 11.0 运行时。
+-   功能级别 12 \_ 0 和 12 \_ 1 需要 direct3d 11.3 或 direct3d 12 运行时。
+-   功能级别 11 \_ 1 需要 Direct3D 11.1 运行时。
+-   功能级别 11 \_ 0 需要 Direct3D 11.0 运行时。
 
 ## <a name="hardware-support-for-dxgi-formats"></a>DXGI 格式的硬件支持
 
