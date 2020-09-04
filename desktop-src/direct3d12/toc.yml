@@ -230,6 +230,8 @@
                   href: gpu-tensorflow-wsl.md
                 - name: 在 Windows 上通过 DirectML 启用 TensorFlow
                   href: gpu-tensorflow-windows.md
+                - name: 通过 DirectML 包启用 TensorFlow 的常见问题解答
+                  href: gpu-faq.md
             - name: 帮助程序函数
               href: dml-helper-functions.md
             - name: 示例应用程序
