@@ -5,12 +5,12 @@ ms.assetid: 3AB3BF34-433C-400B-921A-55B23CCDA44F
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: 4db730e4d0a53aad8154c75c0d482ab6f39b965b
-ms.sourcegitcommit: 592c9bbd22ba69802dc353bcb5eb30699f9e9403
+ms.openlocfilehash: 9d7a0a8172559608ae32a35d736a8fbfe2cc4e2e
+ms.sourcegitcommit: 52c9fed6579e6c7bcdcdb3fdef4851c778aff909
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 08/20/2020
-ms.locfileid: "88644343"
+ms.lasthandoff: 09/05/2020
+ms.locfileid: "89494876"
 ---
 # <a name="using-resource-barriers-to-synchronize-resource-states-in-direct3d-12"></a>在 Direct3D 12 中使用资源屏障同步资源状态
 
@@ -593,3 +593,6 @@ D3D12_RESOURCE_BARRIER BarrierDesc = {};
 [多引擎同步](./user-mode-heap-synchronization.md)
 
 [Direct3D 12 中的工作提交](command-queues-and-command-lists.md)
+
+[D3D12 资源状态障碍内的外观](https://devblogs.microsoft.com/directx/a-look-inside-d3d12-resource-state-barriers/)
+
