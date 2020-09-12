@@ -1,18 +1,18 @@
 ---
-title: 卷磁贴资源（Direct3D 12）
+title: '将资源平铺 (Direct3D 12) '
 description: 立体 (3D) 纹理可以用作平铺资源，请注意，平铺分辨率是三维的。
 ms.assetid: F670D15D-BC0F-4F90-99C1-A35192FE8980
 ms.localizationpriority: high
 ms.topic: article
 ms.date: 05/31/2018
-ms.openlocfilehash: e3eac806ad29151cd49c894e47846c7bebd048a6
-ms.sourcegitcommit: cba7f424a292fd7f3a8518947b9466439b455419
+ms.openlocfilehash: 42679155bbd8dc2cec560d2724e430c860f54bc0
+ms.sourcegitcommit: 05e7efd3d8de6926d08802669f37e825a2fa2f46
 ms.translationtype: MT
 ms.contentlocale: zh-CN
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74418227"
+ms.lasthandoff: 09/12/2020
+ms.locfileid: "90043169"
 ---
-# <a name="volume-tiled-resources-direct3d-12"></a>卷磁贴资源（Direct3D 12）
+# <a name="volume-tiled-resources-direct3d-12"></a>将资源平铺 (Direct3D 12) 
 
 立体 (3D) 纹理可以用作平铺资源，请注意，平铺分辨率是三维的。
 
@@ -24,7 +24,7 @@ ms.locfileid: "74418227"
 
 平铺资源将 D3D 资源对象与其后备内存分离（过去的资源与其后备内存存在一对一的关系）。 这可实现各种有趣的场景，例如纹理数据中的流式传输以及重用或减少内存使用。
 
-D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 3D 平铺纹理（请参阅 [D3D12\_TILED\_RESOURCES\_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier)）。
+D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 3D 平铺纹理（请参阅 [D3D12\_TILED\_RESOURCES\_TIER](/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier)）****。
 
 平铺中使用的典型资源尺寸是 4 x 4 个图块（针对 2D 纹理）和 4 x 4 x 4 个图块（针对 3D 纹理）。
 
@@ -40,7 +40,7 @@ D3D11.2 支持 2D 纹理平铺资源。 D3D12 和 D3D11.3 可选择性地支持 
 | BC 1、4                      | 128x64x16                           |
 | BC 2、3、5、6、7                | 64x64x16                            |
 
-注意平铺资源不支持以下格式：96bpp 格式、视频格式、R1\_UNORM、R8G8\_B8G8\_UNORM、R8R8\_G8B8\_UNORM。
+注意平铺资源不支持以下格式：96bpp 格式、视频格式、R1 \_ UNORM、R8G8 \_ B8G8 \_ UNORM、R8R8 \_ G8B8 \_ UNORM。
 
 在下面的图表中，深灰色表示 NULL 平铺。
 
@@ -150,10 +150,10 @@ trSize.Depth = 3;
 
 结构
 
--   [**D3D12\_TILED\_RESOURCE\_COORDINATE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate)：保存x、y 和 z 坐标以及子资源引用。 请注意，有一个帮助器结构： [**CD3DX12\_平铺\_资源\_坐标**](cd3dx12-tiled-resource-coordinate.md)。
+-   [**D3D12\_TILED\_RESOURCE\_COORDINATE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tiled_resource_coordinate)：保存x、y 和 z 坐标以及子资源引用。 请注意，有一个 helper 结构： [**CD3DX12 会 \_ 平铺 \_ 资源 \_ 坐标**](cd3dx12-tiled-resource-coordinate.md)。
 -   [**D3D12\_TILE\_REGION\_SIZE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_region_size)：指定平铺区域的平铺大小和数量。
 -   [**D3D12\_TILE\_SHAPE**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_tile_shape)：平铺的宽度、高度和深度（以纹素为单位）。
--   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：包含支持的平铺资源级别和布尔值 VolumeTiledResourcesSupported，该值指示是否支持立体平铺资源。
+-   [**D3D12\_FEATURE\_DATA\_D3D12\_OPTIONS**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_feature_data_d3d12_options)：包含支持的平铺资源级别和布尔值 VolumeTiledResourcesSupported，该值指示是否支持立体平铺资源**。
 
 方法
 
@@ -161,7 +161,7 @@ trSize.Depth = 3;
 -   [**ID3D12GraphcisCommandList::CopyTiles**](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-copytiles)：将平铺从缓冲区复制到平铺资源，反之亦然。
 -   [**ID3D12CommandQueue::UpdateTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-updatetilemappings)：将平铺资源中的平铺位置映射更新到资源堆中的内存位置。
 -   [**ID3D12CommandQueue::CopyTileMappings**](/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings)：将映射从源平铺资源复制到目标平铺资源。
--   [**ID3D12CommandQueue::GetResourceTiling**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourcetiling)：获取有关平铺资源如何分解为平铺的信息。
+-   [**ID3D12Device::GetResourceTiling**](/windows/desktop/api/d3d12/nf-d3d12-id3d12device-getresourcetiling)：获取有关平铺资源如何分解为磁贴的信息。
 
 ## <a name="related-topics"></a>相关主题
 * [资源绑定](resource-binding.md)
